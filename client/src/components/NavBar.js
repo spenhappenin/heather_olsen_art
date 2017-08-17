@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Button, Sidebar, Segment, Icon, Header, Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { handleLogout } from '../actions/auth';
@@ -23,6 +23,7 @@ const StyledMenuItem = styled(Menu.Item)`
 `
 
 class NavBar extends Component {
+
   rightNavs = () => {
     const { user, dispatch, history } = this.props;
 
@@ -49,7 +50,10 @@ class NavBar extends Component {
           </Link>                              
           <Link to='/login'>
             <StyledMenuItem name='CV' />
-          </Link>                              
+          </Link>           
+          <Link to='/login'>
+            <StyledMenuItem name='Contact' />
+          </Link>                                 
           <Link to='/login'>
             <StyledMenuItem name='Admin' />
           </Link>
@@ -61,6 +65,7 @@ class NavBar extends Component {
   render() {
     return (
       <div>
+
         <StyledMenu pointing secondary>
           <Link to='/'>
             <StyledMenuItem name='Heather Olsen Art' />
