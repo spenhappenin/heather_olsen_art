@@ -4,6 +4,23 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { handleLogout } from '../actions/auth';
 import { withRouter } from 'react-router-dom';
+import styled from 'styled-components';
+
+const StyledMenu = styled(Menu)`
+  background-color: #26272B !important;
+	position: fixed !important;
+	bottom: 0 !important;
+  height: 74px;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+`
+const StyledMenuItem = styled(Menu.Item)`
+  color: white !important;
+  font-size: 16px;
+  font-family: 'Raleway', sans-serif !important;
+  text-tranform: uppercase !important;
+`
 
 class NavBar extends Component {
   rightNavs = () => {
@@ -12,7 +29,7 @@ class NavBar extends Component {
     if(user.id) {
       return(
         <Menu.Menu position='right'>
-          <Menu.Item
+          <StyledMenuItem
             name='Logout'
             onClick={() => dispatch(handleLogout(history))}
           />
@@ -21,11 +38,20 @@ class NavBar extends Component {
     } else {
       return(
         <Menu.Menu position='right'>
-          <Link to='/register'>
-            <Menu.Item name='Register' />
+          <Link to='/login'>
+            <StyledMenuItem name='Comissions' />
           </Link>
           <Link to='/login'>
-            <Menu.Item name='Login' />
+            <StyledMenuItem name='Paintings' />
+          </Link>
+          <Link to='/login'>
+            <StyledMenuItem name='Drawings' />
+          </Link>                              
+          <Link to='/login'>
+            <StyledMenuItem name='CV' />
+          </Link>                              
+          <Link to='/login'>
+            <StyledMenuItem name='Login' />
           </Link>
         </Menu.Menu>
       );
@@ -35,12 +61,12 @@ class NavBar extends Component {
   render() {
     return (
       <div>
-        <Menu pointing secondary>
+        <StyledMenu pointing secondary>
           <Link to='/'>
-            <Menu.Item name='home' />
+            <StyledMenuItem name='Heather Olsen Art' />
           </Link>
           { this.rightNavs() }
-        </Menu>
+        </StyledMenu>
       </div>
     )
   }
