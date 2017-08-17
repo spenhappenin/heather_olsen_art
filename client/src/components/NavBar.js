@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledMenu = styled(Menu)`
-  background-color: #26272B !important;
+  background-color: #131313 !important;
 	position: fixed !important;
 	bottom: 0 !important;
   height: 74px;
@@ -16,7 +16,7 @@ const StyledMenu = styled(Menu)`
   align-items: center !important;
 `
 const StyledMenuItem = styled(Menu.Item)`
-  color: white !important;
+  color: #a8a8a8 !important;
   font-size: 16px;
   font-family: 'Raleway', sans-serif !important;
   text-tranform: uppercase !important;
@@ -51,7 +51,7 @@ class NavBar extends Component {
             <StyledMenuItem name='CV' />
           </Link>                              
           <Link to='/login'>
-            <StyledMenuItem name='Login' />
+            <StyledMenuItem name='Admin' />
           </Link>
         </Menu.Menu>
       );
