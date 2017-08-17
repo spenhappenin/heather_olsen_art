@@ -3,10 +3,10 @@ import { Header } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 const StyledBackground = styled.div`
-	background-image: url('http://res.cloudinary.com/dtb6lx1s4/image/upload/v1485475639/HOA/orange_xcm3k5.jpg') !important;
-	background-size: cover !important;
-	background-repeat: no-repeat !important;
-	background-position: center !important;
+	background-image: url('http://res.cloudinary.com/dtb6lx1s4/image/upload/v1502990616/10x10_300_dpi_qrvim8.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
 	width: 100% !important;
 	height: 100vh !important;
 `
