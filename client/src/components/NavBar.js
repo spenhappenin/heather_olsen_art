@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Button, Sidebar, Segment, Icon, Header, Image } from 'semantic-ui-react'
+import { Menu, Button, Sidebar, Segment, Icon, Header, Image, Grid } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { handleLogout } from '../actions/auth';
@@ -38,6 +38,8 @@ class NavBar extends Component {
       );
     } else {
       return(
+        <Grid>
+        <Grid.Row only='computer tablet'>
         <Menu.Menu position='right'>
           <Link to='/login'>
             <StyledMenuItem name='Comissions' />
@@ -58,6 +60,8 @@ class NavBar extends Component {
             <StyledMenuItem name='Admin' />
           </Link>
         </Menu.Menu>
+        </Grid.Row>
+        </Grid>
       );
     }
   }
@@ -65,13 +69,14 @@ class NavBar extends Component {
   render() {
     return (
       <div>
-
-        <StyledMenu pointing secondary>
-          <Link to='/'>
-            <StyledMenuItem name='Heather Olsen Art' />
-          </Link>
-          { this.rightNavs() }
-        </StyledMenu>
+        
+          <StyledMenu pointing secondary>
+            <Link to='/'>
+              <StyledMenuItem name='Heather Olsen Art' />
+            </Link>
+            { this.rightNavs() }
+          </StyledMenu>
+        
       </div>
     )
   }
