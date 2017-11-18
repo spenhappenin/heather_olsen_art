@@ -1,26 +1,10 @@
-import React, { Component } from 'react'
-import { Menu, Button, Sidebar, Segment, Icon, Header, Image, Grid } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { handleLogout } from '../actions/auth';
+import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
-import styled from 'styled-components';
-
-const StyledMenu = styled(Menu)`
-  background-color: #131313 !important;
-	position: fixed !important;
-	bottom: 0 !important;
-  height: 74px;
-  width: 100% !important;
-  display: flex !important;
-  align-items: center !important;
-`
-const StyledMenuItem = styled(Menu.Item)`
-  color: #a8a8a8 !important;
-  font-size: 16px;
-  font-family: 'Raleway', sans-serif !important;
-  text-tranform: uppercase !important;
-`
+import { Button, Grid, Header, Icon, Image, Menu, Segment } from 'semantic-ui-react';
 
 class NavBar extends Component {
 
@@ -41,19 +25,19 @@ class NavBar extends Component {
         <Grid>
         <Grid.Row only='computer tablet'>
         <Menu.Menu position='right'>
-          <Link to='/login'>
+          <Link to='/comissions'>
             <StyledMenuItem name='Comissions' />
           </Link>
-          <Link to='/login'>
+          <Link to='/'>
             <StyledMenuItem name='Paintings' />
           </Link>
-          <Link to='/login'>
+          <Link to='/'>
             <StyledMenuItem name='Drawings' />
           </Link>                              
-          <Link to='/login'>
+          <Link to='/'>
             <StyledMenuItem name='CV' />
           </Link>           
-          <Link to='/login'>
+          <Link to='/'>
             <StyledMenuItem name='Contact' />
           </Link>                                 
           <Link to='/login'>
@@ -85,5 +69,22 @@ class NavBar extends Component {
 const mapStateToProps = (state) => {
   return { user: state.user }
 }
+
+const StyledMenu = styled(Menu)`
+  background-color: #131313 !important;
+	position: fixed !important;
+	bottom: 0 !important;
+  height: 74px;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+`
+
+const StyledMenuItem = styled(Menu.Item)`
+  color: #a8a8a8 !important;
+  font-size: 16px;
+  font-family: 'Raleway', sans-serif !important;
+  text-tranform: uppercase !important;
+`
 
 export default withRouter(connect(mapStateToProps)(NavBar));

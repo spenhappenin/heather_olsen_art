@@ -10,10 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170817160215) do
+ActiveRecord::Schema.define(version: 20171118203424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "art_works", force: :cascade do |t|
+    t.string "title"
+    t.text "url"
+    t.string "type_of"
+    t.string "medium"
+    t.string "surface"
+    t.string "dimensions"
+    t.float "price"
+    t.date "date_complete"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "series", force: :cascade do |t|
+    t.string "title"
+    t.date "release_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "series_art_works", force: :cascade do |t|
+    t.bigint "art_work_id"
+    t.bigint "series_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["art_work_id"], name: "index_series_art_works_on_art_work_id"
+    t.index ["series_id"], name: "index_series_art_works_on_series_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -44,4 +73,6 @@ ActiveRecord::Schema.define(version: 20170817160215) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "series_art_works", "art_works"
+  add_foreign_key "series_art_works", "series"
 end
