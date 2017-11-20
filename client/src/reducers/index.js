@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
-import user from './user'
+import comissions from './comissions';
 import flash from './flash'
+import user from './user'
 
 const rootReducer = combineReducers({
-  user,
+  comissions,
   flash,
+  user,
 })
 
 export default rootReducer

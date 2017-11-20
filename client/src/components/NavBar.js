@@ -23,28 +23,28 @@ class NavBar extends Component {
     } else {
       return(
         <Grid>
-        <Grid.Row only='computer tablet'>
-        <Menu.Menu position='right'>
-          <Link to='/comissions'>
-            <StyledMenuItem name='Comissions' />
-          </Link>
-          <Link to='/'>
-            <StyledMenuItem name='Paintings' />
-          </Link>
-          <Link to='/'>
-            <StyledMenuItem name='Drawings' />
-          </Link>                              
-          <Link to='/'>
-            <StyledMenuItem name='CV' />
-          </Link>           
-          <Link to='/'>
-            <StyledMenuItem name='Contact' />
-          </Link>                                 
-          <Link to='/login'>
-            <StyledMenuItem name='Admin' />
-          </Link>
-        </Menu.Menu>
-        </Grid.Row>
+          <Grid.Row only='computer tablet'>
+            <Menu.Menu position='right'>
+              <Link to='/comissions'>
+                <StyledMenuItem name='Comissions' />
+              </Link>
+              <Link to='/'>
+                <StyledMenuItem name='Paintings' />
+              </Link>
+              <Link to='/'>
+                <StyledMenuItem name='Drawings' />
+              </Link>                              
+              <Link to='/'>
+                <StyledMenuItem name='CV' />
+              </Link>           
+              <Link to='/'>
+                <StyledMenuItem name='Contact' />
+              </Link>                                 
+              <Link to='/login'>
+                <StyledMenuItem name='Admin' />
+              </Link>
+            </Menu.Menu>
+          </Grid.Row>
         </Grid>
       );
     }
@@ -53,21 +53,21 @@ class NavBar extends Component {
   render() {
     return (
       <div>
-        
-          <StyledMenu pointing secondary>
-            <Link to='/'>
-              <StyledMenuItem name='Heather Olsen Art' />
-            </Link>
-            { this.rightNavs() }
-          </StyledMenu>
-        
+        <StyledMenu pointing secondary style={styles.zdex}>
+          <Link to='/'>
+            <StyledMenuItem name='Heather Olsen Art' />
+          </Link>
+          { this.rightNavs() }
+        </StyledMenu>
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  return { user: state.user }
+const styles = {
+  zdex: {
+    zIndex: '1'
+  }
 }
 
 const StyledMenu = styled(Menu)`
@@ -86,5 +86,9 @@ const StyledMenuItem = styled(Menu.Item)`
   font-family: 'Raleway', sans-serif !important;
   text-tranform: uppercase !important;
 `
+
+const mapStateToProps = (state) => {
+  return { user: state.user }
+}
 
 export default withRouter(connect(mapStateToProps)(NavBar));
