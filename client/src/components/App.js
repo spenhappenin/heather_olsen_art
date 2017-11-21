@@ -11,6 +11,7 @@ import Register from './Register';
 import styled from 'styled-components';
 import { fetchComissions } from '../actions/comissions';
 import { fetchPaintings } from '../actions/paintings';
+import { fetchDrawings } from '../actions/drawings';
 import { Link } from 'react-router-dom';
 import { Route, Switch } from 'react-router-dom';
 import { Button, Header, Icon, Image, Menu, Segment } from 'semantic-ui-react'
@@ -38,6 +39,14 @@ class App extends Component {
               fetchArtWorks={fetchPaintings} 
               title='Paintings'
               type='painting'
+            />
+            <PropsRoute
+              exact
+              path='/drawings'
+              component={ArtWorks}
+              fetchArtWorks={fetchDrawings}
+              title='Drawings'
+              type='drawing'
             />
             <Route exact path='/' component={Home} />
             <Route exact path='/login' component={Login} />

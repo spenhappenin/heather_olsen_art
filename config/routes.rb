@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     get 'comissions', to: 'art_works#fetch_comissions'
     get 'paintings', to: 'art_works#fetch_paintings'
+    get 'drawings', to: 'art_works#fetch_drawings'
   end
 
   #Do not place any routes below this one
