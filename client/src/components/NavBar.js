@@ -8,47 +8,50 @@ import { Button, Grid, Header, Icon, Image, Menu, Segment } from 'semantic-ui-re
 
 class NavBar extends Component {
 
-  rightNavs = () => {
+  showLogout = () => {
     const { user, dispatch, history } = this.props;
-
     if(user.id) {
       return(
-        <Menu.Menu position='right'>
-          <Menu.Item
-            as={StyledMenuItem}
-            name='Logout'
-            onClick={() => dispatch(handleLogout(history))}
-          />
-        </Menu.Menu>
-      );
+        <Menu.Item
+          as={StyledMenuItem}
+          name='Logout'
+          onClick={() => dispatch(handleLogout(history))}
+        />
+      )
     } else {
       return(
-        <Grid>
-          <Grid.Row only='computer tablet'>
-            <Menu.Menu position='right'>
-              <Link to='/comissions'>
-                <Menu.Item as={StyledMenuItem} name='Comissions' />
-              </Link>
-              <Link to='/paintings'>
-                <Menu.Item as={StyledMenuItem} name='Paintings' />
-              </Link>
-              <Link to='/drawings'>
-                <Menu.Item as={StyledMenuItem} name='Drawings' />
-              </Link>                              
-              <Link to='/cv'>
-                <Menu.Item as={StyledMenuItem} name='CV' />
-              </Link>           
-              <Link to='/contact'>
-                <Menu.Item as={StyledMenuItem} name='Contact' />
-              </Link>                                 
-              <Link to='/login'>
-                <Menu.Item as={StyledMenuItem} name='Admin' />
-              </Link>
-            </Menu.Menu>
-          </Grid.Row>
-        </Grid>
-      );
+        <Link to='/login'>
+          <Menu.Item as={StyledMenuItem} name='Admin' />
+        </Link>
+      )
     }
+  }
+
+  rightNavs = () => {
+    return(
+      <Grid>
+        <Grid.Row only='computer tablet'>
+          <Menu.Menu position='right'>
+            <Link to='/comissions'>
+              <Menu.Item as={StyledMenuItem} name='Comissions' />
+            </Link>
+            <Link to='/paintings'>
+              <Menu.Item as={StyledMenuItem} name='Paintings' />
+            </Link>
+            <Link to='/drawings'>
+              <Menu.Item as={StyledMenuItem} name='Drawings' />
+            </Link>                              
+            <Link to='/cv'>
+              <Menu.Item as={StyledMenuItem} name='CV' />
+            </Link>           
+            <Link to='/contact'>
+              <Menu.Item as={StyledMenuItem} name='Contact' />
+            </Link>                                 
+            { this.showLogout() }
+          </Menu.Menu>
+        </Grid.Row>
+      </Grid>
+    );
   }
 
   render() {
