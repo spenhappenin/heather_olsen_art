@@ -4,13 +4,9 @@ import { fetchComissions } from '../actions/comissions';
 import { Container, Grid, Header, Image } from 'semantic-ui-react';
 
 class Comissions extends React.Component {
-  state = { loaded: false };
-
   componentDidMount() {
     this.props.dispatch(fetchComissions());
   }
-
-  toggleLoaded = () => this.setState({loaded: !this.state.loaded});
 
   displayComissions = () => {
     return this.props.comissions.map( comission => 

@@ -1,7 +1,11 @@
 class Api::ArtWorksController < ApplicationController
 
-  def display_comissions    
+  def fetch_comissions    
     render json: ArtWork.where(type_of: 'comission')
+  end
+
+  def fetch_paintings
+    render json: ArtWork.where(type_of: 'painting')
   end
 
   private 

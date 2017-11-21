@@ -28,7 +28,7 @@ class NavBar extends Component {
               <Link to='/comissions'>
                 <StyledMenuItem name='Comissions' />
               </Link>
-              <Link to='/'>
+              <Link to='/paintings'>
                 <StyledMenuItem name='Paintings' />
               </Link>
               <Link to='/'>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const fetchComissions = (callback) => {
+export const fetchComissions = () => {
   return(dispatch) => {
     axios.get('/api/comissions')
       .then( res => {
