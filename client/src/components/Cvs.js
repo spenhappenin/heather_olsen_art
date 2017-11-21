@@ -1,4 +1,5 @@
 import React from 'react';
+import Cv from './Cv';
 import { connect } from 'react-redux';
 import { fetchCvs } from '../actions/cvs';
 import { StyledContainer } from '../styles/shared';
@@ -10,20 +11,29 @@ class Cvs extends React.Component {
     const { dispatch } = this.props;
     dispatch(fetchCvs());
   }
-  
-  displayCvs = () => {
-    return this.props.cvs.map( cv => 
-      <p key={cv.id}>
-        {cv.cv_year} - { cv.title } - { cv.cv_type }
-      </p>
-    )
+
+  displayCvs = (type) => {
+    return this.props.cvs.map( cv => {
+      if(cv.cv_type === type)
+        return <Cv key={cv.id} cv={cv} />
+    })
   }
 
   render() {
     return(
       <Container as={StyledContainer}>
         <Header as='h1'>Curriculum Vitae</Header>
-        { this.displayCvs() }
+        <Header as='h4'>Juried Exhibitions</Header>
+        { this.displayCvs('exhibition') }
+        <Header as='h4'>Festivals and Events</Header>
+        {this.displayCvs('festival')}
+        <Header as='h4'>Awards and Certificates</Header>
+        {this.displayCvs('award')}
+        <Header as='h4'>Current Representation</Header>
+        {this.displayCvs('current_rep')}
+        <Header as='h4'>Education</Header>
+        {this.displayCvs('education')}
+        <Header as='h4'>Website and Social Media</Header>
       </Container>
     )
   }
