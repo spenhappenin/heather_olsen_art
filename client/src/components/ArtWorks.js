@@ -20,7 +20,7 @@ class ArtWorks extends React.Component {
   displayArtWorks = () => {
     return this.props.works.map(comission =>
       <Grid.Column width={4} key={comission.id}>
-        <Transition visible={this.state.visible} animation='fly right' duration={1000}>
+        <Transition visible={this.state.visible} animation='fade' duration={2000}>
           <Image src={comission.url} fluid />
         </Transition>
       </Grid.Column>

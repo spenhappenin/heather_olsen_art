@@ -19,3 +19,21 @@ puts 'Comissions seeded!'
                   type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '25 x 20', price: 250.00, date_complete: Time.now)
 end
 puts 'Paintings seeded!'
+
+3.times do 
+  Cv.create(title: 'Bridge Academy of Art', cv_type: 'education', cv_year: 2015)
+end
+
+3.times do 
+  Cv.create(title: 'Featured Artist Exhibition, SugarHouse Gallery Stroll', cv_type: 'experience', cv_year: 2015)
+end
+
+3.times do 
+  Cv.create(title: 'Featured Artist at Sundance Film Festival', cv_type: 'awards', cv_year: 2015)
+end
+
+3.times do 
+  Cv.create(title: 'Vango Art Gallery', cv_type: 'current_rep', cv_year: nil)
+end
+
+puts 'Cvs seeded!'

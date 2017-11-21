@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ArtWorks from './ArtWorks';
+import Cvs from './Cvs';
 import FetchUser from './FetchUser';
 import Flash from './Flash';
 import Home from './Home';
@@ -10,8 +11,8 @@ import ProtectedRoute from './ProtectedRoute';
 import Register from './Register';
 import styled from 'styled-components';
 import { fetchComissions } from '../actions/comissions';
-import { fetchPaintings } from '../actions/paintings';
 import { fetchDrawings } from '../actions/drawings';
+import { fetchPaintings } from '../actions/paintings';
 import { Link } from 'react-router-dom';
 import { Route, Switch } from 'react-router-dom';
 import { Button, Header, Icon, Image, Menu, Segment } from 'semantic-ui-react'
@@ -48,6 +49,7 @@ class App extends Component {
               title='Drawings'
               type='drawing'
             />
+            <Route exact path='/cv' component={Cvs} />
             <Route exact path='/' component={Home} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />

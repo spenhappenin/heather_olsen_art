@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171118203424) do
+ActiveRecord::Schema.define(version: 20171121013706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(version: 20171118203424) do
     t.string "dimensions"
     t.float "price"
     t.date "date_complete"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cvs", force: :cascade do |t|
+    t.integer "cv_year"
+    t.string "title"
+    t.string "cv_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
