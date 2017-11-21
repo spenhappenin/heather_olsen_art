@@ -29,13 +29,20 @@ class ArtWorks extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Container style={styles.container}>
         <Header as='h1'>{this.props.title}</Header>
         <Grid>
           {this.displayArtWorks()}
         </Grid>
       </Container>
     )
+  }
+}
+
+const styles = {
+  container: {
+    marginBottom: '100px',
+    marginTop: '50px'
   }
 }
 
