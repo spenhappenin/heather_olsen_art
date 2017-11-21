@@ -3,6 +3,7 @@ import { Menu } from 'semantic-ui-react';
 
 export const StyledMenu = styled(Menu)`
   background-color: #131313 !important;
+  border-top: 1px solid #dedede !important;
 	position: fixed !important;
 	bottom: 0 !important;
   height: 74px;
