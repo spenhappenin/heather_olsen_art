@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchCvs } from '../actions/cvs';
+import { StyledContainer } from '../styles/shared';
 import { Container, Header } from 'semantic-ui-react';
 
 class Cvs extends React.Component {
@@ -12,7 +13,7 @@ class Cvs extends React.Component {
   
   displayCvs = () => {
     return this.props.cvs.map( cv => 
-      <p>
+      <p key={cv.id}>
         {cv.cv_year} - { cv.title } - { cv.cv_type }
       </p>
     )
@@ -20,18 +21,11 @@ class Cvs extends React.Component {
 
   render() {
     return(
-      <Container style={styles.container}>
+      <Container as={StyledContainer}>
         <Header as='h1'>Curriculum Vitae</Header>
         { this.displayCvs() }
       </Container>
     )
-  }
-}
-
-const styles = {
-  container: {
-    marginBottom: '100px',
-    marginTop: '50px'
   }
 }
 

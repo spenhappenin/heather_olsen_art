@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ArtWorks from './ArtWorks';
+import Contact from './Contact';
 import Cvs from './Cvs';
 import FetchUser from './FetchUser';
 import Flash from './Flash';
@@ -50,6 +51,7 @@ class App extends Component {
               type='drawing'
             />
             <Route exact path='/cv' component={Cvs} />
+            <Route exact path='/contact' component={Contact} />
             <Route exact path='/' component={Home} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />

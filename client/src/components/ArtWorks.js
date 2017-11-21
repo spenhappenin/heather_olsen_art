@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { StyledContainer } from '../styles/shared';
 import { Container, Grid, Header, Image, Transition } from 'semantic-ui-react';
 
 class ArtWorks extends React.Component {
@@ -29,20 +30,13 @@ class ArtWorks extends React.Component {
 
   render() {
     return (
-      <Container style={styles.container}>
+      <Container as={StyledContainer}>
         <Header as='h1'>{this.props.title}</Header>
         <Grid>
           {this.displayArtWorks()}
         </Grid>
       </Container>
     )
-  }
-}
-
-const styles = {
-  container: {
-    marginBottom: '100px',
-    marginTop: '50px'
   }
 }
 

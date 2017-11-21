@@ -37,7 +37,7 @@ class NavBar extends Component {
               <Link to='/cv'>
                 <StyledMenuItem name='CV' />
               </Link>           
-              <Link to='/'>
+              <Link to='/contact'>
                 <StyledMenuItem name='Contact' />
               </Link>                                 
               <Link to='/login'>
