@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { connect } from 'react-redux';
 
 class Cv extends React.Component {
 
@@ -18,6 +19,7 @@ class Cv extends React.Component {
   }
 
   render() {
+    const { user } = this.props;
     return(
       <div>
         { this.displayCv() }
@@ -26,4 +28,8 @@ class Cv extends React.Component {
   }
 }
 
-export default Cv;
+const mapStateToProps = (state) => {
+  return { user: state.user };
+}
+
+export default connect(mapStateToProps)(Cv);

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const fetchCvs = () => {
+export const fetchCvs = () => {  
   return(dispatch) => {
     axios.get('api/cvs')
       .then( res => {

@@ -1,11 +1,11 @@
 import React from 'react';
-import Cv from './Cv';
+import Cv from '../Cv';
 import { connect } from 'react-redux';
-import { fetchCvs } from '../actions/cvs';
-import { StyledContainer } from '../styles/shared';
+import { fetchCvs } from '../../actions/cvs';
+import { StyledContainer } from '../../styles/shared';
 import { Button, Container, Header, Icon } from 'semantic-ui-react';
 
-class Cvs extends React.Component {
+class AdminCvs extends React.Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
@@ -13,18 +13,19 @@ class Cvs extends React.Component {
   }
 
   displayCvs = (type) => {
-    return this.props.cvs.map( cv => {
-      if(cv.cv_type === type)
+    return this.props.cvs.map(cv => {
+      if (cv.cv_type === type)
         return <Cv key={cv.id} cv={cv} />
     })
   }
 
   render() {
-    return(
+    return (
       <Container as={StyledContainer}>
         <Header as='h1'>Curriculum Vitae</Header>
+        <Button color='black'>Add</Button>
         <Header as='h4'>Juried Exhibitions</Header>
-        { this.displayCvs('exhibition') }
+        {this.displayCvs('exhibition')}
         <Header as='h4'>Festivals and Events</Header>
         {this.displayCvs('festival')}
         <Header as='h4'>Awards and Certificates</Header>
@@ -43,4 +44,4 @@ const mapStateToProps = (state) => {
   return { cvs: state.cvs };
 }
 
-export default connect(mapStateToProps)(Cvs);
+export default connect(mapStateToProps)(AdminCvs);

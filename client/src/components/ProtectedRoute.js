@@ -1,18 +1,19 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Route, Redirect } from 'react-router-dom';
+import { PropsRoute, renderMergedProps } from '../helpers/routes';
 
 const ProtectedRoute = ({ isAuthenticated, component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    isAuthenticated ? (
-      <Component {...props}/>
-     ) : (
-       <Redirect to={{
-         pathname: '/login',
-         state: { from: props.location }
-       }}/>
-     )
-  )}/>
+    <Route {...rest} render={props => (
+      isAuthenticated ? (
+        renderMergedProps(Component, props, rest)
+      ) : (
+          <Redirect to={{
+            pathname: '/login',
+            state: { from: props.location }
+          }} />
+        )
+    )} />
 )
 
 const mapStateToProps = (state) => {

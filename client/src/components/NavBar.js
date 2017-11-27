@@ -28,30 +28,57 @@ class NavBar extends Component {
   }
 
   rightNavs = () => {
-    return(
-      <Grid>
-        <Grid.Row only='computer tablet'>
-          <Menu.Menu position='right'>
-            <Link to='/comissions'>
-              <Menu.Item as={StyledMenuItem} name='Comissions' />
-            </Link>
-            <Link to='/paintings'>
-              <Menu.Item as={StyledMenuItem} name='Paintings' />
-            </Link>
-            <Link to='/drawings'>
-              <Menu.Item as={StyledMenuItem} name='Drawings' />
-            </Link>                              
-            <Link to='/cv'>
-              <Menu.Item as={StyledMenuItem} name='CV' />
-            </Link>           
-            <Link to='/contact'>
-              <Menu.Item as={StyledMenuItem} name='Contact' />
-            </Link>                                 
-            { this.showLogout() }
-          </Menu.Menu>
-        </Grid.Row>
-      </Grid>
-    );
+    if(this.props.user.id) {
+      return (
+        <Grid>
+          <Grid.Row only='computer tablet'>
+            <Menu.Menu position='right'>
+              <Link to='/admin-comissions'>
+                <Menu.Item as={StyledMenuItem} name='Comissions' />
+              </Link>
+              <Link to='/admin-paintings'>
+                <Menu.Item as={StyledMenuItem} name='Paintings' />
+              </Link>
+              <Link to='/admin-drawings'>
+                <Menu.Item as={StyledMenuItem} name='Drawings' />
+              </Link>
+              <Link to='/admin-cv'>
+                <Menu.Item as={StyledMenuItem} name='CV' />
+              </Link>
+              <Link to='/admin-contact'>
+                <Menu.Item as={StyledMenuItem} name='Contact' />
+              </Link>
+              {this.showLogout()}
+            </Menu.Menu>
+          </Grid.Row>
+        </Grid>
+      )
+    } else {
+      return(
+        <Grid>
+          <Grid.Row only='computer tablet'>
+            <Menu.Menu position='right'>
+              <Link to='/comissions'>
+                <Menu.Item as={StyledMenuItem} name='Comissions' />
+              </Link>
+              <Link to='/paintings'>
+                <Menu.Item as={StyledMenuItem} name='Paintings' />
+              </Link>
+              <Link to='/drawings'>
+                <Menu.Item as={StyledMenuItem} name='Drawings' />
+              </Link>                              
+              <Link to='/cv'>
+                <Menu.Item as={StyledMenuItem} name='CV' />
+              </Link>           
+              <Link to='/contact'>
+                <Menu.Item as={StyledMenuItem} name='Contact' />
+              </Link>                                 
+              { this.showLogout() }
+            </Menu.Menu>
+          </Grid.Row>
+        </Grid>
+      );
+    }
   }
 
   render() {
