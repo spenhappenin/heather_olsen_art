@@ -29,8 +29,8 @@ class AdminCv extends React.Component {
           return(
             <p>
               {title} 
-              <Button basic icon color='yellow' size='mini' onClick={this.toggleEdit}><Icon name='pencil' size='large' /></Button> 
-              <Button basic icon color='red' size='mini' onClick={this.show()}><Icon name='trash outline' size='large' /></Button> 
+              <Icon circular name='pencil' size='large' color='yellow' onClick={this.toggleEdit} />
+              <Icon circular name='trash outline' size='large' color='red' onClick={this.show()} /> 
               <DeleteModal cv_title={title} cv_id={id} open={open} onClose={this.close} />
             </p>
           ) 
@@ -42,8 +42,8 @@ class AdminCv extends React.Component {
         return(
           <p>
             {title}, {justYear}
-            <Button basic icon color='yellow' size='mini' onClick={this.toggleEdit}><Icon name='pencil' size='large' /></Button>
-            <Button basic icon color='red' size='mini' onClick={this.show()}><Icon name='trash outline' size='large' /></Button> 
+            <Icon circular name='pencil' size='large' color='yellow' onClick={this.toggleEdit} />
+            <Icon circular name='trash outline' size='large' color='red' onClick={this.show()} /> 
             <DeleteModal cv_title={title} cv_id={id} open={open} onClose={this.close} />
           </p> 
         )
@@ -54,8 +54,8 @@ class AdminCv extends React.Component {
           return(
             <p>
               {formattedDate} - {title} - {location}
-              <Button basic icon color='yellow' size='mini' onClick={this.toggleEdit}><Icon name='pencil' size='large' /></Button>
-              <Button basic icon color='red' size='mini' onClick={this.show()}><Icon name='trash outline' size='large' /></Button>
+              <Icon circular name='pencil' size='large' color='yellow' onClick={this.toggleEdit} />
+              <Icon circular name='trash outline' size='large' color='red' onClick={this.show()} /> 
               <DeleteModal cv_title={title} cv_id={id} open={open} onClose={this.close} /> 
             </p>
           )
@@ -78,3 +78,8 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(AdminCv);
+
+{/* <Icon.Group size='huge'>
+  <Icon name='puzzle' />
+  <Icon corner name='add' />
+</Icon.Group> */}

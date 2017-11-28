@@ -1,4 +1,5 @@
 import React from 'react';
+import DatePicker from 'react-datepicker';
 import { connect } from 'react-redux';
 import { updateCv } from '../../actions/cvs';
 import { Button, Form, Icon, Input } from 'semantic-ui-react';
@@ -32,8 +33,8 @@ class CvEditForm extends React.Component {
               value={this.state.title} 
               onChange={this.handleChange}
             />
-            <Button basic icon color='green' onClick={null}><Icon name='check' size='large' /></Button>
-            <Button basic icon color='blue' onClick={this.props.toggleEdit}><Icon name='cancel' size='large' /></Button>
+            <Icon circular name='checkmark' size='large' color='green' onClick={this.handleSubmit} />
+            <Icon circular name='cancel' size='large' color='red' onClick={this.props.toggleEdit} />
           </Form>
         )
       case 'two':
@@ -49,8 +50,8 @@ class CvEditForm extends React.Component {
               value={this.state.date}
               onChange={this.handleChange}
             />
-            <Button basic icon color='green' onClick={null}><Icon name='check' size='large' /></Button>
-            <Button basic icon color='blue' onClick={this.props.toggleEdit}><Icon name='cancel' size='large' /></Button>
+            <Icon circular name='checkmark' size='large' color='green' onClick={this.handleSubmit} />
+            <Icon circular name='cancel' size='large' color='red' onClick={this.props.toggleEdit} />
           </Form>
         )
       case 'three':
@@ -71,8 +72,8 @@ class CvEditForm extends React.Component {
               value={this.state.location}
               onChange={this.handleChange}
             />
-            <Button basic icon color='green' onClick={null}><Icon name='check' size='large' /></Button>
-            <Button basic icon color='blue' onClick={this.props.toggleEdit}><Icon name='cancel' size='large' /></Button>
+            <Icon circular name='checkmark' size='large' color='green' onClick={this.handleSubmit} />
+            <Icon circular name='cancel' size='large' color='red' onClick={this.props.toggleEdit} />
           </Form>
         )
     }

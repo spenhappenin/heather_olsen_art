@@ -3,9 +3,10 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { createCv } from '../../actions/cvs';
+import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
-import { Container, Form, Header, Input } from 'semantic-ui-react';
+import { Button, Container, Form, Header, Icon, Input } from 'semantic-ui-react';
 
 const typeOptions = [
   { key: 'award', text: 'Awards and Certificates', value: 'award' },
@@ -71,7 +72,10 @@ class CvNewForm extends React.Component {
             onChange={this.handleDateChange}
           />
           <br />
-          <Form.Button>Submit</Form.Button>
+          <Form.Group>
+            <Link to='/admin-cv'><Button><Icon name='arrow left' />Back</Button></Link>
+            <Form.Button><Icon name='check' color='green' />Submit</Form.Button>
+          </Form.Group>
         </Form>
         {
           fireRedirect && (

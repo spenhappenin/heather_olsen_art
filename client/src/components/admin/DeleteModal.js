@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { deleteCv } from '../../actions/cvs';
-import { Button, Modal } from 'semantic-ui-react';
+import { Button, Icon, Modal } from 'semantic-ui-react';
 
 class DeleteModal extends React.Component {
 
@@ -12,18 +12,23 @@ class DeleteModal extends React.Component {
 
   render() {
     return(
-      <Modal size='mini' open={this.props.open} onClose={this.props.onClose}>
+      <Modal size='tiny' open={this.props.open} onClose={this.props.onClose}>
         <Modal.Header>
+          <Icon name='warning sign' color='yellow' size='large' />
           Delete CV Item
           </Modal.Header>
         <Modal.Content>
           <p>Are you sure you want to delete {this.props.cv_title}?</p>
         </Modal.Content>
         <Modal.Actions>
-          <Button negative onClick={this.props.onClose}>
+          <Button onClick={this.props.onClose}>
+            <Icon name='remove' color='red' />
             No
             </Button>
-          <Button positive icon='checkmark' labelPosition='right' content='Yes' onClick={this.handleClick} />
+          <Button onClick={this.handleClick}>
+            <Icon name='checkmark' color='green'/>
+            Yes
+          </Button>
         </Modal.Actions>
       </Modal>
     )
