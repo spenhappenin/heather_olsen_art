@@ -5,7 +5,8 @@ Rails.application.routes.draw do
     get '/clientpaintings', to: 'art_works#fetch_paintings'
     get '/drawings', to: 'art_works#fetch_drawings'
     get '/cvs', to: 'cvs#fetch_cvs'
-    put '/cvs/:id', to: 'cvs#update_cv'
+    post '/cv', to: 'cvs#create_cv'
+    put '/cv/:id', to: 'cvs#update_cv'
   end
 
   #Do not place any routes below this one

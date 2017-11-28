@@ -14,14 +14,28 @@ export const fetchCvs = () => {
   }
 }
 
+export const createCv = (cv) => {
+  return(dispatch) => {
+    axios.post('api/cv', cv)
+      .then( res => {
+        const cv = res.data;
+      })
+      .catch( err => {
+        // TODO: Flash message
+        console.log(err);
+      })
+  }
+}
+
 export const updateCv = (cv, id) => {
   return(dispatch) => {
-    axios.put(`api/cvs/${id}`, cv)
+    axios.put(`api/cv/${id}`, cv)
       .then( res => {
         const cv = res.data;
         dispatch({ type: 'UPDATE_CV', cv })
       })
       .catch( err => {
+        // TODO: Flash message
         console.log(err);
       })
   }

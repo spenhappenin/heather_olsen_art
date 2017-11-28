@@ -2,6 +2,7 @@ import React from 'react';
 import AdminCv from './AdminCv';
 import { connect } from 'react-redux';
 import { fetchCvs } from '../../actions/cvs';
+import { Link } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
 import { Button, Container, Header, Icon } from 'semantic-ui-react';
 
@@ -23,7 +24,7 @@ class AdminCvs extends React.Component {
     return (
       <Container as={StyledContainer}>
         <Header as='h1'>Curriculum Vitae</Header>
-        <Button color='black'>Add</Button>
+        <Link to='/admin-cv/new'><Button color='black'>Add</Button></Link>
         <Header as='h4'>Juried Exhibitions</Header>
         {this.displayCvs('exhibition')}
         <Header as='h4'>Festivals and Events</Header>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AdminCvs from './admin/AdminCvs';
 import ArtWorks from './ArtWorks';
 import Contact from './Contact';
+import CvNewForm from './admin/CvNewForm';
 import Cvs from './Cvs';
 import FetchUser from './FetchUser';
 import Flash from './Flash';
@@ -60,6 +61,7 @@ class App extends Component {
               type='drawing'
             />
             <ProtectedRoute exact path='/admin-cv' component={AdminCvs} />
+            <ProtectedRoute exact path='/admin-cv/new' component={CvNewForm} />
             <Route exact path='/cv' component={Cvs} />
             <Route exact path='/contact' component={Contact} />
             <Route exact path='/' component={Home} />
