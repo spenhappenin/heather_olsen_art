@@ -41,3 +41,17 @@ export const updateCv = (cv, id) => {
       })
   }
 }
+
+export const deleteCv = (id) => {
+  return(dispatch) => {
+    axios.delete(`/api/cvs/${id}`)
+      .then(res => {
+        const { headers } = res;
+        dispatch({ type: 'DELETE_CV', id, headers });
+      }) 
+      .catch( err => {
+        // TODO: Flash message
+        console.log(err);
+      })
+  }
+}

@@ -10,6 +10,8 @@ const cvs = (state = [], action) => {
           return action.cv
         return c
       })
+      case 'DELETE_CV':
+        return state.filter( cv => cv.id !== action.id)
     default: 
       return state;
   }
