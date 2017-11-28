@@ -16,9 +16,10 @@ export const fetchCvs = () => {
 
 export const createCv = (cv) => {
   return(dispatch) => {
-    axios.post('api/cv', cv)
+    axios.post('/api/cvs', cv)
       .then( res => {
         const cv = res.data;
+        dispatch({ type: 'CREATE_CV', cv });
       })
       .catch( err => {
         // TODO: Flash message

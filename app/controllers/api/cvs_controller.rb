@@ -4,7 +4,7 @@ class Api::CvsController < ApplicationController
     render json: Cv.order('cv_date DESC')
   end
 
-  def create_cv
+  def create
     cv = Cv.new(cv_params)
     if cv.save
       render json: cv
