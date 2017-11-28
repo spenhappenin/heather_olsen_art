@@ -1,5 +1,5 @@
 import React from 'react';
-import Cv from '../Cv';
+import AdminCv from './AdminCv';
 import { connect } from 'react-redux';
 import { fetchCvs } from '../../actions/cvs';
 import { StyledContainer } from '../../styles/shared';
@@ -15,7 +15,7 @@ class AdminCvs extends React.Component {
   displayCvs = (type) => {
     return this.props.cvs.map(cv => {
       if (cv.cv_type === type)
-        return <Cv key={cv.id} cv={cv} />
+        return <AdminCv key={cv.id} cv={cv} />
     })
   }
 

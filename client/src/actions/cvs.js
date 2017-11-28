@@ -13,3 +13,16 @@ export const fetchCvs = () => {
       })
   }
 }
+
+export const updateCv = (cv, id) => {
+  return(dispatch) => {
+    axios.put(`api/cvs/${id}`, cv)
+      .then( res => {
+        const cv = res.data;
+        dispatch({ type: 'UPDATE_CV', cv })
+      })
+      .catch( err => {
+        console.log(err);
+      })
+  }
+}
