@@ -3,7 +3,8 @@ import CvEditForm from './CvEditForm';
 import DeleteModal from './DeleteModal';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { Button, Icon, Input, Modal } from 'semantic-ui-react';
+import { ButtonContainer, CvContainer, CvContent } from '../../styles/cv';
+import { Button, Icon, Input, Modal, Segment } from 'semantic-ui-react';
 
 class AdminCv extends React.Component {
   state = { editing: false, open: false };
@@ -27,12 +28,14 @@ class AdminCv extends React.Component {
           return <CvEditForm type='one' id={id} title={title} toggleEdit={this.toggleEdit}/>
         } else {
           return(
-            <p>
-              {title} 
-              <Icon circular name='pencil' size='large' color='yellow' onClick={this.toggleEdit} />
-              <Icon circular name='trash outline' size='large' color='red' onClick={this.show()} /> 
-              <DeleteModal cv_title={title} cv_id={id} open={open} onClose={this.close} />
-            </p>
+            <Segment as={CvContainer} basic>
+              <div style={styles.cvContent}>{title}</div>
+                <div style={styles.containerContainer}>
+                  <Icon circular name='pencil' size='large' color='yellow' onClick={this.toggleEdit} />
+                  <Icon circular name='trash outline' size='large' color='red' onClick={this.show()} /> 
+                  <DeleteModal cv_title={title} cv_id={id} open={open} onClose={this.close} />
+                </div>
+            </Segment>
           ) 
         }
       case 'education':
@@ -40,24 +43,28 @@ class AdminCv extends React.Component {
           return <CvEditForm type='two' id={id} title={title} date={justYear} toggleEdit={this.toggleEdit} />
         }
         return(
-          <p>
-            {title}, {justYear}
-            <Icon circular name='pencil' size='large' color='yellow' onClick={this.toggleEdit} />
-            <Icon circular name='trash outline' size='large' color='red' onClick={this.show()} /> 
-            <DeleteModal cv_title={title} cv_id={id} open={open} onClose={this.close} />
-          </p> 
+          <Segment as={CvContainer} basic>
+            <div style={styles.cvContent}>{title}, {justYear}</div>
+            <div style={styles.buttonContainer}>
+              <Icon circular name='pencil' size='large' color='yellow' onClick={this.toggleEdit} />
+              <Icon circular name='trash outline' size='large' color='red' onClick={this.show()} /> 
+              <DeleteModal cv_title={title} cv_id={id} open={open} onClose={this.close} /> 
+            </div>
+          </Segment>
         )
       default:
         if(this.state.editing) {
           return <CvEditForm type='three' id={id} title={title} date={formattedDate} location={location} toggleEdit={this.toggleEdit} />
         } else {
           return(
-            <p>
-              {formattedDate} - {title} - {location}
-              <Icon circular name='pencil' size='large' color='yellow' onClick={this.toggleEdit} />
-              <Icon circular name='trash outline' size='large' color='red' onClick={this.show()} /> 
-              <DeleteModal cv_title={title} cv_id={id} open={open} onClose={this.close} /> 
-            </p>
+            <Segment as={CvContainer} basic>
+              <div style={styles.cvContent}>{formattedDate} - {title} - {location}</div>
+              <div style={styles.buttonContainer}>
+                <Icon circular name='pencil' size='large' color='yellow' onClick={this.toggleEdit} />
+                <Icon circular name='trash outline' size='large' color='red' onClick={this.show()} />
+                <DeleteModal cv_title={title} cv_id={id} open={open} onClose={this.close} />
+              </div>
+            </Segment>
           )
         }
     }
@@ -73,13 +80,17 @@ class AdminCv extends React.Component {
   }
 }
 
+const styles = {
+  cvContent: {
+    marginBottom: '0px'
+  },
+  buttonContainer: {
+    marginLeft: '10px',
+  }
+}
+
 const mapStateToProps = (state) => {
   return { user: state.user };
 }
 
 export default connect(mapStateToProps)(AdminCv);
-
-{/* <Icon.Group size='huge'>
-  <Icon name='puzzle' />
-  <Icon corner name='add' />
-</Icon.Group> */}
