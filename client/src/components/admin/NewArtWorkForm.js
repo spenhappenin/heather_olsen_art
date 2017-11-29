@@ -136,7 +136,7 @@ class NewArtWorkForm extends React.Component {
         </Form>
         {
           fireRedirect && (
-            <Redirect to={from || '/admin-paintings'} />
+            <Redirect to={from || `/admin-${type}s`} />
           )
         }
       </Container>

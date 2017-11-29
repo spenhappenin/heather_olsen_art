@@ -1,15 +1,15 @@
 class Api::ArtWorksController < ApplicationController
 
   def fetch_comissions    
-    render json: ArtWork.where(type_of: 'comission')
+    render json: ArtWork.where(type_of: 'comission').order('created_at DESC')
   end
 
   def fetch_paintings
-    render json: ArtWork.where(type_of: 'painting')
+    render json: ArtWork.where(type_of: 'painting' ).order('created_at DESC')
   end
 
   def fetch_drawings
-    render json: ArtWork.where(type_of: 'drawing')
+    render json: ArtWork.where(type_of: 'drawing').order('created_at DESC')
   end
 
   def create
