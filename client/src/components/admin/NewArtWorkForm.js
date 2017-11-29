@@ -41,6 +41,7 @@ class NewArtWorkForm extends React.Component {
       case 'drawing':
         this.props.dispatch(createDrawing(artData));
     }
+    this.setState({ fireRedirect: true });
   }
 
   onDrop = (photos) => {
@@ -135,7 +136,7 @@ class NewArtWorkForm extends React.Component {
         </Form>
         {
           fireRedirect && (
-            <Redirect to={from || '/'} />
+            <Redirect to={from || '/admin-paintings'} />
           )
         }
       </Container>

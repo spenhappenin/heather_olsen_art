@@ -20,7 +20,7 @@ class ArtWorks extends React.Component {
 
   displayArtWorks = () => {
     return this.props.works.map(comission =>
-      <Grid.Column width={4} key={comission.id}>
+      <Grid.Column width={4} key={comission.id} style={styles.container}>
         <Transition visible={this.state.visible} animation='fade' duration={2000}>
           <Image src={comission.url} fluid />
         </Transition>
@@ -37,6 +37,14 @@ class ArtWorks extends React.Component {
         </Grid>
       </Container>
     )
+  }
+}
+
+const styles = {
+  container: {
+    display: 'flex !important',
+    flexDirection: 'column !important',
+    justifyContent: 'center !important'
   }
 }
 

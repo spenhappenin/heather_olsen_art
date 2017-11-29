@@ -16,3 +16,11 @@
   background-color: #f2dede;
   border-color: #ebccd1;
 }
+
+
+/* TODO: move to own file or find way to inline it */
+div.four.wide.column {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}

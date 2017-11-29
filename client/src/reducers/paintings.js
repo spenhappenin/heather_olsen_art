@@ -3,7 +3,7 @@ const paintings = (state = [], action) => {
     case 'GET_PAINTINGS':
       return action.paintings;
     case 'CREATE_PAINTING':
-      console.log(action);
+      return [action.painting, ...state];
     default: 
       return state;
   }

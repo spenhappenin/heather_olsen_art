@@ -2,22 +2,145 @@
 User.create(name: 'Heather Olsen', email: 'test@test.com', password: 'password', password_confirmation: 'password')
 puts 'Test User Created!'
 
-5.times do 
-  ArtWork.create(title: 'Test Name', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511038352/hoa_drawing_tq2vga.jpg',
-                  type_of: 'drawing', medium: 'charcoal', surface: 'paper', dimensions: '20 x 20', price: 100.00, date_complete: Time.now)
-end
+
+# --- Create Drawings ----
+
+ArtWork.create(title: 'Orange', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511974869/wr0h7nhytaujlfslfocl.jpg', 
+                  type_of: 'drawing', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)
+
+ArtWork.create(title: 'Dream,', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511974184/nmf21kslu0hsn9vwpota.jpg', 
+                  type_of: 'drawing', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)                                                    
+                  
+ArtWork.create(title: 'Rose', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511977449/y6raia1vxeady1l8srec.jpg', 
+                  type_of: 'drawing', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)                                    
+                  
+ArtWork.create(title: 'Dane', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978091/HeatherOlsen_Image1_dt68yc.jpg', 
+                  type_of: 'drawing', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)                   
+                  
+ArtWork.create(title: 'Fish', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511975932/mcynxh7t8bctvtxy1vpy.jpg', 
+                  type_of: 'drawing', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)
+                  
+ArtWork.create(title: 'Girl', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978062/1_Wildflower_12x16_300_dpi_uzt9x4.jpg', 
+                  type_of: 'drawing', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now) 
+                  
+ArtWork.create(title: 'Flower Skull', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978118/3_Skulls_and_Roses_lqanro.jpg', 
+                  type_of: 'drawing', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now) 
+                  
+ArtWork.create(title: 'Cry', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978126/Olsen_Dysphoria_3_qiarsm.jpg', 
+                  type_of: 'drawing', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now) 
+
+ArtWork.create(title: 'Candle', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511974495/g4yse8mdithcdr7zanum.jpg', 
+                  type_of: 'drawing', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)                                                     
+                  
+ArtWork.create(title: 'Bike', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978069/bike8x10_300_dpi_oqgta8.jpg', 
+                  type_of: 'drawing', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now) 
+
+ArtWork.create(title: 'Pineapple', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978097/IMG_8944_sw1wdp.jpg', 
+                  type_of: 'drawing', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now) 
+
+ArtWork.create(title: 'Bird', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511974363/grdgdxeiv1wnqa86twad.jpg', 
+                  type_of: 'drawing', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)                  
+                                    
+ArtWork.create(title: 'Skull', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978084/5_Skull_12x16_300dpi_pfcs4k.jpg', 
+                  type_of: 'drawing', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)                   
+                  
+ArtWork.create(title: 'Limes', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511974589/buvoavuhrafts9afat3l.jpg', 
+                  type_of: 'drawing', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)                  
+
 puts 'Drawings seeded!'
 
-5.times do 
-  ArtWork.create(title: 'Test Name', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511038369/8x10_300_dpi_jtgek1.jpg',
-                  type_of: 'comission', medium: 'oil', surface: 'panel', dimensions: '20 x 30', price: 340.00, date_complete: Time.now)
-end
+
+# --- Create Comissions ----
+
+ArtWork.create(title: 'Limes', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511974589/buvoavuhrafts9afat3l.jpg', 
+                  type_of: 'comission', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)
+                  
+ArtWork.create(title: 'Dane', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978091/HeatherOlsen_Image1_dt68yc.jpg', 
+                  type_of: 'comission', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)                  
+                
+ArtWork.create(title: 'Bird', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511974363/grdgdxeiv1wnqa86twad.jpg', 
+                  type_of: 'comission', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)
+                  
+ArtWork.create(title: 'Rose', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511977449/y6raia1vxeady1l8srec.jpg', 
+                  type_of: 'comission', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)                  
+                  
+ArtWork.create(title: 'Candle', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511974495/g4yse8mdithcdr7zanum.jpg', 
+                  type_of: 'comission', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)                
+                  
+ArtWork.create(title: 'Fish', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511975932/mcynxh7t8bctvtxy1vpy.jpg', 
+                  type_of: 'comission', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)
+                  
+ArtWork.create(title: 'Girl', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978062/1_Wildflower_12x16_300_dpi_uzt9x4.jpg', 
+                  type_of: 'comission', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now) 
+                  
+ArtWork.create(title: 'Flower Skull', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978118/3_Skulls_and_Roses_lqanro.jpg', 
+                  type_of: 'comission', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now) 
+                  
+ArtWork.create(title: 'Cry', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978126/Olsen_Dysphoria_3_qiarsm.jpg', 
+                  type_of: 'comission', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now) 
+                  
+ArtWork.create(title: 'Orange', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511974869/wr0h7nhytaujlfslfocl.jpg', 
+                  type_of: 'comission', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)
+
+ArtWork.create(title: 'Dream,', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511974184/nmf21kslu0hsn9vwpota.jpg', 
+                  type_of: 'comission', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)                  
+                  
+ArtWork.create(title: 'Skull', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978084/5_Skull_12x16_300dpi_pfcs4k.jpg', 
+                  type_of: 'comission', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)  
+                  
+ArtWork.create(title: 'Bike', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978069/bike8x10_300_dpi_oqgta8.jpg', 
+                  type_of: 'comission', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now) 
+
+ArtWork.create(title: 'Pineapple', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978097/IMG_8944_sw1wdp.jpg', 
+                  type_of: 'comission', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)                  
+
 puts 'Comissions seeded!'
 
-5.times do 
-  ArtWork.create(title: 'Test Name', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511038401/10x10_300_dpi_lk5spb.jpg',
-                  type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '25 x 20', price: 250.00, date_complete: Time.now)
-end
+
+# --- Create Paintings ----
+
+ArtWork.create(title: 'Orange', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511974869/wr0h7nhytaujlfslfocl.jpg', 
+                  type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)
+                
+ArtWork.create(title: 'Bird', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511974363/grdgdxeiv1wnqa86twad.jpg', 
+                  type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)
+                  
+ArtWork.create(title: 'Rose', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511977449/y6raia1vxeady1l8srec.jpg', 
+                  type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)
+                  
+ArtWork.create(title: 'Dream,', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511974184/nmf21kslu0hsn9vwpota.jpg', 
+                  type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)
+                  
+ArtWork.create(title: 'Candle', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511974495/g4yse8mdithcdr7zanum.jpg', 
+                  type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)
+                  
+ArtWork.create(title: 'Limes', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511974589/buvoavuhrafts9afat3l.jpg', 
+                  type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)
+                  
+ArtWork.create(title: 'Fish', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511975932/mcynxh7t8bctvtxy1vpy.jpg', 
+                  type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)
+                  
+ArtWork.create(title: 'Girl', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978062/1_Wildflower_12x16_300_dpi_uzt9x4.jpg', 
+                  type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now) 
+                  
+ArtWork.create(title: 'Flower Skull', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978118/3_Skulls_and_Roses_lqanro.jpg', 
+                  type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now) 
+                  
+ArtWork.create(title: 'Cry', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978126/Olsen_Dysphoria_3_qiarsm.jpg', 
+                  type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now) 
+                  
+ArtWork.create(title: 'Pineapple', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978097/IMG_8944_sw1wdp.jpg', 
+                  type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now) 
+                  
+ArtWork.create(title: 'Dane', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978091/HeatherOlsen_Image1_dt68yc.jpg', 
+                  type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now) 
+                  
+ArtWork.create(title: 'Skull', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978084/5_Skull_12x16_300dpi_pfcs4k.jpg', 
+                  type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)  
+                  
+ArtWork.create(title: 'Bike', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978069/bike8x10_300_dpi_oqgta8.jpg', 
+                  type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)                    
+
 puts 'Paintings seeded!'
 
 3.times do 
