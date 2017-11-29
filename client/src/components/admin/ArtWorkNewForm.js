@@ -1,25 +1,14 @@
 import React from 'react';
-import DatePicker from 'react-datepicker';
 import Dropzone from 'react-dropzone';
-import moment from 'moment';
 import { connect } from 'react-redux';
-import { createCv } from '../../actions/cvs';
-import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
 import { createComission } from '../../actions/comissions';
 import { createDrawing } from '../../actions/drawings';
 import { createPainting } from '../../actions/paintings';
-import { Button, Container, Form, Header, Icon, Input } from 'semantic-ui-react';
+import { Button, Container, Form, Header, Icon } from 'semantic-ui-react';
 
-const getUrlType = (baseUrl) => {
-  const foo = baseUrl.split('/')[1];
-  const foo2 = foo.split('admin-')[1];
-  const foo3 = foo2.charAt(0).toUpperCase() + foo2.slice(1);
-  return <h1>New {foo3} Form</h1>
-}
-
-class NewArtWorkForm extends React.Component {
+class ArtWorkNewForm extends React.Component {
   state = { title: '', url: '', type: '', medium: '', surface: '', dimensions: '', 
               price: '', dateComplete: '', fileData: '', fireRedirect: false, fileUploading: false };
 
@@ -40,6 +29,8 @@ class NewArtWorkForm extends React.Component {
         this.props.dispatch(createComission(artData));
       case 'drawing':
         this.props.dispatch(createDrawing(artData));
+      default: 
+        return {}
     }
     this.setState({ fireRedirect: true });
   }
@@ -56,7 +47,7 @@ class NewArtWorkForm extends React.Component {
 
   render() {
     const { from } = this.props.location.state || '/';
-    const { title, url, type, medium, surface, dimensions, price, dateComplete, fireRedirect } = this.state;
+    const { title, type, medium, surface, dimensions, price, dateComplete, fireRedirect } = this.state;
     return (
       <Container as={StyledContainer}>
         <Header as='h1'>{getUrlType(this.props.path)}</Header>
@@ -65,11 +56,11 @@ class NewArtWorkForm extends React.Component {
             <Header as='h4'>Drag photo here!</Header>
           </Dropzone>
           <Form.Group widths='equal'>
-            <Form.Input
-              required
+            <Form.Select
               name='type'
               label='Type'
               placeholder='Painting...'
+              options={typeOptions}
               value={type}
               onChange={this.handleChange}
             />
@@ -144,4 +135,17 @@ class NewArtWorkForm extends React.Component {
   }
 }
 
-export default connect()(NewArtWorkForm);
+const typeOptions = [
+  { key: 'comission', text: 'comission', value: 'comission' },
+  { key: 'drawing', text: 'drawing', value: 'drawing' },
+  { key: 'painting', text: 'painting', value: 'painting' },
+]
+
+const getUrlType = (baseUrl) => {
+  const foo = baseUrl.split('/')[1];
+  const foo2 = foo.split('admin-')[1];
+  const foo3 = foo2.charAt(0).toUpperCase() + foo2.slice(1);
+  return <h1>New {foo3} Form</h1>
+}
+
+export default connect()(ArtWorkNewForm);

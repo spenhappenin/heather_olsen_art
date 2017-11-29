@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { validateToken } from '../actions/auth';
 
-class FetchUser extends Component {
+class FetchUser extends React.Component {
   state = { loaded: false };
 
   componentDidMount() {

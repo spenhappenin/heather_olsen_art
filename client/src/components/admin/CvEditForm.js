@@ -1,8 +1,7 @@
 import React from 'react';
-import DatePicker from 'react-datepicker';
 import { connect } from 'react-redux';
 import { updateCv } from '../../actions/cvs';
-import { Button, Form, Icon, Input } from 'semantic-ui-react';
+import { Form, Icon, Input } from 'semantic-ui-react';
 
 class CvEditForm extends React.Component {
   state = { title: '', date: '', location: ''};
@@ -47,6 +46,7 @@ class CvEditForm extends React.Component {
             />
             <Input
               name='date'
+              type='date'
               value={this.state.date}
               onChange={this.handleChange}
             />
@@ -59,6 +59,7 @@ class CvEditForm extends React.Component {
           <Form onSubmit={this.handleSubmit}>
             <Input
               name='date'
+              type='date'
               value={this.state.date}
               onChange={this.handleChange}
             />

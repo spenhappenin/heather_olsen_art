@@ -6,15 +6,7 @@ import { createCv } from '../../actions/cvs';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
-import { Button, Container, Form, Header, Icon, Input } from 'semantic-ui-react';
-
-const typeOptions = [
-  { key: 'award', text: 'Awards and Certificates', value: 'award' },
-  { key: 'current_rep', text: 'Current Representation', value: 'current_rep' },
-  { key: 'education', text: 'Education', value: 'education' },
-  { key: 'festival', text: 'Festivals and Events', value: 'festival' },
-  { key: 'exhibition', text: 'Juried Exhibitions', value: 'exhibition' },
-]
+import { Button, Container, Form, Header, Icon } from 'semantic-ui-react';
 
 class CvNewForm extends React.Component {
   state = { type: '', title: '', location: '', date: '', startDate: moment(), fireRedirect: false };
@@ -36,7 +28,7 @@ class CvNewForm extends React.Component {
 
   render() {
     const { from } = this.props.location.state || '/'
-    const { type, title, location, date, fireRedirect } = this.state
+    const { type, title, location, fireRedirect } = this.state
     return(
       <Container as={StyledContainer}>
         <Header as='h1'>New Cv Form</Header>
@@ -86,5 +78,13 @@ class CvNewForm extends React.Component {
     )
   }
 }
+
+const typeOptions = [
+  { key: 'award', text: 'Awards and Certificates', value: 'award' },
+  { key: 'current_rep', text: 'Current Representation', value: 'current_rep' },
+  { key: 'education', text: 'Education', value: 'education' },
+  { key: 'festival', text: 'Festivals and Events', value: 'festival' },
+  { key: 'exhibition', text: 'Juried Exhibitions', value: 'exhibition' },
+]
 
 export default connect()(CvNewForm);

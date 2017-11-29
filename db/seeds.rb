@@ -139,7 +139,10 @@ ArtWork.create(title: 'Skull', url: 'http://res.cloudinary.com/dkrn2wmhn/image/u
                   type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)  
                   
 ArtWork.create(title: 'Bike', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1511978069/bike8x10_300_dpi_oqgta8.jpg', 
-                  type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)                    
+                  type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now) 
+                  
+ArtWork.create(title: 'Kissy', url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/c_scale,h_800/v1511980622/doktrk17vgac8eoo9ss5.jpg', 
+                  type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now)                   
 
 puts 'Paintings seeded!'
 

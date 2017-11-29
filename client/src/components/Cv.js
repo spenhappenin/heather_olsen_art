@@ -19,7 +19,6 @@ class Cv extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
     return(
       <div>
         { this.displayCv() }

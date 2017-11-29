@@ -10,17 +10,14 @@ import Flash from './Flash';
 import Home from './Home';
 import Login from './Login';
 import NavBar from './NavBar';
-import NewArtWorkForm from './admin/NewArtWorkForm';
+import ArtWorkNewForm from './admin/ArtWorkNewForm';
 import NoMatch from './NoMatch';
 import ProtectedRoute from './ProtectedRoute';
-import styled from 'styled-components';
 import { fetchComissions } from '../actions/comissions';
 import { fetchDrawings } from '../actions/drawings';
 import { fetchPaintings } from '../actions/paintings';
-import { Link } from 'react-router-dom';
 import { Route, Switch } from 'react-router-dom';
-import { PropsRoute, renderMergedProps } from '../helpers/routes';
-import { Button, Header, Icon, Image, Menu, Segment } from 'semantic-ui-react'
+import { PropsRoute } from '../helpers/routes';
 
 class App extends Component {
   render() {
@@ -79,9 +76,9 @@ class App extends Component {
               type='drawing'
             />
             {/* TODO: Make this one routes */}
-            <ProtectedRoute exact path='/admin-drawings/new' component={NewArtWorkForm} />
-            <ProtectedRoute exact path='/admin-paintings/new' component={NewArtWorkForm} />
-            <ProtectedRoute exact path='/admin-comissions/new' component={NewArtWorkForm} />
+            <ProtectedRoute exact path='/admin-drawings/new' component={ArtWorkNewForm} />
+            <ProtectedRoute exact path='/admin-paintings/new' component={ArtWorkNewForm} />
+            <ProtectedRoute exact path='/admin-comissions/new' component={ArtWorkNewForm} />
 
             <ProtectedRoute exact path='/admin-cv' component={AdminCvs} />
             <ProtectedRoute exact path='/admin-cv/new' component={CvNewForm} />

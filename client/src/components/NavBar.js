@@ -4,7 +4,7 @@ import { handleLogout } from '../actions/auth';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { StyledMenu, StyledMenuItem } from '../styles/navbar';
-import { Button, Grid, Header, Icon, Image, Menu, Segment } from 'semantic-ui-react';
+import { Grid, Menu } from 'semantic-ui-react';
 
 class NavBar extends Component {
 
