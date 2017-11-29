@@ -13,3 +13,9 @@ export const fetchComissions = () => {
       })
   }
 }
+
+export const createComission = (comission) => {
+  return(dispatch) => {
+    
+  }
+}

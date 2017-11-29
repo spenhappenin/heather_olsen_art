@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AdminArtWorks from './admin/AdminArtWorks';
 import AdminCvs from './admin/AdminCvs';
 import ArtWorks from './ArtWorks';
 import Contact from './Contact';
@@ -9,6 +10,7 @@ import Flash from './Flash';
 import Home from './Home';
 import Login from './Login';
 import NavBar from './NavBar';
+import NewArtWorkForm from './admin/NewArtWorkForm';
 import NoMatch from './NoMatch';
 import ProtectedRoute from './ProtectedRoute';
 import styled from 'styled-components';
@@ -36,11 +38,27 @@ class App extends Component {
               title='Comissions'
               type='comission' 
             />
+            <ProtectedRoute
+              exact
+              path='/admin-comissions'
+              component={AdminArtWorks}
+              fetchArtWorks={fetchComissions}
+              title='Comissions'
+              type='comission'
+            />
             <PropsRoute 
               exact 
               path='/paintings' 
               component={ArtWorks} 
               fetchArtWorks={fetchPaintings} 
+              title='Paintings'
+              type='painting'
+            />
+            <ProtectedRoute
+              exact
+              path='/admin-paintings'
+              component={AdminArtWorks}
+              fetchArtWorks={fetchPaintings}
               title='Paintings'
               type='painting'
             />
@@ -55,11 +73,16 @@ class App extends Component {
             <ProtectedRoute
               exact
               path='/admin-drawings'
-              component={ArtWorks}
+              component={AdminArtWorks}
               fetchArtWorks={fetchDrawings}
               title='Drawings'
               type='drawing'
             />
+            {/* TODO: Make this one routes */}
+            <ProtectedRoute exact path='/admin-drawings/new' component={NewArtWorkForm} />
+            <ProtectedRoute exact path='/admin-paintings/new' component={NewArtWorkForm} />
+            <ProtectedRoute exact path='/admin-comissions/new' component={NewArtWorkForm} />
+
             <ProtectedRoute exact path='/admin-cv' component={AdminCvs} />
             <ProtectedRoute exact path='/admin-cv/new' component={CvNewForm} />
             <Route exact path='/cv' component={Cvs} />

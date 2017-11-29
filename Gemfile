@@ -11,6 +11,7 @@ gem 'cloudinary'
 
 group :development, :test do
   gem 'pry'
+  gem 'dotenv-rails'
 end
 
 group :development do

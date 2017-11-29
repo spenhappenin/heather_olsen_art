@@ -13,3 +13,28 @@ export const fetchPaintings = () => {
       })
   }
 }
+
+export const createPainting = (painting) => {
+  return (dispatch) => {
+    let data = new FormData();
+    let photo = painting.file_data;
+    // painting.forEach( d => data.append(d))
+    data.append(photo.name, photo)
+    data.append('type', painting.type_of)
+    data.append('title', painting.title)
+    data.append('medium', painting.medium)
+    data.append('surface', painting.surface)
+    data.append('dimensions', painting.dimensions)
+    data.append('price', painting.price)
+    data.append('date_complete', painting.date_complete)
+    // painting.file_data = photoData
+    axios.post('/api/art_works', data)
+      .then( res => {
+        let data = res.data;
+        dispatch({ type: 'CREATE_PAINTING', painting: data });
+      })
+      .catch( err => {
+        console.log(err)
+      })
+  }
+}

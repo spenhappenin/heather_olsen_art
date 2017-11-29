@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     get '/cvs', to: 'cvs#fetch_cvs'
     put '/cv/:id', to: 'cvs#update_cv'
     resources :cvs, only: [:create, :destroy]
+    resources :art_works, only: [:create]
   end
 
   #Do not place any routes below this one

@@ -13,3 +13,9 @@ export const fetchDrawings = () => {
       })
   }
 }
+
+export const createDrawing = (drawing) => {
+  return (dispatch) => {
+
+  }
+}
