@@ -1,11 +1,16 @@
 import axios from 'axios';
+import { formatArt } from '../helpers/artWorks';
 
 export const fetchDrawings = () => {
   return(dispatch) => {
     axios.get('/api/drawings')
       .then( res => {
         const data = res.data;
-        dispatch({ type: 'GET_DRAWINGS', drawings: data });
+        const drawings = [];
+        data.map(drawing => {
+          drawings.push(formatArt(drawing));
+        })
+        dispatch({ type: 'GET_DRAWINGS', drawings });
       })
       .catch( err => {
         // TODO: Flash message

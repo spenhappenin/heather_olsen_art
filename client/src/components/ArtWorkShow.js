@@ -5,7 +5,7 @@ class ArtWorkShow extends React.Component {
   render() {
     return(
       <Modal.Content style={styles.content} >
-        <Image src={this.props.comission.url} style={styles.img}/>
+        <Image src={this.props.artWork.url} style={styles.img}/>
       </Modal.Content>
     )
   }

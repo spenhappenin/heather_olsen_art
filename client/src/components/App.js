@@ -19,6 +19,8 @@ import { fetchPaintings } from '../actions/paintings';
 import { Route, Switch } from 'react-router-dom';
 import { PropsRoute } from '../helpers/routes';
 
+import Foo from './Foo';
+
 class App extends Component {
   render() {
     return (
@@ -83,6 +85,7 @@ class App extends Component {
             <ProtectedRoute exact path='/admin-cv' component={AdminCvs} />
             <ProtectedRoute exact path='/admin-cv/new' component={CvNewForm} />
             <Route exact path='/cv' component={Cvs} />
+            <Route exact path='/foo' component={Foo} />
             <Route exact path='/contact' component={Contact} />
             <Route exact path='/' component={Home} />
             <Route exact path='/login' component={Login} />

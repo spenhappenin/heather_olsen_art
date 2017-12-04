@@ -1,11 +1,12 @@
 import React from 'react';
 import ArtWorkShow from './ArtWorkShow';
+import Lightbox from 'react-images';
 import { connect } from 'react-redux';
 import { StyledContainer } from '../styles/shared';
 import { Container, Grid, Header, Image, Modal, Transition } from 'semantic-ui-react';
 
 class ArtWorks extends React.Component {
-  state = { visible: false };
+  state = { visible: false, currentImage: 0, lightboxIsOpen: false, images: [] };
 
   componentDidMount() {
     const { fetchArtWorks, dispatch } = this.props;
@@ -19,13 +20,51 @@ class ArtWorks extends React.Component {
       dispatch(nextProps.fetchArtWorks());
   }
 
+  openLightbox = (index, event) => {
+    event.preventDefault();
+    this.setState({
+      currentImage: index,
+      lightboxIsOpen: true,
+    });
+  }
+
+  closeLightbox = () => {
+    this.setState({
+      currentImage: 0,
+      lightboxIsOpen: false,
+    });
+  }
+
+  gotoPrevious = () => {
+    this.setState({
+      currentImage: this.state.currentImage - 1,
+    });
+  }
+
+  gotoNext = () => {
+    this.setState({
+      currentImage: this.state.currentImage + 1,
+    });
+  }
+
+  gotoImage = (index) => {
+    this.setState({
+      currentImage: index,
+    });
+  }
+
+  handleClickImage = () => {
+    if (this.state.currentImage === this.props.images.length - 1) return;
+    this.gotoNext();
+  }
+
   displayArtWorks = () => {
-    return this.props.works.map(comission =>
-      <Grid.Column width={3} key={comission.id}>
+    const { works } = this.props;
+    if(!works) return;
+    return works.map( (artWork, i) =>
+      <Grid.Column width={3} key={artWork.id}>
         <Transition visible={this.state.visible} animation='fade' duration={2000}>
-          <Modal trigger={ <Image src={comission.url} fluid /> }>
-            <ArtWorkShow comission={comission} />
-          </Modal>
+          <Image src={artWork.src} href={artWork.src} onClick={(e) => this.openLightbox(i, e)} fluid />
         </Transition>
       </Grid.Column>
     )
@@ -37,6 +76,16 @@ class ArtWorks extends React.Component {
         <Header as='h1'>{this.props.title}</Header>
         <Grid>
           {this.displayArtWorks()}
+          <Lightbox
+            currentImage={this.state.currentImage}
+            images={this.props.works}
+            isOpen={this.state.lightboxIsOpen}
+            onClickImage={this.handleClickImage}
+            onClickNext={this.gotoNext}
+            onClickPrev={this.gotoPrevious}
+            onClickThumbnail={this.gotoImage}
+            onClose={this.closeLightbox}
+          />
         </Grid>
       </Container>
     )

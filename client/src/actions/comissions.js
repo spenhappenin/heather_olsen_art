@@ -1,11 +1,16 @@
 import axios from 'axios';
+import { formatArt } from '../helpers/artWorks';
 
 export const fetchComissions = () => {
   return(dispatch) => {
     axios.get('/api/comissions')
       .then( res => {
         let { data } = res;
-        dispatch({ type: 'GET_COMISSIONS', comissions: data })
+        const comissions = [];
+        data.map( comission => {
+          comissions.push(formatArt(comission));
+        })
+        dispatch({ type: 'GET_COMISSIONS', comissions })
       })
       .catch( err => {
         // TODO: Flash message error
