@@ -4,7 +4,7 @@ import { Image, Modal } from 'semantic-ui-react';
 class ArtWorkShow extends React.Component {
   render() {
     return(
-      <Modal.Content style={styles.content}>
+      <Modal.Content style={styles.content} >
         <Image src={this.props.comission.url} style={styles.img}/>
       </Modal.Content>
     )
