@@ -17,10 +17,17 @@
   border-color: #ebccd1;
 }
 
-
 /* TODO: move to own file or find way to inline it */
-div.four.wide.column {
+div.three.wide.column {
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
+  align-items: center !important;
+}
+
+.ui.modal {
+  /* makes background color about the same as the dimmed background */
+  /* background: rgba(35, 35, 35, 0.5) !important; */
+  background-image: url('http://res.cloudinary.com/dkrn2wmhn/image/upload/v1512405509/trans_img_ai4mc2.png') !important;
+  background: transparent url('http://res.cloudinary.com/dkrn2wmhn/image/upload/v1512405509/trans_img_ai4mc2.png') repeat center top !important;
 }

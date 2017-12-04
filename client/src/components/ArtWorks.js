@@ -1,7 +1,8 @@
 import React from 'react';
+import ArtWorkShow from './ArtWorkShow';
 import { connect } from 'react-redux';
 import { StyledContainer } from '../styles/shared';
-import { Container, Grid, Header, Image, Transition } from 'semantic-ui-react';
+import { Container, Grid, Header, Image, Modal, Transition } from 'semantic-ui-react';
 
 class ArtWorks extends React.Component {
   state = { visible: false };
@@ -20,9 +21,11 @@ class ArtWorks extends React.Component {
 
   displayArtWorks = () => {
     return this.props.works.map(comission =>
-      <Grid.Column width={4} key={comission.id}>
+      <Grid.Column width={3} key={comission.id}>
         <Transition visible={this.state.visible} animation='fade' duration={2000}>
-          <Image src={comission.url} fluid />
+          <Modal trigger={ <Image src={comission.url} fluid /> }>
+            <ArtWorkShow comission={comission} />
+          </Modal>
         </Transition>
       </Grid.Column>
     )
