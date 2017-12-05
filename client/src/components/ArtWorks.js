@@ -6,12 +6,11 @@ import { StyledContainer } from '../styles/shared';
 import { Container, Grid, Header, Image, Modal, Transition } from 'semantic-ui-react';
 
 class ArtWorks extends React.Component {
-  state = { visible: false, currentImage: 0, lightboxIsOpen: false, images: [] };
+  state = { currentImage: 0, lightboxIsOpen: false };
 
   componentDidMount() {
     const { fetchArtWorks, dispatch } = this.props;
     dispatch(fetchArtWorks());
-    this.setState({visible: !this.state.visible})
   }
 
   componentWillReceiveProps(nextProps){
@@ -54,7 +53,7 @@ class ArtWorks extends React.Component {
   }
 
   handleClickImage = () => {
-    if (this.state.currentImage === this.props.images.length - 1) return;
+    if(this.state.currentImage === this.props.works.length - 1) return;
     this.gotoNext();
   }
 
