@@ -65,8 +65,8 @@ class CvNewForm extends React.Component {
           />
           <br />
           <Form.Group>
-            <Link to='/admin-cv'><Button><Icon name='arrow left' />Back</Button></Link>
-            <Form.Button><Icon name='check' color='green' />Submit</Form.Button>
+            <Link to='/admin-cv'><Button color='black'><Icon name='arrow left' />Back</Button></Link>
+            <Form.Button color='black'><Icon name='check'  />Submit</Form.Button>
           </Form.Group>
         </Form>
         {

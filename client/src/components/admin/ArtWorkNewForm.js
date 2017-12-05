@@ -121,8 +121,8 @@ class ArtWorkNewForm extends React.Component {
           </Form.Group>
           <br />
           <Form.Group>
-            <Button onClick={this.props.history.goBack}><Icon name='arrow left' />Back</Button>
-            <Form.Button><Icon name='check' color='green' />Submit</Form.Button>
+            <Button color='black' onClick={this.props.history.goBack}><Icon name='arrow left' />Back</Button>
+            <Form.Button color='black'><Icon name='check' />Submit</Form.Button>
           </Form.Group>
         </Form>
         {

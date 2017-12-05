@@ -30,9 +30,9 @@ class AdminCv extends React.Component {
           return(
             <Segment as={CvContainer} basic>
               <div style={styles.cvContent}>{title}</div>
-                <div style={styles.containerContainer}>
-                  <Icon circular name='pencil' size='large' color='yellow' onClick={this.toggleEdit} />
-                  <Icon circular name='trash outline' size='large' color='red' onClick={this.show()} /> 
+                <div style={styles.buttonContainer}>
+                <Icon circular name='pencil' size='large' color='black' inverted onClick={this.toggleEdit} />
+                <Icon circular name='trash outline' size='large' color='black' inverted onClick={this.show()} />
                   <DeleteModal cv_title={title} cv_id={id} open={open} onClose={this.close} />
                 </div>
             </Segment>
@@ -46,8 +46,8 @@ class AdminCv extends React.Component {
           <Segment as={CvContainer} basic>
             <div style={styles.cvContent}>{title}, {justYear}</div>
             <div style={styles.buttonContainer}>
-              <Icon circular name='pencil' size='large' color='yellow' onClick={this.toggleEdit} />
-              <Icon circular name='trash outline' size='large' color='red' onClick={this.show()} /> 
+              <Icon circular name='pencil' size='large' color='black' inverted onClick={this.toggleEdit} />
+              <Icon circular name='trash outline' size='large' color='black' inverted onClick={this.show()} />
               <DeleteModal cv_title={title} cv_id={id} open={open} onClose={this.close} /> 
             </div>
           </Segment>
@@ -60,8 +60,8 @@ class AdminCv extends React.Component {
             <Segment as={CvContainer} basic>
               <div style={styles.cvContent}>{formattedDate} - {title} - {location}</div>
               <div style={styles.buttonContainer}>
-                <Icon circular name='pencil' size='large' color='yellow' onClick={this.toggleEdit} />
-                <Icon circular name='trash outline' size='large' color='red' onClick={this.show()} />
+                <Icon circular name='pencil' size='large' color='black' inverted onClick={this.toggleEdit} />
+                <Icon circular name='trash outline' size='large' color='black' inverted onClick={this.show()} />
                 <DeleteModal cv_title={title} cv_id={id} open={open} onClose={this.close} />
               </div>
             </Segment>

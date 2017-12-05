@@ -31,3 +31,7 @@ div.three.wide.column {
   background-image: url('http://res.cloudinary.com/dkrn2wmhn/image/upload/v1512405509/trans_img_ai4mc2.png') !important;
   background: transparent url('http://res.cloudinary.com/dkrn2wmhn/image/upload/v1512405509/trans_img_ai4mc2.png') repeat center top !important;
 }
+
+body {
+  background-color: #e7e7e7 !important;
+}

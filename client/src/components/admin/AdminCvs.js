@@ -24,7 +24,7 @@ class AdminCvs extends React.Component {
     return (
       <Container as={StyledContainer}>
         <Header as='h1'>Curriculum Vitae</Header>
-        <Link to='/admin-cv/new'><Button><Icon name='add' color='green' />Add</Button></Link>
+        <Link to='/admin-cv/new'><Button color='black'><Icon name='add' color='white' />Add</Button></Link>
         <Header as='h4'>Juried Exhibitions</Header>
         {this.displayCvs('exhibition')}
         <Header as='h4'>Festivals and Events</Header>

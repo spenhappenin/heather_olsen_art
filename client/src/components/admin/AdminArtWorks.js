@@ -33,7 +33,7 @@ class AdminArtWorks extends React.Component {
     return (
       <Container as={StyledContainer}>
         <Header as='h1'>{this.props.title}</Header>
-        <Link to={`${this.props.path}/new`}><Button><Icon name='add' color='green' />Add</Button></Link>
+        <Link to={`${this.props.path}/new`}><Button color='black'><Icon name='add' />Add</Button></Link>
         <br />
         <br />
         <Grid>
