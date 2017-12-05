@@ -48,9 +48,6 @@ class NavBar extends Component {
               <Link to='/admin-contact'>
                 <Menu.Item as={StyledMenuItem} name='Contact' />
               </Link>
-              <Link to='/foo'>
-                <Menu.Item as={StyledMenuItem} name='Foo' />
-              </Link>
               {this.showLogout()}
             </Menu.Menu>
           </Grid.Row>
