@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AdminArtWorks from './admin/AdminArtWorks';
 import AdminCvs from './admin/AdminCvs';
+import ArtWorkEditForm from './admin/ArtWorkEditForm';
 import ArtWorks from './ArtWorks';
 import Contact from './Contact';
 import CvNewForm from './admin/CvNewForm';
@@ -45,6 +46,15 @@ class App extends Component {
               title='Comissions'
               type='comission'
             />
+            <ProtectedRoute exact path='/admin-comissions/new' component={ArtWorkNewForm} />            
+            <ProtectedRoute
+              exact
+              path='/admin-comissions/:id'
+              component={ArtWorkEditForm}
+              fetchArtWorks={fetchComissions}
+              title='Comissions'
+              type='comission'
+            />
             <PropsRoute 
               exact 
               path='/paintings' 
@@ -80,7 +90,6 @@ class App extends Component {
             {/* TODO: Make this one routes */}
             <ProtectedRoute exact path='/admin-drawings/new' component={ArtWorkNewForm} />
             <ProtectedRoute exact path='/admin-paintings/new' component={ArtWorkNewForm} />
-            <ProtectedRoute exact path='/admin-comissions/new' component={ArtWorkNewForm} />
             <ProtectedRoute exact path='/admin-cv' component={AdminCvs} />
             <ProtectedRoute exact path='/admin-cv/new' component={CvNewForm} />
             <Route exact path='/cv' component={Cvs} />
