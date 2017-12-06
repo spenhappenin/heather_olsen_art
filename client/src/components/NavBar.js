@@ -4,10 +4,9 @@ import { handleLogout } from '../actions/auth';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { StyledMenu, StyledMenuItem } from '../styles/navbar';
-import { Grid, Menu } from 'semantic-ui-react';
+import { Grid, Icon, Menu } from 'semantic-ui-react';
 
 class NavBar extends Component {
-
   showLogout = () => {
     const { user, dispatch, history } = this.props;
     if(user.id) {
@@ -33,6 +32,9 @@ class NavBar extends Component {
         <Grid>
           <Grid.Row only='computer tablet'>
             <Menu.Menu position='right'>
+              <Link to='/'>
+                <Menu.Item as={StyledMenuItem} name='Heather Olsen Art' />
+              </Link>
               <Link to='/admin-comissions'>
                 <Menu.Item as={StyledMenuItem} name='Comissions' />
               </Link>
@@ -51,6 +53,22 @@ class NavBar extends Component {
               {this.showLogout()}
             </Menu.Menu>
           </Grid.Row>
+
+          <Grid.Row only='mobile'>
+            <Menu.Item>
+              <Icon
+                name='sidebar'
+                size='large'
+                onClick={this.props.toggleSideNav}
+                inverted
+                color='grey'
+              />
+            </Menu.Item>
+            <Link to='/'>
+              <Menu.Item as={StyledMenuItem} name='Heather Olsen Art' />
+            </Link>
+          </Grid.Row>
+
         </Grid>
       )
     } else {
@@ -58,6 +76,9 @@ class NavBar extends Component {
         <Grid>
           <Grid.Row only='computer tablet'>
             <Menu.Menu position='right'>
+              <Link to='/'>
+                <Menu.Item as={StyledMenuItem} name='Heather Olsen Art' />
+              </Link>
               <Link to='/comissions'>
                 <Menu.Item as={StyledMenuItem} name='Comissions' />
               </Link>
@@ -76,6 +97,22 @@ class NavBar extends Component {
               { this.showLogout() }
             </Menu.Menu>
           </Grid.Row>
+
+          <Grid.Row only='mobile'>
+            <Menu.Item>
+              <Icon
+                name='sidebar'
+                size='large'
+                onClick={this.props.toggleSideNav}
+                inverted
+                color='grey'
+              />
+            </Menu.Item>
+            <Link to='/'>
+              <Menu.Item as={StyledMenuItem} name='Heather Olsen Art' />
+            </Link>
+          </Grid.Row>
+
         </Grid>
       );
     }
@@ -85,9 +122,9 @@ class NavBar extends Component {
     return (
       <div>
         <Menu as={StyledMenu} pointing secondary>
-          <Link to='/'>
+          {/* <Link to='/'>
             <Menu.Item as={StyledMenuItem} name='Heather Olsen Art' />
-          </Link>
+          </Link> */}
           { this.rightNavs() }
         </Menu>
       </div>
