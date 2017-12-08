@@ -35,3 +35,11 @@ div.three.wide.column {
 body {
   background-color: #e7e7e7 !important;
 }
+
+i.icon.sidebar:before {
+  margin-left: 20px;
+}
+
+.pushable>.pusher:after {
+  background-color: rgba(0, 0, 0, 0.55) !important;
+}

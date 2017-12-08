@@ -37,7 +37,8 @@ class App extends Component {
       { name: 'Comissions', path: '/comissions' },    
       { name: 'Drawings', path: '/drawings' },    
       { name: 'Cv', path: '/cv' },    
-      { name: 'Contact', path: '/contact' }
+      { name: 'Contact', path: '/contact' },
+      { name: 'Admin', path: '/login' }
     ]
 
     return navs.map(nav =>
@@ -60,7 +61,17 @@ class App extends Component {
       <div>
         <NavBar toggleSideNav={this.toggleSideNav} />
         <Sidebar.Pushable>
-          <Sidebar as={Menu} animation='overlay' width='thin' visible={this.state.sideNav} icon='labeled' direction='top' vertical inverted>
+          <Sidebar 
+            as={Menu} 
+            animation='overlay' 
+            width='thin' 
+            visible={this.state.sideNav} 
+            icon='labeled' 
+            direction='top' 
+            vertical 
+            inverted
+            style={styles.sidebar}
+          >
             { this.rightNavs() }
           </Sidebar>
           <Sidebar.Pusher style={styles.push} dimmed={this.state.dimmed}>
@@ -145,7 +156,10 @@ class App extends Component {
 
 const styles = {
   push: {
-    height: '100vh'
+    // height: '100vh'
+  },
+  sidebar: {
+    paddingLeft: '30px !important'
   }
 }
 
