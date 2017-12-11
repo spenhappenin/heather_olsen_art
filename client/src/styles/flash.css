@@ -43,3 +43,11 @@ i.icon.sidebar:before {
 .pushable>.pusher:after {
   background-color: rgba(0, 0, 0, 0.55) !important;
 }
+
+.computer.only.tablet.only.row {
+  /* display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  border: 1px solid red; */
+
+}

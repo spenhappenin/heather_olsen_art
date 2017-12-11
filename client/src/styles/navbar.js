@@ -1,5 +1,12 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
+
+export const StyledLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
 
 export const StyledMenu = styled(Menu)`
   background-color: #131313 !important;
@@ -14,8 +21,8 @@ export const StyledMenu = styled(Menu)`
 `
 
 export const StyledMenuItem = styled(Menu.Item)`
-  color: #a8a8a8 !important;
-  font-size: 16px;
-  font-family: 'Raleway', sans-serif !important;
+  color: ${ props => props.title ? '#5c5c5c !important' : '#a8a8a8 !important' };
+  font-size: ${ props => props.title ? '20px' : '16px' };
+  font-family: ${ props => props.title ? "'Archivo Black', sans-serif !important" : "Raleway', sans-serif !important" };
   text-tranform: uppercase !important;
 `

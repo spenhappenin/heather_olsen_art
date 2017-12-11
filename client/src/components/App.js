@@ -27,6 +27,7 @@ class App extends Component {
 
   toggleSideNav = () => {
     const { sideNav, dimmed } = this.state;
+    window.scrollTo(0, 0);
     this.setState({ sideNav: !sideNav, dimmed: !dimmed });
   }
 
@@ -60,7 +61,7 @@ class App extends Component {
     return (
       <div>
         <NavBar toggleSideNav={this.toggleSideNav} />
-        <Sidebar.Pushable>
+        <Sidebar.Pushable onClick={this.handleSidebar}>
           <Sidebar 
             as={Menu} 
             animation='overlay' 

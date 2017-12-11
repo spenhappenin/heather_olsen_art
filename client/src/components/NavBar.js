@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import MainLogo from '../images/logo_gray.png';
 import { connect } from 'react-redux';
 import { handleLogout } from '../actions/auth';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
-import { StyledMenu, StyledMenuItem } from '../styles/navbar';
-import { Grid, Icon, Menu } from 'semantic-ui-react';
+import { StyledLink, StyledMenu, StyledMenuItem } from '../styles/navbar';
+import { Grid, Icon, Image, Menu, Segment } from 'semantic-ui-react';
 
 class NavBar extends Component {
   showLogout = () => {
@@ -14,14 +15,15 @@ class NavBar extends Component {
         <Menu.Item
           as={StyledMenuItem}
           name='Logout'
+          link
           onClick={() => dispatch(handleLogout(history))}
         />
       )
     } else {
       return(
-        <Link to='/login'>
+        <StyledLink to='/login'>
           <Menu.Item as={StyledMenuItem} name='Admin' />
-        </Link>
+        </StyledLink>
       )
     }
   }
@@ -32,30 +34,30 @@ class NavBar extends Component {
         <Grid>
           <Grid.Row only='computer tablet'>
             <Menu.Menu position='right'>
-              <Link to='/'>
-                <Menu.Item as={StyledMenuItem} name='Heather Olsen Art' />
-              </Link>
-              <Link to='/admin-comissions'>
+              <StyledLink to='/'>
+                <Menu.Item as={StyledMenuItem} title content='Heather Olsen Art' />
+              </StyledLink>
+              <StyledLink to='/admin-comissions'>
                 <Menu.Item as={StyledMenuItem} name='Comissions' />
-              </Link>
-              <Link to='/admin-paintings'>
+              </StyledLink>
+              <StyledLink to='/admin-paintings'>
                 <Menu.Item as={StyledMenuItem} name='Paintings' />
-              </Link>
-              <Link to='/admin-drawings'>
+              </StyledLink>
+              <StyledLink to='/admin-drawings'>
                 <Menu.Item as={StyledMenuItem} name='Drawings' />
-              </Link>
-              <Link to='/admin-cv'>
+              </StyledLink>
+              <StyledLink to='/admin-cv'>
                 <Menu.Item as={StyledMenuItem} name='CV' />
-              </Link>
-              <Link to='/admin-contact'>
+              </StyledLink>
+              <StyledLink to='/admin-contact'>
                 <Menu.Item as={StyledMenuItem} name='Contact' />
-              </Link>
+              </StyledLink>
               {this.showLogout()}
             </Menu.Menu>
           </Grid.Row>
 
           <Grid.Row only='mobile'>
-            <Menu.Item>
+            <Menu.Item onClick={this.handleSidebar}>
               <Icon
                 name='sidebar'
                 size='large'
@@ -64,9 +66,9 @@ class NavBar extends Component {
                 color='grey'
               />
             </Menu.Item>
-            <Link to='/'>
-              <Menu.Item as={StyledMenuItem} name='Heather Olsen Art' />
-            </Link>
+            <StyledLink to='/'>
+              <Menu.Item as={StyledMenuItem} title content='Heather Olsen Art' />
+            </StyledLink>
           </Grid.Row>
 
         </Grid>
@@ -76,30 +78,30 @@ class NavBar extends Component {
         <Grid>
           <Grid.Row only='computer tablet'>
             <Menu.Menu position='right'>
-              <Link to='/'>
-                <Menu.Item as={StyledMenuItem} name='Heather Olsen Art' />
-              </Link>
-              <Link to='/comissions'>
+              <StyledLink to='/'>
+                <Menu.Item as={StyledMenuItem} title content='Heather Olsen Art' />
+              </StyledLink>
+              <StyledLink to='/comissions'>
                 <Menu.Item as={StyledMenuItem} name='Comissions' />
-              </Link>
-              <Link to='/paintings'>
+              </StyledLink>
+              <StyledLink to='/paintings'>
                 <Menu.Item as={StyledMenuItem} name='Paintings' />
-              </Link>
-              <Link to='/drawings'>
+              </StyledLink>
+              <StyledLink to='/drawings'>
                 <Menu.Item as={StyledMenuItem} name='Drawings' />
-              </Link>                              
-              <Link to='/cv'>
+              </StyledLink>                              
+              <StyledLink to='/cv'>
                 <Menu.Item as={StyledMenuItem} name='CV' />
-              </Link>           
-              <Link to='/contact'>
+              </StyledLink>           
+              <StyledLink to='/contact'>
                 <Menu.Item as={StyledMenuItem} name='Contact' />
-              </Link>                                 
+              </StyledLink>                                 
               { this.showLogout() }
             </Menu.Menu>
           </Grid.Row>
 
           <Grid.Row only='mobile'>
-            <Menu.Item>
+            <Menu.Item as={StyledMenuItem}>
               <Icon
                 name='sidebar'
                 size='large'
@@ -108,9 +110,9 @@ class NavBar extends Component {
                 color='grey'
               />
             </Menu.Item>
-            <Link to='/'>
-              <Menu.Item as={StyledMenuItem} name='Heather Olsen Art' />
-            </Link>
+            <StyledLink to='/'>
+              <Menu.Item as={StyledMenuItem} title content='Heather Olsen Art' />
+            </StyledLink>
           </Grid.Row>
 
         </Grid>
@@ -122,13 +124,18 @@ class NavBar extends Component {
     return (
       <div>
         <Menu as={StyledMenu} pointing secondary>
-          {/* <Link to='/'>
-            <Menu.Item as={StyledMenuItem} name='Heather Olsen Art' />
-          </Link> */}
           { this.rightNavs() }
         </Menu>
       </div>
     )
+  }
+}
+
+const styles = {
+  link: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center'
   }
 }
 
