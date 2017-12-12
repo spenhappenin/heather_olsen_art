@@ -14,11 +14,12 @@ import NavBar from './NavBar';
 import ArtWorkNewForm from './admin/ArtWorkNewForm';
 import NoMatch from './NoMatch';
 import ProtectedRoute from './ProtectedRoute';
+import { connect } from 'react-redux';
 import { fetchComissions } from '../actions/comissions';
 import { fetchDrawings } from '../actions/drawings';
 import { fetchPaintings } from '../actions/paintings';
 import { Link } from 'react-router-dom';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { PropsRoute } from '../helpers/routes';
 import { Menu, Sidebar } from 'semantic-ui-react';
 
@@ -32,15 +33,28 @@ class App extends Component {
   }
 
   rightNavs = () => {
-    const navs = [
-      { name: 'Home', path: '/' },
-      { name: 'Paintings', path: '/paintings' },    
-      { name: 'Comissions', path: '/comissions' },    
-      { name: 'Drawings', path: '/drawings' },    
-      { name: 'Cv', path: '/cv' },    
-      { name: 'Contact', path: '/contact' },
-      { name: 'Admin', path: '/login' }
-    ]
+    let navs = [];
+    if(this.props.user.id) {
+      navs = [
+        { name: 'Home', path: '/' },
+        { name: 'Paintings', path: '/admin-paintings' },
+        { name: 'Comissions', path: '/admin-comissions' },
+        { name: 'Drawings', path: '/admin-drawings' },
+        { name: 'Cv', path: '/admin-cv' },
+        { name: 'Contact', path: '/contact' },
+        { name: 'Admin', path: '/login' }
+      ]
+    } else {
+      navs = [
+        { name: 'Home', path: '/' },
+        { name: 'Paintings', path: '/paintings' },    
+        { name: 'Comissions', path: '/comissions' },    
+        { name: 'Drawings', path: '/drawings' },    
+        { name: 'Cv', path: '/cv' },    
+        { name: 'Contact', path: '/contact' },
+        { name: 'Admin', path: '/login' }
+      ]
+    }
 
     return navs.map(nav =>
       <Link to={nav.path}>
@@ -156,12 +170,22 @@ class App extends Component {
 }
 
 const styles = {
-  push: {
-    // height: '100vh'
-  },
   sidebar: {
     paddingLeft: '30px !important'
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return { user: state.user };
+}
+
+// TODO: Find the more optimal solution instead of withRouter (see article)
+export default withRouter(connect(mapStateToProps)(App));
+
+
+
+
+
+
+
+

@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import MainLogo from '../images/logo_gray.png';
 import { connect } from 'react-redux';
 import { handleLogout } from '../actions/auth';
-import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { StyledLink, StyledMenu, StyledMenuItem } from '../styles/navbar';
 import { Grid, Icon, Image, Menu, Segment } from 'semantic-ui-react';
 
