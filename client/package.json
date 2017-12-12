@@ -27,7 +27,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "cp -a client/build/. public/",
+    "heroku-postbuild": "npm run build && npm run deploy && echo 'Client Built"
   },
   "proxy": "http://localhost:3001"
 }
