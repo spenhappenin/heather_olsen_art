@@ -32,22 +32,10 @@ div.three.wide.column {
   background: transparent url('http://res.cloudinary.com/dkrn2wmhn/image/upload/v1512405509/trans_img_ai4mc2.png') repeat center top !important;
 }
 
-body {
-  background-color: #e7e7e7 !important;
-}
-
 i.icon.sidebar:before {
   margin-left: 20px;
 }
 
 .pushable>.pusher:after {
   background-color: rgba(0, 0, 0, 0.55) !important;
-}
-
-.computer.only.tablet.only.row {
-  /* display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  border: 1px solid red; */
-
 }
