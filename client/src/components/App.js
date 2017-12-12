@@ -18,6 +18,7 @@ import { connect } from 'react-redux';
 import { fetchComissions } from '../actions/comissions';
 import { fetchDrawings } from '../actions/drawings';
 import { fetchPaintings } from '../actions/paintings';
+import { handleLogout } from '../actions/auth';
 import { Link } from 'react-router-dom';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { PropsRoute } from '../helpers/routes';
@@ -42,7 +43,7 @@ class App extends Component {
         { name: 'Drawings', path: '/admin-drawings' },
         { name: 'Cv', path: '/admin-cv' },
         { name: 'Contact', path: '/contact' },
-        { name: 'Admin', path: '/login' }
+        { name: 'Logout', logout: true }
       ]
     } else {
       navs = [
@@ -56,18 +57,34 @@ class App extends Component {
       ]
     }
 
-    return navs.map(nav =>
-      <Link to={nav.path}>
-        <Menu.Item
-          key={nav.path}
-          position='right'
-          name={nav.name}
-          onClick={() => {
-            if (this.state.sideNav)
-              this.setState({ sideNav: false, dimmed: false });
-          }}
-        />
-      </Link>
+    return navs.map(nav => {
+      if(nav.logout) {
+        return(
+          <Menu.Item
+            key={nav.name}
+            name={nav.name}
+            onClick={() => {
+              this.props.dispatch(handleLogout(this.props.history));
+              if (this.state.sideNav)
+                 this.setState({ sideNav: false, dimmed: false });
+            }}
+          />
+        )
+      }
+      return(
+        <Link to={nav.path}>
+          <Menu.Item
+            key={nav.path}
+            position='right'
+            name={nav.name}
+            onClick={() => {
+              if (this.state.sideNav)
+                this.setState({ sideNav: false, dimmed: false });
+            }}
+          />
+        </Link>
+      )
+    }
     )
   }
 
@@ -181,11 +198,3 @@ const mapStateToProps = (state) => {
 
 // TODO: Find the more optimal solution instead of withRouter (see article)
 export default withRouter(connect(mapStateToProps)(App));
-
-
-
-
-
-
-
-
