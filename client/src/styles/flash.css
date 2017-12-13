@@ -25,17 +25,14 @@ div.three.wide.column {
   align-items: center !important;
 }
 
-.ui.modal {
-  /* makes background color about the same as the dimmed background */
-  /* background: rgba(35, 35, 35, 0.5) !important; */
-  background-image: url('http://res.cloudinary.com/dkrn2wmhn/image/upload/v1512405509/trans_img_ai4mc2.png') !important;
-  background: transparent url('http://res.cloudinary.com/dkrn2wmhn/image/upload/v1512405509/trans_img_ai4mc2.png') repeat center top !important;
-}
-
 i.icon.sidebar:before {
   margin-left: 20px;
 }
 
 .pushable>.pusher:after {
   background-color: rgba(0, 0, 0, 0.55) !important;
+}
+
+input {
+  font-size: 1.3rem !important;
 }

@@ -7,7 +7,7 @@ export const fetchDrawings = () => {
       .then( res => {
         const data = res.data;
         const drawings = [];
-        data.map(drawing => {
+        data.map( drawing => {
           drawings.push(formatArt(drawing));
         })
         dispatch({ type: 'GET_DRAWINGS', drawings });

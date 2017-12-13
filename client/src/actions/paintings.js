@@ -4,15 +4,15 @@ import { formatArt } from '../helpers/artWorks';
 export const fetchPaintings = () => {
   return(dispatch) => {
     axios.get('/api/paintings')
-      .then(res => {
+      .then( res => {
         let data = res.data;
         const paintings = [];
-        data.map(painting => {
+        data.map( painting => {
           paintings.push(formatArt(painting));
         })
         dispatch({ type: 'GET_PAINTINGS', paintings });
       })
-      .catch(err => {
+      .catch( err => {
         // TODO: Flash message
         console.log(err);
       })

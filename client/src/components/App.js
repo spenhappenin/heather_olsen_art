@@ -138,6 +138,15 @@ class App extends Component {
                   title='Paintings'
                   type='painting'
                 />
+                <ProtectedRoute exact path='/admin-paintings/new' component={ArtWorkNewForm} />
+                <ProtectedRoute
+                  exact
+                  path='/admin-paintings/:id'
+                  component={ArtWorkEditForm}
+                  fetchArtWorks={fetchPaintings}
+                  title='Paintings'
+                  type='painting'
+                />
                 <PropsRoute
                   exact
                   path='/drawings'
@@ -154,9 +163,15 @@ class App extends Component {
                   title='Drawings'
                   type='drawing'
                 />
-                {/* TODO: Make this one routes */}
                 <ProtectedRoute exact path='/admin-drawings/new' component={ArtWorkNewForm} />
-                <ProtectedRoute exact path='/admin-paintings/new' component={ArtWorkNewForm} />
+                <ProtectedRoute
+                  exact
+                  path='/admin-drawings/:id'
+                  component={ArtWorkEditForm}
+                  fetchArtWorks={fetchDrawings}
+                  title='Drawings'
+                  type='drawing'
+                />
                 <ProtectedRoute exact path='/admin-cv' component={AdminCvs} />
                 <ProtectedRoute exact path='/admin-cv/new' component={CvNewForm} />
                 <Route exact path='/cv' component={Cvs} />

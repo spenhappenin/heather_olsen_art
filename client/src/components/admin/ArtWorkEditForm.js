@@ -118,8 +118,15 @@ const typeOptions = [
 ]
 
 const mapStateToProps = (state, props) => {
-  return {
-    work: state.comissions.find(c => c.id === parseInt(props.match.params.id))
+  switch(props.type) {
+    case 'comission': 
+      return { work: state.comissions.find( c => c.id === parseInt(props.match.params.id)) };
+    case 'painting': 
+      return { work: state.paintings.find( p => p.id === parseInt(props.match.params.id)) };
+    case 'drawing':
+      return { work: state.drawings.find( d => d.id === parseInt(props.match.params.id)) };
+    default: 
+      return {};
   }
 }
 
