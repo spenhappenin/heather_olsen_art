@@ -48,7 +48,7 @@ class NavBar extends Component {
               <StyledLink to='/admin-cv'>
                 <Menu.Item as={StyledMenuItem} name='CV' />
               </StyledLink>
-              <StyledLink to='/admin-contact'>
+              <StyledLink to='/contact'>
                 <Menu.Item as={StyledMenuItem} name='Contact' />
               </StyledLink>
               {this.showLogout()}

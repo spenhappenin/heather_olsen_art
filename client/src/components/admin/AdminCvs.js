@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchCvs } from '../../actions/cvs';
 import { Link } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
-import { Button, Container, Header, Icon } from 'semantic-ui-react';
+import { Button, Container, Header, Icon, Segment } from 'semantic-ui-react';
 
 class AdminCvs extends React.Component {
 
@@ -36,6 +36,11 @@ class AdminCvs extends React.Component {
         <Header as='h4'>Education</Header>
         {this.displayCvs('education')}
         <Header as='h4'>Website and Social Media</Header>
+        <Segment basic>
+          <p>www.heatherolsenart.com</p>
+          <p><a href='https://www.instagram.com/heatherolsenart/' target="_blank">IG: @heatherolsenart</a></p>
+          <p><a href='https://www.facebook.com/heatherolsenart/' target="_blank">www.facebook.com/heatherolsenart</a></p>
+        </Segment>
       </Container>
     )
   }

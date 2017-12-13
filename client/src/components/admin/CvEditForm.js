@@ -32,8 +32,8 @@ class CvEditForm extends React.Component {
               value={this.state.title} 
               onChange={this.handleChange}
             />
-            <Icon circular name='checkmark' size='large' color='black' inverted onClick={this.handleSubmit} />
-            <Icon circular name='cancel' size='large' color='black' inverted onClick={this.props.toggleEdit} />
+            <Icon circular name='checkmark' color='black' inverted onClick={this.handleSubmit} />
+            <Icon circular name='cancel' color='black' inverted onClick={this.props.toggleEdit} />
           </Form>
         )
       case 'two':
@@ -50,8 +50,8 @@ class CvEditForm extends React.Component {
               value={this.state.date}
               onChange={this.handleChange}
             />
-            <Icon circular name='checkmark' size='large' color='black' inverted onClick={this.handleSubmit} />
-            <Icon circular name='cancel' size='large' color='black' inverted onClick={this.props.toggleEdit} />
+            <Icon circular name='checkmark' color='black' inverted onClick={this.handleSubmit} />
+            <Icon circular name='cancel' color='black' inverted onClick={this.props.toggleEdit} />
           </Form>
         )
       case 'three':
@@ -73,8 +73,8 @@ class CvEditForm extends React.Component {
               value={this.state.location}
               onChange={this.handleChange}
             />
-            <Icon circular name='checkmark' size='large' color='black' inverted onClick={this.handleSubmit} />
-            <Icon circular name='cancel' size='large' color='black' inverted onClick={this.props.toggleEdit} />
+            <Icon circular name='checkmark' color='black' inverted onClick={this.handleSubmit} />
+            <Icon circular name='cancel' color='black' inverted onClick={this.props.toggleEdit} />
           </Form>
         )
     }
