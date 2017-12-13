@@ -25,7 +25,7 @@ import { PropsRoute } from '../helpers/routes';
 import { Menu, Sidebar } from 'semantic-ui-react';
 
 class App extends Component {
-  state = { sideNav: false, dimmed: false };
+  state = { sideNav: false, dimmed: false, logout: false };
 
   toggleSideNav = () => {
     const { sideNav, dimmed } = this.state;
@@ -34,36 +34,23 @@ class App extends Component {
   }
 
   rightNavs = () => {
-    let navs = [];
-    if(this.props.user.id) {
-      navs = [
-        { name: 'Home', path: '/' },
-        { name: 'Paintings', path: '/admin-paintings' },
-        { name: 'Comissions', path: '/admin-comissions' },
-        { name: 'Drawings', path: '/admin-drawings' },
-        { name: 'Cv', path: '/admin-cv' },
-        { name: 'Contact', path: '/contact' },
-        { name: 'Logout', logout: true }
-      ]
-    } else {
-      navs = [
-        { name: 'Home', path: '/' },
-        { name: 'Paintings', path: '/paintings' },    
-        { name: 'Comissions', path: '/comissions' },    
-        { name: 'Drawings', path: '/drawings' },    
-        { name: 'Cv', path: '/cv' },    
-        { name: 'Contact', path: '/contact' },
-        { name: 'Admin', path: '/login' }
-      ]
-    }
+    const navs = [
+      { name: 'Home', path: '/', adminPath: '/'},
+      { name: 'Paintings', path: '/paintings', adminPath: '/admin-paintings' },
+      { name: 'Comissions', path: '/comissions', adminPath: '/admin-comissions' },
+      { name: 'Drawings', path: '/drawings', adminPath: '/admin-drawings' },
+      { name: 'Cv', path: '/cv', adminPath: '/admin-cv' },
+      { name: 'Contact', path: '/contact', adminPath: '/contact' },
+      { name: 'Admin', adminName: 'Logout', path: '/login', logout: true }
+    ]
 
     return navs.map(nav => {
       if(nav.logout) {
         return(
           <Menu.Item
             key={nav.name}
-            name={nav.name}
-            onClick={() => {
+            name={this.props.user.id ? nav.adminName : nav.name}
+            onClick={(e) => {
               this.props.dispatch(handleLogout(this.props.history));
               if (this.state.sideNav)
                  this.setState({ sideNav: false, dimmed: false });
@@ -72,7 +59,7 @@ class App extends Component {
         )
       }
       return(
-        <Link to={nav.path}>
+        <Link to={this.props.user.id ? nav.adminPath : nav.path }>
           <Menu.Item
             key={nav.path}
             position='right'
