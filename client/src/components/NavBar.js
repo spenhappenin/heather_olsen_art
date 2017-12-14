@@ -18,12 +18,6 @@ class NavBar extends Component {
           onClick={() => dispatch(handleLogout(history))}
         />
       )
-    } else {
-      return(
-        <StyledLink to='/login'>
-          <Menu.Item as={StyledMenuItem} name='Admin' />
-        </StyledLink>
-      )
     }
   }
 

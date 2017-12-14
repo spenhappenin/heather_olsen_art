@@ -41,8 +41,10 @@ class App extends Component {
       { name: 'Drawings', path: '/drawings', adminPath: '/admin-drawings' },
       { name: 'Cv', path: '/cv', adminPath: '/admin-cv' },
       { name: 'Contact', path: '/contact', adminPath: '/contact' },
-      { name: 'Admin', adminName: 'Logout', path: '/login', logout: true }
     ]
+
+    if(this.props.user.id) 
+      navs.push({ adminName: 'Logout', logout: true });
 
     return navs.map(nav => {
       if(nav.logout) {
