@@ -21,7 +21,7 @@ class Api::ArtWorksController < ApplicationController
 
     uploaded_image_name = params.keys.first
     uploaded_file = params[uploaded_image_name]
-
+    # binding.pry
     begin
       cloud_image = Cloudinary::Uploader.upload(uploaded_file, auth)
       # TODO: Can I utilize art_works_params?

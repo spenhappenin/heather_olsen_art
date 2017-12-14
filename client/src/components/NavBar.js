@@ -55,7 +55,7 @@ class NavBar extends Component {
             </Menu.Menu>
           </Grid.Row>
 
-          <Grid.Row only='mobile'>
+          <Grid.Row only='mobile' textAlign='center'>
             <Menu.Item onClick={this.handleSidebar}>
               <Icon
                 name='sidebar'
@@ -99,7 +99,7 @@ class NavBar extends Component {
             </Menu.Menu>
           </Grid.Row>
 
-          <Grid.Row only='mobile'>
+          <Grid.Row only='mobile' textAlign='center'>
             <Menu.Item as={StyledMenuItem}>
               <Icon
                 name='sidebar'

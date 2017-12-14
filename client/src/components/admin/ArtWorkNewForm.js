@@ -25,10 +25,13 @@ class ArtWorkNewForm extends React.Component {
     switch(type) {
       case 'painting': 
         this.props.dispatch(createPainting(artData));
+        break;
       case 'comission': 
         this.props.dispatch(createComission(artData));
+        break;
       case 'drawing':
         this.props.dispatch(createDrawing(artData));
+        break;
       default: 
         return {}
     }
