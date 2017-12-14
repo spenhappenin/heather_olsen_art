@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { formatArt } from '../helpers/artWorks';
+import { setFlash } from './flash';
 
 export const fetchDrawings = () => {
   return(dispatch) => {
@@ -12,9 +13,9 @@ export const fetchDrawings = () => {
         })
         dispatch({ type: 'GET_DRAWINGS', drawings });
       })
-      .catch( err => {
-        // TODO: Flash message
-        console.log(err)
+      .catch( res => {
+        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch(setFlash(message, 'error'));
       })
   }
 }
@@ -37,8 +38,23 @@ export const createDrawing = (drawing) => {
         let data = res.data;
         dispatch({ type: 'CREATE_DRAWING', drawing: data });
       })
-      .catch(err => {
-        console.log(err)
+      .catch( res => {
+        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch(setFlash(message, 'error'));
+      })
+  }
+}
+
+export const deleteDrawing = (id) => {
+  return(dispatch) => {
+    axios.delete(`/api/art_works/${id}`)
+      .then( res => {
+        const { headers } = res;
+        dispatch({ type: 'DELETE_DRAWING', id, headers });
+      })
+      .catch( err => {
+        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch(setFlash(message, 'error'));
       })
   }
 }

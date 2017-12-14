@@ -21,7 +21,6 @@ class Api::ArtWorksController < ApplicationController
 
     uploaded_image_name = params.keys.first
     uploaded_file = params[uploaded_image_name]
-    # binding.pry
     begin
       cloud_image = Cloudinary::Uploader.upload(uploaded_file, auth)
       # TODO: Can I utilize art_works_params?
@@ -32,6 +31,11 @@ class Api::ArtWorksController < ApplicationController
       puts 'Some error...'
       # render json: { errors: e }, status: :bad_request
     end
+  end
+
+  def destroy
+    @art_work = ArtWork.find(params[:id])
+    @art_work.destroy
   end
 
   private 

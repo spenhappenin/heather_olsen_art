@@ -1,6 +1,6 @@
 import React from 'react';
 import CvEditForm from './CvEditForm';
-import DeleteModal from './DeleteModal';
+import DeleteCvModal from './DeleteCvModal';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { CvContainer } from '../../styles/cv';
@@ -33,7 +33,7 @@ class AdminCv extends React.Component {
                 <div style={styles.buttonContainer}>
                 <Icon circular name='pencil' color='black' inverted onClick={this.toggleEdit} />
                 <Icon circular name='trash outline' color='black' inverted onClick={this.show()} />
-                  <DeleteModal cv_title={title} cv_id={id} open={open} onClose={this.close} />
+                  <DeleteCvModal cv_title={title} cv_id={id} open={open} onClose={this.close} />
                 </div>
             </Segment>
           ) 
@@ -48,7 +48,7 @@ class AdminCv extends React.Component {
             <div style={styles.buttonContainer}>
               <Icon circular name='pencil' color='black' inverted onClick={this.toggleEdit} />
               <Icon circular name='trash outline' color='black' inverted onClick={this.show()} />
-              <DeleteModal cv_title={title} cv_id={id} open={open} onClose={this.close} /> 
+              <DeleteCvModal cv_title={title} cv_id={id} open={open} onClose={this.close} /> 
             </div>
           </Segment>
         )
@@ -62,7 +62,7 @@ class AdminCv extends React.Component {
               <div style={styles.buttonContainer}>
                 <Icon circular name='pencil' color='black' inverted onClick={this.toggleEdit} />
                 <Icon circular name='trash outline' color='black' inverted onClick={this.show()} />
-                <DeleteModal cv_title={title} cv_id={id} open={open} onClose={this.close} />
+                <DeleteCvModal cv_title={title} cv_id={id} open={open} onClose={this.close} />
               </div>
             </Segment>
           )

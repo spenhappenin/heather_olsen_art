@@ -1,4 +1,5 @@
 import React from 'react';
+import DeleteArtWorkModal from './DeleteArtWorkModal';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
 import { StyledContainer } from '../../styles/shared';
@@ -7,7 +8,8 @@ import { Button, Container, Header, Form, Icon } from 'semantic-ui-react';
 class ArtWorkEditForm extends React.Component {
   state = {
     title: '', url: '', type: '', medium: '', surface: '', dimensions: '',
-    price: '', dateComplete: '', fileData: '', fireRedirect: false, fileUploading: false
+    price: '', dateComplete: '', fileData: '', fireRedirect: false, fileUploading: false, 
+    open: false
   };
 
   componentWillMount() {
@@ -24,13 +26,21 @@ class ArtWorkEditForm extends React.Component {
     this.setState({ [name]: value });
   }
 
+  show = () => () => this.setState({ open: true });
+
+  close = () => this.setState({ open: false });
+
 
   render() {
-    const { work } = this.props;
-    const { title, type, medium, surface, dimensions, price, dateComplete, fireRedirect } = this.state;
+    const { work, work: {id} } = this.props;
+    const { title, type, medium, surface, dimensions, price, dateComplete, fireRedirect, open } = this.state;
     return(
       <Container as={StyledContainer}>
-        <Header as='h1'>{ work.title } Edit Form</Header>
+        <Header as='h1'>"{ work.title }" Information Page</Header>
+        <Button color='black' onClick={this.show()}><Icon name='delete' />Delete</Button>
+        <DeleteArtWorkModal artWorkTitle={title} artWorkId={id} open={open} onClose={this.close} type={this.props.type} goBack={this.props.history.goBack} />
+        <br />
+        <br />
         <Form>
           <Dropzone onDrop={this.onDrop}>
             <Header as='h4'>Drag photo here!</Header>

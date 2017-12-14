@@ -4,6 +4,8 @@ const comissions = (state = [], action) => {
       return action.comissions;
     case 'CREATE_COMISSION':
       return [action.comission, ...state];
+    case 'DELETE_COMISSION':
+      return state.filter( c => c.id !== action.id);
     default: 
       return state;
   }

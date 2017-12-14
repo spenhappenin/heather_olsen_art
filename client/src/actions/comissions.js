@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { formatArt } from '../helpers/artWorks';
+import { setFlash } from './flash';
 
 export const fetchComissions = () => {
   return(dispatch) => {
@@ -12,9 +13,9 @@ export const fetchComissions = () => {
         })
         dispatch({ type: 'GET_COMISSIONS', comissions })
       })
-      .catch( err => {
-        // TODO: Flash message error
-        console.log(err)
+      .catch( res => {
+        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch(setFlash(message, 'error'));
       })
   }
 }
@@ -37,8 +38,23 @@ export const createComission = (comission) => {
         let data = res.data;
         dispatch({ type: 'CREATE_COMISSION', comission: data });
       })
-      .catch(err => {
-        console.log(err)
+      .catch( res => {
+        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch(setFlash(message, 'error'));
+      })
+  }
+}
+
+export const deleteComission = (id) => {
+  return(dispatch) => {
+    axios.delete(`/api/art_works/${id}`)
+      .then( res => {
+        const { headers } = res;
+        dispatch({ type: 'DELETE_COMISSION', id, headers });
+      })
+      .catch( res => {
+        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch(setFlash(message, 'error'));
       })
   }
 }

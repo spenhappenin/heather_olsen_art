@@ -4,6 +4,8 @@ const drawings = (state = [], action) => {
       return action.drawings;
     case 'CREATE_DRAWING':
       return [action.drawing, ...state];
+    case 'DELETE_DRAWING': 
+      return state.filter( d => d.id !== action.drawing);
     default: 
       return state;
   }

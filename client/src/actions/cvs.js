@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { setFlash } from './flash';
 
 export const fetchCvs = () => {  
   return(dispatch) => {
@@ -7,9 +8,9 @@ export const fetchCvs = () => {
         const data = res.data;
         dispatch({ type: 'GET_CVS', cvs: data })
       })
-      .catch( err => {
-        // TODO: Flash message
-        console.log(err);
+      .catch( res => {
+        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch(setFlash(message, 'error'));
       })
   }
 }
@@ -21,9 +22,9 @@ export const createCv = (cv) => {
         const cv = res.data;
         dispatch({ type: 'CREATE_CV', cv });
       })
-      .catch( err => {
-        // TODO: Flash message
-        console.log(err);
+      .catch( res => {
+        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch(setFlash(message, 'error'));
       })
   }
 }
@@ -35,9 +36,9 @@ export const updateCv = (cv, id) => {
         const cv = res.data;
         dispatch({ type: 'UPDATE_CV', cv })
       })
-      .catch( err => {
-        // TODO: Flash message
-        console.log(err);
+      .catch( res => {
+        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch(setFlash(message, 'error'));
       })
   }
 }
@@ -49,9 +50,9 @@ export const deleteCv = (id) => {
         const { headers } = res;
         dispatch({ type: 'DELETE_CV', id, headers });
       }) 
-      .catch( err => {
-        // TODO: Flash message
-        console.log(err);
+      .catch( res => {
+        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch(setFlash(message, 'error'));
       })
   }
 }
