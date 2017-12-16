@@ -18,7 +18,6 @@ class Api::ArtWorksController < ApplicationController
 
     begin
       cloud_image = Cloudinary::Uploader.upload(uploaded_file, public_id: params[:title])
-      # TODO: Can I utilize art_works_params?
       art_work = ArtWork.create(url: cloud_image['url'], title: params['title'], type_of: params['type_of'], medium: params['medium'], surface: params['surface'], dimensions: params['dimensions'], price: params['price'], date_complete: params['date_complete'])
       render json: art_work
     rescue
@@ -34,8 +33,8 @@ class Api::ArtWorksController < ApplicationController
   end
 
   private 
-  def art_work_params
-    params.require(:art_works).permit(:title, :url, :type_of, :medium, :surface, :dimensions, :price, :date_complete)
-  end
+    def art_work_params
+      params.require(:art_works).permit(:title, :url, :type_of, :medium, :surface, :dimensions, :price, :date_complete)
+    end
 
 end
