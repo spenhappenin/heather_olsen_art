@@ -2,7 +2,9 @@ import React from 'react';
 import DeleteArtWorkModal from './DeleteArtWorkModal';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
+import { updateComission } from '../../actions/comissions';
 import { Button, Container, Header, Form, Icon } from 'semantic-ui-react';
 
 class ArtWorkEditForm extends React.Component {
@@ -26,25 +28,32 @@ class ArtWorkEditForm extends React.Component {
     this.setState({ [name]: value });
   }
 
+  handleSubmit = (e) => {
+    const { dispatch, match: { params: { id } } } = this.props;
+    dispatch(updateComission({ ...this.state, id }));
+    this.setState({ fireRedirect: true });
+    // window.location.reload();
+  }
+
   show = () => () => this.setState({ open: true });
 
   close = () => this.setState({ open: false });
 
 
   render() {
+    const { from } = this.props.location.state || '/';
     const { work, work: {id} } = this.props;
     const { title, type, medium, surface, dimensions, price, dateComplete, fireRedirect, open } = this.state;
+
     return(
       <Container as={StyledContainer}>
         <Header as='h1'>"{ work.title }" Information Page</Header>
-        <Button color='black' onClick={this.show()}><Icon name='delete' />Delete</Button>
+        <Button color='black' onClick={this.props.history.goBack}><Icon name='arrow left' />Back</Button>
+        <Button color='black' onClick={this.show()}><Icon name='trash outline' />Delete</Button>
         <DeleteArtWorkModal artWorkTitle={title} artWorkId={id} open={open} onClose={this.close} type={this.props.type} goBack={this.props.history.goBack} />
         <br />
         <br />
-        <Form>
-          <Dropzone onDrop={this.onDrop}>
-            <Header as='h4'>Drag photo here!</Header>
-          </Dropzone>
+        <Form onSubmit={this.handleSubmit}>
           <Form.Group widths='equal'>
             <Form.Select
               name='type'
@@ -111,11 +120,14 @@ class ArtWorkEditForm extends React.Component {
           </Form.Group>
           <br />
           <Form.Group>
-            <Button color='black' onClick={this.props.history.goBack}><Icon name='arrow left' />Back</Button>
             <Form.Button color='black'><Icon name='check' />Submit</Form.Button>
           </Form.Group>
         </Form>
-
+        {
+          fireRedirect && (
+            <Redirect to={from || `/admin-${type}s`} />
+          )
+        }
       </Container>
     )
   }

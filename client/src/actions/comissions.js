@@ -45,6 +45,18 @@ export const createComission = (comission) => {
   }
 }
 
+export const updateComission = (comission) => {
+  return(dispatch => {
+    axios.put(`/api/art_works/${comission.id}`, comission)
+      .then( res => {
+        dispatch({ type: 'UPDATE_COMISSION', comission })
+      }) 
+      .catch( res => {
+        debugger
+      })
+  })
+}
+
 export const deleteComission = (id) => {
   return(dispatch) => {
     axios.delete(`/api/art_works/${id}`)
