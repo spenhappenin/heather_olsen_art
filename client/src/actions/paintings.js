@@ -45,6 +45,18 @@ export const createPainting = (painting) => {
   }
 }
 
+export const updatePainting = (painting) => {
+  return (dispatch => {
+    axios.put(`/api/art_works/${painting.id}`, painting)
+      .then(res => {
+        dispatch({ type: 'UPDATE_PAINTING', painting })
+      })
+      .catch(res => {
+        debugger
+      })
+  })
+}
+
 export const deletePainting = (id) => {
   return(dispatch) => {
     axios.delete(`/api/art_works/${id}`)

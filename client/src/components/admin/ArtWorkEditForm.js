@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
 import { updateComission } from '../../actions/comissions';
+import { updatePainting } from '../../actions/paintings';
+import { updateDrawing } from '../../actions/drawings';
 import { Button, Container, Header, Form, Icon } from 'semantic-ui-react';
 
 class ArtWorkEditForm extends React.Component {
@@ -29,8 +31,20 @@ class ArtWorkEditForm extends React.Component {
   }
 
   handleSubmit = (e) => {
-    const { dispatch, match: { params: { id } } } = this.props;
-    dispatch(updateComission({ ...this.state, id }));
+    const { work, dispatch, match: { params: { id } } } = this.props;
+    switch(work.type) {
+      case 'comission':
+        dispatch(updateComission({ ...this.state, id }));
+        break;
+      case 'painting':
+        dispatch(updatePainting({ ...this.state, id }));
+        break;
+      case 'drawing':
+        dispatch(updateDrawing({ ...this.state, id }));
+        break;
+      default:
+        return {};
+    }
     this.setState({ fireRedirect: true });
     // window.location.reload();
   }
