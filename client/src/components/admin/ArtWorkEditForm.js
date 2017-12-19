@@ -171,7 +171,6 @@ const statusOptions = [
 const mapStateToProps = (state, props) => {
   switch(props.type) {
     case 'comission': 
-      debugger
       return { work: state.comissions.find( c => c.id === parseInt(props.match.params.id)) };
     case 'painting': 
       return { work: state.paintings.find( p => p.id === parseInt(props.match.params.id)) };
