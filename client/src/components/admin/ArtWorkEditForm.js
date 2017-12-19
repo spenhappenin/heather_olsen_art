@@ -12,7 +12,7 @@ import { Button, Container, Header, Form, Icon } from 'semantic-ui-react';
 class ArtWorkEditForm extends React.Component {
   state = {
     title: '', url: '', type: '', medium: '', surface: '', dimensions: '',
-    price: '', dateComplete: '', fileData: '', fireRedirect: false, fileUploading: false, 
+    price: '', dateComplete: '', fileData: '', status: '', fireRedirect: false, fileUploading: false, 
     open: false
   };
 
@@ -22,8 +22,8 @@ class ArtWorkEditForm extends React.Component {
   }
 
   componentDidMount() {
-    const { type, url, title, medium, surface, dimensions, price, dateComplete, fileData } = this.props.work;
-    this.setState({ type, url, medium, surface, dimensions, price, dateComplete, title, fileData });
+    const { type, url, title, medium, surface, dimensions, price, status, dateComplete, fileData } = this.props.work;
+    this.setState({ type, url, medium, surface, dimensions, price, dateComplete, title, status, fileData });
   }
 
   handleChange = (e, { name, value }) => {
@@ -57,7 +57,7 @@ class ArtWorkEditForm extends React.Component {
   render() {
     const { from } = this.props.location.state || '/';
     const { work, work: {id} } = this.props;
-    const { title, type, medium, surface, dimensions, price, dateComplete, fireRedirect, open } = this.state;
+    const { title, type, medium, surface, dimensions, price, status, dateComplete, fireRedirect, open } = this.state;
 
     return(
       <Container as={StyledContainer}>
@@ -122,6 +122,15 @@ class ArtWorkEditForm extends React.Component {
             />
           </Form.Group>
           <Form.Group widths='equal'>
+            <Form.Select
+              required
+              name='status'
+              label='Status'
+              placeholder='For Sale'
+              options={statusOptions}
+              value={status}
+              onChange={this.handleChange}
+            />
             <Form.Input
               required
               type='date'
@@ -153,9 +162,16 @@ const typeOptions = [
   { key: 'painting', text: 'painting', value: 'painting' },
 ]
 
+const statusOptions = [
+  { key: 'for sale', text: 'For Sale', value: 'for sale' },
+  { key: 'nfs', text: 'NFS', value: 'nfs' },
+  { key: 'sold', text: 'Sold', value: 'sold' },
+]
+
 const mapStateToProps = (state, props) => {
   switch(props.type) {
     case 'comission': 
+      debugger
       return { work: state.comissions.find( c => c.id === parseInt(props.match.params.id)) };
     case 'painting': 
       return { work: state.paintings.find( p => p.id === parseInt(props.match.params.id)) };

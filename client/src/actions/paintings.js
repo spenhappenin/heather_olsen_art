@@ -32,6 +32,7 @@ export const createPainting = (painting) => {
     data.append('surface', painting.surface);
     data.append('dimensions', painting.dimensions);
     data.append('price', painting.price);
+    data.append('status', painting.status);
     data.append('date_complete', painting.date_complete);
     axios.post('/api/art_works', data)
       .then( res => {

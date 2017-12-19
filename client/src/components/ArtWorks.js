@@ -1,5 +1,4 @@
 import React from 'react';
-import ArtWorkShow from './ArtWorkShow';
 import Lightbox from 'react-images';
 import { connect } from 'react-redux';
 import { StyledContainer } from '../styles/shared';

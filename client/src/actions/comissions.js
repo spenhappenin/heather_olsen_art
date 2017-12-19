@@ -33,6 +33,7 @@ export const createComission = (comission) => {
     data.append('dimensions', comission.dimensions);
     data.append('price', comission.price);
     data.append('date_complete', comission.date_complete);
+    data.append('status', comission.status);
     axios.post('/api/art_works', data)
       .then(res => {
         let data = res.data;

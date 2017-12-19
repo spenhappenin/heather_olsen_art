@@ -9,18 +9,22 @@ import { createPainting } from '../../actions/paintings';
 import { Button, Container, Form, Header, Icon } from 'semantic-ui-react';
 
 class ArtWorkNewForm extends React.Component {
-  state = { title: '', url: '', type: '', medium: '', surface: '', dimensions: '', 
-              price: '', dateComplete: '', fileData: '', fireRedirect: false, fileUploading: false };
+  state = { 
+    title: '', url: '', type: '', 
+    medium: '', surface: '', dimensions: '', 
+    price: '', dateComplete: '', fileData: '', 
+    status: '', fireRedirect: false, fileUploading: false 
+  };
 
   handleChange = (e, { name, value }) => {
     this.setState({ [name]: value });
   }
 
   handleSubmit = () => {
-    const { title, url, type, medium, surface, dimensions, price, dateComplete, fileData} = this.state;
+    const { title, url, type, medium, surface, dimensions, price, status, dateComplete, fileData} = this.state;
     const artData = {
       title, url, type_of: type, medium, surface,
-      dimensions, price, date_complete: dateComplete, file_data: fileData
+      dimensions, price, date_complete: dateComplete, status, file_data: fileData
     };
     switch(type) {
       case 'painting': 
@@ -50,7 +54,7 @@ class ArtWorkNewForm extends React.Component {
 
   render() {
     const { from } = this.props.location.state || '/';
-    const { title, type, medium, surface, dimensions, price, dateComplete, fireRedirect } = this.state;
+    const { title, type, medium, surface, dimensions, price, status, dateComplete, fireRedirect } = this.state;
     return (
       <Container as={StyledContainer}>
         <Header as='h1'>{getUrlType(this.props.path)}</Header>
@@ -112,6 +116,14 @@ class ArtWorkNewForm extends React.Component {
             />
           </Form.Group>
           <Form.Group widths='equal'>
+            <Form.Select
+              name='status'
+              label='Status'
+              placeholder='For Sale'
+              options={statusOptions}
+              value={status}
+              onChange={this.handleChange}
+            />
             <Form.Input
               required
               type='date'
@@ -142,6 +154,12 @@ const typeOptions = [
   { key: 'comission', text: 'comission', value: 'comission' },
   { key: 'drawing', text: 'drawing', value: 'drawing' },
   { key: 'painting', text: 'painting', value: 'painting' },
+]
+
+const statusOptions = [
+  { key: 'for sale', text: 'For Sale', value: 'for sale' },
+  { key: 'nfs', text: 'NFS', value: 'nfs' },
+  { key: 'sold', text: 'Sold', value: 'sold' },
 ]
 
 const getUrlType = (baseUrl) => {
