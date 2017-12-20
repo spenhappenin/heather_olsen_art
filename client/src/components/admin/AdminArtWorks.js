@@ -8,8 +8,8 @@ class AdminArtWorks extends React.Component {
   state = { visible: false };
 
   componentDidMount() {
-    const { fetchArtWorks, dispatch } = this.props;
-    dispatch(fetchArtWorks());
+    // const { fetchArtWorks, dispatch } = this.props;
+    // dispatch(fetchArtWorks());
     this.setState({ visible: !this.state.visible })
   }
 
