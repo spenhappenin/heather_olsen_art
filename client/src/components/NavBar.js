@@ -16,6 +16,7 @@ class NavBar extends Component {
           name='Logout'
           link
           onClick={() => dispatch(handleLogout(history))}
+          style={styles.logout}
         />
       )
     }
@@ -125,10 +126,8 @@ class NavBar extends Component {
 }
 
 const styles = {
-  link: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center'
+  logout: {
+    marginBottom: '2px'
   }
 }
 
