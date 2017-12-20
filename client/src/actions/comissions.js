@@ -8,9 +8,7 @@ export const fetchComissions = () => {
       .then( res => {
         let { data } = res;
         const comissions = [];
-        data.map( comission => {
-          comissions.push(formatArt(comission));
-        })
+        data.map( comission => comissions.push(formatArt(comission)) );
         dispatch({ type: 'GET_COMISSIONS', comissions })
       })
       .catch( res => {

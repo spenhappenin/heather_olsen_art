@@ -8,7 +8,7 @@ import { deletePainting } from '../../actions/paintings';
 class DeleteArtWorkModal extends React.Component {
 
   handleClick = () => {
-    const { dispatch, type, artWorkId, onClose } = this.props;
+    const { dispatch, type, artWorkId } = this.props;
     switch(type) {
       case 'comission':
         dispatch(deleteComission(artWorkId));

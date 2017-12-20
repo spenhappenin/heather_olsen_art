@@ -1,8 +1,7 @@
 import React from 'react';
 import ContactForm from './ContactForm';
-import Subscribe from './Subscribe';
 import { StyledContainer, StyledHeader } from '../styles/shared';
-import { Button, Container, Form, Header, Input, Segment, TextArea } from 'semantic-ui-react';
+import { Container, Header, Segment } from 'semantic-ui-react';
 
 class Contact extends React.Component {
   render() {

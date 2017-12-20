@@ -6,13 +6,12 @@ const displayStatus = (status, price) => {
   switch(status) {
     case 'for sale':
       return `$${price}`;
-      break;
     case 'nfs':
       return 'NFS';
-      break;
     case 'sold':
       return 'Sold';
-      break;
+    default: 
+      return '';
   }
 }
 export const formatArt = (work) => {

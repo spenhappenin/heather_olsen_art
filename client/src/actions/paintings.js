@@ -8,9 +8,7 @@ export const fetchPaintings = () => {
       .then( res => {
         let data = res.data;
         const paintings = [];
-        data.map( painting => {
-          paintings.push(formatArt(painting));
-        })
+        data.map( painting => paintings.push(formatArt(painting)) );
         dispatch({ type: 'GET_PAINTINGS', paintings });
       })
       .catch( res => {

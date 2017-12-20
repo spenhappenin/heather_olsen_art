@@ -77,6 +77,8 @@ class CvEditForm extends React.Component {
             <Icon circular name='cancel' color='black' inverted onClick={this.props.toggleEdit} />
           </Form>
         )
+      default: 
+        return '';
     }
   }
 }
