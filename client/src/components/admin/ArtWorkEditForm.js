@@ -7,6 +7,7 @@ import { StyledContainer } from '../../styles/shared';
 import { updateComission } from '../../actions/comissions';
 import { updatePainting } from '../../actions/paintings';
 import { updateDrawing } from '../../actions/drawings';
+import { statusOptions, typeOptions } from '../../helpers/data';
 import { Button, Container, Header, Form, Icon } from 'semantic-ui-react';
 
 class ArtWorkEditForm extends React.Component {
@@ -155,18 +156,6 @@ class ArtWorkEditForm extends React.Component {
     )
   }
 }
-
-const typeOptions = [
-  { key: 'comission', text: 'comission', value: 'comission' },
-  { key: 'drawing', text: 'drawing', value: 'drawing' },
-  { key: 'painting', text: 'painting', value: 'painting' },
-]
-
-const statusOptions = [
-  { key: 'for sale', text: 'For Sale', value: 'for sale' },
-  { key: 'nfs', text: 'NFS', value: 'nfs' },
-  { key: 'sold', text: 'Sold', value: 'sold' },
-]
 
 const mapStateToProps = (state, props) => {
   switch(props.type) {
