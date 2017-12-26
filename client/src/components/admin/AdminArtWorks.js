@@ -8,7 +8,7 @@ class AdminArtWorks extends React.Component {
   state = { visible: false };
 
   componentDidMount() {
-    this.setState({ visible: !this.state.visible })
+    this.setState({ visible: !this.state.visible });
   }
 
   componentWillReceiveProps(nextProps) {

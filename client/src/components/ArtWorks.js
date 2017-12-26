@@ -2,14 +2,14 @@ import React from 'react';
 import Lightbox from 'react-images';
 import { connect } from 'react-redux';
 import { StyledContainer } from '../styles/shared';
-import { Container, Grid, Header, Image, Modal, Transition } from 'semantic-ui-react';
+import { Container, Dimmer, Grid, Header, Image, Loader, Modal, Transition } from 'semantic-ui-react';
 
 class ArtWorks extends React.Component {
-  state = { currentImage: 0, lightboxIsOpen: false };
+  state = { currentImage: 0, lightboxIsOpen: false, loaded: false };
 
   componentDidMount() {
     const { fetchArtWorks, dispatch } = this.props;
-    dispatch(fetchArtWorks());
+    dispatch(fetchArtWorks(this.setLoaded()));
   }
 
   componentWillReceiveProps(nextProps){
@@ -17,6 +17,8 @@ class ArtWorks extends React.Component {
     if(nextProps.title !== this.props.title)
       dispatch(nextProps.fetchArtWorks());
   }
+
+  setLoaded = () => this.setState({ loaded: true });
 
   openLightbox = (index, event) => {
     event.preventDefault();
@@ -69,28 +71,39 @@ class ArtWorks extends React.Component {
   }
 
   render() {
-    return (
-      <Container as={StyledContainer}>
-        <Header as='h1'>{this.props.title}</Header>
-        <Grid>
-          {this.displayArtWorks()}
-          <Lightbox
-            currentImage={this.state.currentImage}
-            images={this.props.works}
-            isOpen={this.state.lightboxIsOpen}
-            onClickImage={this.handleClickImage}
-            onClickNext={this.gotoNext}
-            onClickPrev={this.gotoPrevious}
-            onClickThumbnail={this.gotoImage}
-            onClose={this.closeLightbox}
-          />
-        </Grid>
-        <br />
-        <br />
-        <br />
-        <p>All images and content of this website are copyrighted by the artist, Heather Olsen. Any use or reproduction in any form without permission is prohibited.</p>
-      </Container>
-    )
+    if(this.state.loaded) {
+      return (
+        <Container as={StyledContainer}>
+          <Header as='h1'>{this.props.title}</Header>
+          <Grid>
+            {this.displayArtWorks()}
+            <Lightbox
+              currentImage={this.state.currentImage}
+              images={this.props.works}
+              isOpen={this.state.lightboxIsOpen}
+              onClickImage={this.handleClickImage}
+              onClickNext={this.gotoNext}
+              onClickPrev={this.gotoPrevious}
+              onClickThumbnail={this.gotoImage}
+              onClose={this.closeLightbox}
+              />
+          </Grid>
+          <br />
+          <br />
+          <br />
+          <p>All images and content of this website are copyrighted by the artist, Heather Olsen. Any use or reproduction in any form without permission is prohibited.</p>
+        </Container>
+      )
+    } else {
+      return(
+        <Container as={StyledContainer}>
+          <br />
+          <Dimmer active>
+            <Loader inverted size='large'>Loading</Loader>
+          </Dimmer>
+        </Container>
+      )
+    }
   }
 }
 
