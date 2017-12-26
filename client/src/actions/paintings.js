@@ -2,7 +2,7 @@ import axios from 'axios';
 import { formatArt } from '../helpers/artWorks';
 import { setFlash } from './flash';
 
-export const fetchPaintings = () => {
+export const fetchPaintings = (cb = () => {}) => {
   return(dispatch) => {
     axios.get('/api/paintings')
       .then( res => {
@@ -10,6 +10,7 @@ export const fetchPaintings = () => {
         const paintings = [];
         data.map( painting => paintings.push(formatArt(painting)) );
         dispatch({ type: 'GET_PAINTINGS', paintings });
+        cb();
       })
       .catch( res => {
         const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';

@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { fetchComissions } from '../actions/comissions';
 import { validateToken } from '../actions/auth';
 import { Dimmer, Loader } from 'semantic-ui-react';
+import { Route, Switch } from 'react-router-dom'
 
 class FetchComissions extends React.Component {
   state = { loaded: false }
@@ -15,12 +16,21 @@ class FetchComissions extends React.Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(fetchComissions());
+    dispatch(fetchComissions(this.setLoaded));
   }
 
   render() {
+    if(!this.state.loaded) {
+      return <div>Loading...</div>
+    }
     return (
-      <div>
+      <Switch>
+        {/* FIXME: This Route isnt working but should */}
+        {/* <Route
+          exact 
+          path='/admin-commisions'
+          render={ props => <AdminArtWorks {...props} fetchArtWorks={fetchComissions} title='Comissions' type='commission' /> }
+        />   */}
         <ProtectedRoute
           exact
           path='/admin-comissions'
@@ -29,6 +39,7 @@ class FetchComissions extends React.Component {
           title='Comissions'
           type='comission'
         />
+        <ProtectedRoute exact path='/admin-comissions/new' component={ArtWorkNewForm} />
         <ProtectedRoute
           exact
           path='/admin-comissions/:id'
@@ -37,7 +48,13 @@ class FetchComissions extends React.Component {
           title='Comissions'
           type='comission'
         />
-      </div>
+        {/* FIXME: This Route isnt working but should */}
+        {/* <Route 
+          exact
+          path='/admin-comissions/:id'
+          render={ props => <ArtWorkEditForm {...props} fetchArtWorks={fetchComissions} title='Comissions' type='comission' /> }
+        /> */}
+      </Switch>
     )
     
   }

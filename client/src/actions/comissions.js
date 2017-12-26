@@ -2,14 +2,15 @@ import axios from 'axios';
 import { formatArt } from '../helpers/artWorks';
 import { setFlash } from './flash';
 
-export const fetchComissions = () => {
+export const fetchComissions = (cb = () => {}) => {
   return(dispatch) => {
     axios.get('/api/comissions')
       .then( res => {
         let { data } = res;
         const comissions = [];
         data.map( comission => comissions.push(formatArt(comission)) );
-        dispatch({ type: 'GET_COMISSIONS', comissions })
+        dispatch({ type: 'GET_COMISSIONS', comissions });
+        cb();
       })
       .catch( res => {
         const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';

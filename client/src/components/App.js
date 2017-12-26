@@ -7,7 +7,9 @@ import ArtWorks from './ArtWorks';
 import Contact from './Contact';
 import CvNewForm from './admin/CvNewForm';
 import Cvs from './Cvs';
+import FetchDrawings from './FetchDrawings';
 import FetchComissions from './FetchComissions';
+import FetchPaintings from './FetchPaintings';
 import FetchUser from './FetchUser';
 import Flash from './Flash';
 import Home from './Home';
@@ -108,9 +110,7 @@ class App extends Component {
                   title='Comissions'
                   type='comission' 
                 />
-                
                 <ProtectedRoute path='/admin-comissions' component={FetchComissions} />
-                
                 <PropsRoute 
                   exact 
                   path='/paintings' 
@@ -119,23 +119,7 @@ class App extends Component {
                   title='Paintings'
                   type='painting'
                 />
-                <ProtectedRoute
-                  exact
-                  path='/admin-paintings'
-                  component={AdminArtWorks}
-                  fetchArtWorks={fetchPaintings}
-                  title='Paintings'
-                  type='painting'
-                />
-                <ProtectedRoute exact path='/admin-paintings/new' component={ArtWorkNewForm} />
-                <ProtectedRoute
-                  exact
-                  path='/admin-paintings/:id'
-                  component={ArtWorkEditForm}
-                  fetchArtWorks={fetchPaintings}
-                  title='Paintings'
-                  type='painting'
-                />
+                <ProtectedRoute path='/admin-paintings' component={FetchPaintings} />
                 <PropsRoute
                   exact
                   path='/drawings'
@@ -144,23 +128,7 @@ class App extends Component {
                   title='Drawings'
                   type='drawing'
                 />
-                <ProtectedRoute
-                  exact
-                  path='/admin-drawings'
-                  component={AdminArtWorks}
-                  fetchArtWorks={fetchDrawings}
-                  title='Drawings'
-                  type='drawing'
-                />
-                <ProtectedRoute exact path='/admin-drawings/new' component={ArtWorkNewForm} />
-                <ProtectedRoute
-                  exact
-                  path='/admin-drawings/:id'
-                  component={ArtWorkEditForm}
-                  fetchArtWorks={fetchDrawings}
-                  title='Drawings'
-                  type='drawing'
-                />
+                <ProtectedRoute path='/admin-drawings' component={FetchDrawings} />
                 <ProtectedRoute exact path='/admin-cv' component={AdminCvs} />
                 <ProtectedRoute exact path='/admin-cv/new' component={CvNewForm} />
                 <Route exact path='/cv' component={Cvs} />
