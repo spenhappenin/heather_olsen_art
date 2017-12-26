@@ -14,6 +14,7 @@ export const fetchPaintings = (cb = () => {}) => {
       })
       .catch( res => {
         const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
         dispatch(setFlash(message, 'error'));
       })
   }
@@ -40,6 +41,7 @@ export const createPainting = (painting) => {
       })
       .catch( res => {
         const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
         dispatch(setFlash(message, 'error'));
       })
   }
@@ -48,11 +50,13 @@ export const createPainting = (painting) => {
 export const updatePainting = (painting) => {
   return (dispatch => {
     axios.put(`/api/art_works/${painting.id}`, painting)
-      .then(res => {
+      .then( res => {
         dispatch({ type: 'UPDATE_PAINTING', painting })
       })
-      .catch(res => {
-        debugger
+      .catch( res => {
+        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
+        dispatch(setFlash(message, 'error'));
       })
   })
 }
@@ -66,6 +70,7 @@ export const deletePainting = (id) => {
       })
       .catch( res => {
         const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
         dispatch(setFlash(message, 'error'));
       })
   }

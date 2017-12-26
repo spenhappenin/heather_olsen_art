@@ -10,6 +10,7 @@ export const fetchCvs = () => {
       })
       .catch( res => {
         const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
         dispatch(setFlash(message, 'error'));
       })
   }
@@ -24,6 +25,7 @@ export const createCv = (cv) => {
       })
       .catch( res => {
         const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
         dispatch(setFlash(message, 'error'));
       })
   }
@@ -38,6 +40,7 @@ export const updateCv = (cv, id) => {
       })
       .catch( res => {
         const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
         dispatch(setFlash(message, 'error'));
       })
   }
@@ -46,12 +49,13 @@ export const updateCv = (cv, id) => {
 export const deleteCv = (id) => {
   return(dispatch) => {
     axios.delete(`/api/cvs/${id}`)
-      .then(res => {
+      .then( res => {
         const { headers } = res;
         dispatch({ type: 'DELETE_CV', id, headers });
       }) 
       .catch( res => {
         const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
         dispatch(setFlash(message, 'error'));
       })
   }

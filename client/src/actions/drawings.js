@@ -14,6 +14,7 @@ export const fetchDrawings = (cb = () => {}) => {
       })
       .catch( res => {
         const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
         dispatch(setFlash(message, 'error'));
       })
   }
@@ -34,12 +35,13 @@ export const createDrawing = (drawing) => {
     data.append('status', drawing.status);
     data.append('date_complete', drawing.date_complete);
     axios.post('/api/art_works', data)
-      .then(res => {
+      .then( res => {
         let data = res.data;
         dispatch({ type: 'CREATE_DRAWING', drawing: data });
       })
       .catch( res => {
         const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
         dispatch(setFlash(message, 'error'));
       })
   }
@@ -48,11 +50,13 @@ export const createDrawing = (drawing) => {
 export const updateDrawing = (drawing) => {
   return (dispatch => {
     axios.put(`/api/art_works/${drawing.id}`, drawing)
-      .then(res => {
+      .then( res => {
         dispatch({ type: 'UPDATE_DRAWING', drawing })
       })
-      .catch(res => {
-        debugger
+      .catch( res => {
+        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
+        dispatch(setFlash(message, 'error'));
       })
   })
 }
@@ -65,8 +69,9 @@ export const deleteDrawing = (id) => {
         const { headers } = res;
         dispatch({ type: 'DELETE_DRAWING', id, headers });
       })
-      .catch( err => {
+      .catch( res => {
         const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
         dispatch(setFlash(message, 'error'));
       })
   }

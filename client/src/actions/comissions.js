@@ -13,7 +13,8 @@ export const fetchComissions = (cb = () => {}) => {
         cb();
       })
       .catch( res => {
-        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        const message = 'Sorry, there was an error with your request.';
+        dispatch({ type: 'SET_HEADERS', headers: res.response.headers })
         dispatch(setFlash(message, 'error'));
       })
   }
@@ -34,12 +35,14 @@ export const createComission = (comission) => {
     data.append('date_complete', comission.date_complete);
     data.append('status', comission.status);
     axios.post('/api/art_works', data)
-      .then(res => {
+      .then( res => {
         let data = res.data;
+        dispatch(setFlash('Comission Successfully Created!', 'success'));
         dispatch({ type: 'CREATE_COMISSION', comission: data });
       })
       .catch( res => {
         const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch({ type: 'SET_HEADERS', headers: res.response.headers })
         dispatch(setFlash(message, 'error'));
       })
   }
@@ -49,10 +52,13 @@ export const updateComission = (comission) => {
   return(dispatch => {
     axios.put(`/api/art_works/${comission.id}`, comission)
       .then( res => {
+        dispatch(setFlash('Comission Successfully Updated!', 'success'));
         dispatch({ type: 'UPDATE_COMISSION', comission })
       }) 
       .catch( res => {
-        debugger
+        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch({ type: 'SET_HEADERS', headers: res.response.headers })
+        dispatch(setFlash(message, 'error'));
       })
   })
 }
@@ -62,10 +68,12 @@ export const deleteComission = (id) => {
     axios.delete(`/api/art_works/${id}`)
       .then( res => {
         const { headers } = res;
+        dispatch(setFlash('Comission Successfully Deleted!', 'success'));
         dispatch({ type: 'DELETE_COMISSION', id, headers });
       })
       .catch( res => {
         const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        dispatch({ type: 'SET_HEADERS', headers: res.response.headers })
         dispatch(setFlash(message, 'error'));
       })
   }
