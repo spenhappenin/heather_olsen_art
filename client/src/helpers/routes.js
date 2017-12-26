@@ -11,11 +11,3 @@ export const renderMergedProps = (component, ...rest) => {
     React.createElement(component, finalProps)
   );
 }
-
-export const PropsRoute = ({ component, ...rest }) => {
-  return (
-    <Route {...rest} render={routeProps => {
-      return renderMergedProps(component, routeProps, rest);
-    }} />
-  );
-}

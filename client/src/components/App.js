@@ -24,7 +24,6 @@ import { fetchPaintings } from '../actions/paintings';
 import { handleLogout } from '../actions/auth';
 import { Link } from 'react-router-dom';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import { PropsRoute } from '../helpers/routes';
 import { Menu, Sidebar } from 'semantic-ui-react';
 
 class App extends Component {
@@ -102,31 +101,43 @@ class App extends Component {
             <Flash />
             <FetchUser>
               <Switch>
-                <PropsRoute 
+                <Route 
                   exact 
-                  path='/comissions' 
-                  component={ArtWorks} 
-                  fetchArtWorks={fetchComissions}
-                  title='Comissions'
-                  type='comission' 
+                  path='/comissions'
+                  render={ props => (
+                    <ArtWorks 
+                      {...props} 
+                      fetchArtWorks={fetchComissions} 
+                      title='Comissions' 
+                      type='comission' 
+                    /> 
+                  )}
                 />
                 <ProtectedRoute path='/admin-comissions' component={FetchComissions} />
-                <PropsRoute 
-                  exact 
-                  path='/paintings' 
-                  component={ArtWorks} 
-                  fetchArtWorks={fetchPaintings} 
-                  title='Paintings'
-                  type='painting'
+                <Route 
+                  exact
+                  path='/paintings'
+                  render={ props => (
+                    <ArtWorks 
+                      {...props} 
+                      fetchArtWorks={fetchPaintings} 
+                      title='Paintings' 
+                      type='painting' 
+                    /> 
+                  )}
                 />
                 <ProtectedRoute path='/admin-paintings' component={FetchPaintings} />
-                <PropsRoute
+                <Route 
                   exact
                   path='/drawings'
-                  component={ArtWorks}
-                  fetchArtWorks={fetchDrawings}
-                  title='Drawings'
-                  type='drawing'
+                  render={ props => (
+                    <ArtWorks
+                      {...props}
+                      fetchArtWorks={fetchDrawings}
+                      title='Drawings'
+                      type='drawing'
+                    />
+                  )}
                 />
                 <ProtectedRoute path='/admin-drawings' component={FetchDrawings} />
                 <ProtectedRoute exact path='/admin-cv' component={AdminCvs} />
