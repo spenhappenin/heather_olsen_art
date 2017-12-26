@@ -40,7 +40,7 @@ class AdminCv extends React.Component {
         }
       case 'education':
         if(this.state.editing) {
-          return <CvEditForm type='two' id={id} title={title} date={justYear} toggleEdit={this.toggleEdit} />
+          return <CvEditForm type='two' id={id} title={title} date={cv_date} toggleEdit={this.toggleEdit} />
         }
         return(
           <Segment as={CvContainer} basic>
@@ -54,7 +54,7 @@ class AdminCv extends React.Component {
         )
       default:
         if(this.state.editing) {
-          return <CvEditForm type='three' id={id} title={title} date={formattedDate} location={location} toggleEdit={this.toggleEdit} />
+          return <CvEditForm type='three' id={id} title={title} date={cv_date} location={location} toggleEdit={this.toggleEdit} />
         } else {
           return(
             <Segment as={CvContainer} basic>

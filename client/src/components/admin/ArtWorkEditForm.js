@@ -35,7 +35,6 @@ class ArtWorkEditForm extends React.Component {
     const { work, dispatch, match: { params: { id } } } = this.props;
     switch(work.type) {
       case 'comission':
-        debugger
         dispatch(updateComission({ ...this.state, id }));
         break;
       case 'painting':

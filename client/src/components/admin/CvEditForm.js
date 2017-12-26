@@ -18,7 +18,7 @@ class CvEditForm extends React.Component {
   handleSubmit = () => {
     const { dispatch, id } = this.props;
     const { date, location, title } = this.state;
-    dispatch(updateCv({...date, location, title}, id));
+    dispatch(updateCv({cv_date: date, location, title}, id));
     this.props.toggleEdit();
   }
  
@@ -58,17 +58,20 @@ class CvEditForm extends React.Component {
         return(
           <Form onSubmit={this.handleSubmit}>
             <Input
+              required
               name='date'
               type='date'
               value={this.state.date}
               onChange={this.handleChange}
             />
             <Input
+              required
               name='title'
               value={this.state.title}
               onChange={this.handleChange}
             />
             <Input
+              required
               name='location'
               value={this.state.location}
               onChange={this.handleChange}
