@@ -1,27 +1,28 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { clearFlash } from '../actions/flash';
 import '../styles/flash.css';
-import { Button } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { FlashMessage } from '../styles/flash';
+import { clearFlash } from '../actions/flash';
+import { Button, Container, Header, Message } from 'semantic-ui-react';
 
 const fadeFlash = (dispatch) => {
   setTimeout( () => {
     dispatch(clearFlash());
-  }, 15000)
+  }, 3000)
 }
 
 const Flash = ({ flash, dispatch }) => {
   if(flash.message) {
     return(
-      <div
-        id='alert'
-        className={`alert alert-${flash.msgType}`}
-        style={{ width: '90%', margin: '0 auto'}}
-      >
-        { flash.message }
-        { fadeFlash(dispatch) }
-        <Button onClick={ () => dispatch(clearFlash()) }> X </Button>
-      </div>
+      <Container as={FlashMessage}>
+        <Message
+          onDismiss={() => dispatch(clearFlash())}
+          color={flash.msgType}
+        >
+          <Header as='h5' textAlign='center'>{ flash.message }</Header>
+          { fadeFlash(dispatch) }
+        </Message>
+      </Container>
     )
   } else {
     return null;
