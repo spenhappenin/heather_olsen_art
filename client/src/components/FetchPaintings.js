@@ -21,7 +21,14 @@ class FetchPaintings extends React.Component {
 
   render() {
     if (!this.state.loaded) {
-      return <div>Loading...</div>
+      return (
+        <div>
+          <br />
+          <Dimmer active inverted>
+            <Loader inverted size='large'>Loading</Loader>
+          </Dimmer>
+        </div>
+      )
     }
     return (
       <Switch>
