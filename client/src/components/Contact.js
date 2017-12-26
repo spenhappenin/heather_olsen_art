@@ -19,6 +19,10 @@ class Contact extends React.Component {
         <p>Thanks for visiting! For artwork/comission inquiries, or just to say hi, please fill out the form below. I'd love to hear from you!</p>
         <br />
         <ContactForm />
+        <br />
+        <br />
+        <br />
+        <p>All images and content of this website are copyrighted by the artist, Heather Olsen. Any use or reproduction in any form without permission is prohibited.</p>
       </Container>
     )
   }
