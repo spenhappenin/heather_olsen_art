@@ -21,6 +21,7 @@ export const createCv = (cv) => {
     axios.post('/api/cvs', cv)
       .then( res => {
         const cv = res.data;
+        dispatch(setFlash('Cv Successfully Created!', 'success'));
         dispatch({ type: 'CREATE_CV', cv });
       })
       .catch( res => {
@@ -36,6 +37,7 @@ export const updateCv = (cv, id) => {
     axios.put(`api/cv/${id}`, cv)
       .then( res => {
         const cv = res.data;
+        dispatch(setFlash('Cv Successfully Updated!', 'success'));
         dispatch({ type: 'UPDATE_CV', cv })
       })
       .catch( res => {
@@ -51,6 +53,7 @@ export const deleteCv = (id) => {
     axios.delete(`/api/cvs/${id}`)
       .then( res => {
         const { headers } = res;
+        dispatch(setFlash('Cv Successfully Deleted!', 'success'));
         dispatch({ type: 'DELETE_CV', id, headers });
       }) 
       .catch( res => {

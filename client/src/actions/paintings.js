@@ -37,6 +37,7 @@ export const createPainting = (painting) => {
     axios.post('/api/art_works', data)
       .then( res => {
         let data = res.data;
+        dispatch(setFlash('Painting Successfully Created!', 'success'));
         dispatch({ type: 'CREATE_PAINTING', painting: data });
       })
       .catch( res => {
@@ -51,6 +52,7 @@ export const updatePainting = (painting) => {
   return (dispatch => {
     axios.put(`/api/art_works/${painting.id}`, painting)
       .then( res => {
+        dispatch(setFlash('Painting Successfully Updated!', 'success'));
         dispatch({ type: 'UPDATE_PAINTING', painting })
       })
       .catch( res => {
@@ -66,6 +68,7 @@ export const deletePainting = (id) => {
     axios.delete(`/api/art_works/${id}`)
       .then( res => {
         const { headers } = res;
+        dispatch(setFlash('Painting Successfully Deleted!', 'success'));
         dispatch({ type: 'DELETE_PAINTING', id, headers });
       })
       .catch( res => {
