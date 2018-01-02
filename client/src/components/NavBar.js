@@ -60,7 +60,7 @@ class NavBar extends Component {
               />
             </Menu.Item>
             <StyledLink to='/'>
-              <Menu.Item as={StyledMenuItem} title content='Heather Olsen Art' />
+              <Menu.Item as={StyledMenuItem} style={styles.title} title content='Heather Olsen Art' />
             </StyledLink>
           </Grid.Row>
 
