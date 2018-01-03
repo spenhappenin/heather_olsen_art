@@ -2,7 +2,7 @@ import React from 'react';
 import Lightbox from 'react-images';
 import { connect } from 'react-redux';
 import { StyledContainer } from '../styles/shared';
-import { Container, Dimmer, Grid, Header, Image, Loader, Modal, Transition } from 'semantic-ui-react';
+import { Container, Dimmer, Grid, Header, Image, Loader, Modal, Segment, Transition } from 'semantic-ui-react';
 
 class ArtWorks extends React.Component {
   state = { currentImage: 0, lightboxIsOpen: false, loaded: false };
@@ -73,7 +73,7 @@ class ArtWorks extends React.Component {
   render() {
     if(this.state.loaded) {
       return (
-        <Container as={StyledContainer}>
+        <Segment as={StyledContainer} basic>
           <Header as='h1'>{this.props.title}</Header>
           <Grid>
             {this.displayArtWorks()}
@@ -92,7 +92,7 @@ class ArtWorks extends React.Component {
           <br />
           <br />
           <p>All images and content of this website are copyrighted by the artist, Heather Olsen. Any use or reproduction in any form without permission is prohibited.</p>
-        </Container>
+        </Segment>
       )
     } else {
       return(

@@ -1,11 +1,40 @@
 import styled from 'styled-components';
-import { Container, Header } from 'semantic-ui-react';
+import { css } from 'styled-components'
+import { Container, Header, Segment } from 'semantic-ui-react';
 
-export const StyledContainer = styled(Container)`
-  margin-top: 50px;
-  margin-bottom: 100px;
+// object of screen sizes
+const sizes = {
+  giant: 3000,
+  desktop: 992,
+  tablet: 768,
+  phablet: 572,
+  phone: 320
+}
+
+// creates media object to use for queries
+export const media = Object.keys(sizes).reduce((accumulator, label) => {
+  accumulator[label] = (...args) => css`
+    @media (max-width: ${sizes[label]}px) {
+      ${css(...args)}
+    }
+  `
+  return accumulator
+}, {})
+
+export const StyledContainer = styled(Segment)`
+  ${ media.giant`padding: 50px 200px 100px 200px !important;`}
+  ${ media.desktop`padding: 50px 160px 100px 160px !important;`}
+  ${ media.tablet`padding: 0 50px !important;`}
+  ${ media.phablet`padding: 0 30px !important;`}
+  ${ media.phone`padding: 0 20px !important;` }
 `
 
 export const StyledHeader = styled(Header)`
   font-size: 40px !important;
+`
+
+export const CenteredSegment = styled.div`
+  display: flex !important,
+  justify-content: center !important,
+  align-items: center !important
 `

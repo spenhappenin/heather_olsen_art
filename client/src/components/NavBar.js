@@ -85,7 +85,10 @@ class NavBar extends Component {
               </StyledLink>                              
               <StyledLink to='/cv'>
                 <Menu.Item as={StyledMenuItem} name='CV' />
-              </StyledLink>           
+              </StyledLink>
+              <StyledLink to='/media'>
+                <Menu.Item as={StyledMenuItem} name='Media' />
+              </StyledLink>             
               <StyledLink to='/contact'>
                 <Menu.Item as={StyledMenuItem} name='Contact' />
               </StyledLink>                                 

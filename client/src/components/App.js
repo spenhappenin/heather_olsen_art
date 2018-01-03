@@ -16,6 +16,7 @@ import Home from './Home';
 import Login from './Login';
 import NavBar from './NavBar';
 import NoMatch from './NoMatch';
+import Media from './Media';
 import ProtectedRoute from './ProtectedRoute';
 import { connect } from 'react-redux';
 import { fetchComissions } from '../actions/comissions';
@@ -42,6 +43,7 @@ class App extends Component {
       { name: 'Comissions', path: '/comissions', adminPath: '/admin-comissions' },
       { name: 'Drawings', path: '/drawings', adminPath: '/admin-drawings' },
       { name: 'Cv', path: '/cv', adminPath: '/admin-cv' },
+      { name: 'Media', path: '/media', adminPath: '/media' },
       { name: 'Contact', path: '/contact', adminPath: '/contact' },
     ]
 
@@ -143,6 +145,7 @@ class App extends Component {
                 <ProtectedRoute exact path='/admin-cv' component={AdminCvs} />
                 <ProtectedRoute exact path='/admin-cv/new' component={CvNewForm} />
                 <Route exact path='/cv' component={Cvs} />
+                <Route exact path='/media' component={Media} />
                 <Route exact path='/contact' component={Contact} />
                 <Route exact path='/' component={Home} />
                 <Route exact path='/login' component={Login} />

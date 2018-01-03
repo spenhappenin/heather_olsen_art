@@ -6,7 +6,7 @@ import { Container, Header, Segment } from 'semantic-ui-react';
 class Contact extends React.Component {
   render() {
     return(
-      <Container as={StyledContainer}>
+      <Segment as={StyledContainer} basic>
         <Header as={StyledHeader}>Contact</Header>
         <Segment basic>
           <p>Heather Olsen</p>
@@ -23,7 +23,7 @@ class Contact extends React.Component {
         <br />
         <br />
         <p>All images and content of this website are copyrighted by the artist, Heather Olsen. Any use or reproduction in any form without permission is prohibited.</p>
-      </Container>
+      </Segment>
     )
   }
 }

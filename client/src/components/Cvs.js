@@ -21,7 +21,7 @@ class Cvs extends React.Component {
 
   render() {
     return(
-      <Container as={StyledContainer}>
+      <Segment as={StyledContainer} basic>
         <Header as='h1'>Curriculum Vitae</Header>
         <Header as='h4'>Juried Exhibitions</Header>
         { this.displayCvs('exhibition') }
@@ -42,7 +42,7 @@ class Cvs extends React.Component {
         <br />
         <br />
         <p>All images and content of this website are copyrighted by the artist, Heather Olsen. Any use or reproduction in any form without permission is prohibited.</p>
-      </Container>
+      </Segment>
     )
   }
 }
