@@ -8,7 +8,7 @@ import { updateComission } from '../../actions/comissions';
 import { updatePainting } from '../../actions/paintings';
 import { updateDrawing } from '../../actions/drawings';
 import { statusOptions, typeOptions } from '../../helpers/data';
-import { Button, Container, Header, Form, Icon } from 'semantic-ui-react';
+import { Button, Container, Header, Form, Icon, Segment } from 'semantic-ui-react';
 
 class ArtWorkEditForm extends React.Component {
   state = {
@@ -61,7 +61,7 @@ class ArtWorkEditForm extends React.Component {
     const { title, type, medium, surface, dimensions, price, status, dateComplete, fireRedirect, open } = this.state;
 
     return(
-      <Container as={StyledContainer}>
+      <Segment as={StyledContainer} basic>
         <Header as='h1'>"{ work.title }" Information Page</Header>
         <Button color='black' onClick={this.props.history.goBack}><Icon name='arrow left' />Back</Button>
         <Button color='black' onClick={this.show()}><Icon name='trash outline' />Delete</Button>
@@ -152,7 +152,7 @@ class ArtWorkEditForm extends React.Component {
             <Redirect to={from || `/admin-${type}s`} />
           )
         }
-      </Container>
+      </Segment>
     )
   }
 }

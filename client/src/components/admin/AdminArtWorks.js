@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
-import { Button, Container, Grid, Header, Icon, Image, Transition } from 'semantic-ui-react';
+import { Button, Container, Grid, Header, Icon, Image, Segment, Transition } from 'semantic-ui-react';
 
 class AdminArtWorks extends React.Component {
   state = { visible: false };
@@ -29,7 +29,7 @@ class AdminArtWorks extends React.Component {
 
   render() {
     return (
-      <Container as={StyledContainer}>
+      <Segment as={StyledContainer} basic>
         <Header as='h1'>{this.props.title}</Header>
         <Link to={`${this.props.path}/new`}><Button color='black'><Icon name='add' />Add</Button></Link>
         <br />
@@ -37,7 +37,7 @@ class AdminArtWorks extends React.Component {
         <Grid>
           {this.displayArtWorks()}
         </Grid>
-      </Container>
+      </Segment>
     )
   }
 }

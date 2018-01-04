@@ -5,7 +5,7 @@ import { Container, Header, Segment } from 'semantic-ui-react';
 // object of screen sizes
 const sizes = {
   giant: 3000,
-  desktop: 992,
+  desktop: 1200,
   tablet: 768,
   phablet: 572,
   phone: 320
@@ -22,7 +22,7 @@ export const media = Object.keys(sizes).reduce((accumulator, label) => {
 }, {})
 
 export const StyledContainer = styled(Segment)`
-  ${ media.giant`padding: 50px 200px 100px 200px !important;`}
+  ${ media.giant`padding: 50px 300px 100px 300px !important;`}
   ${ media.desktop`padding: 50px 160px 100px 160px !important;`}
   ${ media.tablet`padding: 0 50px !important;`}
   ${ media.phablet`padding: 0 30px !important;`}

@@ -7,7 +7,7 @@ import { createComission } from '../../actions/comissions';
 import { createDrawing } from '../../actions/drawings';
 import { createPainting } from '../../actions/paintings';
 import { statusOptions, typeOptions } from '../../helpers/data';
-import { Button, Container, Form, Header, Icon } from 'semantic-ui-react';
+import { Button, Container, Form, Header, Icon, Segment } from 'semantic-ui-react';
 
 class ArtWorkNewForm extends React.Component {
   state = { 
@@ -57,7 +57,7 @@ class ArtWorkNewForm extends React.Component {
     const { from } = this.props.location.state || '/';
     const { title, type, medium, surface, dimensions, price, status, dateComplete, fireRedirect } = this.state;
     return (
-      <Container as={StyledContainer}>
+      <Segment as={StyledContainer} basic>
         <Header as='h1'>{getUrlType(this.props.path)}</Header>
         <Form onSubmit={this.handleSubmit}>
           <Dropzone onDrop={this.onDrop}>
@@ -146,7 +146,7 @@ class ArtWorkNewForm extends React.Component {
             <Redirect to={from || `/admin-${type}s`} />
           )
         }
-      </Container>
+      </Segment>
     )
   }
 }

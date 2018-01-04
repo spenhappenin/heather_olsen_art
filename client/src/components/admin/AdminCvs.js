@@ -22,7 +22,7 @@ class AdminCvs extends React.Component {
 
   render() {
     return (
-      <Container as={StyledContainer}>
+      <Segment as={StyledContainer} basic>
         <Header as='h1'>Curriculum Vitae</Header>
         <Link to='/admin-cv/new'><Button color='black'><Icon name='add' color='white' />Add</Button></Link>
         <Header as='h4'>Juried Exhibitions</Header>
@@ -41,7 +41,7 @@ class AdminCvs extends React.Component {
           <p><a href='https://www.instagram.com/heatherolsenart/' target="_blank">IG: @heatherolsenart</a></p>
           <p><a href='https://www.facebook.com/heatherolsenart/' target="_blank">www.facebook.com/heatherolsenart</a></p>
         </Segment>
-      </Container>
+      </Segment>
     )
   }
 }

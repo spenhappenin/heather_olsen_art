@@ -6,7 +6,7 @@ import { createCv } from '../../actions/cvs';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
-import { Button, Container, Form, Header, Icon } from 'semantic-ui-react';
+import { Button, Container, Form, Header, Icon, Segment } from 'semantic-ui-react';
 
 class CvNewForm extends React.Component {
   state = { type: '', title: '', location: '', date: '', startDate: moment(), fireRedirect: false };
@@ -30,7 +30,7 @@ class CvNewForm extends React.Component {
     const { from } = this.props.location.state || '/'
     const { type, title, location, fireRedirect } = this.state
     return(
-      <Container as={StyledContainer}>
+      <Segment as={StyledContainer} basic>
         <Header as='h1'>New Cv Form</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths='equal'>
@@ -74,7 +74,7 @@ class CvNewForm extends React.Component {
             <Redirect to={from || '/admin-cv'} />
           )
         }
-      </Container>
+      </Segment>
     )
   }
 }
