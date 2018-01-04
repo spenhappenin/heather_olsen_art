@@ -8,7 +8,7 @@ const sizes = {
   desktop: 1200,
   tablet: 768,
   phablet: 572,
-  phone: 320
+  phone: 330
 }
 
 // creates media object to use for queries
