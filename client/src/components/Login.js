@@ -24,7 +24,7 @@ class Login extends Component {
     const { email, password } = this.state;
 
     return(
-      <Container as={StyledContainer}>
+      <Segment as={StyledContainer} basic>
         <Header as='h1'>Admin Login</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Field>
@@ -53,7 +53,7 @@ class Login extends Component {
             <Button type='submit' color='black'>Submit</Button>
           </Segment>
         </Form>
-      </Container>
+      </Segment>
     );
   }
 }
