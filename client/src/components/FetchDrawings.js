@@ -5,9 +5,8 @@ import ArtWorkNewForm from './admin/ArtWorkNewForm';
 import ProtectedRoute from './ProtectedRoute';
 import { connect } from 'react-redux';
 import { fetchDrawings } from '../actions/drawings';
-import { validateToken } from '../actions/auth';
 import { Dimmer, Loader } from 'semantic-ui-react';
-import { Route, Switch } from 'react-router-dom'
+import { Switch } from 'react-router-dom'
 
 class FetchDrawings extends React.Component {
   state = { loaded: false }

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
-import { Button, Container, Grid, Header, Icon, Image, Segment, Transition } from 'semantic-ui-react';
+import { Button, Grid, Header, Icon, Image, Segment, Transition } from 'semantic-ui-react';
 
 class AdminArtWorks extends React.Component {
   state = { visible: false };

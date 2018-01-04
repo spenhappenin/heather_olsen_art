@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
 
 // component => ???
 // rest => an array of the rest (additional props) and routeProps (props routes gives us)

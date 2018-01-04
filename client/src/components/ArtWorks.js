@@ -2,7 +2,7 @@ import React from 'react';
 import Lightbox from 'react-images';
 import { connect } from 'react-redux';
 import { StyledContainer } from '../styles/shared';
-import { Container, Dimmer, Grid, Header, Image, Loader, Modal, Segment, Transition } from 'semantic-ui-react';
+import { Dimmer, Grid, Header, Image, Loader, Segment, Transition } from 'semantic-ui-react';
 
 class ArtWorks extends React.Component {
   state = { currentImage: 0, lightboxIsOpen: false, loaded: false };
@@ -96,12 +96,12 @@ class ArtWorks extends React.Component {
       )
     } else {
       return(
-        <Container as={StyledContainer}>
+        <Segment as={StyledContainer} basic> 
           <br />
           <Dimmer active>
             <Loader inverted size='large'>Loading</Loader>
           </Dimmer>
-        </Container>
+        </Segment>
       )
     }
   }

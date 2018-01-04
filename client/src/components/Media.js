@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
-import { Container, Header, Segment } from 'semantic-ui-react';
-import { CenteredSegment, StyledContainer } from '../styles/shared';
+import { Header, Segment } from 'semantic-ui-react';
+import { StyledContainer } from '../styles/shared';
 
 class Media extends React.Component {
   render() {

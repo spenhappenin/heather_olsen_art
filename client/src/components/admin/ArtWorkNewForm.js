@@ -7,7 +7,7 @@ import { createComission } from '../../actions/comissions';
 import { createDrawing } from '../../actions/drawings';
 import { createPainting } from '../../actions/paintings';
 import { statusOptions, typeOptions } from '../../helpers/data';
-import { Button, Container, Form, Header, Icon, Segment } from 'semantic-ui-react';
+import { Button, Form, Header, Icon, Segment } from 'semantic-ui-react';
 
 class ArtWorkNewForm extends React.Component {
   state = { 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { css } from 'styled-components'
-import { Container, Header, Segment } from 'semantic-ui-react';
+import { Header, Segment } from 'semantic-ui-react';
 
 // object of screen sizes
 const sizes = {
@@ -31,10 +31,4 @@ export const StyledContainer = styled(Segment)`
 
 export const StyledHeader = styled(Header)`
   font-size: 40px !important;
-`
-
-export const CenteredSegment = styled.div`
-  display: flex !important,
-  justify-content: center !important,
-  align-items: center !important
 `

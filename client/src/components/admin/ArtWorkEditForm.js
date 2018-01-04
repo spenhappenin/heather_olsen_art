@@ -1,6 +1,5 @@
 import React from 'react';
 import DeleteArtWorkModal from './DeleteArtWorkModal';
-import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
@@ -8,7 +7,7 @@ import { updateComission } from '../../actions/comissions';
 import { updatePainting } from '../../actions/paintings';
 import { updateDrawing } from '../../actions/drawings';
 import { statusOptions, typeOptions } from '../../helpers/data';
-import { Button, Container, Header, Form, Icon, Segment } from 'semantic-ui-react';
+import { Button, Header, Form, Icon, Segment } from 'semantic-ui-react';
 
 class ArtWorkEditForm extends React.Component {
   state = {

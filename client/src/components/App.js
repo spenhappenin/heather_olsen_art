@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import AdminArtWorks from './admin/AdminArtWorks';
 import AdminCvs from './admin/AdminCvs';
-import ArtWorkEditForm from './admin/ArtWorkEditForm';
-import ArtWorkNewForm from './admin/ArtWorkNewForm';
 import ArtWorks from './ArtWorks';
 import Contact from './Contact';
 import CvNewForm from './admin/CvNewForm';

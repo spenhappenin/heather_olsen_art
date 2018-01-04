@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchCvs } from '../../actions/cvs';
 import { Link } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
-import { Button, Container, Header, Icon, Segment } from 'semantic-ui-react';
+import { Button, Header, Icon, Segment } from 'semantic-ui-react';
 
 class AdminCvs extends React.Component {
 

@@ -6,7 +6,7 @@ import { createCv } from '../../actions/cvs';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
-import { Button, Container, Form, Header, Icon, Segment } from 'semantic-ui-react';
+import { Button, Form, Header, Icon, Segment } from 'semantic-ui-react';
 
 class CvNewForm extends React.Component {
   state = { type: '', title: '', location: '', date: '', startDate: moment(), fireRedirect: false };

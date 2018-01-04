@@ -3,7 +3,7 @@ import Cv from './Cv';
 import { connect } from 'react-redux';
 import { fetchCvs } from '../actions/cvs';
 import { StyledContainer } from '../styles/shared';
-import { Container, Header, Segment } from 'semantic-ui-react';
+import { Header, Segment } from 'semantic-ui-react';
 
 class Cvs extends React.Component {
 
