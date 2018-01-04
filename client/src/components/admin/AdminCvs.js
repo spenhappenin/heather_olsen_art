@@ -1,5 +1,6 @@
 import React from 'react';
 import AdminCv from './AdminCv';
+import Copyright from '../Copyright';
 import { connect } from 'react-redux';
 import { fetchCvs } from '../../actions/cvs';
 import { Link } from 'react-router-dom';
@@ -41,6 +42,7 @@ class AdminCvs extends React.Component {
           <p><a href='https://www.instagram.com/heatherolsenart/' target="_blank">IG: @heatherolsenart</a></p>
           <p><a href='https://www.facebook.com/heatherolsenart/' target="_blank">www.facebook.com/heatherolsenart</a></p>
         </Segment>
+        <Copyright />
       </Segment>
     )
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import Copyright from './Copyright';
 import Lightbox from 'react-images';
 import { connect } from 'react-redux';
 import { StyledContainer } from '../styles/shared';
@@ -88,10 +89,7 @@ class ArtWorks extends React.Component {
               onClose={this.closeLightbox}
               />
           </Grid>
-          <br />
-          <br />
-          <br />
-          <p>All images and content of this website are copyrighted by the artist, Heather Olsen. Any use or reproduction in any form without permission is prohibited.</p>
+          <Copyright />
         </Segment>
       )
     } else {
