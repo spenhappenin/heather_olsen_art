@@ -2,6 +2,7 @@ import React from 'react';
 import Copyright from './Copyright';
 import Cv from './Cv';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchCvs } from '../actions/cvs';
 import { StyledContainer } from '../styles/shared';
 import { Header, Segment } from 'semantic-ui-react';
@@ -48,8 +49,8 @@ class Cvs extends React.Component {
         <Header as='h4'>Website and Social Media</Header>
         <Segment basic>
           <p>www.heatherolsenart.com</p>
-          <p><a href='https://www.instagram.com/heatherolsenart/' target="_blank">IG: @heatherolsenart</a></p>
-          <p><a href='https://www.facebook.com/heatherolsenart/' target="_blank">www.facebook.com/heatherolsenart</a></p>
+          <p><Link to='https://www.instagram.com/heatherolsenart/' target="_blank">IG: @heatherolsenart</Link></p>
+          <p><Link to='https://www.facebook.com/heatherolsenart/' target="_blank">www.facebook.com/heatherolsenart</Link></p> 
         </Segment>
         <Copyright />
       </Segment>
