@@ -36,3 +36,7 @@ i.icon.sidebar:before {
 input {
   font-size: 1.3rem !important;
 }
+
+a {
+  color: black !important;
+}

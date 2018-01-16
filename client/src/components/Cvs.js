@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { fetchCvs } from '../actions/cvs';
 import { StyledContainer } from '../styles/shared';
 import { Header, Segment } from 'semantic-ui-react';
-import { CvItem } from '../styles/cv';
+import { CvItem, SocialLink } from '../styles/cv';
 
 class Cvs extends React.Component {
 
