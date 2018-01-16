@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Segment } from 'semantic-ui-react';
+import { Header, Segment } from 'semantic-ui-react';
 
 export const CvContainer = styled(Segment)`
   display: flex;
@@ -12,4 +12,10 @@ export const ButtonContainer = styled.p`
 
 export const CvContent = styled(Segment) `
   margin-bottom: 0px !important;
+`
+
+export const CvItem = styled.p`
+  margin-bottom: 5px !important;
+  font-weight: 100 !important;
+  color: #4f4f4f !important;
 `

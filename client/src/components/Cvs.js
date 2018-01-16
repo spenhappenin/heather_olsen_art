@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { fetchCvs } from '../actions/cvs';
 import { StyledContainer } from '../styles/shared';
 import { Header, Segment } from 'semantic-ui-react';
+import { CvItem } from '../styles/cv';
 
 class Cvs extends React.Component {
 
@@ -25,15 +26,25 @@ class Cvs extends React.Component {
       <Segment as={StyledContainer} basic>
         <Header as='h1'>Curriculum Vitae</Header>
         <Header as='h4'>Juried Exhibitions</Header>
-        { this.displayCvs('exhibition') }
+        <Segment basic>
+          { this.displayCvs('exhibition') }
+        </Segment>
         <Header as='h4'>Festivals and Events</Header>
-        {this.displayCvs('festival')}
+        <Segment basic>
+          {this.displayCvs('festival')}
+        </Segment>
         <Header as='h4'>Awards and Certificates</Header>
-        {this.displayCvs('award')}
+        <Segment basic>
+          {this.displayCvs('award')}
+        </Segment>
         <Header as='h4'>Current Representation</Header>
-        {this.displayCvs('current_rep')}
+        <Segment basic>
+          {this.displayCvs('current_rep')}
+        </Segment>
         <Header as='h4'>Education</Header>
-        {this.displayCvs('education')}
+         <Segment basic> 
+          {this.displayCvs('education')}
+        </Segment>
         <Header as='h4'>Website and Social Media</Header>
         <Segment basic>
           <p>www.heatherolsenart.com</p>
