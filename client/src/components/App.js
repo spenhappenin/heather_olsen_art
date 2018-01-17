@@ -36,9 +36,9 @@ class App extends Component {
   rightNavs = () => {
     const navs = [
       { name: 'Home', path: '/', adminPath: '/'},
-      { name: 'Comissions', path: '/comissions', adminPath: '/admin-comissions' },
       { name: 'Paintings', path: '/paintings', adminPath: '/admin-paintings' },
       { name: 'Drawings', path: '/drawings', adminPath: '/admin-drawings' },
+      { name: 'Comissions', path: '/comissions', adminPath: '/admin-comissions' },
       { name: 'Cv', path: '/cv', adminPath: '/admin-cv' },
       { name: 'Media', path: '/media', adminPath: '/media' },
       { name: 'Contact', path: '/contact', adminPath: '/contact' },
