@@ -5,8 +5,8 @@ export const fetchCvs = () => {
   return(dispatch) => {
     axios.get('api/cvs')
       .then( res => {
-        const { data } = res;
-        dispatch({ type: 'GET_CVS', cvs: data })
+        const { data: cvs } = res;
+        dispatch({ type: 'GET_CVS', cvs });
       })
       .catch( res => {
         const { response: { headers } } = res;
@@ -42,7 +42,7 @@ export const updateCv = (cv, id) => {
       })
       .catch( res => {
         const { response: { headers } } = res;
-        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
+        dispatch({ type: 'SET_HEADERS', headers });
         dispatch(setFlash('Failed to update CV record at this time. Please try again later.', 'red'));
       })
   }

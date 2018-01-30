@@ -11,7 +11,7 @@ const drawings = (state = [], action) => {
         return d;
       })
     case 'DELETE_DRAWING': 
-      return state.filter( d => d.id !== action.drawing);
+      return state.filter( d => d.id !== action.id);
     default: 
       return state;
   }

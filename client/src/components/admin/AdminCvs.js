@@ -15,8 +15,9 @@ class AdminCvs extends React.Component {
   }
 
   displayCvs = (type) => {
-    return this.props.cvs.map(cv => {
-      if (cv.cv_type === type)
+    const { cvs } = this.props;
+    return cvs.map( cv => {
+      if(cv.cv_type === type)
         return <AdminCv key={cv.id} cv={cv} />
     })
   }
@@ -25,7 +26,7 @@ class AdminCvs extends React.Component {
     return (
       <Segment as={StyledContainer} basic>
         <Header as='h1'>Curriculum Vitae</Header>
-        <Link to='/admin-cv/new'><Button color='black'><Icon name='add' color='white' />Add</Button></Link>
+        <Link to='/admin-cv/new'><Button color='black'><Icon name='add' />Add</Button></Link>
         <Header as='h4'>Juried Exhibitions</Header>
         {this.displayCvs('exhibition')}
         <Header as='h4'>Festivals and Events</Header>
@@ -39,8 +40,16 @@ class AdminCvs extends React.Component {
         <Header as='h4'>Website and Social Media</Header>
         <Segment basic>
           <p>www.heatherolsenart.com</p>
-          <p><a href='https://www.instagram.com/heatherolsenart/' target="_blank">IG: @heatherolsenart</a></p>
-          <p><a href='https://www.facebook.com/heatherolsenart/' target="_blank">www.facebook.com/heatherolsenart</a></p>
+          <p>
+            <a href='https://www.instagram.com/heatherolsenart/' target="_blank" rel="noopener noreferrer">
+              IG: @heatherolsenart
+            </a>
+          </p>
+          <p>
+            <a href='https://www.facebook.com/heatherolsenart/' target="_blank" rel="noopener noreferrer">
+              www.facebook.com/heatherolsenart
+            </a>
+          </p>
         </Segment>
         <Copyright />
       </Segment>

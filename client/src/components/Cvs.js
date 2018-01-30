@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { fetchCvs } from '../actions/cvs';
 import { StyledContainer } from '../styles/shared';
 import { Header, Segment } from 'semantic-ui-react';
-import { CvItem, SocialLink } from '../styles/cv';
 
 class Cvs extends React.Component {
 
@@ -16,7 +15,8 @@ class Cvs extends React.Component {
   }
 
   displayCvs = (type) => {
-    return this.props.cvs.map( cv => {
+    const { cvs } = this.props;
+    return cvs.map( cv => {
       if(cv.cv_type === type)
         return <Cv key={cv.id} cv={cv} />
     })

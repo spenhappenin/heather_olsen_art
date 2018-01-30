@@ -21,7 +21,7 @@ class CvNewForm extends React.Component {
 
   handleSubmit = () => {
     const { dispatch } = this.props;
-    const { type, title, location, date, fireRedirect } = this.state;
+    const { type, title, location, date } = this.state;
     dispatch(createCv({ cv_type: type, title, location, cv_date: date } ));
     this.setState({ fireRedirect: true });
   }

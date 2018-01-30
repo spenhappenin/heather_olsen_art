@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Header, Segment } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 
 export const CvContainer = styled(Segment)`
   display: flex;

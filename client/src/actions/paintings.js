@@ -38,7 +38,7 @@ export const createPainting = (painting) => {
       .then( res => {
         const { data: painting, headers } = res;
         dispatch({ type: 'CREATE_PAINTING', painting, headers });
-        dispatch(setFlash('Painting successfully added', 'green'));
+        dispatch(setFlash('Painting successfully added.', 'green'));
       })
       .catch( res => {
         const { response: { headers } } = res;
@@ -69,7 +69,7 @@ export const deletePainting = (id) => {
     axios.delete(`/api/art_works/${id}`)
       .then( res => {
         const { headers } = res;
-        dispatch(setFlash('Painting successfully deleted!', 'green'));
+        dispatch(setFlash('Painting successfully deleted.', 'green'));
         dispatch({ type: 'DELETE_PAINTING', id, headers });
       })
       .catch( res => {

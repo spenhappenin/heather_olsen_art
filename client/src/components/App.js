@@ -35,23 +35,23 @@ class App extends Component {
 
   rightNavs = () => {
     const navs = [
-      { name: 'Home', path: '/', adminPath: '/'},
-      { name: 'Paintings', path: '/paintings', adminPath: '/admin-paintings' },
-      { name: 'Drawings', path: '/drawings', adminPath: '/admin-drawings' },
-      { name: 'Comissions', path: '/comissions', adminPath: '/admin-comissions' },
-      { name: 'Cv', path: '/cv', adminPath: '/admin-cv' },
-      { name: 'Media', path: '/media', adminPath: '/media' },
-      { name: 'Contact', path: '/contact', adminPath: '/contact' },
+      { key: 0, name: 'Home', path: '/', adminPath: '/'},
+      { key: 1, name: 'Paintings', path: '/paintings', adminPath: '/admin-paintings' },
+      { key: 2, name: 'Drawings', path: '/drawings', adminPath: '/admin-drawings' },
+      { key: 3, name: 'Comissions', path: '/comissions', adminPath: '/admin-comissions' },
+      { key: 4, name: 'Cv', path: '/cv', adminPath: '/admin-cv' },
+      { key: 5, name: 'Media', path: '/media', adminPath: '/media' },
+      { key: 6, name: 'Contact', path: '/contact', adminPath: '/contact' },
     ]
 
     if(this.props.user.id) 
       navs.push({ adminName: 'Logout', logout: true });
 
-    return navs.map(nav => {
+    return navs.map( nav => {
       if(nav.logout) {
         return(
           <Menu.Item
-            key={nav.name}
+            key={nav.key}
             name={this.props.user.id ? nav.adminName : nav.name}
             onClick={(e) => {
               this.props.dispatch(handleLogout(this.props.history));
@@ -62,17 +62,17 @@ class App extends Component {
         )
       }
       return(
-        <Link to={this.props.user.id ? nav.adminPath : nav.path }>
-          <Menu.Item
-            key={nav.path}
-            position='right'
-            name={nav.name}
-            onClick={() => {
-              if (this.state.sideNav)
-                this.setState({ sideNav: false, dimmed: false });
-            }}
-          />
-        </Link>
+        <Menu.Item
+          as={Link}
+          key={nav.key}
+          to={this.props.user.id ? nav.adminPath : nav.path}
+          position='right'
+          name={nav.name}
+          onClick={() => {
+            if (this.state.sideNav)
+              this.setState({ sideNav: false, dimmed: false });
+          }}
+        />
       )
     }
     )

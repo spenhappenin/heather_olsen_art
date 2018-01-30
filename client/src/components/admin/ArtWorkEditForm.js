@@ -155,11 +155,11 @@ class ArtWorkEditForm extends React.Component {
 const mapStateToProps = (state, props) => {
   switch(props.type) {
     case 'comission': 
-      return { work: state.comissions.find( c => c.id === parseInt(props.match.params.id)) };
+      return { work: state.comissions.find( c => c.id === parseInt(props.match.params.id, 10)) };
     case 'painting': 
-      return { work: state.paintings.find( p => p.id === parseInt(props.match.params.id)) };
+      return { work: state.paintings.find( p => p.id === parseInt(props.match.params.id, 10)) };
     case 'drawing':
-      return { work: state.drawings.find( d => d.id === parseInt(props.match.params.id)) };
+      return { work: state.drawings.find( d => d.id === parseInt(props.match.params.id, 10)) };
     default: 
       return {};
   }

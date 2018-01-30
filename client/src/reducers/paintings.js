@@ -11,7 +11,7 @@ const paintings = (state = [], action) => {
         return p;
       })
     case 'DELETE_PAINTING':
-      return state.filter( p => p.id !== action.painting);
+      return state.filter( p => p.id !== action.id);
     default: 
       return state;
   }

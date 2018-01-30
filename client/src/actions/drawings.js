@@ -54,7 +54,7 @@ export const updateDrawing = (drawing) => {
       .then( res => {
         const { data: drawing, headers } = res;
         dispatch({ type: 'UPDATE_DRAWING', drawing, headers });
-        dispatch(setFlash('Drawing successfully updated!', 'green'));
+        dispatch(setFlash('Drawing successfully updated.', 'green'));
       })
       .catch( res => {
         const { response: { headers } } = res;
@@ -71,7 +71,7 @@ export const deleteDrawing = (id) => {
       .then( res => {
         const { headers } = res;
         dispatch({ type: 'DELETE_DRAWING', id, headers });
-        dispatch(setFlash('Drawing successfully deleted!', 'success'));
+        dispatch(setFlash('Drawing successfully deleted.', 'success'));
       })
       .catch( res => {
         const { response: { headers } } = res;
