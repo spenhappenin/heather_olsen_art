@@ -1,5 +1,5 @@
 import React from 'react';
-import Copyright from '../Copyright';
+import Copyright from '../shared/Copyright';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';

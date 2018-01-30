@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Copyright from './Copyright';
+import Copyright from './shared/Copyright';
 import { StyledContainer } from '../styles/shared';
 import { Header, Segment } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';

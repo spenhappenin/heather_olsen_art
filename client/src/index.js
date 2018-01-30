@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
-import ScrollToTop from './components/ScrollToTop';
+import ScrollToTop from './components/shared/ScrollToTop';
 import store from './store';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { handleLogout } from '../actions/auth';
+import { handleLogout } from '../../actions/auth';
 import { withRouter } from 'react-router-dom';
-import { StyledLink, StyledMenu, StyledMenuItem } from '../styles/navbar';
+import { StyledLink, StyledMenu, StyledMenuItem } from '../../styles/navbar';
 import { Grid, Icon, Menu } from 'semantic-ui-react';
 
 class NavBar extends Component {

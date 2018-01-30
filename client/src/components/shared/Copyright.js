@@ -1,5 +1,5 @@
 import React from 'react';
-import { CopyrightSegment } from '../styles/copyright';
+import { CopyrightSegment } from '../../styles/copyright';
 import { Segment } from 'semantic-ui-react';
 
 const Copyright = () => (

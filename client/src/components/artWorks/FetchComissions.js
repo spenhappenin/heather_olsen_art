@@ -1,10 +1,10 @@
 import React from 'react';
-import AdminArtWorks from './admin/AdminArtWorks';
-import ArtWorkEditForm from './admin/ArtWorkEditForm';
-import ArtWorkNewForm from './admin/ArtWorkNewForm';
-import ProtectedRoute from './ProtectedRoute';
+import AdminArtWorks from '../admin/AdminArtWorks';
+import ArtWorkEditForm from '../admin/ArtWorkEditForm';
+import ArtWorkNewForm from '../admin/ArtWorkNewForm';
+import ProtectedRoute from '../ProtectedRoute';
 import { connect } from 'react-redux';
-import { fetchComissions } from '../actions/comissions';
+import { fetchComissions } from '../../actions/comissions';
 import { Dimmer, Loader } from 'semantic-ui-react';
 import { Switch } from 'react-router-dom'
 

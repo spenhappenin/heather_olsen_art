@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { validateToken } from '../actions/auth';
+import { validateToken } from '../../actions/auth';
 
 class FetchUser extends React.Component {
   state = { loaded: false };

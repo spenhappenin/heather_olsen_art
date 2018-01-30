@@ -1,21 +1,21 @@
 import React from 'react';
-import AdminArtWorks from './admin/AdminArtWorks';
-import ArtWorkEditForm from './admin/ArtWorkEditForm';
-import ArtWorkNewForm from './admin/ArtWorkNewForm';
-import ProtectedRoute from './ProtectedRoute';
+import AdminArtWorks from '../admin/AdminArtWorks';
+import ArtWorkEditForm from '../admin/ArtWorkEditForm';
+import ArtWorkNewForm from '../admin/ArtWorkNewForm';
+import ProtectedRoute from '../ProtectedRoute';
 import { connect } from 'react-redux';
-import { fetchPaintings } from '../actions/paintings';
+import { fetchDrawings } from '../../actions/drawings';
 import { Dimmer, Loader } from 'semantic-ui-react';
 import { Switch } from 'react-router-dom'
 
-class FetchPaintings extends React.Component {
+class FetchDrawings extends React.Component {
   state = { loaded: false }
 
   setLoaded = () => this.setState({ loaded: true });
 
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(fetchPaintings(this.setLoaded));
+    dispatch(fetchDrawings(this.setLoaded));
   }
 
   render() {
@@ -33,20 +33,20 @@ class FetchPaintings extends React.Component {
       <Switch>
         <ProtectedRoute
           exact
-          path='/admin-paintings'
+          path='/admin-drawings'
           component={AdminArtWorks}
-          fetchArtWorks={fetchPaintings}
-          title='Paintings'
-          type='painting'
+          fetchArtWorks={fetchDrawings}
+          title='Drawings'
+          type='drawing'
         />
-        <ProtectedRoute exact path='/admin-paintings/new' component={ArtWorkNewForm} />
+        <ProtectedRoute exact path='/admin-drawings/new' component={ArtWorkNewForm} />
         <ProtectedRoute
           exact
-          path='/admin-paintings/:id'
+          path='/admin-drawings/:id'
           component={ArtWorkEditForm}
-          fetchArtWorks={fetchPaintings}
-          title='Paintings'
-          type='painting'
+          fetchArtWorks={fetchDrawings}
+          title='Drawings'
+          type='drawing'
         />
       </Switch>
     )
@@ -54,4 +54,4 @@ class FetchPaintings extends React.Component {
   }
 }
 
-export default connect()(FetchPaintings);
+export default connect()(FetchDrawings);

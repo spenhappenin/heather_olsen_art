@@ -1,8 +1,8 @@
 import React from 'react';
-import Copyright from './Copyright';
+import Copyright from '../shared/Copyright';
 import ReactPlayer from 'react-player';
 import { Header, Segment } from 'semantic-ui-react';
-import { StyledContainer } from '../styles/shared';
+import { StyledContainer } from '../../styles/shared';
 
 class Media extends React.Component {
   render() {

@@ -1,6 +1,6 @@
 import React from 'react';
 import AdminCv from './AdminCv';
-import Copyright from '../Copyright';
+import Copyright from '../shared/Copyright';
 import { connect } from 'react-redux';
 import { fetchCvs } from '../../actions/cvs';
 import { Link } from 'react-router-dom';

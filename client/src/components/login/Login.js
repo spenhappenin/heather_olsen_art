@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { handleLogin } from '../actions/auth';
-import { StyledContainer } from '../styles/shared';
+import { handleLogin } from '../../actions/auth';
+import { StyledContainer } from '../../styles/shared';
 import { Button, Form, Header, Segment } from 'semantic-ui-react';
 
 class Login extends Component {
