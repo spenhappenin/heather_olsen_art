@@ -6,16 +6,16 @@ export const fetchPaintings = (cb = () => {}) => {
   return(dispatch) => {
     axios.get('/api/paintings')
       .then( res => {
-        let data = res.data;
+        const { data } = res;
         const paintings = [];
         data.map( painting => paintings.push(formatArt(painting)) );
         dispatch({ type: 'GET_PAINTINGS', paintings });
         cb();
       })
       .catch( res => {
-        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
-        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
-        dispatch(setFlash(message, 'error'));
+        const { response: { headers } } = res;
+        dispatch({ type: 'SET_HEADERS', headers });
+        dispatch(setFlash('Failed to retrieve paintings at this time. Please try again later.', 'red'));
       })
   }
 }
@@ -36,14 +36,14 @@ export const createPainting = (painting) => {
     data.append('date_complete', painting.date_complete);
     axios.post('/api/art_works', data)
       .then( res => {
-        let data = res.data;
-        dispatch(setFlash('Painting Successfully Created!', 'success'));
-        dispatch({ type: 'CREATE_PAINTING', painting: data });
+        const { data: painting, headers } = res;
+        dispatch({ type: 'CREATE_PAINTING', painting, headers });
+        dispatch(setFlash('Painting successfully added', 'green'));
       })
       .catch( res => {
-        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
-        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
-        dispatch(setFlash(message, 'error'));
+        const { response: { headers } } = res;
+        dispatch({ type: 'SET_HEADERS', headers });
+        dispatch(setFlash('Failed to add painting at this time. Please try again later.', 'red'));
       })
   }
 }
@@ -52,13 +52,14 @@ export const updatePainting = (painting) => {
   return (dispatch => {
     axios.put(`/api/art_works/${painting.id}`, painting)
       .then( res => {
-        dispatch(setFlash('Painting Successfully Updated!', 'success'));
-        dispatch({ type: 'UPDATE_PAINTING', painting })
+        const { data: painting, headers } = res;
+        dispatch({ type: 'UPDATE_PAINTING', painting, headers });
+        dispatch(setFlash('Painting successfully updated.', 'green'));
       })
       .catch( res => {
-        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
-        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
-        dispatch(setFlash(message, 'error'));
+        const { response: { headers } } = res;
+        dispatch({ type: 'SET_HEADERS', headers });
+        dispatch(setFlash('Failed to update painting at this time. Please try again later.', 'red'));
       })
   })
 }
@@ -68,13 +69,13 @@ export const deletePainting = (id) => {
     axios.delete(`/api/art_works/${id}`)
       .then( res => {
         const { headers } = res;
-        dispatch(setFlash('Painting Successfully Deleted!', 'success'));
+        dispatch(setFlash('Painting successfully deleted!', 'green'));
         dispatch({ type: 'DELETE_PAINTING', id, headers });
       })
       .catch( res => {
-        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
-        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
-        dispatch(setFlash(message, 'error'));
+        const { response: { headers } } = res;
+        dispatch({ type: 'SET_HEADERS', headers });
+        dispatch(setFlash('Failed to delete painting at this time. Please try again later.', 'red'));
       })
   }
 }

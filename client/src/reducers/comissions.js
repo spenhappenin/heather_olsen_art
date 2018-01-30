@@ -5,7 +5,11 @@ const comissions = (state = [], action) => {
     case 'CREATE_COMISSION':
       return [action.comission, ...state];
     case 'UPDATE_COMISSION':
-      return [action.comission, ...state];
+      return state.map( c => {
+        if(action.comission.id === c.id)
+          return action.comission;
+        return c;
+      })
     case 'DELETE_COMISSION':
       return state.filter( c => c.id !== action.id);
     default: 

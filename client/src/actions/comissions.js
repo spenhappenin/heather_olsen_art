@@ -13,9 +13,9 @@ export const fetchComissions = (cb = () => {}) => {
         cb();
       })
       .catch( res => {
-        const message = 'Sorry, there was an error with your request.';
-        dispatch({ type: 'SET_HEADERS', headers: res.response.headers })
-        dispatch(setFlash(message, 'error'));
+        const { response: { headers } } = res;
+        dispatch({ type: 'SET_HEADERS', headers });
+        dispatch(setFlash('Failed to retrieve comissions at this time. Please try again later.', 'red'));
       })
   }
 }
@@ -36,14 +36,14 @@ export const createComission = (comission) => {
     data.append('status', comission.status);
     axios.post('/api/art_works', data)
       .then( res => {
-        let data = res.data;
-        dispatch(setFlash('Comission Successfully Created!', 'success'));
-        dispatch({ type: 'CREATE_COMISSION', comission: data });
+        const { data: comission, headers } = res;
+        dispatch({ type: 'CREATE_COMISSION', comission, headers });
+        dispatch(setFlash('Comission successfully added.', 'green'));
       })
       .catch( res => {
-        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
-        dispatch({ type: 'SET_HEADERS', headers: res.response.headers })
-        dispatch(setFlash(message, 'error'));
+        const { response: { headers } } = res;
+        dispatch({ type: 'SET_HEADERS', headers });
+        dispatch(setFlash('Failed to add comission at this time. Please try again later.', 'red'));
       })
   }
 }
@@ -52,13 +52,14 @@ export const updateComission = (comission) => {
   return(dispatch => {
     axios.put(`/api/art_works/${comission.id}`, comission)
       .then( res => {
-        dispatch(setFlash('Comission Successfully Updated!', 'success'));
-        dispatch({ type: 'UPDATE_COMISSION', comission })
+        const { data: comission, headers } = res;
+        dispatch({ type: 'UPDATE_COMISSION', comission, headers });
+        dispatch(setFlash('Comission successfully updated.', 'green'));
       }) 
       .catch( res => {
-        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
-        dispatch({ type: 'SET_HEADERS', headers: res.response.headers })
-        dispatch(setFlash(message, 'error'));
+        const { response: { headers } } = res;
+        dispatch({ type: 'SET_HEADERS', headers });
+        dispatch(setFlash('Failed to update comission at this time. Please try again later.', 'red'));
       })
   })
 }
@@ -68,13 +69,13 @@ export const deleteComission = (id) => {
     axios.delete(`/api/art_works/${id}`)
       .then( res => {
         const { headers } = res;
-        dispatch(setFlash('Comission Successfully Deleted!', 'success'));
         dispatch({ type: 'DELETE_COMISSION', id, headers });
+        dispatch(setFlash('Comission successfully deleted.', 'green'));
       })
       .catch( res => {
-        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
-        dispatch({ type: 'SET_HEADERS', headers: res.response.headers })
-        dispatch(setFlash(message, 'error'));
+        const { response: { headers } } = res;
+        dispatch({ type: 'SET_HEADERS', headers });
+        dispatch(setFlash('Failed to update comission at this time. Please try again later.', 'red'));
       })
   }
 }

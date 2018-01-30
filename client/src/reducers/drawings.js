@@ -5,7 +5,11 @@ const drawings = (state = [], action) => {
     case 'CREATE_DRAWING':
       return [action.drawing, ...state];
     case 'UPDATE_DRAWING':
-      return [action.drawing, ...state];
+      return state.map( d => {
+        if (action.drawing.id === d.id)
+          return action.drawing;
+        return d;
+      })
     case 'DELETE_DRAWING': 
       return state.filter( d => d.id !== action.drawing);
     default: 

@@ -31,7 +31,7 @@ class ArtWorkEditForm extends React.Component {
   }
 
   handleSubmit = (e) => {
-    const { work, dispatch, match: { params: { id } } } = this.props;
+    const { work, work: { id }, dispatch } = this.props;
     switch(work.type) {
       case 'comission':
         dispatch(updateComission({ ...this.state, id }));
@@ -146,11 +146,7 @@ class ArtWorkEditForm extends React.Component {
             <Form.Button color='black'><Icon name='check' />Submit</Form.Button>
           </Form.Group>
         </Form>
-        {
-          fireRedirect && (
-            <Redirect to={from || `/admin-${type}s`} />
-          )
-        }
+        { fireRedirect && <Redirect to={from || `/admin-${type}s`} /> }
       </Segment>
     )
   }

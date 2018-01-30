@@ -5,13 +5,13 @@ export const fetchCvs = () => {
   return(dispatch) => {
     axios.get('api/cvs')
       .then( res => {
-        const data = res.data;
+        const { data } = res;
         dispatch({ type: 'GET_CVS', cvs: data })
       })
       .catch( res => {
-        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
-        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
-        dispatch(setFlash(message, 'error'));
+        const { response: { headers } } = res;
+        dispatch({ type: 'SET_HEADERS', headers });
+        dispatch(setFlash('Failed to retrieve CV records at this time. Please try again later.', 'red'));
       })
   }
 }
@@ -20,14 +20,14 @@ export const createCv = (cv) => {
   return(dispatch) => {
     axios.post('/api/cvs', cv)
       .then( res => {
-        const cv = res.data;
-        dispatch(setFlash('Cv Successfully Created!', 'success'));
-        dispatch({ type: 'CREATE_CV', cv });
+        const { data: cv, headers } = res;
+        dispatch({ type: 'CREATE_CV', cv, headers });
+        dispatch(setFlash('Cv Record Successfully Created.', 'green'));
       })
       .catch( res => {
-        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
-        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
-        dispatch(setFlash(message, 'error'));
+        const { response: { headers } } = res;
+        dispatch({ type: 'SET_HEADERS', headers });
+        dispatch(setFlash('Failed to create CV record at this time. Please try again later.', 'red'));
       })
   }
 }
@@ -36,14 +36,14 @@ export const updateCv = (cv, id) => {
   return(dispatch) => {
     axios.put(`api/cv/${id}`, cv)
       .then( res => {
-        const cv = res.data;
-        dispatch(setFlash('Cv Successfully Updated!', 'success'));
-        dispatch({ type: 'UPDATE_CV', cv })
+        const { data: cv, headers } = res;
+        dispatch({ type: 'UPDATE_CV', cv, headers });
+        dispatch(setFlash('Cv Record Successfully Updated.', 'green'));
       })
       .catch( res => {
-        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
+        const { response: { headers } } = res;
         dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
-        dispatch(setFlash(message, 'error'));
+        dispatch(setFlash('Failed to update CV record at this time. Please try again later.', 'red'));
       })
   }
 }
@@ -53,13 +53,13 @@ export const deleteCv = (id) => {
     axios.delete(`/api/cvs/${id}`)
       .then( res => {
         const { headers } = res;
-        dispatch(setFlash('Cv Successfully Deleted!', 'success'));
         dispatch({ type: 'DELETE_CV', id, headers });
+        dispatch(setFlash('Cv Record Successfully Deleted!', 'green'));
       }) 
       .catch( res => {
-        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
-        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
-        dispatch(setFlash(message, 'error'));
+        const { response: { headers } } = res;
+        dispatch({ type: 'SET_HEADERS', headers });
+        dispatch(setFlash('Failed to delete CV record at this time. Please try again later.', 'red'));
       })
   }
 }

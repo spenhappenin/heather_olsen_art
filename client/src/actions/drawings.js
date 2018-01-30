@@ -6,16 +6,16 @@ export const fetchDrawings = (cb = () => {}) => {
   return(dispatch) => {
     axios.get('/api/drawings')
       .then( res => {
-        const data = res.data;
+        const { data } = res;
         const drawings = [];
         data.map( drawing => drawings.push(formatArt(drawing)) );
         dispatch({ type: 'GET_DRAWINGS', drawings });
         cb();
       })
       .catch( res => {
-        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
-        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
-        dispatch(setFlash(message, 'error'));
+        const { response: { headers } } = res;
+        dispatch({ type: 'SET_HEADERS', headers });
+        dispatch(setFlash('Failed to retrieve drawings at this time. Please try again later.', 'red'));
       })
   }
 }
@@ -36,14 +36,14 @@ export const createDrawing = (drawing) => {
     data.append('date_complete', drawing.date_complete);
     axios.post('/api/art_works', data)
       .then( res => {
-        let data = res.data;
-        dispatch(setFlash('Drawing Successfully Created!', 'success'));
-        dispatch({ type: 'CREATE_DRAWING', drawing: data });
+        const { data: drawing } = res;
+        dispatch({ type: 'CREATE_DRAWING', drawing });
+        dispatch(setFlash('Drawing successfully added.', 'green'));
       })
       .catch( res => {
-        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
-        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
-        dispatch(setFlash(message, 'error'));
+        const { response: { headers } } = res;
+        dispatch({ type: 'SET_HEADERS', headers });
+        dispatch(setFlash('Failed to add drawing at this time. Please try again later.', 'red'));
       })
   }
 }
@@ -52,13 +52,14 @@ export const updateDrawing = (drawing) => {
   return (dispatch => {
     axios.put(`/api/art_works/${drawing.id}`, drawing)
       .then( res => {
-        dispatch(setFlash('Drawing Successfully Updated!', 'success'));
-        dispatch({ type: 'UPDATE_DRAWING', drawing })
+        const { data: drawing, headers } = res;
+        dispatch({ type: 'UPDATE_DRAWING', drawing, headers });
+        dispatch(setFlash('Drawing successfully updated!', 'green'));
       })
       .catch( res => {
-        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
-        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
-        dispatch(setFlash(message, 'error'));
+        const { response: { headers } } = res;
+        dispatch({ type: 'SET_HEADERS', headers });
+        dispatch(setFlash('Failed to update drawing at this time. Please try again later.', 'red'));
       })
   })
 }
@@ -69,13 +70,13 @@ export const deleteDrawing = (id) => {
     axios.delete(`/api/art_works/${id}`)
       .then( res => {
         const { headers } = res;
-        dispatch(setFlash('Drawing Successfully Deleted!', 'success'));
         dispatch({ type: 'DELETE_DRAWING', id, headers });
+        dispatch(setFlash('Drawing successfully deleted!', 'success'));
       })
       .catch( res => {
-        const message = 'Sorry, there was an error with your request. See your awesome developer for more details.';
-        dispatch({ type: 'SET_HEADERS', headers: res.response.headers });
-        dispatch(setFlash(message, 'error'));
+        const { response: { headers } } = res;
+        dispatch({ type: 'SET_HEADERS', headers });
+        dispatch(setFlash('Failed to delete drawings at this time. Please try again later.', 'red'));
       })
   }
 }
