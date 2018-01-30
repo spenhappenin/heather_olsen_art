@@ -20,7 +20,7 @@ export const StyledMenu = styled(Menu)`
   z-index: 1;
 `
 
-export const StyledMenuItem = styled(Menu.Item)`
+export const StyledMenuItem = styled.p`
   color: ${ props => props.title ? '#5c5c5c !important' : '#a8a8a8 !important' };
   font-size: ${ props => props.title ? '20px' : '16px' };
   font-family: ${ props => props.title ? "'Archivo Black', sans-serif !important" : "Raleway', sans-serif !important" };

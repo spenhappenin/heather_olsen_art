@@ -21,7 +21,7 @@ class AdminArtWorks extends React.Component {
   displayArtWorks = () => {
     return this.props.works.map( work =>
       <Grid.Column mobile={8} tablet={4} computer={3} key={work.id}>
-        <Transition visible={this.state.visible} animation='fade' duration={2000}>
+        <Transition visible={this.state.visible} animation='fade' duration={1000}>
           <Link to={`${this.props.path}/${work.id}`}><Image src={work.src} fluid /></Link>
         </Transition>
       </Grid.Column>
