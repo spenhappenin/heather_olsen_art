@@ -2,7 +2,7 @@ import React from 'react';
 import Copyright from '../shared/Copyright';
 import Lightbox from 'react-images';
 import { connect } from 'react-redux';
-import { StyledContainer, DimmerContainer } from '../../styles/shared';
+import { DimmerContainer, StyledContainer } from '../../styles/shared';
 import { Dimmer, Grid, Header, Image, Loader, Segment, Transition } from 'semantic-ui-react';
 
 class ArtWorks extends React.Component {
@@ -16,7 +16,7 @@ class ArtWorks extends React.Component {
   componentWillReceiveProps(nextProps){
     const { dispatch } = this.props;
     if(nextProps.title !== this.props.title)
-      dispatch(nextProps.fetchArtWorks());
+      dispatch(nextProps.fetchArtWorks(this.setLoaded()));
   }
 
   setLoaded = () => this.setState({ loaded: true });
@@ -63,9 +63,15 @@ class ArtWorks extends React.Component {
     const { works } = this.props;
     if(!works) return;
     return works.map( (artWork, i) =>
-      <Grid.Column mobile={8} tablet={4} computer={3} key={artWork.id}>
+        <Grid.Column mobile={8} tablet={4} computer={3} key={artWork.id}>
         <Transition visible={this.state.visible} animation='fade' duration={2000}>
-          <Image src={artWork.src} href={artWork.src} onClick={(e) => this.openLightbox(i, e)} fluid />
+          <Image 
+            src={artWork.src} 
+            href={artWork.src} 
+            onClick={(e) => this.openLightbox(i, e)} 
+            onError={(e) => { e.target.src ="http://www.aspga.com/wp-content/uploads/2016/10/ImageNotAvailable.png" }}
+            fluid 
+          />
         </Transition>
       </Grid.Column>
     )

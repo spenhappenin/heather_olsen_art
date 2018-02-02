@@ -6,7 +6,7 @@ class Api::ArtWorksController < ApplicationController
   end
 
   def fetch_paintings
-    render json: ArtWork.where(type_of: 'painting' ).order('created_at DESC')
+    render json: ArtWork.where(type_of: 'painting').order('created_at DESC')
   end
 
   def fetch_drawings
