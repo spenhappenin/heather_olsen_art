@@ -24,7 +24,7 @@ export const createComission = (comission) => {
   return(dispatch) => {
     let data = new FormData();
     let photo = comission.file_data;
-    // TODO: Loop this shit
+    // TODO: Loop this?
     data.append(photo.name, photo);
     data.append('type_of', comission.type_of);
     data.append('title', comission.title);

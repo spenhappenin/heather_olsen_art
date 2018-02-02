@@ -30,14 +30,14 @@ class NavBar extends Component {
               <StyledLink to='/'>
                 <Menu.Item as={StyledMenuItem} title content='Heather Olsen Art' />
               </StyledLink>
-              <StyledLink to='/admin-comissions'>
-                <Menu.Item as={StyledMenuItem} name='Comissions' />
-              </StyledLink>
               <StyledLink to='/admin-paintings'>
                 <Menu.Item as={StyledMenuItem} name='Paintings' />
               </StyledLink>
               <StyledLink to='/admin-drawings'>
                 <Menu.Item as={StyledMenuItem} name='Drawings' />
+              </StyledLink>
+              <StyledLink to='/admin-comissions'>
+                <Menu.Item as={StyledMenuItem} name='Comissions' />
               </StyledLink>
               <StyledLink to='/admin-cv'>
                 <Menu.Item as={StyledMenuItem} name='CV' />

@@ -6,18 +6,16 @@ import { DimmerContainer, StyledContainer } from '../../styles/shared';
 import { Button, Dimmer, Grid, Header, Icon, Image, Loader, Segment, Transition } from 'semantic-ui-react';
 
 class AdminArtWorks extends React.Component {
-  state = { visible: false, loaded: false };
+  state = { visible: false };
 
   componentDidMount() {
     this.setState({ visible: !this.state.visible });
   }
 
-  setLoaded = () => this.setState({ loaded: true });
-
   componentWillReceiveProps(nextProps) {
     const { dispatch } = this.props;
     if (nextProps.title !== this.props.title)
-      dispatch(nextProps.fetchArtWorks(this.setLoaded()));
+      dispatch(nextProps.fetchArtWorks());
   }
 
   displayArtWorks = () => {
@@ -37,28 +35,18 @@ class AdminArtWorks extends React.Component {
   }
 
   render() {
-    if(this.state.loaded) {
-      return(
-        <Segment as={StyledContainer} basic>
-          <Header as='h1'>{this.props.title}</Header>
-          <Link to={`${this.props.path}/new`}><Button color='black'><Icon name='add' />Add</Button></Link>
-          <br />
-          <br />
-          <Grid>
-            {this.displayArtWorks()}
-          </Grid>
-          <Copyright />
-        </Segment>
-      )
-    } else {
-      return(
-        <DimmerContainer>
-          <Dimmer active>
-            <Loader />
-          </Dimmer>
-        </DimmerContainer>
-      )
-    }
+    return(
+      <Segment as={StyledContainer} basic>
+        <Header as='h1'>{this.props.title}</Header>
+        <Link to={`${this.props.path}/new`}><Button color='black'><Icon name='add' />Add</Button></Link>
+        <br />
+        <br />
+        <Grid>
+          {this.displayArtWorks()}
+        </Grid>
+        <Copyright />
+      </Segment>
+    )
   }
 }
 

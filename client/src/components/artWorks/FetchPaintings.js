@@ -4,29 +4,29 @@ import ArtWorkEditForm from '../admin/ArtWorkEditForm';
 import ArtWorkNewForm from '../admin/ArtWorkNewForm';
 import ProtectedRoute from '../ProtectedRoute';
 import { connect } from 'react-redux';
+import { DimmerContainer } from '../../styles/shared';
 import { fetchPaintings } from '../../actions/paintings';
 import { Dimmer, Loader } from 'semantic-ui-react';
 import { Switch } from 'react-router-dom'
 
 class FetchPaintings extends React.Component {
-  state = { loaded: false }
+  state = { loaded: false };
 
   setLoaded = () => this.setState({ loaded: true });
 
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(fetchPaintings(this.setLoaded));
+    dispatch(fetchPaintings(this.setLoaded()));
   }
 
   render() {
     if (!this.state.loaded) {
       return (
-        <div>
-          <br />
-          <Dimmer active inverted>
-            <Loader inverted size='large'>Loading</Loader>
+        <DimmerContainer>
+          <Dimmer active>
+            <Loader />
           </Dimmer>
-        </div>
+        </DimmerContainer>
       )
     }
     return (
