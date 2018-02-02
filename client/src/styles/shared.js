@@ -32,3 +32,7 @@ export const StyledContainer = styled(Segment)`
 export const StyledHeader = styled(Header)`
   font-size: 40px !important;
 `
+
+export const DimmerContainer = styled.div`
+  height: 100vh;
+`
