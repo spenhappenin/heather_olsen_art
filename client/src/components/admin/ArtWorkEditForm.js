@@ -22,8 +22,8 @@ class ArtWorkEditForm extends React.Component {
   }
 
   componentDidMount() {
-    const { type, url, title, medium, surface, dimensions, price, status, dateComplete, fileData } = this.props.work;
-    this.setState({ type, url, medium, surface, dimensions, price, dateComplete, title, status, fileData });
+    const { type, src, title, medium, surface, dimensions, price, status, dateComplete, fileData } = this.props.work;
+    this.setState({ type, url: src, medium, surface, dimensions, price, dateComplete, title, status, fileData });
   }
 
   handleChange = (e, { name, value }) => {
@@ -57,7 +57,7 @@ class ArtWorkEditForm extends React.Component {
   render() {
     const { from } = this.props.location.state || '/';
     const { work, work: {id} } = this.props;
-    const { title, type, medium, surface, dimensions, price, status, dateComplete, fireRedirect, open } = this.state;
+    const { title, type, medium, surface, dimensions, price, src, status, dateComplete, fireRedirect, open, url } = this.state;
 
     return(
       <Segment as={StyledContainer} basic>
@@ -138,6 +138,17 @@ class ArtWorkEditForm extends React.Component {
               label='Date Complete'
               placeholder='Some date...'
               value={dateComplete}
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+          <Form.Group widths='equal'>
+            <Form.Input
+              required
+              type='url'
+              name='url'
+              label='Image URL'
+              placeholder='http://image-url.com'
+              value={url}
               onChange={this.handleChange}
             />
           </Form.Group>

@@ -28,7 +28,7 @@ class Api::ArtWorksController < ApplicationController
   end
 
   def update 
-    if @art_work.update(title: params['title'], type_of: params['type'], medium: params['medium'], surface: params['surface'], dimensions: params['dimensions'], price: params['price'], status: params['status'], date_complete: params['dateComplete'])
+    if @art_work.update(title: params['title'], type_of: params['type'], medium: params['medium'], surface: params['surface'], dimensions: params['dimensions'], price: params['price'], status: params['status'], date_complete: params['dateComplete'], url: params['url'])
       render json: @art_work
     else
       # TODO: Generate an error 
