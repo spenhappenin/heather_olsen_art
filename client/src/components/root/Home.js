@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Button, Header, Icon, Modal } from 'semantic-ui-react';
+import { StyledBackground } from '../../styles/home';
+import { Button, Header, Icon, Modal, Transition } from 'semantic-ui-react';
 
 class Home extends Component {
-  state = { modal: true };
+  state = { modal: true, visible: false };
+
+  componentDidMount() {
+    this.setState({ visible: !this.state.visible });
+  }
 
   closeModal = () => {
     const { modal } = this.state;
     this.setState({ modal: false });
   }
+
+  toggleVisibility = () => { this.setState({ visible: !this.state.visible }) };
 
   render() {
     return(
@@ -24,19 +31,12 @@ class Home extends Component {
             </Button>
           </Modal.Actions>
         </Modal>
-        <StyledBackground></StyledBackground>
+        <Transition visible={this.state.visible} animation='fade' duration={2500}>
+          <StyledBackground></StyledBackground>
+        </Transition>
       </div>
     );
   }
 }
-
-const StyledBackground = styled.div`
-	background-image: url('http://res.cloudinary.com/dtb6lx1s4/image/upload/v1502990616/10x10_300_dpi_qrvim8.jpg');
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center;
-	width: 100% !important;
-	height: 100vh !important;
-`
 
 export default Home;
