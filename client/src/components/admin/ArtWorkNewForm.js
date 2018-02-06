@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getUrlType } from '../../helpers/artWorks';
 import { Redirect } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
+import { StyledDropzone } from '../../styles/artWork';
 import { createComission } from '../../actions/comissions';
 import { createDrawing } from '../../actions/drawings';
 import { createPainting } from '../../actions/paintings';
@@ -83,11 +84,23 @@ class ArtWorkNewForm extends React.Component {
       <Segment as={StyledContainer} basic>
         <Header as='h1'>{getUrlType(this.props.path)}</Header>
         <Form onSubmit={this.handleSubmit}>
-          <Dropzone onDrop={this.onDrop}>
-            <Header as='h4'>Drag photo here!</Header>
-          </Dropzone>
+          <StyledDropzone onDrop={this.onDrop}>
+            {({ isDragActive, isDragReject, acceptedFiles, rejectedFiles }) => {
+              if (isDragActive) {
+                return "This file is authorized";
+              }
+              if (isDragReject) {
+                return "This file is not authorized";
+              }
+              return acceptedFiles.length || rejectedFiles.length
+                ? <Header as='h4' textAlign='center'>{`Accepted ${acceptedFiles.length}, rejected ${rejectedFiles.length} files`}</Header>
+                : <Header as='h4' textAlign='center'>Drag photo here or click to select a file.</Header>;
+            }}
+          </StyledDropzone>
+          <br />
           <Form.Group widths='equal'>
             <Form.Select
+              required
               name='type'
               label='Type'
               placeholder='Painting...'
@@ -126,7 +139,7 @@ class ArtWorkNewForm extends React.Component {
               required
               name='dimensions'
               label='Dimensions'
-              placeholder='10 x 10'
+              placeholder='10 x 10"'
               value={dimensions}
               onChange={this.handleChange}
             />
@@ -134,7 +147,7 @@ class ArtWorkNewForm extends React.Component {
               name='price'
               type='number'
               label='Price'
-              placeholder='$450.00'
+              placeholder='450.00'
               value={price}
               onChange={this.handleChange}
             />

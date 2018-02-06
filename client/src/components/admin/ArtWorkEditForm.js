@@ -7,7 +7,7 @@ import { updateComission } from '../../actions/comissions';
 import { updatePainting } from '../../actions/paintings';
 import { updateDrawing } from '../../actions/drawings';
 import { statusOptions, typeOptions } from '../../helpers/data';
-import { Button, Header, Form, Icon, Segment } from 'semantic-ui-react';
+import { Button, Header, Form, Icon, Image, Segment } from 'semantic-ui-react';
 
 class ArtWorkEditForm extends React.Component {
   state = {
@@ -67,6 +67,7 @@ class ArtWorkEditForm extends React.Component {
         <DeleteArtWorkModal artWorkTitle={title} artWorkId={id} open={open} onClose={this.close} type={this.props.type} goBack={this.props.history.goBack} />
         <br />
         <br />
+        <Image src={url} size='small'/>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths='equal'>
             <Form.Select
