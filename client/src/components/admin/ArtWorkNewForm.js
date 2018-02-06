@@ -1,6 +1,7 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
+import { getUrlType } from '../../helpers/artWorks';
 import { Redirect } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
 import { createComission } from '../../actions/comissions';
@@ -73,24 +74,6 @@ class ArtWorkNewForm extends React.Component {
 
   toggleUploading = () => {
     this.setState({ fileUploading: !this.state.fileUploading });
-  }
-
-  autoType = () => {
-    const { path } = this.props;
-    let type = path.split('-');
-    type = type[1].split('/');
-    type = type[0];
-    type = type.slice(0, -1);
-    switch(type) {
-      case 'comission':
-        return typeOptions[0];
-      case 'drawing':
-        return typeOptions[1];
-      case 'painting':
-        return typeOptions[2];
-      default:
-        return typeOptions[0];
-    }
   }
 
   render() {
@@ -189,13 +172,6 @@ class ArtWorkNewForm extends React.Component {
       </Segment>
     )
   }
-}
-
-const getUrlType = (baseUrl) => {
-  const foo = baseUrl.split('/')[1];
-  const foo2 = foo.split('admin-')[1];
-  const foo3 = foo2.charAt(0).toUpperCase() + foo2.slice(1);
-  return <h1>New {foo3} Form</h1>
 }
 
 export default connect()(ArtWorkNewForm);
