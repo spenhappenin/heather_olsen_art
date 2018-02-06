@@ -52,7 +52,6 @@ class NavBar extends Component {
               {this.showLogout()}
             </Menu.Menu>
           </Grid.Row>
-
           <Grid.Row only='mobile' textAlign='center'>
             <Menu.Item onClick={this.handleSidebar}>
               <Icon
@@ -73,14 +72,13 @@ class NavBar extends Component {
               />
             </StyledLink>
           </Grid.Row>
-
         </Grid>
       )
     } else {
       return(
         <Grid>
           <Grid.Row only='computer tablet'>
-            <Menu.Menu position='right'>
+            <Menu.Menu position='right' stackable>
               <StyledLink to='/'>
                 <Menu.Item as={StyledMenuItem} title content='Heather Olsen Art' />
               </StyledLink>
@@ -105,7 +103,6 @@ class NavBar extends Component {
               { this.showLogout() }
             </Menu.Menu>
           </Grid.Row>
-
           <Grid.Row only='mobile' textAlign='center'>
             <Menu.Item as={StyledMenuItem}>
               <Icon
@@ -126,7 +123,6 @@ class NavBar extends Component {
               />
             </StyledLink>
           </Grid.Row>
-
         </Grid>
       );
     }
