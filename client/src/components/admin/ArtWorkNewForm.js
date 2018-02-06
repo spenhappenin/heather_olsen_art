@@ -17,6 +17,28 @@ class ArtWorkNewForm extends React.Component {
     status: '', fireRedirect: false, fileUploading: false 
   };
 
+  componentDidMount() {
+    const { path } = this.props;
+    // grabs the type from the url
+    let type = path.split('-');
+    type = type[1].split('/');
+    type = type[0];
+    type = type.slice(0, -1);
+    switch (type) {
+      case 'comission':
+        this.setState({ type: 'comission' });
+        break;
+      case 'drawing':
+        this.setState({ type: 'drawing' });
+        break;
+      case 'painting':
+        this.setState({ type: 'painting' });
+        break;
+      default: 
+        return null;
+    }
+  }
+
   handleChange = (e, { name, value }) => {
     this.setState({ [name]: value });
   }
@@ -87,7 +109,7 @@ class ArtWorkNewForm extends React.Component {
               label='Type'
               placeholder='Painting...'
               options={typeOptions}
-              value={this.autoType}
+              value={type}
               onChange={this.handleChange}
             />
             <Form.Input
