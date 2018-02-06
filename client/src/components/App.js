@@ -33,6 +33,11 @@ class App extends Component {
     this.setState({ sideNav: !sideNav, dimmed: !dimmed });
   }
 
+  closeSideNav = () => {
+    const { sideNav } = this.state;
+    this.setState({ sideNav: false, dimmed: false });
+  }
+
   rightNavs = () => {
     const navs = [
       { key: 0, name: 'Home', path: '/', adminPath: '/'},
@@ -81,7 +86,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NavBar toggleSideNav={this.toggleSideNav} />
+        <NavBar toggleSideNav={this.toggleSideNav} closeSideNav={this.closeSideNav} />
         <Sidebar.Pushable onClick={this.handleSidebar}>
           <Sidebar 
             as={Menu} 

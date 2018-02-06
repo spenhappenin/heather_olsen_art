@@ -6,6 +6,7 @@ import { StyledLink, StyledMenu, StyledMenuItem } from '../../styles/navbar';
 import { Grid, Icon, Menu } from 'semantic-ui-react';
 
 class NavBar extends Component {
+
   showLogout = () => {
     const { user, dispatch, history } = this.props;
     if(user.id) {
@@ -63,7 +64,13 @@ class NavBar extends Component {
               />
             </Menu.Item>
             <StyledLink to='/'>
-              <Menu.Item as={StyledMenuItem} style={styles.title} title content='Heather Olsen Art' />
+              <Menu.Item 
+                as={StyledMenuItem} 
+                style={styles.title} 
+                title 
+                content='Heather Olsen Art' 
+                onClick={this.props.closeSideNav}
+              />
             </StyledLink>
           </Grid.Row>
 
@@ -110,7 +117,13 @@ class NavBar extends Component {
               />
             </Menu.Item>
             <StyledLink to='/'>
-              <Menu.Item as={StyledMenuItem} style={styles.title} title content='Heather Olsen Art' />
+              <Menu.Item 
+                as={StyledMenuItem} 
+                style={styles.title} 
+                title 
+                content='Heather Olsen Art' 
+                onClick={this.props.closeSideNav}
+              />
             </StyledLink>
           </Grid.Row>
 
