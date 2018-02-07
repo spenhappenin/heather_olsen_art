@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { handleLogout } from '../../actions/auth';
 import { withRouter } from 'react-router-dom';
-import { StyledLink, StyledMenu, StyledMenuItem } from '../../styles/navbar';
-import { Grid, Icon, Menu } from 'semantic-ui-react';
+import { StyledLink, StyledMenu, StyledMenuItem, StyledNavbar, StyledNavItems } from '../../styles/navbar';
+import { Grid, Icon, Menu, Header } from 'semantic-ui-react';
 
 class NavBar extends Component {
 
@@ -128,16 +128,57 @@ class NavBar extends Component {
     }
   }
 
+  newRightNavs = () => {
+    if(this.props.user.id) {
+      return(
+        <div>
+          <Header as='h1' inverted>Heather Olsen Art</Header>
+        </div>
+      )
+    } else {
+      return(
+        <StyledNavItems>
+          <StyledLink to='/paintings'>
+            <Menu.Item as={StyledMenuItem} name='Paintings' />
+          </StyledLink>
+          <StyledLink to='/drawings'>
+            <Menu.Item as={StyledMenuItem} name='Drawings' />
+          </StyledLink>
+          <StyledLink to='/comissions'>
+            <Menu.Item as={StyledMenuItem} name='Comissions' />
+          </StyledLink>
+          <StyledLink to='/cv'>
+            <Menu.Item as={StyledMenuItem} name='CV' />
+          </StyledLink>
+          <StyledLink to='/media'>
+            <Menu.Item as={StyledMenuItem} name='Media' />
+          </StyledLink>
+          <StyledLink to='/contact'>
+            <Menu.Item as={StyledMenuItem} name='Contact' />
+          </StyledLink>
+          { this.showLogout() }
+        </StyledNavItems>
+      )
+    }
+  }
+
   render() {
     return (
       <div>
-        <Menu as={StyledMenu} pointing secondary>
-          { this.rightNavs() }
-        </Menu>
+        <StyledNavbar>
+          <StyledLink to='/'>
+            <StyledMenuItem title>Heather Olsen Art</StyledMenuItem>
+          </StyledLink>
+          { this.newRightNavs() }
+        </StyledNavbar>
       </div>
     )
   }
 }
+
+// <Menu as={StyledMenu} pointing secondary>
+//   { this.rightNavs() }
+// </Menu>
 
 const styles = {
   logout: {

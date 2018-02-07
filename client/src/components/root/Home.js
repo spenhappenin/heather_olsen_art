@@ -20,7 +20,7 @@ class Home extends Component {
   render() {
     return(
       <div>
-        <Modal defaultOpen={true} open={this.state.modal} basic size='small'>
+        {/* <Modal defaultOpen={true} open={this.state.modal} basic size='small'>
           <Header as='h1' icon='smile' content='We are currently redesigning BUT we are open!' />
           <Modal.Content>
             <Header as='h3' inverted>Please feel free to checkout all the artwork and the website should be complete as soon as possible. We apologize for the inconvenience! </Header>
@@ -30,7 +30,7 @@ class Home extends Component {
               <Icon name='thumbs outline up' /> Okay
             </Button>
           </Modal.Actions>
-        </Modal>
+        </Modal> */}
         <Transition visible={this.state.visible} animation='fade' duration={2500}>
           <StyledBackground></StyledBackground>
         </Transition>
