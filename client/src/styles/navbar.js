@@ -67,6 +67,7 @@ export const StyledLink = styled(NavLink)`
   justify-content: center;
   padding-left: 1em;
   padding-right: 1em;
+  border: 1px solid red;
 `
 
 export const StyledMockLink = styled.p`
@@ -75,4 +76,5 @@ export const StyledMockLink = styled.p`
   justify-content: center;
   padding-left: 1em;
   padding-right: 1em;
+  border: 1px solid red;
 `
