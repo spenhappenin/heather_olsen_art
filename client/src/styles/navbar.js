@@ -58,10 +58,7 @@ export const NavItem = styled.p`
   color: ${ props => props.title ? '#5c5c5c' : '#a8a8a8' };
   font-size: ${ props => props.title ? '20px' : '16px' };
   font-family: ${ props => props.title ? "'Archivo Black', sans-serif !important" : "Raleway', sans-serif !important" };
-  text-tranform: uppercase !important;
-  &:hover {
-    /*get cursor to point on these  */
-  };
+  text-tranform: uppercase;
 `
 
 export const StyledLink = styled(NavLink)`
