@@ -37,10 +37,6 @@ input {
   font-size: 1.3rem !important;
 }
 
-a {
-  /* color: black !important; */
-}
-
 * {
-  border: 1px solid red !important;
+  /* border: 1px solid red !important; */
 }

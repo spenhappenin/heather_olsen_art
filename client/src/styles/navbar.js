@@ -2,50 +2,71 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 
-
-export const StyledMenu = styled.div`
-  background-color: #131313 !important;
-  border-top: 1px solid #dedede !important;
-	position: fixed !important;
-	bottom: 0 !important;
-  height: 74px;
-  width: 100% !important;
-  display: flex !important;
-  align-items: center !important;
-  z-index: 1;
-  `
-
-export const StyledMenuItem = styled.p`
-  color: ${ props => props.title ? '#5c5c5c !important' : '#a8a8a8 !important' };
-  font-size: ${ props => props.title ? '20px' : '16px' };
-  font-family: ${ props => props.title ? "'Archivo Black', sans-serif !important" : "Raleway', sans-serif !important" };
-  text-tranform: uppercase !important;
-  `
-
-// -----------------------------------------------
+// At 767 width, the hamburger menu needs to be rendered
+// At 1127 width, the main logo starts to wrap. Consider moving the the main logo on its own line and then move items to line below
 
 export const StyledNavbar = styled.div`
   background-color: #131313;
   border-top: 1px solid #dedede;
   position: fixed;
   bottom: 0;
-  height: 74px;
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* justify-content: space-around; */
   z-index: 1;
-  `
+  padding-top: 30px;
+  padding-bottom: 30px;
+  
+  @media (max-width: 1127px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+`;
+
+export const StyledNavLogo = styled.div`
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  
+  @media (max-width: 1127px) {
+    justify-content: flex-start;
+    width: 100%;
+  }
+`;
 
 export const StyledNavItems = styled.div`
   display: flex;
   flex-display: row;
-  align-items: space-between;
-`
+  width: 80%;
+  
+  @media (max-width: 1127px) {
+    width: 100%;
+  }
+`;
+
+export const StyledNavItem = styled.p`
+  color: ${ props => props.title ? '#5c5c5c' : '#a8a8a8' };
+  font-size: ${ props => props.title ? '20px' : '16px' };
+  font-family: ${ props => props.title ? "'Archivo Black', sans-serif !important" : "Raleway', sans-serif !important" };
+  text-tranform: uppercase !important;
+  &:hover {
+    /*get cursor to point on these  */
+  }
+`;
 
 export const StyledLink = styled(NavLink)`
     display: flex;
     flex-direction: column;
     justify-content: center;
-  `
+    padding-left: 1em;
+    padding-right: 1em;
+`;
+
+export const StyledMockLink = styled.p`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 1em;
+    padding-right: 1em;
+`;
