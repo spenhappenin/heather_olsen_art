@@ -5,6 +5,8 @@ import { Menu } from 'semantic-ui-react';
 // --  Media Queries  --
 // At 767 width, the hamburger menu needs to be rendered
 // At 1127 width, the main logo starts to wrap. Consider moving the the main logo on its own line and then move items to line below
+const desktop = 1127;
+const mobile = 767;
 
 //  --  Navbar  --
 export const StyledNavbar = styled.div`
@@ -20,11 +22,12 @@ export const StyledNavbar = styled.div`
   padding-top: 30px;
   padding-bottom: 30px;
 
-  @media (max-width: 1127px) {
+  @media (max-width: ${1127}px) {
     flex-direction: column;
     align-items: flex-start;
+    padding-left: 20px;
   };
-  @media (max-width: 767px) {
+  @media (max-width: ${767}px) {
     flex-direction: row;
   };
 `
@@ -34,11 +37,11 @@ export const NavLogo = styled.div`
   display: flex;
   justify-content: center;
   
-  @media (max-width: 1127px) {
+  @media (max-width: ${1127}px) {
     justify-content: flex-start;
     width: 100%;
   };
-  @media (max-width: 767px) {
+  @media (max-width: ${767}px) {
     display: flex;
     justify-content: center;
   };
@@ -49,7 +52,7 @@ export const NavItems = styled.div`
   flex-display: row;
   width: 80%;
   
-  @media (max-width: 1127px) {
+  @media (max-width: ${1127}px) {
     width: 100%;
   };
 `
@@ -68,6 +71,11 @@ export const StyledMockLink = styled.p`
   justify-content: center;
   padding-left: 10px;
   padding-right: 10px;
+
+  @media (max-width: ${767}px) {
+    padding-left: 15px;
+    padding-right: 15px;
+  };
 `
 
 export const NavItem = styled.p`
