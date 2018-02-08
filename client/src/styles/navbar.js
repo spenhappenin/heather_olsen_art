@@ -48,6 +48,7 @@ export const NavItems = styled.div`
   display: flex;
   flex-display: row;
   width: 80%;
+  background-color: blue;
   
   @media (max-width: 1127px) {
     width: 100%;
