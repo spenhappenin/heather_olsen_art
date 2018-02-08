@@ -48,7 +48,6 @@ export const NavItems = styled.div`
   display: flex;
   flex-display: row;
   width: 80%;
-  background-color: blue;
   
   @media (max-width: 1127px) {
     width: 100%;
@@ -68,7 +67,8 @@ export const StyledLink = styled(NavLink)`
   justify-content: center;
   padding-left: 1em;
   padding-right: 1em;
-  border: 1px solid red;
+  border: 1px solid red !important;
+  background-color: blue !important;
 `
 
 export const StyledMockLink = styled.p`
@@ -77,5 +77,6 @@ export const StyledMockLink = styled.p`
   justify-content: center;
   padding-left: 1em;
   padding-right: 1em;
-  border: 1px solid red;
+  border: 1px solid red !important;
+  background-color: blue !important;
 `
