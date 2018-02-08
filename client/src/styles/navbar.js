@@ -54,29 +54,24 @@ export const NavItems = styled.div`
   };
 `
 
-export const NavItem = styled.p`
-  color: ${ props => props.title ? '#5c5c5c' : '#a8a8a8' };
-  font-size: ${ props => props.title ? '20px' : '16px' };
-  font-family: ${ props => props.title ? "'Archivo Black', sans-serif !important" : "Raleway', sans-serif !important" };
-  text-tranform: uppercase;
-`
-
 export const StyledLink = styled(NavLink)`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 1em;
-  padding-right: 1em;
-  border: 1px solid red !important;
-  background-color: blue !important;
+  padding-left: 10px;
+  padding-right: 10px;
 `
 
 export const StyledMockLink = styled.p`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 1em;
-  padding-right: 1em;
-  border: 1px solid red !important;
-  background-color: blue !important;
+  padding-left: 10px;
+  padding-right: 10px;
+`
+
+export const NavItem = styled.p`
+  color: ${ props => props.title ? '#5c5c5c' : '#a8a8a8' };
+  font-size: ${ props => props.title ? '20px' : '16px' };
+  font-family: ${ props => props.title ? "'Archivo Black', sans-serif !important" : "Raleway', sans-serif !important" };
 `
