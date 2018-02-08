@@ -62,17 +62,17 @@ export const NavItem = styled.p`
 `
 
 export const StyledLink = styled(NavLink)`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-left: 1em;
-    padding-right: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 1em;
+  padding-right: 1em;
 `
 
 export const StyledMockLink = styled.p`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-left: 1em;
-    padding-right: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 1em;
+  padding-right: 1em;
 `
