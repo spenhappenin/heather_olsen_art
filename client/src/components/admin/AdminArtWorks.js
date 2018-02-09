@@ -2,8 +2,9 @@ import React from 'react';
 import Copyright from '../shared/Copyright';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Header } from '../../styles/shared';
 import { StyledContainer } from '../../styles/shared';
-import { Button, Grid, Header, Icon, Image, Segment, Transition } from 'semantic-ui-react';
+import { Button, Grid, Icon, Image, Segment, Transition } from 'semantic-ui-react';
 
 class AdminArtWorks extends React.Component {
   state = { visible: false };
@@ -37,7 +38,7 @@ class AdminArtWorks extends React.Component {
   render() {
     return(
       <Segment as={StyledContainer} basic>
-        <Header as='h1'>{this.props.title}</Header>
+        <Header primary>{this.props.title}</Header>
         <Link to={`${this.props.path}/new`}><Button color='black'><Icon name='add' />Add</Button></Link>
         <br />
         <br />

@@ -1,13 +1,14 @@
 import React from 'react';
 import DeleteArtWorkModal from './DeleteArtWorkModal';
 import { connect } from 'react-redux';
+import { Header } from '../../styles/shared';
 import { Redirect } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
 import { updateComission } from '../../actions/comissions';
 import { updatePainting } from '../../actions/paintings';
 import { updateDrawing } from '../../actions/drawings';
 import { statusOptions, typeOptions } from '../../helpers/data';
-import { Button, Header, Form, Icon, Image, Segment } from 'semantic-ui-react';
+import { Button, Form, Icon, Image, Segment } from 'semantic-ui-react';
 
 class ArtWorkEditForm extends React.Component {
   state = {
@@ -61,7 +62,7 @@ class ArtWorkEditForm extends React.Component {
 
     return(
       <Segment as={StyledContainer} basic>
-        <Header as='h1'>"{ work.title }" Information Page</Header>
+        <Header primary>"{ work.title }" Edit Page</Header>
         <Button color='black' onClick={this.props.history.goBack}><Icon name='arrow left' />Back</Button>
         <Button color='black' onClick={this.show()}><Icon name='trash outline' />Delete</Button>
         <DeleteArtWorkModal artWorkTitle={title} artWorkId={id} open={open} onClose={this.close} type={this.props.type} goBack={this.props.history.goBack} />

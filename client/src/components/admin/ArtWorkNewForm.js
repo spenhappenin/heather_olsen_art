@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getUrlType } from '../../helpers/artWorks';
+import { Header } from '../../styles/shared';
 import { Redirect } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
 import { StyledDropzone } from '../../styles/artWork';
@@ -8,7 +9,7 @@ import { createComission } from '../../actions/comissions';
 import { createDrawing } from '../../actions/drawings';
 import { createPainting } from '../../actions/paintings';
 import { statusOptions, typeOptions } from '../../helpers/data';
-import { Button, Form, Header, Icon, Segment } from 'semantic-ui-react';
+import { Button, Form, Icon, Segment } from 'semantic-ui-react';
 
 class ArtWorkNewForm extends React.Component {
   state = { 
@@ -81,7 +82,7 @@ class ArtWorkNewForm extends React.Component {
     const { title, type, medium, surface, dimensions, price, status, dateComplete, fireRedirect } = this.state;
     return (
       <Segment as={StyledContainer} basic>
-        <Header as='h1'>{getUrlType(this.props.path)}</Header>
+        <Header primary>{getUrlType(this.props.path)}</Header>
         <Form onSubmit={this.handleSubmit}>
           <StyledDropzone onDrop={this.onDrop}>
             {({ isDragActive, isDragReject, acceptedFiles, rejectedFiles }) => {
@@ -92,8 +93,8 @@ class ArtWorkNewForm extends React.Component {
                 return "This file is not authorized";
               }
               return acceptedFiles.length || rejectedFiles.length
-                ? <Header as='h4' textAlign='center'>{`Accepted ${acceptedFiles.length}, rejected ${rejectedFiles.length} files`}</Header>
-                : <Header as='h4' textAlign='center'>Drag photo here or click to select a file.</Header>;
+                ? <h4 textAlign='center'>{`Accepted ${acceptedFiles.length}, rejected ${rejectedFiles.length} files`}</h4>
+                : <h4 textAlign='center'>Drag photo here or click to select a file.</h4>;
             }}
           </StyledDropzone>
           <br />

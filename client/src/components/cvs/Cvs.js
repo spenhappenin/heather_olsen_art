@@ -3,9 +3,10 @@ import Copyright from '../shared/Copyright';
 import Cv from './Cv';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Header } from '../../styles/shared';
 import { fetchCvs } from '../../actions/cvs';
 import { StyledContainer } from '../../styles/shared';
-import { Header, Segment } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 
 class Cvs extends React.Component {
 
@@ -25,28 +26,28 @@ class Cvs extends React.Component {
   render() {
     return(
       <Segment as={StyledContainer} basic>
-        <Header as='h1'>Curriculum Vitae</Header>
-        <Header as='h4'>Juried Exhibitions</Header>
+        <Header primary>Curriculum Vitae</Header>
+        <h4>Juried Exhibitions</h4>
         <Segment basic>
           { this.displayCvs('exhibition') }
         </Segment>
-        <Header as='h4'>Festivals and Events</Header>
+        <h4>Festivals and Events</h4>
         <Segment basic>
           {this.displayCvs('festival')}
         </Segment>
-        <Header as='h4'>Awards and Certificates</Header>
+        <h4>Awards and Certificates</h4>
         <Segment basic>
           {this.displayCvs('award')}
         </Segment>
-        <Header as='h4'>Current Representation</Header>
+        <h4>Current Representation</h4>
         <Segment basic>
           {this.displayCvs('current_rep')}
         </Segment>
-        <Header as='h4'>Education</Header>
+        <h4>Education</h4>
          <Segment basic> 
           {this.displayCvs('education')}
         </Segment>
-        <Header as='h4'>Website and Social Media</Header>
+        <h4>Website and Social Media</h4>
         <Segment basic>
           <p>www.heatherolsenart.com</p>
           <p><Link to='https://www.instagram.com/heatherolsenart/' target="_blank">IG: @heatherolsenart</Link></p>

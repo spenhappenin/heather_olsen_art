@@ -35,16 +35,16 @@ class NavBar extends React.Component {
     if(this.props.user.id) {
       return(
         <NavItems>
-          <StyledLink to='/paintings'>
+          <StyledLink to='/admin-paintings'>
             <NavItem>Paintings</NavItem>
           </StyledLink>
-          <StyledLink to='/drawings'>
+          <StyledLink to='/admin-drawings'>
             <NavItem>Drawings</NavItem>
           </StyledLink>
-          <StyledLink to='/comissions'>
+          <StyledLink to='/admin-comissions'>
             <NavItem>Comissions</NavItem>
           </StyledLink>
-          <StyledLink to='/cv'>
+          <StyledLink to='/admin-cv'>
             <NavItem>CV</NavItem>
           </StyledLink>
           <StyledLink to='/media'>

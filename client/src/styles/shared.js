@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { css } from 'styled-components'
-import { Header, Segment } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 
 // object of screen sizes
 const sizes = {
@@ -29,10 +29,20 @@ export const StyledContainer = styled(Segment)`
   ${ media.phone`padding: 50px 20px 100px 20px !important;` }
 `
 
-export const StyledHeader = styled(Header)`
-  font-size: 40px !important;
-`
-
 export const DimmerContainer = styled.div`
   height: 100vh;
+`
+
+// --- Text ---
+
+export const Header = styled.p`
+  font-size: ${ props => props.primary ? '40px' : '25px'};
+  border: none;
+  margin: calc(2rem - .14285714em) 0 1rem;
+  padding: 0 0;
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  font-weight: 700;
+  line-height: 1.28571429em;
+  text-transform: none;
+  color: rgba(0,0,0,.87);
 `

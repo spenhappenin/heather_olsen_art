@@ -1,14 +1,15 @@
 import React from 'react';
 import Copyright from '../shared/Copyright';
 import ContactForm from './ContactForm';
-import { StyledContainer, StyledHeader } from '../../styles/shared';
-import { Header, Segment } from 'semantic-ui-react';
+import { Header } from '../../styles/shared';
+import { StyledContainer } from '../../styles/shared';
+import { Segment } from 'semantic-ui-react';
 
 class Contact extends React.Component {
   render() {
     return(
       <Segment as={StyledContainer} basic>
-        <Header as={StyledHeader}>Contact</Header>
+        <Header primary>Contact</Header>
         <Segment basic>
           <p>Heather Olsen</p>
           <p>SLC, UT</p>

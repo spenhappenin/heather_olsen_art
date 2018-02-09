@@ -3,7 +3,7 @@ import '../../styles/flash.css';
 import { connect } from 'react-redux';
 import { FlashMessage } from '../../styles/flash';
 import { clearFlash } from '../../actions/flash';
-import { Container, Header, Message } from 'semantic-ui-react';
+import { Container, Message } from 'semantic-ui-react';
 
 const fadeFlash = (dispatch) => {
   setTimeout( () => {
@@ -19,7 +19,7 @@ const Flash = ({ flash, dispatch }) => {
           onDismiss={() => dispatch(clearFlash())}
           color={flash.msgType}
         >
-          <Header as='h5' textAlign='center'>{ flash.message }</Header>
+          <h5 textAlign='center'>{ flash.message }</h5>
           { fadeFlash(dispatch) }
         </Message>
       </Container>

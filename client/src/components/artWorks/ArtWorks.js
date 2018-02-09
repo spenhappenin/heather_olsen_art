@@ -2,8 +2,9 @@ import React from 'react';
 import Copyright from '../shared/Copyright';
 import Lightbox from 'react-images';
 import { connect } from 'react-redux';
+import { Header } from '../../styles/shared';
 import { DimmerContainer, StyledContainer } from '../../styles/shared';
-import { Dimmer, Grid, Header, Image, Loader, Segment, Transition } from 'semantic-ui-react';
+import { Dimmer, Grid, Image, Loader, Segment, Transition } from 'semantic-ui-react';
 
 class ArtWorks extends React.Component {
   state = { currentImage: 0, lightboxIsOpen: false, loaded: false };
@@ -81,7 +82,7 @@ class ArtWorks extends React.Component {
     if(this.state.loaded) {
       return (
         <Segment as={StyledContainer} basic>
-          <Header as='h1'>{this.props.title}</Header>
+          <Header primary>{this.props.title}</Header>
           <Grid>
             {this.displayArtWorks()}
             <Lightbox

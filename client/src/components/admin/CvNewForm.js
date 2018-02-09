@@ -3,10 +3,11 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { createCv } from '../../actions/cvs';
+import { Header } from '../../styles/shared';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
-import { Button, Form, Header, Icon, Segment } from 'semantic-ui-react';
+import { Button, Form, Icon, Segment } from 'semantic-ui-react';
 
 class CvNewForm extends React.Component {
   state = { type: '', title: '', location: '', date: '', startDate: moment(), fireRedirect: false };
@@ -31,7 +32,7 @@ class CvNewForm extends React.Component {
     const { type, title, location, fireRedirect } = this.state
     return(
       <Segment as={StyledContainer} basic>
-        <Header as='h1'>New Cv Form</Header>
+        <Header primary>New Cv Form</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths='equal'>
             <Form.Select 
@@ -58,7 +59,7 @@ class CvNewForm extends React.Component {
               onChange={this.handleChange} 
             />
           </Form.Group>
-          <Header as='h5'>Date</Header>
+          <h5>Date</h5>
           <DatePicker
             selected={this.state.startDate}
             onChange={this.handleDateChange}

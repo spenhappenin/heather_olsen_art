@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Icon, Modal } from 'semantic-ui-react';
 import { deleteComission } from '../../actions/comissions';
 import { deleteDrawing } from '../../actions/drawings';
 import { deletePainting } from '../../actions/paintings';
+import { Button, Icon, Modal } from 'semantic-ui-react';
 
 class DeleteArtWorkModal extends React.Component {
 

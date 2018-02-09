@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, Form, Header, Input, Segment } from 'semantic-ui-react';
+import { Button, Form, Input, Segment } from 'semantic-ui-react';
 
 const Subscribe = () => (
   <Segment basic>
-    <Header as='h3'>Subscribe</Header>
+    <h3>Subscribe</h3>
     <p>Sign up with your email address to receive news and updates.</p>
     <Form>
       <Form.Group widths='equal'>

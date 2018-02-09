@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { handleLogin } from '../../actions/auth';
+import { Header } from '../../styles/shared';
 import { StyledContainer } from '../../styles/shared';
-import { Button, Form, Header, Segment } from 'semantic-ui-react';
+import { Button, Form, Segment } from 'semantic-ui-react';
 
 class Login extends Component {
   state = { email: '', password: '' };
@@ -25,7 +26,7 @@ class Login extends Component {
 
     return(
       <Segment as={StyledContainer} basic>
-        <Header as='h1'>Admin Login</Header>
+        <Header primary>Admin Login</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Field>
             <label>Email</label>
