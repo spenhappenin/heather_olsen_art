@@ -22,12 +22,12 @@ export const StyledNavbar = styled.div`
   padding-top: 30px;
   padding-bottom: 30px;
 
-  @media (max-width: ${1127}px) {
+  @media (max-width: ${desktop}px) {
     flex-direction: column;
     align-items: flex-start;
     padding-left: 20px;
   };
-  @media (max-width: ${767}px) {
+  @media (max-width: ${mobile}px) {
     flex-direction: row;
   };
 `
@@ -37,11 +37,11 @@ export const NavLogo = styled.div`
   display: flex;
   justify-content: center;
   
-  @media (max-width: ${1127}px) {
+  @media (max-width: ${desktop}px) {
     justify-content: flex-start;
     width: 100%;
   };
-  @media (max-width: ${767}px) {
+  @media (max-width: ${mobile}px) {
     display: flex;
     justify-content: center;
   };
@@ -52,7 +52,7 @@ export const NavItems = styled.div`
   flex-display: row;
   width: 80%;
   
-  @media (max-width: ${1127}px) {
+  @media (max-width: ${desktop}px) {
     width: 100%;
   };
 `
@@ -72,7 +72,7 @@ export const StyledMockLink = styled.p`
   padding-left: 10px;
   padding-right: 10px;
 
-  @media (max-width: ${767}px) {
+  @media (max-width: ${mobile}px) {
     padding-left: 15px;
     padding-right: 15px;
   };
