@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { Menu } from 'semantic-ui-react';
 
 // --  Media Queries  --
 // At 767 width, the hamburger menu needs to be rendered
@@ -65,7 +64,7 @@ export const StyledLink = styled(NavLink)`
   padding-right: 10px;
 `
 
-export const StyledMockLink = styled.p`
+export const StyledMockLink = styled.span`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -78,7 +77,7 @@ export const StyledMockLink = styled.p`
   };
 `
 
-export const NavItem = styled.p`
+export const NavItem = styled.span`
   color: ${ props => props.title ? '#5c5c5c' : '#a8a8a8' };
   font-size: ${ props => props.title ? '20px' : '16px' };
   font-family: ${ props => props.title ? "'Archivo Black', sans-serif !important" : "Raleway', sans-serif !important" };

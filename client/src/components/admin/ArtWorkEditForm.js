@@ -57,7 +57,7 @@ class ArtWorkEditForm extends React.Component {
   render() {
     const { from } = this.props.location.state || '/';
     const { work, work: {id} } = this.props;
-    const { title, type, medium, surface, dimensions, price, src, status, dateComplete, fireRedirect, open, url } = this.state;
+    const { title, type, medium, surface, dimensions, price, status, dateComplete, fireRedirect, open, url } = this.state;
 
     return(
       <Segment as={StyledContainer} basic>

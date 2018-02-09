@@ -33,20 +33,17 @@ class App extends Component {
     this.setState({ sideNav: !sideNav, dimmed: !dimmed });
   }
 
-  closeSideNav = () => {
-    const { sideNav } = this.state;
-    this.setState({ sideNav: false, dimmed: false });
-  }
+  closeSideNav = () => this.setState({ sideNav: false, dimmed: false });
 
   rightNavs = () => {
     const navs = [
-      { key: 0, name: 'Home', path: '/', adminPath: '/'},
-      { key: 1, name: 'Paintings', path: '/paintings', adminPath: '/admin-paintings' },
-      { key: 2, name: 'Drawings', path: '/drawings', adminPath: '/admin-drawings' },
-      { key: 3, name: 'Comissions', path: '/comissions', adminPath: '/admin-comissions' },
-      { key: 4, name: 'Cv', path: '/cv', adminPath: '/admin-cv' },
-      { key: 5, name: 'Media', path: '/media', adminPath: '/media' },
-      { key: 6, name: 'Contact', path: '/contact', adminPath: '/contact' },
+      { name: 'Home', path: '/', adminPath: '/'},
+      { name: 'Paintings', path: '/paintings', adminPath: '/admin-paintings' },
+      { name: 'Drawings', path: '/drawings', adminPath: '/admin-drawings' },
+      { name: 'Comissions', path: '/comissions', adminPath: '/admin-comissions' },
+      { name: 'Cv', path: '/cv', adminPath: '/admin-cv' },
+      { name: 'Media', path: '/media', adminPath: '/media' },
+      { name: 'Contact', path: '/contact', adminPath: '/contact' },
     ]
 
     if(this.props.user.id) 
@@ -56,7 +53,7 @@ class App extends Component {
       if(nav.logout) {
         return(
           <Menu.Item
-            key={nav.key}
+            key={nav.name}
             name={this.props.user.id ? nav.adminName : nav.name}
             onClick={(e) => {
               this.props.dispatch(handleLogout(this.props.history));

@@ -2,8 +2,8 @@ import React from 'react';
 import Copyright from '../shared/Copyright';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { DimmerContainer, StyledContainer } from '../../styles/shared';
-import { Button, Dimmer, Grid, Header, Icon, Image, Loader, Segment, Transition } from 'semantic-ui-react';
+import { StyledContainer } from '../../styles/shared';
+import { Button, Grid, Header, Icon, Image, Segment, Transition } from 'semantic-ui-react';
 
 class AdminArtWorks extends React.Component {
   state = { visible: false };

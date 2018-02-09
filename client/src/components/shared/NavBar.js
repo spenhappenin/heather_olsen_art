@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { handleLogout } from '../../actions/auth';
 import { withRouter } from 'react-router-dom';
 import { StyledLink, StyledMockLink, StyledNavbar, NavItem, NavItems, NavLogo } from '../../styles/navbar';
-import { Icon, Header } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 
-class NavBar extends Component {
+class NavBar extends React.Component {
   state = { windowWidth: window.innerWidth };
 
   handleResize = (e) => this.setState({ windowWidth: window.innerWidth });

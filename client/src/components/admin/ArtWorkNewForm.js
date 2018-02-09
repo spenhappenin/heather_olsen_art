@@ -1,5 +1,4 @@
 import React from 'react';
-import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
 import { getUrlType } from '../../helpers/artWorks';
 import { Redirect } from 'react-router-dom';
