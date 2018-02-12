@@ -46,3 +46,26 @@ export const Header = styled.p`
   text-transform: none;
   color: rgba(0,0,0,.87);
 `
+
+// --- Button ---
+
+export const StyledButton = styled.button`
+  color: #fff;
+  transition: background-color 0.3s ease;
+  background-color: #272727;
+  border-color: #272727;
+  padding: 15px 40px 15px 40px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 11px;
+  cursor: pointer;
+
+  &:focus {
+    outline: 0;
+  }
+  &:hover {
+    transition: background-color 0.3s ease;
+    background-color: #595959;
+  }
+`

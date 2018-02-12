@@ -2,7 +2,7 @@ import React from 'react';
 import Copyright from '../shared/Copyright';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Header } from '../../styles/shared';
+import { Header, StyledButton } from '../../styles/shared';
 import { StyledContainer } from '../../styles/shared';
 import { Button, Grid, Icon, Image, Segment, Transition } from 'semantic-ui-react';
 
@@ -39,7 +39,7 @@ class AdminArtWorks extends React.Component {
     return(
       <Segment as={StyledContainer} basic>
         <Header primary>{this.props.title}</Header>
-        <Link to={`${this.props.path}/new`}><Button color='black'><Icon name='add' />Add</Button></Link>
+        <Link to={`${this.props.path}/new`}><StyledButton>New</StyledButton></Link>
         <br />
         <br />
         <Grid>
