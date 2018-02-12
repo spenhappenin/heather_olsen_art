@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyledBackground } from '../../styles/home';
-import { Button, Header, Icon, Modal, Transition } from 'semantic-ui-react';
+import { Button } from '../../styles/shared';
+import { Header, Modal, Transition } from 'semantic-ui-react';
 
 class Home extends Component {
   state = { modal: true, visible: false };
@@ -22,9 +23,7 @@ class Home extends Component {
             <Header as='h3' inverted>Please feel free to checkout all the artwork and the website should be complete as soon as possible. We apologize for the inconvenience! </Header>
           </Modal.Content>
           <Modal.Actions>
-            <Button size='huge' color='blue' inverted onClick={this.closeModal}>
-              <Icon name='thumbs outline up' /> Okay
-            </Button>
+            <Button modal onClick={this.closeModal}>Okay</Button>
           </Modal.Actions>
         </Modal>
         <Transition visible={this.state.visible} animation='fade' duration={2500}>

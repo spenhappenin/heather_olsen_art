@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { getUrlType } from '../../helpers/artWorks';
 import { Header } from '../../styles/shared';
 import { Redirect } from 'react-router-dom';
-import { StyledContainer } from '../../styles/shared';
+import { Button, StyledContainer } from '../../styles/shared';
 import { StyledDropzone } from '../../styles/artWork';
 import { createComission } from '../../actions/comissions';
 import { createDrawing } from '../../actions/drawings';
 import { createPainting } from '../../actions/paintings';
 import { statusOptions, typeOptions } from '../../helpers/data';
-import { Button, Form, Icon, Segment } from 'semantic-ui-react';
+import { Form, Icon, Segment } from 'semantic-ui-react';
 
 class ArtWorkNewForm extends React.Component {
   state = { 
@@ -83,6 +83,9 @@ class ArtWorkNewForm extends React.Component {
     return (
       <Segment as={StyledContainer} basic>
         <Header primary>{getUrlType(this.props.path)}</Header>
+        <Button onClick={this.props.history.goBack}><Icon name='arrow left' />Back</Button>
+        <br />
+        <br />
         <Form onSubmit={this.handleSubmit}>
           <StyledDropzone onDrop={this.onDrop}>
             {({ isDragActive, isDragReject, acceptedFiles, rejectedFiles }) => {
@@ -172,10 +175,7 @@ class ArtWorkNewForm extends React.Component {
             />
           </Form.Group>
           <br />
-          <Form.Group>
-            <Button color='black' onClick={this.props.history.goBack}><Icon name='arrow left' />Back</Button>
-            <Form.Button color='black'><Icon name='check' />Submit</Form.Button>
-          </Form.Group>
+          <Button type='submit'>Submit</Button>
         </Form>
         {
           fireRedirect && (

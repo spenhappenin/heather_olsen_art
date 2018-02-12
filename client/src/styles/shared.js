@@ -47,12 +47,12 @@ export const Header = styled.p`
   color: rgba(0,0,0,.87);
 `
 
-// --- Button ---
+// --- Buttons ---
 
-export const StyledButton = styled.button`
+export const Button = styled.button`
   color: #fff;
   transition: background-color 0.3s ease;
-  background-color: #272727;
+  background-color: ${ props => props.modal ? '#557c8c' : '#272727'};
   border-color: #272727;
   padding: 15px 40px 15px 40px;
   text-transform: uppercase;
@@ -66,6 +66,27 @@ export const StyledButton = styled.button`
   }
   &:hover {
     transition: background-color 0.3s ease;
-    background-color: #595959;
+    background-color: ${ props => props.modal ? '#6e92a1' : '#595959'};
+  }
+`
+
+export const CvButton = styled.button`
+  color: #fff;
+  transition: background-color 0.3s ease;
+  background-color: ${ props => props.edit ? '#84764d' : '#784747'};
+  border-color: #272727;
+  padding: 5px 10px 5px 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 11px;
+  cursor: pointer;
+
+  &:focus {
+    outline: 0;
+  }
+  &:hover {
+    transition: background-color 0.3s ease;
+    background-color: ${ props => props.modal ? '#6e92a1' : '#595959'};
   }
 `

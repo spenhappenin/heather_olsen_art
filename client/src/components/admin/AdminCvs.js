@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { fetchCvs } from '../../actions/cvs';
 import { Header } from '../../styles/shared';
 import { Link } from 'react-router-dom';
-import { StyledContainer } from '../../styles/shared';
-import { Button, Icon, Segment } from 'semantic-ui-react';
+import { Button, StyledContainer } from '../../styles/shared';
+import { Segment } from 'semantic-ui-react';
 
 class AdminCvs extends React.Component {
 
@@ -27,7 +27,7 @@ class AdminCvs extends React.Component {
     return (
       <Segment as={StyledContainer} basic>
         <Header primary>Curriculum Vitae</Header>
-        <Link to='/admin-cv/new'><Button color='black'><Icon name='add' />Add</Button></Link>
+        <Link to='/admin-cv/new'><Button>New</Button></Link>
         <h4>Juried Exhibitions</h4>
         {this.displayCvs('exhibition')}
         <h4>Festivals and Events</h4>

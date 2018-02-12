@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Form, Input, Segment } from 'semantic-ui-react';
+import { Button } from '../../styles/shared';
+import { Form, Input, Segment } from 'semantic-ui-react';
 
 const Subscribe = () => (
   <Segment basic>
@@ -13,7 +14,7 @@ const Subscribe = () => (
       <Form.Group widths='equal'>
         <Form.Field name='email' control={Input} label='Email Address' type='email' />
       </Form.Group>
-      <Form.Field control={Button} color='black' content='Subscribe' />
+      <Button type='submit'>Submit</Button>
     </Form>
   </Segment>
 )

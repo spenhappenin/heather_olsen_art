@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Form, Input, TextArea } from 'semantic-ui-react';
+import { Button } from '../../styles/shared';
+import { Form, Input, TextArea } from 'semantic-ui-react';
 
 const ContactForm = () => (
   <Form action='https://formspree.io/heatherolsenart@gmail.com' target="_blank" method='POST'>
@@ -14,7 +15,7 @@ const ContactForm = () => (
       <Form.Field required name='subject' control={Input} label='Subject' />
     </Form.Group>
     <Form.Field required name='message' control={TextArea} label='Message' />
-    <Form.Field control={Button} color='black' content='Submit' />
+    <Button type='submit'>Submit</Button>
   </Form>
 )
 

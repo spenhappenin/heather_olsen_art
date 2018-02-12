@@ -3,12 +3,12 @@ import DeleteArtWorkModal from './DeleteArtWorkModal';
 import { connect } from 'react-redux';
 import { Header } from '../../styles/shared';
 import { Redirect } from 'react-router-dom';
-import { StyledContainer } from '../../styles/shared';
+import { StyledContainer, Button } from '../../styles/shared';
 import { updateComission } from '../../actions/comissions';
 import { updatePainting } from '../../actions/paintings';
 import { updateDrawing } from '../../actions/drawings';
 import { statusOptions, typeOptions } from '../../helpers/data';
-import { Button, Form, Icon, Image, Segment } from 'semantic-ui-react';
+import { Form, Icon, Image, Segment } from 'semantic-ui-react';
 
 class ArtWorkEditForm extends React.Component {
   state = {
@@ -63,8 +63,8 @@ class ArtWorkEditForm extends React.Component {
     return(
       <Segment as={StyledContainer} basic>
         <Header primary>"{ work.title }" Edit Page</Header>
-        <Button color='black' onClick={this.props.history.goBack}><Icon name='arrow left' />Back</Button>
-        <Button color='black' onClick={this.show()}><Icon name='trash outline' />Delete</Button>
+        <Button onClick={this.props.history.goBack}><Icon name='arrow left' />Back</Button>
+        <Button onClick={this.show()}>Delete</Button>
         <DeleteArtWorkModal artWorkTitle={title} artWorkId={id} open={open} onClose={this.close} type={this.props.type} goBack={this.props.history.goBack} />
         <br />
         <br />
@@ -155,9 +155,7 @@ class ArtWorkEditForm extends React.Component {
             />
           </Form.Group>
           <br />
-          <Form.Group>
-            <Form.Button color='black'><Icon name='check' />Submit</Form.Button>
-          </Form.Group>
+          <Button type='submit'>Submit</Button>
         </Form>
         { fireRedirect && <Redirect to={from || `/admin-${type}s`} /> }
       </Segment>

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { handleLogin } from '../../actions/auth';
 import { Header } from '../../styles/shared';
-import { StyledContainer } from '../../styles/shared';
-import { Button, Form, Segment } from 'semantic-ui-react';
+import { StyledContainer, Button } from '../../styles/shared';
+import { Form, Segment } from 'semantic-ui-react';
 
 class Login extends Component {
   state = { email: '', password: '' };
@@ -51,7 +51,7 @@ class Login extends Component {
             />
           </Form.Field>
           <Segment textAlign='center' basic>
-            <Button type='submit' color='black'>Submit</Button>
+            <Button type='submit'>Submit</Button>
           </Segment>
         </Form>
       </Segment>
