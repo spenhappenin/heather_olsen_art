@@ -105,8 +105,8 @@ class NavBar extends React.Component {
         <div>
           <StyledNavbar>
             <NavLogo>
-              <StyledLink to='/'>
-                <NavItem title>Heather Olsen Art</NavItem>
+              <StyledLink to='/' title>
+                Heather Olsen Art
               </StyledLink>
             </NavLogo>
             { this.rightNavs() }
