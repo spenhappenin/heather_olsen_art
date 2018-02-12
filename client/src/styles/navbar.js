@@ -64,6 +64,14 @@ export const StyledLink = styled(NavLink)`
   justify-content: center;
   padding-left: 10px;
   padding-right: 10px;
+  color: ${ props => props.title ? '#5c5c5c' : '#a8a8a8'};
+  font-size: ${ props => props.title ? '20px' : '16px'};
+  font-family: ${ props => props.title ? "'Archivo Black', sans-serif !important" : "Raleway', sans-serif !important" };
+
+  &:hover {
+    transition: background-color 1s ease;
+    color: #5f5f5f;
+  } 
 `
 
 export const StyledMockLink = styled.span`
@@ -72,15 +80,10 @@ export const StyledMockLink = styled.span`
   justify-content: center;
   padding-left: 10px;
   padding-right: 10px;
+  color: #a8a8a8;
 
   @media (max-width: ${mobile}px) {
     padding-left: 15px;
     padding-right: 15px;
   };
-`
-
-export const NavItem = styled.span`
-  color: ${ props => props.title ? '#5c5c5c' : '#a8a8a8' };
-  font-size: ${ props => props.title ? '20px' : '16px' };
-  font-family: ${ props => props.title ? "'Archivo Black', sans-serif !important" : "Raleway', sans-serif !important" };
 `

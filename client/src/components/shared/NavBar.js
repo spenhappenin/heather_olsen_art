@@ -22,10 +22,8 @@ class NavBar extends React.Component {
     const { user, dispatch, history } = this.props;
     if(user.id) {
       return(
-        <StyledMockLink>
-          <NavItem onClick={() => dispatch(handleLogout(history))}>
-            Logout
-          </NavItem>
+        <StyledMockLink onClick={() => dispatch(handleLogout(history))} className='nav-link'>
+          Logout
         </StyledMockLink>
       )
     }
@@ -35,23 +33,23 @@ class NavBar extends React.Component {
     if(this.props.user.id) {
       return(
         <NavItems>
-          <StyledLink to='/admin-paintings'>
-            <NavItem>Paintings</NavItem>
+          <StyledLink to='/admin-paintings' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+            Paintings
           </StyledLink>
-          <StyledLink to='/admin-drawings'>
-            <NavItem>Drawings</NavItem>
+          <StyledLink to='/admin-drawings' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+            Drawings
           </StyledLink>
-          <StyledLink to='/admin-comissions'>
-            <NavItem>Comissions</NavItem>
+          <StyledLink to='/admin-comissions' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+            Comissions
           </StyledLink>
-          <StyledLink to='/admin-cv'>
-            <NavItem>CV</NavItem>
+          <StyledLink to='/admin-cv' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+            CV
           </StyledLink>
-          <StyledLink to='/media'>
-            <NavItem>Media</NavItem>
+          <StyledLink to='/media' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+            Media
           </StyledLink>
-          <StyledLink to='/contact'>
-            <NavItem>Contact</NavItem>
+          <StyledLink to='/contact' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+            Contact
           </StyledLink>
           {this.showLogout()}
         </NavItems>
@@ -59,23 +57,23 @@ class NavBar extends React.Component {
     } else {
       return(
         <NavItems>
-          <StyledLink to='/paintings'>
-            <NavItem>Paintings</NavItem>
+          <StyledLink to='/paintings' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+            Paintings
           </StyledLink>
-          <StyledLink to='/drawings'>
-            <NavItem>Drawings</NavItem>
+          <StyledLink to='/drawings' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+            Drawings
           </StyledLink>
-          <StyledLink to='/comissions'>
-            <NavItem>Comissions</NavItem>
+          <StyledLink to='/comissions' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+            Comissions
           </StyledLink>
-          <StyledLink to='/cv'>
-            <NavItem>CV</NavItem>
+          <StyledLink to='/cv' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+            CV
           </StyledLink>
-          <StyledLink to='/media'>
-            <NavItem>Media</NavItem>
+          <StyledLink to='/media' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+            Media
           </StyledLink>
-          <StyledLink to='/contact'>
-            <NavItem>Contact</NavItem>
+          <StyledLink to='/contact' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+            Contact
           </StyledLink>
           { this.showLogout() }
         </NavItems>
@@ -96,8 +94,8 @@ class NavBar extends React.Component {
             color='grey'
           />
           <NavLogo>
-            <StyledLink to='/'>
-              <NavItem title>Heather Olsen Art</NavItem>
+            <StyledLink to='/' title>
+              Heather Olsen Art
             </StyledLink>
           </NavLogo>
         </StyledNavbar>
