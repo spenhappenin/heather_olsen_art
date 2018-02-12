@@ -28,6 +28,8 @@ export const StyledNavbar = styled.div`
   };
   @media (max-width: ${mobile}px) {
     flex-direction: row;
+    align-items: center;
+    height: 52px;
   };
 `
 

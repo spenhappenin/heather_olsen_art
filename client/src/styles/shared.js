@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { css } from 'styled-components'
+import { Link } from 'react-router-dom';
 import { Segment } from 'semantic-ui-react';
 
 // object of screen sizes
@@ -45,6 +46,12 @@ export const Header = styled.p`
   line-height: 1.28571429em;
   color: rgba(0,0,0,.87);
   text-transform: ${ props => props.primary ? 'uppercase' : 'none'};
+`
+
+export const SocialLink = styled(Link)`
+  margin-bottom: 14px;
+  font-weight: 100;
+  color: #4f4f4f;
 `
 
 // --- Buttons ---

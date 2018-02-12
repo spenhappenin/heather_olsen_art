@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Header } from '../../styles/shared';
 import { fetchCvs } from '../../actions/cvs';
-import { StyledContainer } from '../../styles/shared';
+import { StyledContainer, SocialLink } from '../../styles/shared';
 import { Segment } from 'semantic-ui-react';
 
 class Cvs extends React.Component {
@@ -49,9 +49,11 @@ class Cvs extends React.Component {
         </Segment>
         <h4>Website and Social Media</h4>
         <Segment basic>
-          <p>www.heatherolsenart.com</p>
-          <p><Link to='https://www.instagram.com/heatherolsenart/' target="_blank">IG: @heatherolsenart</Link></p>
-          <p><Link to='https://www.facebook.com/heatherolsenart/' target="_blank">www.facebook.com/heatherolsenart</Link></p> 
+          <SocialLink to='/'>www.heatherolsenart.com</SocialLink>
+          <br />
+          <SocialLink to='https://www.instagram.com/heatherolsenart/' target="_blank">Instagram - @heatherolsenart</SocialLink>
+          <br />
+          <SocialLink to='https://www.facebook.com/heatherolsenart/' target="_blank">Facebook - www.facebook.com/heatherolsenart</SocialLink>
         </Segment>
         <Copyright />
       </Segment>

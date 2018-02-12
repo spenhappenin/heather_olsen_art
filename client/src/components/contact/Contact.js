@@ -10,12 +10,12 @@ class Contact extends React.Component {
     return(
       <Segment as={StyledContainer} basic>
         <Header primary>Contact</Header>
-        <Segment basic>
+        <div>
           <p>Heather Olsen</p>
           <p>SLC, UT</p>
           <p>801-300-5262</p>
           <p>heatherolsenart@gmail.com</p>
-        </Segment>
+        </div>
         <br />
         <br />
         <p>Thanks for visiting! For artwork/comission inquiries, or just to say hi, please fill out the form below. I'd love to hear from you!</p>
