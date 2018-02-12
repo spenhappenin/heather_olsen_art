@@ -24,6 +24,7 @@ class AdminArtWorks extends React.Component {
         <Transition visible={this.state.visible} animation='fade' duration={1000}>
           <Link to={`${this.props.path}/${work.id}`}>
             <Image 
+              alt={work.title}
               src={work.src} 
               onError={(e) => { e.target.src = "http://www.aspga.com/wp-content/uploads/2016/10/ImageNotAvailable.png" }} 
               fluid 

@@ -68,7 +68,7 @@ class ArtWorkEditForm extends React.Component {
         <DeleteArtWorkModal artWorkTitle={title} artWorkId={id} open={open} onClose={this.close} type={this.props.type} goBack={this.props.history.goBack} />
         <br />
         <br />
-        <Image src={url} size='small'/>
+        <Image alt={title} src={url} size='small'/>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths='equal'>
             <Form.Select
