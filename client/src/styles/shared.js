@@ -36,15 +36,15 @@ export const DimmerContainer = styled.div`
 // --- Text ---
 
 export const Header = styled.p`
-  font-size: ${ props => props.primary ? '40px' : '25px'};
+  font-size: ${ props => props.primary ? '34px' : '25px'};
   border: none;
   margin: calc(2rem - .14285714em) 0 1rem;
   padding: 0 0;
   font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
   font-weight: 700;
   line-height: 1.28571429em;
-  text-transform: none;
   color: rgba(0,0,0,.87);
+  text-transform: ${ props => props.primary ? 'uppercase' : 'none'};
 `
 
 // --- Buttons ---
