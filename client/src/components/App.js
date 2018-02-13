@@ -46,6 +46,7 @@ class App extends Component {
       { name: 'Contact', path: '/contact', adminPath: '/contact' },
     ]
 
+    // If user id then add the logout link
     if(this.props.user.id) 
       navs.push({ adminName: 'Logout', logout: true });
 
@@ -53,7 +54,7 @@ class App extends Component {
       if(nav.logout) {
         return(
           <Menu.Item
-            key={nav.name}
+            key={nav.adminName}
             name={this.props.user.id ? nav.adminName : nav.name}
             onClick={(e) => {
               this.props.dispatch(handleLogout(this.props.history));
@@ -66,7 +67,7 @@ class App extends Component {
       return(
         <Menu.Item
           as={Link}
-          key={nav.key}
+          key={nav.name}
           to={this.props.user.id ? nav.adminPath : nav.path}
           position='right'
           name={nav.name}
