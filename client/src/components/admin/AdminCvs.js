@@ -18,8 +18,11 @@ class AdminCvs extends React.Component {
   displayCvs = (type) => {
     const { cvs } = this.props;
     return cvs.map( cv => {
-      if(cv.cv_type === type)
+      if(cv.cv_type === type) {
         return <AdminCv key={cv.id} cv={cv} />
+      } else {
+        return null;
+      }
     })
   }
 
@@ -29,15 +32,15 @@ class AdminCvs extends React.Component {
         <Header primary>Curriculum Vitae</Header>
         <Link to='/admin-cv/new'><Button>New</Button></Link>
         <h4>Juried Exhibitions</h4>
-        {this.displayCvs('exhibition')}
+        { this.displayCvs('exhibition') }
         <h4>Festivals and Events</h4>
-        {this.displayCvs('festival')}
+        { this.displayCvs('festival') }
         <h4>Awards and Certificates</h4>
-        {this.displayCvs('award')}
+        { this.displayCvs('award') }
         <h4>Current Representation</h4>
-        {this.displayCvs('current_rep')}
+        { this.displayCvs('current_rep') }
         <h4>Education</h4>
-        {this.displayCvs('education')}
+        { this.displayCvs('education') }
         <h4>Website and Social Media</h4>
         <Segment basic>
           <p>www.heatherolsenart.com</p>

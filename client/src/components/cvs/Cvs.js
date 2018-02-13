@@ -17,8 +17,11 @@ class Cvs extends React.Component {
   displayCvs = (type) => {
     const { cvs } = this.props;
     return cvs.map( cv => {
-      if(cv.cv_type === type)
+      if(cv.cv_type === type) {
         return <Cv key={cv.id} cv={cv} />
+      } else {
+        return null;
+      }
     })
   }
 
