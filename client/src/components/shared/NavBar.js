@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { handleLogout } from '../../actions/auth';
 import { withRouter } from 'react-router-dom';
-import { StyledLink, StyledMockLink, StyledNavbar, NavItem, NavItems, NavLogo } from '../../styles/navbar';
+import { StyledLink, StyledMockLink, StyledNavbar, NavItems, NavLogo } from '../../styles/navbar';
 import { Icon } from 'semantic-ui-react';
 
 class NavBar extends React.Component {

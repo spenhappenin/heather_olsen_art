@@ -2,7 +2,6 @@ import React from 'react';
 import Copyright from '../shared/Copyright';
 import Cv from './Cv';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Header } from '../../styles/shared';
 import { fetchCvs } from '../../actions/cvs';
 import { StyledContainer, SocialLink } from '../../styles/shared';
