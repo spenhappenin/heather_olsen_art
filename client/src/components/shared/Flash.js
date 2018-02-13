@@ -19,6 +19,7 @@ const Flash = ({ flash, dispatch }) => {
           onDismiss={() => dispatch(clearFlash())}
           color={flash.msgType}
         >
+          {/* Remove semantic header */}
           <Header as='h5' textAlign='center'>{ flash.message }</Header>
           { fadeFlash(dispatch) }
         </Message>
