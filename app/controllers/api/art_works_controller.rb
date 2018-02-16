@@ -18,8 +18,8 @@ class Api::ArtWorksController < ApplicationController
     uploaded_file = params[uploaded_image_name]
 
     begin
-      cloud_image = Cloudinary::Uploader.upload(uploaded_file, public_id: params[:title])
-      art_work = ArtWork.create(url: cloud_image['url'], title: params['title'], type_of: params['type_of'], medium: params['medium'], surface: params['surface'], dimensions: params['dimensions'], price: params['price'], status: params['status'], date_complete: params['date_complete'])
+      cloud_image = Cloudinary::Uploader.upload(uploaded_file, public_id: params[:title], secure: true)
+      art_work = ArtWork.create(url: cloud_image['secure_url'], title: params['title'], type_of: params['type_of'], medium: params['medium'], surface: params['surface'], dimensions: params['dimensions'], price: params['price'], status: params['status'], date_complete: params['date_complete'])
       render json: art_work
     rescue
       # TODO: Generate an error 
