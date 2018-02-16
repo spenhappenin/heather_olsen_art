@@ -149,7 +149,7 @@ class ArtWorkEditForm extends React.Component {
               type='url'
               name='url'
               label='Image URL'
-              placeholder='http://image-url.com'
+              placeholder='https://image-url.com'
               value={url}
               onChange={this.handleChange}
             />

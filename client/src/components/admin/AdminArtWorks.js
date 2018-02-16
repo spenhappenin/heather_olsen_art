@@ -26,7 +26,7 @@ class AdminArtWorks extends React.Component {
             <Image 
               alt={work.title}
               src={work.src} 
-              onError={(e) => { e.target.src = "http://www.aspga.com/wp-content/uploads/2016/10/ImageNotAvailable.png" }} 
+              onError={(e) => { e.target.src = "https://res.cloudinary.com/dtb6lx1s4/image/upload/v1518813497/ImageNotAvailable_owzy6a.png" }} 
               fluid 
             />
           </Link>

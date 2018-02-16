@@ -71,7 +71,7 @@ class ArtWorks extends React.Component {
             src={artWork.src} 
             href={artWork.src} 
             onClick={(e) => this.openLightbox(i, e)} 
-            onError={(e) => { e.target.src ="http://www.aspga.com/wp-content/uploads/2016/10/ImageNotAvailable.png" }}
+            onError={(e) => { e.target.src ="https://res.cloudinary.com/dtb6lx1s4/image/upload/v1518813497/ImageNotAvailable_owzy6a.png" }}
             fluid 
           />
         </Transition>
