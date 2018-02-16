@@ -51,11 +51,17 @@ class Cvs extends React.Component {
         </Segment>
         <h4>Website and Social Media</h4>
         <Segment basic>
-          <SocialLink to='/'>www.heatherolsenart.com</SocialLink>
+          <SocialLink to='/' rel="noopener noreferrer">
+            www.heatherolsenart.com
+          </SocialLink>
           <br />
-          <SocialLink to='https://www.instagram.com/heatherolsenart/' target="_blank">Instagram - @heatherolsenart</SocialLink>
+          <SocialLink to='https://www.instagram.com/heatherolsenart/' target="_blank" rel="noopener noreferrer">
+            Instagram - @heatherolsenart
+          </SocialLink>
           <br />
-          <SocialLink to='https://www.facebook.com/heatherolsenart/' target="_blank">Facebook - www.facebook.com/heatherolsenart</SocialLink>
+          <SocialLink to='https://www.facebook.com/heatherolsenart/' target="_blank" rel="noopener noreferrer">
+            Facebook - www.facebook.com/heatherolsenart
+          </SocialLink>
         </Segment>
         <Copyright />
       </Segment>

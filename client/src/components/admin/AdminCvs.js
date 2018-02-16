@@ -30,7 +30,9 @@ class AdminCvs extends React.Component {
     return (
       <Segment as={StyledContainer} basic>
         <Header primary>Curriculum Vitae</Header>
-        <Link to='/admin-cv/new'><Button>New</Button></Link>
+        <Link to='/admin-cv/new' rel="noopener noreferrer">
+          <Button>New</Button>
+        </Link>
         <h4>Juried Exhibitions</h4>
         { this.displayCvs('exhibition') }
         <h4>Festivals and Events</h4>

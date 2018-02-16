@@ -22,7 +22,11 @@ class NavBar extends React.Component {
     const { user, dispatch, history } = this.props;
     if(user.id) {
       return(
-        <StyledMockLink onClick={() => dispatch(handleLogout(history))} className='nav-link'>
+        <StyledMockLink 
+          onClick={() => dispatch(handleLogout(history))} 
+          className='nav-link' 
+          rel="noopener noreferrer"
+        >
           Logout
         </StyledMockLink>
       )
@@ -33,22 +37,52 @@ class NavBar extends React.Component {
     if(this.props.user.id) {
       return(
         <NavItems>
-          <StyledLink to='/admin-paintings' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+          <StyledLink 
+            to='/admin-paintings' 
+            activeStyle={{ color: '#3c3c3c' }} 
+            className='nav-link' 
+            rel="noopener noreferrer"
+          >
             Paintings
           </StyledLink>
-          <StyledLink to='/admin-drawings' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+          <StyledLink 
+            to='/admin-drawings' 
+            activeStyle={{ color: '#3c3c3c' }} 
+            className='nav-link' 
+            rel="noopener noreferrer"
+          >
             Drawings
           </StyledLink>
-          <StyledLink to='/admin-comissions' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+          <StyledLink 
+            to='/admin-comissions' 
+            activeStyle={{ color: '#3c3c3c' }} 
+            className='nav-link' 
+            rel="noopener noreferrer"
+          >
             Comissions
           </StyledLink>
-          <StyledLink to='/admin-cv' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+          <StyledLink 
+            to='/admin-cv' 
+            activeStyle={{ color: '#3c3c3c' }} 
+            className='nav-link' 
+            rel="noopener noreferrer"
+          >
             CV
           </StyledLink>
-          <StyledLink to='/media' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+          <StyledLink 
+            to='/media' 
+            activeStyle={{ color: '#3c3c3c' }} 
+            className='nav-link' 
+            rel="noopener noreferrer"
+          >
             Media
           </StyledLink>
-          <StyledLink to='/contact' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+          <StyledLink 
+            to='/contact' 
+            activeStyle={{ color: '#3c3c3c' }} 
+            className='nav-link' 
+            rel="noopener noreferrer"
+          >
             Contact
           </StyledLink>
           {this.showLogout()}
@@ -57,22 +91,52 @@ class NavBar extends React.Component {
     } else {
       return(
         <NavItems>
-          <StyledLink to='/paintings' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+          <StyledLink 
+            to='/paintings' 
+            activeStyle={{ color: '#3c3c3c' }} 
+            className='nav-link' 
+            rel="noopener noreferrer"
+          >
             Paintings
           </StyledLink>
-          <StyledLink to='/drawings' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+          <StyledLink 
+            to='/drawings' 
+            activeStyle={{ color: '#3c3c3c' }} 
+            className='nav-link' 
+            rel="noopener noreferrer"
+          >
             Drawings
           </StyledLink>
-          <StyledLink to='/comissions' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+          <StyledLink 
+            to='/comissions' 
+            activeStyle={{ color: '#3c3c3c' }} 
+            className='nav-link' 
+            rel="noopener noreferrer"
+          >
             Comissions
           </StyledLink>
-          <StyledLink to='/cv' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+          <StyledLink 
+            to='/cv' 
+            activeStyle={{ color: '#3c3c3c' }} 
+            className='nav-link' 
+            rel="noopener noreferrer"
+          >
             CV
           </StyledLink>
-          <StyledLink to='/media' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+          <StyledLink 
+            to='/media' 
+            activeStyle={{ color: '#3c3c3c' }} 
+            className='nav-link' 
+            rel="noopener noreferrer"
+          >
             Media
           </StyledLink>
-          <StyledLink to='/contact' activeStyle={{ color: '#3c3c3c' }} className='nav-link'>
+          <StyledLink 
+            to='/contact' 
+            activeStyle={{ color: '#3c3c3c' }} 
+            className='nav-link' 
+            rel="noopener noreferrer"
+          >
             Contact
           </StyledLink>
           { this.showLogout() }
@@ -94,7 +158,7 @@ class NavBar extends React.Component {
             color='grey'
           />
           <NavLogo>
-            <StyledLink to='/' title>
+            <StyledLink to='/' title rel="noopener noreferrer">
               Heather Olsen Art
             </StyledLink>
           </NavLogo>
@@ -105,7 +169,7 @@ class NavBar extends React.Component {
         <div>
           <StyledNavbar>
             <NavLogo>
-              <StyledLink to='/' title>
+              <StyledLink to='/' title rel="noopener noreferrer">
                 Heather Olsen Art
               </StyledLink>
             </NavLogo>

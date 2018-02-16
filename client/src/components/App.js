@@ -69,6 +69,7 @@ class App extends Component {
           as={Link}
           key={nav.name}
           to={this.props.user.id ? nav.adminPath : nav.path}
+          rel="noopener noreferrer"
           position='right'
           name={nav.name}
           onClick={() => {

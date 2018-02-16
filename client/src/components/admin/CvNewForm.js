@@ -4,8 +4,7 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { createCv } from '../../actions/cvs';
 import { Button, Header } from '../../styles/shared';
-import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { StyledContainer } from '../../styles/shared';
 import { Form, Icon, Segment } from 'semantic-ui-react';
 
@@ -66,7 +65,9 @@ class CvNewForm extends React.Component {
           />
           <br />
           <Form.Group>
-            <Link to='/admin-cv'><Button><Icon name='arrow left' />Back</Button></Link>
+            <Link to='/admin-cv' rel="noopener noreferrer">
+              <Button><Icon name='arrow left' />Back</Button>
+            </Link>
             <Button type='submit'>Submit</Button>
           </Form.Group>
         </Form>

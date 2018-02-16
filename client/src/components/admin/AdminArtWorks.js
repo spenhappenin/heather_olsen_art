@@ -22,7 +22,7 @@ class AdminArtWorks extends React.Component {
     return this.props.works.map( work =>
       <Grid.Column mobile={8} tablet={4} computer={3} key={work.id}>
         <Transition visible={this.state.visible} animation='fade' duration={1000}>
-          <Link to={`${this.props.path}/${work.id}`}>
+          <Link to={`${this.props.path}/${work.id}`} rel="noopener noreferrer">
             <Image 
               alt={work.title}
               src={work.src} 
@@ -39,7 +39,9 @@ class AdminArtWorks extends React.Component {
     return(
       <Segment as={StyledContainer} basic>
         <Header primary>{this.props.title}</Header>
-        <Link to={`${this.props.path}/new`}><Button>New</Button></Link>
+        <Link to={`${this.props.path}/new`} rel="noopener noreferrer">
+          <Button>New</Button>
+        </Link>
         <br />
         <br />
         <Grid>
