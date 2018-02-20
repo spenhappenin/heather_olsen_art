@@ -100,7 +100,7 @@ class App extends Component {
           >
             { this.rightNavs() }
           </Sidebar>
-          <Sidebar.Pusher style={styles.push} dimmed={this.state.dimmed}>
+          <Sidebar.Pusher dimmed={this.state.dimmed}>
             <Flash />
             <FetchUser>
               <Switch>
