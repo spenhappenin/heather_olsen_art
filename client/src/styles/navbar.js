@@ -81,9 +81,15 @@ export const StyledMockLink = styled.span`
   padding-left: 10px;
   padding-right: 10px;
   color: #a8a8a8;
+  font-size: 16px;
 
   @media (max-width: ${mobile}px) {
     padding-left: 15px;
     padding-right: 15px;
   };
+
+  &:hover {
+    transition: background-color 1s ease;
+    color: #5f5f5f;
+  } 
 `

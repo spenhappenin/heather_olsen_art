@@ -9,15 +9,12 @@ class Home extends Component {
     this.setState({ visible: !this.state.visible });
   }
 
-  closeModal = () => this.setState({ modal: false });
-
-  toggleVisibility = () => { this.setState({ visible: !this.state.visible }) };
-
   render() {
+    const { visible } = this.state;
     return(
-      <div visible={this.state.visible} animation='fade' duration={2500}>
-          <StyledBackground></StyledBackground>>
-      </div>
+      <Transition visible={visible} animation='fade' duration={1300}>
+        <StyledBackground></StyledBackground>
+      </Transition>
     );
   }
 }

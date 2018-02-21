@@ -5,6 +5,6 @@ export const StyledBackground = styled.div`
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
-	width: 100% !important;
-	height: 100vh !important;
+	width: 100%;
+	height: 100vh;
 `
