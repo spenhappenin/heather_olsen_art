@@ -15,8 +15,9 @@ class FetchPaintings extends React.Component {
   setLoaded = () => this.setState({ loaded: true });
 
   componentDidMount() {
+    // debugger
     const { dispatch } = this.props;
-    dispatch(fetchPaintings(this.setLoaded()));
+    dispatch(fetchPaintings(this.setLoaded(), 1));
   }
 
   render() {
