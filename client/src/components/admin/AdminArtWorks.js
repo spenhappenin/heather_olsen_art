@@ -12,10 +12,12 @@ class AdminArtWorks extends React.Component {
   setLoaded = () => this.setState({ loaded: true });
 
   componentDidMount() {
+    console.log('AdminArtWorks did mount');
     this.setState({ visible: !this.state.visible });
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('AdminArtWorks did receive props')
     const { dispatch } = this.props;
     const { page } = this.state;
     if (nextProps.title !== this.props.title)
@@ -23,6 +25,7 @@ class AdminArtWorks extends React.Component {
   }
 
   loadMore = () => {
+    console.log('AdminArtWorks load more')
     const { fetchArtWorks,  } = this.props;
     const { page } = this.state;
     fetchArtWorks(this.setLoaded, page + 1)
@@ -65,7 +68,7 @@ class AdminArtWorks extends React.Component {
             pageStart={0}
             loadMore={() => this.loadMore()}
             hasMore={page < totalPages}
-            loader={<Loader />}
+            loader={<div>Loading...</div>}
             // useWindow={false}
             initialLoad={false}
             >

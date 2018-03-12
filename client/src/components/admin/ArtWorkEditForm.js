@@ -17,10 +17,10 @@ class ArtWorkEditForm extends React.Component {
     open: false
   };
 
-  componentWillMount() {
-    const { fetchArtWorks, dispatch } = this.props;
-    dispatch(fetchArtWorks());
-  }
+  // componentWillMount() {
+  //   const { fetchArtWorks, dispatch } = this.props;
+  //   dispatch(fetchArtWorks());
+  // }
 
   componentDidMount() {
     const { type, src, title, medium, surface, dimensions, price, status, dateComplete, fileData } = this.props.work;

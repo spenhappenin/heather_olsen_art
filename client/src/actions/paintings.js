@@ -3,6 +3,7 @@ import { formatArt } from '../helpers/artWorks';
 import { setFlash } from './flash';
 
 export const fetchPaintings = (cb = () => {}, page) => {
+  console.log(page);
   return(dispatch) => {
     axios.get(`/api/paintings?page=${page}`)
       .then( res => {

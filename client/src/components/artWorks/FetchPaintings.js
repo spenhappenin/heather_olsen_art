@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { DimmerContainer } from '../../styles/shared';
 import { fetchPaintings } from '../../actions/paintings';
 import { Dimmer, Loader } from 'semantic-ui-react';
-import { Switch } from 'react-router-dom'
+import { Switch } from 'react-router-dom';
 
 class FetchPaintings extends React.Component {
   state = { loaded: false };
@@ -15,7 +15,7 @@ class FetchPaintings extends React.Component {
   setLoaded = () => this.setState({ loaded: true });
 
   componentDidMount() {
-    // debugger
+    console.log('FetchPaintings did mount')
     const { dispatch } = this.props;
     dispatch(fetchPaintings(this.setLoaded(), 1));
   }
