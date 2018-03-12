@@ -64,7 +64,7 @@ class ArtWorks extends React.Component {
     const { works } = this.props;
     if(!works) return;
     return works.map( (artWork, i) =>
-        <Grid.Column mobile={8} tablet={4} computer={3} key={artWork.id}>
+        <Grid.Column mobile={8} tablet={4} computer={4} key={artWork.id}>
         <Transition visible={this.state.visible} animation='fade' duration={2000}>
           <Image 
             alt={artWork.title}
