@@ -6,10 +6,12 @@ export const fetchPaintings = (cb = () => {}, page) => {
   console.log(page);
   return(dispatch) => {
     axios.get(`/api/paintings?page=${page}`)
-      .then( res => {
+    .then( res => {
+      debugger
         const { data: { total_pages, art_works } } = res;
-        const paintings = [];
-        art_works.map( painting => paintings.push(formatArt(painting)) );
+        const paintings = art_works.map( painting => {
+          return formatArt(painting) 
+        });
         dispatch({ type: 'GET_PAINTINGS', paintings });
         dispatch({ type: 'GET_NUM_PAGES', totalPages: total_pages });
         cb();

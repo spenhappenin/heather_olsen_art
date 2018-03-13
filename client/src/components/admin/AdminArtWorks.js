@@ -26,9 +26,10 @@ class AdminArtWorks extends React.Component {
 
   loadMore = () => {
     console.log('AdminArtWorks load more')
-    const { fetchArtWorks,  } = this.props;
+    const { fetchArtWorks } = this.props;
     const { page } = this.state;
     fetchArtWorks(this.setLoaded, page + 1)
+    //this.setState({ page: page + 1})
   }
 
   displayArtWorks = () => {
@@ -66,10 +67,9 @@ class AdminArtWorks extends React.Component {
         <div style={styles.scroller}>
           <InfiniteScroll
             pageStart={0}
-            loadMore={() => this.loadMore()}
+            loadMore={this.loadMore}
             hasMore={page < totalPages}
-            loader={<div>Loading...</div>}
-            // useWindow={false}
+            loader={<div key="loader">Loading...</div>}
             initialLoad={false}
             >
             <Grid>
@@ -99,8 +99,7 @@ const mapStateToProps = (state, props) => {
 const styles = {
   scroller: {
     height: '65vh',
-    overflow: 'auto',
-    // overflow: 'hidden',
+    overflow: 'auto'
   }
 }
 
