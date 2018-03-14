@@ -1,5 +1,6 @@
 import React from 'react';
 import Copyright from '../shared/Copyright';
+import { Lazy } from 'react-lazy';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Header, Button, StyledContainer } from '../../styles/shared';
@@ -20,15 +21,17 @@ class AdminArtWorks extends React.Component {
 
   displayArtWorks = () => {
     return this.props.works.map( work =>
-      <Grid.Column mobile={8} tablet={4} computer={3} key={work.id}>
+      <Grid.Column key={work.id} mobile={8} tablet={4} computer={4}>
         <Transition visible={this.state.visible} animation='fade' duration={1000}>
           <Link to={`${this.props.path}/${work.id}`} rel="noopener noreferrer">
-            <Image 
-              alt={work.title}
-              src={work.src} 
-              onError={(e) => { e.target.src = "https://res.cloudinary.com/dtb6lx1s4/image/upload/v1518813497/ImageNotAvailable_owzy6a.png" }} 
-              fluid 
-            />
+            <Lazy>
+              <Image 
+                alt={work.title}
+                src={work.src} 
+                onError={(e) => { e.target.src = "https://res.cloudinary.com/dtb6lx1s4/image/upload/v1518813497/ImageNotAvailable_owzy6a.png" }} 
+                fluid 
+              />
+            </Lazy>
           </Link>
         </Transition>
       </Grid.Column>

@@ -1,5 +1,6 @@
 import React from 'react';
 import Copyright from '../shared/Copyright';
+import { Lazy } from 'react-lazy';
 import Lightbox from 'react-images';
 import { connect } from 'react-redux';
 import { Header } from '../../styles/shared';
@@ -66,14 +67,16 @@ class ArtWorks extends React.Component {
     return works.map( (artWork, i) =>
       <Grid.Column key={artWork.id} mobile={8} tablet={4} computer={4} style={styles.flex}>
         <Transition visible={this.state.visible} animation='fade' duration={2000}>
-          <Image 
-            alt={artWork.title}
-            src={artWork.src} 
-            href={artWork.src} 
-            onClick={(e) => this.openLightbox(i, e)} 
-            onError={(e) => { e.target.src ="https://res.cloudinary.com/dtb6lx1s4/image/upload/v1518813497/ImageNotAvailable_owzy6a.png" }}
-            fluid 
-          />
+          <Lazy>
+            <Image 
+              alt={artWork.title}
+              src={artWork.src} 
+              href={artWork.src} 
+              onClick={(e) => this.openLightbox(i, e)} 
+              onError={(e) => { e.target.src ="https://res.cloudinary.com/dtb6lx1s4/image/upload/v1518813497/ImageNotAvailable_owzy6a.png" }}
+              fluid 
+              />
+            </Lazy>
         </Transition>
       </Grid.Column>
     )

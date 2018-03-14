@@ -6,8 +6,8 @@ status = ['for sale', 'nfs', 'sold']
 
 
 # --- Create Drawings ----
-5.times do |i|
-  ArtWork.create(title: "LD #{i}", url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1517878603/ld.jpg', 
+25.times do |i|
+  ArtWork.create(title: Faker::Seinfeld.character, url: Faker::Avatar.image, 
                     type_of: 'drawing', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now, status: status.sample)
 end
 
@@ -15,16 +15,16 @@ puts 'Drawings seeded!'
 
 
 # --- Create Comissions ----
-5.times do |i|
-  ArtWork.create(title: "LD #{i + 10}", url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1517878603/ld.jpg', 
+25.times do |i|
+  ArtWork.create(title: Faker::Seinfeld.character, url: Faker::Avatar.image, 
                     type_of: 'comission', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now, status: status.sample)
-end    
+end
 puts 'Comissions seeded!'
 
 
 # --- Create Paintings ----
-5.times do |i|
-  ArtWork.create(title: "LD #{i + 20}", url: 'http://res.cloudinary.com/dkrn2wmhn/image/upload/v1517878603/ld.jpg', 
+25.times do |i|
+  ArtWork.create(title: Faker::Seinfeld.character, url: Faker::Avatar.image, 
                     type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now, status: status.sample)
 end
                 
