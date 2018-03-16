@@ -7,7 +7,7 @@ class Api::ArtWorksController < ApplicationController
 
   def fetch_paintings
     # binding.pry
-    art_works = ArtWork.where(type_of: 'painting').order('created_at DESC').page(params[:page]).per(25)
+    art_works = ArtWork.where(type_of: 'painting').order('created_at DESC').page(params[:page]).per(12)
     render json: { 
       total_pages: art_works.total_pages,
       art_works: art_works

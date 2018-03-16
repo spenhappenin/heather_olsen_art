@@ -71,6 +71,7 @@ class AdminArtWorks extends React.Component {
             hasMore={page < totalPages}
             loader={<div key="loader">Loading...</div>}
             initialLoad={false}
+            useWindow={false}
             >
             <Grid>
               {this.displayArtWorks()}
