@@ -24,7 +24,7 @@ puts 'Comissions seeded!'
 
 # --- Create Paintings ----
 25.times do |i|
-  ArtWork.create(title: Faker::Seinfeld.character, url: Faker::Avatar.image, 
+  ArtWork.create(title: Faker::GameOfThrones.character, url: Faker::Avatar.image, 
                     type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now, status: status.sample)
 end
                 

@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import comissions from './comissions';
+import currentPage from './currentPage';
 import cvs from './cvs';
 import drawings from './drawings';
 import totalPages from './totalPages';
@@ -9,6 +10,7 @@ import user from './user';
 
 const rootReducer = combineReducers({
   comissions,
+  currentPage,
   cvs,
   drawings,
   flash,

@@ -15,9 +15,8 @@ class FetchPaintings extends React.Component {
   setLoaded = () => this.setState({ loaded: true });
 
   componentDidMount() {
-    console.log('FetchPaintings did mount')
-    const { dispatch } = this.props;
-    dispatch(fetchPaintings(this.setLoaded(), 1));
+    const { currentPage, dispatch } = this.props;
+    dispatch(fetchPaintings(this.setLoaded(), currentPage));
   }
 
   render() {
@@ -55,4 +54,10 @@ class FetchPaintings extends React.Component {
   }
 }
 
-export default connect()(FetchPaintings);
+const mapStateToProps = (state) => {
+  return {
+    currentPage: state.currentPage,
+  }
+}
+
+export default connect(mapStateToProps)(FetchPaintings);

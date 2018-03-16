@@ -2,6 +2,7 @@ import React from 'react';
 import Copyright from '../shared/Copyright';
 import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
+import { incCurrentPage } from '../../actions/currentPage';
 import { Link } from 'react-router-dom';
 import { Header, Button, StyledContainer } from '../../styles/shared';
 import { Grid, Image, Loader, Segment, Transition } from 'semantic-ui-react';
@@ -12,24 +13,22 @@ class AdminArtWorks extends React.Component {
   setLoaded = () => this.setState({ loaded: true });
 
   componentDidMount() {
-    console.log('AdminArtWorks did mount');
     this.setState({ visible: !this.state.visible });
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('AdminArtWorks did receive props')
-    const { dispatch } = this.props;
-    const { page } = this.state;
-    if (nextProps.title !== this.props.title)
-      dispatch(nextProps.fetchArtWorks(), page);
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   const { dispatch } = this.props;
+  //   const { page } = this.state;
+  //   if (nextProps.title !== this.props.title)
+  //     dispatch(nextProps.fetchArtWorks(), page);
+  // }
 
   loadMore = () => {
-    console.log('AdminArtWorks load more')
-    const { fetchArtWorks } = this.props;
+    const { currentPage, dispatch, fetchArtWorks } = this.props;
     const { page } = this.state;
-    fetchArtWorks(this.setLoaded, page + 1)
-    //this.setState({ page: page + 1})
+    dispatch(incCurrentPage(currentPage));
+    dispatch(fetchArtWorks(this.setLoaded, page + 1))
+    this.setState({ page: page + 1})
   }
 
   displayArtWorks = () => {
@@ -64,20 +63,18 @@ class AdminArtWorks extends React.Component {
         </Link>
         <br />
         <br />
-        <div style={styles.scroller}>
-          <InfiniteScroll
-            pageStart={0}
-            loadMore={this.loadMore}
-            hasMore={page < totalPages}
-            loader={<div key="loader">Loading...</div>}
-            initialLoad={false}
-            useWindow={false}
-            >
-            <Grid>
-              {this.displayArtWorks()}
-            </Grid>
-          </InfiniteScroll>
-        </div>
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={this.loadMore}
+          hasMore={page < totalPages}
+          loader={<div key="loader">Loading...</div>}
+          initialLoad={false}
+          // useWindow={false}
+          >
+          <Grid>
+            {this.displayArtWorks()}
+          </Grid>
+        </InfiniteScroll>
         <Copyright />
       </Segment>
     )
@@ -87,11 +84,11 @@ class AdminArtWorks extends React.Component {
 const mapStateToProps = (state, props) => {
   switch (props.type) {
     case 'comission':
-      return { works: state.comissions, totalPages: state.totalPages }
+      return { works: state.comissions, totalPages: state.totalPages, currentPage: state.currentPage }
     case 'painting':
-      return { works: state.paintings, totalPages: state.totalPages }
+      return { works: state.paintings, totalPages: state.totalPages, currentPage: state.currentPage }
     case 'drawing':
-      return { works: state.drawings, totalPages: state.totalPages }
+      return { works: state.drawings, totalPages: state.totalPages, currentPage: state.currentPage }
     default:
       return {};
   }

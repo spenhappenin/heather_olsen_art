@@ -3,13 +3,9 @@ import { formatArt } from '../helpers/artWorks';
 import { setFlash } from './flash';
 
 export const fetchPaintings = (cb = () => {}, page) => {
-  // hits this one on scroll event
-  debugger
   return(dispatch) => {
     axios.get(`/api/paintings?page=${page}`)
     .then( res => {
-      // does not hit this debugger on scroll event
-      debugger
         const { data: { total_pages, art_works } } = res;
         const paintings = art_works.map( painting => {
           return formatArt(painting) 
