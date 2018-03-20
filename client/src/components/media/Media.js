@@ -12,9 +12,13 @@ class Media extends React.Component {
         <Header primary>Media</Header>
         <br />
         <br />
+        <ReactPlayer url='https://www.youtube.com/watch?v=uXMq45odbps' controls width='100%' />
+        <h3>Time Lapse Drawing #1</h3>
+        <br />
+        <br />
         <ReactPlayer url='https://www.youtube.com/watch?v=CbdRGKlnxX0' controls width='100%' />
-        <h3>Some Video Title</h3>
-        <p>Here is some content about the video. Some things will be said about the details of this video and will give viewers an idea of how amazing Heather's work is. Here is some content about the video. Some things will be said about the details of this video and will give viewers an idea of how amazing Heather's work is. Here is some content about the video. Some things will be said about the details of this video and will give viewers an idea of how amazing Heather's work is.</p>
+        <h3>Life of Art by Ryan Meeks</h3>
+        <p>From where she started to what continues to drive her work, this short documentary reveals a glimpse into the artist's vision.</p>
         <Copyright />
       </Segment>
     )
