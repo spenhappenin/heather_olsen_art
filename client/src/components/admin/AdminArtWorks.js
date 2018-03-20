@@ -8,7 +8,7 @@ import { Header, Button, StyledContainer } from '../../styles/shared';
 import { Grid, Image, Loader, Segment, Transition } from 'semantic-ui-react';
 
 class AdminArtWorks extends React.Component {
-  state = { loaded: false, visible: false, page: 1 };
+  state = { loaded: false, visible: false };
 
   setLoaded = () => this.setState({ loaded: true });
 
@@ -26,9 +26,7 @@ class AdminArtWorks extends React.Component {
   loadMore = () => {
     const { currentPage, dispatch, fetchArtWorks } = this.props;
     const { page } = this.state;
-    dispatch(incCurrentPage(currentPage));
-    dispatch(fetchArtWorks(this.setLoaded, page + 1))
-    this.setState({ page: page + 1})
+    dispatch(fetchArtWorks(this.setLoaded, currentPage + 1, true))
   }
 
   displayArtWorks = () => {
@@ -52,8 +50,7 @@ class AdminArtWorks extends React.Component {
   }
 
   render() {
-    const { page } = this.state;
-    const { totalPages } = this.props;
+    const { currentPage, totalPages } = this.props;
 
     return(
       <Segment as={StyledContainer} basic>
@@ -64,9 +61,9 @@ class AdminArtWorks extends React.Component {
         <br />
         <br />
         <InfiniteScroll
-          pageStart={0}
+          pageStart={1}
           loadMore={this.loadMore}
-          hasMore={page < totalPages}
+          hasMore={currentPage < totalPages}
           loader={<div key="loader">Loading...</div>}
           initialLoad={false}
           // useWindow={false}

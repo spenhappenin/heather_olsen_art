@@ -2,7 +2,7 @@ import axios from 'axios';
 import { formatArt } from '../helpers/artWorks';
 import { setFlash } from './flash';
 
-export const fetchPaintings = (cb = () => {}, page) => {
+export const fetchPaintings = (cb = () => {}, page, trigger = false) => {
   return(dispatch) => {
     axios.get(`/api/paintings?page=${page}`)
     .then( res => {
@@ -12,6 +12,10 @@ export const fetchPaintings = (cb = () => {}, page) => {
         });
         dispatch({ type: 'GET_PAINTINGS', paintings });
         dispatch({ type: 'GET_NUM_PAGES', totalPages: total_pages });
+        if(trigger) {
+          debugger
+          dispatch({ type: 'INC_CURRENT_PAGE' });
+        }
         cb();
       })
       .catch( res => {

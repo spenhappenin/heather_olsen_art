@@ -15,7 +15,7 @@ class FetchPaintings extends React.Component {
   setLoaded = () => this.setState({ loaded: true });
 
   componentDidMount() {
-    const { currentPage, dispatch } = this.props;
+    const { currentPage, dispatch, totalPages } = this.props;
     dispatch(fetchPaintings(this.setLoaded(), currentPage));
   }
 
@@ -57,6 +57,7 @@ class FetchPaintings extends React.Component {
 const mapStateToProps = (state) => {
   return {
     currentPage: state.currentPage,
+    totalPages: state.totalPages,
   }
 }
 
