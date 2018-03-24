@@ -1,6 +1,6 @@
 import React from 'react';
 import Copyright from '../shared/Copyright';
-import { Lazy } from 'react-lazy';
+import InfiniteScroll from "react-infinite-scroller";
 import Lightbox from 'react-images';
 import { connect } from 'react-redux';
 import { Header } from '../../styles/shared';
@@ -13,61 +13,27 @@ class ArtWorks extends React.Component {
   componentDidMount() {
     const { fetchArtWorks, dispatch } = this.props;
     dispatch(fetchArtWorks(this.setLoaded()));
-  }
+  };
 
   componentWillReceiveProps(nextProps){
     const { dispatch } = this.props;
     if(nextProps.title !== this.props.title)
       dispatch(nextProps.fetchArtWorks(this.setLoaded()));
-  }
-
-  setLoaded = () => this.setState({ loaded: true });
-
-  openLightbox = (index, event) => {
-    event.preventDefault();
-    this.setState({
-      currentImage: index,
-      lightboxIsOpen: true,
-    });
-  }
+  };
 
   closeLightbox = () => {
     this.setState({
       currentImage: 0,
       lightboxIsOpen: false,
     });
-  }
-
-  gotoPrevious = () => {
-    this.setState({
-      currentImage: this.state.currentImage - 1,
-    });
-  }
-
-  gotoNext = () => {
-    this.setState({
-      currentImage: this.state.currentImage + 1,
-    });
-  }
-
-  gotoImage = (index) => {
-    this.setState({
-      currentImage: index,
-    });
-  }
-
-  handleClickImage = () => {
-    if(this.state.currentImage === this.props.works.length - 1) return;
-    this.gotoNext();
-  }
-
+  };
+  
   displayArtWorks = () => {
     const { works } = this.props;
     if(!works) return;
     return works.map( (artWork, i) =>
       <Grid.Column key={artWork.id} mobile={8} tablet={4} computer={4} style={styles.flex}>
         <Transition visible={this.state.visible} animation='fade' duration={2000}>
-          <Lazy>
             <Image 
               alt={artWork.title}
               src={artWork.src} 
@@ -76,30 +42,79 @@ class ArtWorks extends React.Component {
               onError={(e) => { e.target.src ="https://res.cloudinary.com/dtb6lx1s4/image/upload/v1518813497/ImageNotAvailable_owzy6a.png" }}
               fluid 
               />
-            </Lazy>
         </Transition>
       </Grid.Column>
     )
-  }
+  };
+
+  gotoImage = (index) => {
+    this.setState({
+      currentImage: index,
+    });
+  };
+
+  gotoNext = () => {
+    this.setState({
+      currentImage: this.state.currentImage + 1,
+    });
+  };
+  
+  gotoPrevious = () => {
+    this.setState({
+      currentImage: this.state.currentImage - 1,
+    });
+  };
+  
+  handleClickImage = () => {
+    if(this.state.currentImage === this.props.works.length - 1) return;
+    this.gotoNext();
+  };
+
+  loadMore = () => {
+    const { currentPage, dispatch, fetchArtWorks } = this.props;
+    const { page } = this.state;
+    dispatch(fetchArtWorks(this.setLoaded, currentPage + 1, true));
+  };
+
+  openLightbox = (index, event) => {
+    event.preventDefault();
+    this.setState({
+      currentImage: index,
+      lightboxIsOpen: true,
+    });
+  };
+
+  setLoaded = () => this.setState({ loaded: true });
+
 
   render() {
+    const { currentPage, totalPages } = this.props;
+
     if(this.state.loaded) {
       return (
         <Segment as={StyledContainer} basic>
           <Header primary>{this.props.title}</Header>
-          <Grid>
-            {this.displayArtWorks()}
-            <Lightbox
-              currentImage={this.state.currentImage}
-              images={this.props.works}
-              isOpen={this.state.lightboxIsOpen}
-              onClickImage={this.handleClickImage}
-              onClickNext={this.gotoNext}
-              onClickPrev={this.gotoPrevious}
-              onClickThumbnail={this.gotoImage}
-              onClose={this.closeLightbox}
-              />
-          </Grid>
+          <InfiniteScroll
+            pageStart={1}
+            loadMore={this.loadMore}
+            hasMore={currentPage < totalPages}
+            loader={<div key="loader">Loading...</div>}
+            initialLoad={false}
+          >
+            <Grid>
+              {this.displayArtWorks()}
+              <Lightbox
+                currentImage={this.state.currentImage}
+                images={this.props.works}
+                isOpen={this.state.lightboxIsOpen}
+                onClickImage={this.handleClickImage}
+                onClickNext={this.gotoNext}
+                onClickPrev={this.gotoPrevious}
+                onClickThumbnail={this.gotoImage}
+                onClose={this.closeLightbox}
+                />
+            </Grid>
+          </InfiniteScroll>
           <Copyright />
         </Segment>
       )
@@ -113,7 +128,20 @@ class ArtWorks extends React.Component {
       )
     }
   }
-}
+};
+
+const mapStateToProps = (state, props) => {
+  switch (props.type) {
+    case 'comission':
+    return { works: state.comissions, totalPages: state.totalPages, currentPage: state.currentPage }
+    case 'painting':
+    return { works: state.paintings, totalPages: state.totalPages, currentPage: state.currentPage }
+    case 'drawing':
+    return { works: state.drawings, totalPages: state.totalPages, currentPage: state.currentPage }
+    default:
+    return {};
+  }
+};
 
 const styles = {
   flex: {
@@ -121,19 +149,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   }
-}
-
-const mapStateToProps = (state, props) => {
-  switch (props.type) {
-    case 'comission':
-      return { works: state.comissions }
-    case 'painting':
-      return { works: state.paintings }
-    case 'drawing':
-      return { works: state.drawings }
-    default:
-      return {};
-  }
-}
+};
 
 export default connect(mapStateToProps)(ArtWorks);

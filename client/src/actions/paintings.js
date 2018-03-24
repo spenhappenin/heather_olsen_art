@@ -2,14 +2,19 @@ import axios from 'axios';
 import { formatArt } from '../helpers/artWorks';
 import { setFlash } from './flash';
 
-export const fetchPaintings = (cb = () => {}) => {
+export const fetchPaintings = (cb = () => {}, page, trigger = false) => {
   return(dispatch) => {
-    axios.get('/api/paintings')
-      .then( res => {
-        const { data } = res;
-        const paintings = [];
-        data.map( painting => paintings.push(formatArt(painting)) );
+    axios.get(`/api/paintings?page=${page}`)
+    .then( res => {
+        const { data: { total_pages, art_works } } = res;
+        const paintings = art_works.map( painting => {
+          return formatArt(painting) 
+        });
         dispatch({ type: 'GET_PAINTINGS', paintings });
+        dispatch({ type: 'GET_NUM_PAGES', totalPages: total_pages });
+        if(trigger) {
+          dispatch({ type: 'INC_CURRENT_PAGE' });
+        }
         cb();
       })
       .catch( res => {

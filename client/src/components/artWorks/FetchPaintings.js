@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { DimmerContainer } from '../../styles/shared';
 import { fetchPaintings } from '../../actions/paintings';
 import { Dimmer, Loader } from 'semantic-ui-react';
-import { Switch } from 'react-router-dom'
+import { Switch } from 'react-router-dom';
 
 class FetchPaintings extends React.Component {
   state = { loaded: false };
@@ -15,8 +15,8 @@ class FetchPaintings extends React.Component {
   setLoaded = () => this.setState({ loaded: true });
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchPaintings(this.setLoaded()));
+    const { currentPage, dispatch, totalPages } = this.props;
+    dispatch(fetchPaintings(this.setLoaded(), currentPage));
   }
 
   render() {
@@ -54,4 +54,11 @@ class FetchPaintings extends React.Component {
   }
 }
 
-export default connect()(FetchPaintings);
+const mapStateToProps = (state) => {
+  return {
+    currentPage: state.currentPage,
+    totalPages: state.totalPages,
+  }
+}
+
+export default connect(mapStateToProps)(FetchPaintings);
