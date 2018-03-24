@@ -13,7 +13,6 @@ export const fetchPaintings = (cb = () => {}, page, trigger = false) => {
         dispatch({ type: 'GET_PAINTINGS', paintings });
         dispatch({ type: 'GET_NUM_PAGES', totalPages: total_pages });
         if(trigger) {
-          debugger
           dispatch({ type: 'INC_CURRENT_PAGE' });
         }
         cb();

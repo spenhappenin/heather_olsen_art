@@ -26,7 +26,7 @@ class AdminArtWorks extends React.Component {
   loadMore = () => {
     const { currentPage, dispatch, fetchArtWorks } = this.props;
     const { page } = this.state;
-    dispatch(fetchArtWorks(this.setLoaded, currentPage + 1, true))
+    dispatch(fetchArtWorks(this.setLoaded, currentPage + 1, true));
   }
 
   displayArtWorks = () => {
@@ -41,7 +41,7 @@ class AdminArtWorks extends React.Component {
                 (e) => 
                   { e.target.src = "https://res.cloudinary.com/dtb6lx1s4/image/upload/v1518813497/ImageNotAvailable_owzy6a.png" }
               } 
-              fluid 
+              fluid
             />
           </Link>
         </Transition>
