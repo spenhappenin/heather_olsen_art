@@ -1,15 +1,15 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import { connect } from 'react-redux';
-import { createCv } from '../../actions/cvs';
-import { Button, Header } from '../../styles/shared';
-import { Link, Redirect } from 'react-router-dom';
-import { StyledContainer } from '../../styles/shared';
-import { Form, Icon, Segment } from 'semantic-ui-react';
+import { connect, } from 'react-redux';
+import { createCv, } from '../../actions/cvs';
+import { StyledContainer, } from '../../styles/shared';
+import { Button, Header, } from '../../styles/shared';
+import { Link, Redirect, } from 'react-router-dom';
+import { Form, Icon, Segment, } from 'semantic-ui-react';
 
 class CvNewForm extends React.Component {
-  state = { type: '', title: '', location: '', date: '', startDate: moment(), fireRedirect: false };
+  state = { date: '', fireRedirect: false, location: '', startDate: moment(), title: '', type: '', };
 
   handleChange = (e, { name, value }) => {
     this.setState({ [name]: value });

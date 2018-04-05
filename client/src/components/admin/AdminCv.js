@@ -2,9 +2,9 @@ import React from 'react';
 import CvEditForm from './CvEditForm';
 import DeleteCvModal from './DeleteCvModal';
 import moment from 'moment';
-import { connect } from 'react-redux';
-import { CvContainer } from '../../styles/cv';
-import { Icon, Segment } from 'semantic-ui-react';
+import { connect, } from 'react-redux';
+import { CvContainer, } from '../../styles/cv';
+import { Icon, Segment, } from 'semantic-ui-react';
 
 class AdminCv extends React.Component {
   state = { editing: false, open: false };

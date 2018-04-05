@@ -1,14 +1,14 @@
 import React from 'react';
 import DeleteArtWorkModal from './DeleteArtWorkModal';
-import { connect } from 'react-redux';
-import { Header } from '../../styles/shared';
-import { Redirect } from 'react-router-dom';
-import { StyledContainer, Button } from '../../styles/shared';
-import { updateComission } from '../../actions/comissions';
-import { updatePainting } from '../../actions/paintings';
-import { updateDrawing } from '../../actions/drawings';
-import { statusOptions, typeOptions } from '../../helpers/data';
-import { Form, Icon, Image, Segment } from 'semantic-ui-react';
+import { connect, } from 'react-redux';
+import { Header, } from '../../styles/shared';
+import { Redirect, } from 'react-router-dom';
+import { updateComission, } from '../../actions/comissions';
+import { updatePainting, } from '../../actions/paintings';
+import { updateDrawing, } from '../../actions/drawings';
+import { statusOptions, typeOptions, } from '../../helpers/data';
+import { Button, StyledContainer, } from '../../styles/shared';
+import { Form, Icon, Image, Segment, } from 'semantic-ui-react';
 
 class ArtWorkEditForm extends React.Component {
   state = {

@@ -2,10 +2,10 @@ import React from 'react';
 import Copyright from '../shared/Copyright';
 import InfiniteScroll from "react-infinite-scroller";
 import Lightbox from 'react-images';
-import { connect } from 'react-redux';
-import { Header } from '../../styles/shared';
-import { DimmerContainer, StyledContainer } from '../../styles/shared';
-import { Dimmer, Grid, Image, Loader, Segment, Transition } from 'semantic-ui-react';
+import { connect, } from 'react-redux';
+import { Header, } from '../../styles/shared';
+import { DimmerContainer, StyledContainer, } from '../../styles/shared';
+import { Dimmer, Grid, Image, Loader, Segment, Transition, } from 'semantic-ui-react';
 
 class ArtWorks extends React.Component {
   state = { currentImage: 0, lightboxIsOpen: false, loaded: false };

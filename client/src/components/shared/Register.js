@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Header, Form, Button, Segment } from 'semantic-ui-react';
-import { connect } from 'react-redux';
-import { registerUser } from '../actions/auth';
-import { setFlash } from '../actions/flash';
+import React from 'react';
+import { connect, } from 'react-redux';
+import { registerUser, } from '../actions/auth';
+import { setFlash, } from '../actions/flash';
+import { Button, Form, Header, Segment, } from 'semantic-ui-react';
 
-class Register extends Component {
+class Register extends React.Component {
   state = { email: '', password: '', passwordConfirmation: '' };
 
   handleSubmit = event => {

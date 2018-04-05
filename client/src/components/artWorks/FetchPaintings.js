@@ -3,11 +3,11 @@ import AdminArtWorks from '../admin/AdminArtWorks';
 import ArtWorkEditForm from '../admin/ArtWorkEditForm';
 import ArtWorkNewForm from '../admin/ArtWorkNewForm';
 import ProtectedRoute from '../ProtectedRoute';
-import { connect } from 'react-redux';
-import { DimmerContainer } from '../../styles/shared';
-import { fetchPaintings } from '../../actions/paintings';
-import { Dimmer, Loader } from 'semantic-ui-react';
-import { Switch } from 'react-router-dom';
+import { connect, } from 'react-redux';
+import { DimmerContainer, } from '../../styles/shared';
+import { fetchPaintings, } from '../../actions/paintings';
+import { Switch, } from 'react-router-dom';
+import { Dimmer, Loader, } from 'semantic-ui-react';
 
 class FetchPaintings extends React.Component {
   state = { loaded: false };

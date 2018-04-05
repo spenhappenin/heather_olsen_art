@@ -1,9 +1,9 @@
 import React from 'react';
 import Copyright from '../shared/Copyright';
 import ContactForm from './ContactForm';
-import { Header } from '../../styles/shared';
-import { StyledContainer } from '../../styles/shared';
-import { Segment } from 'semantic-ui-react';
+import { Header, } from '../../styles/shared';
+import { Segment, } from 'semantic-ui-react';
+import { StyledContainer, } from '../../styles/shared';
 
 class Contact extends React.Component {
   render() {

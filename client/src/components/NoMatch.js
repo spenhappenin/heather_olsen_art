@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Copyright from './shared/Copyright';
-import { Link } from 'react-router-dom';
-import { StyledContainer } from '../styles/shared';
-import { Header, Segment } from 'semantic-ui-react';
+import { Link, } from 'react-router-dom';
+import { StyledContainer, } from '../styles/shared';
+import { Header, Segment, } from 'semantic-ui-react';
 
-class NoMatch extends Component {
+class NoMatch extends React.Component {
   render() {
     return(
       <Segment as={StyledContainer} basic>

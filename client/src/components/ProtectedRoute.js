@@ -1,7 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Route, Redirect } from 'react-router-dom';
-import { renderMergedProps } from '../helpers/routes';
+import { connect, } from 'react-redux';
+import { renderMergedProps, } from '../helpers/routes';
+import { Redirect, Route, } from 'react-router-dom';
 
 const ProtectedRoute = ({ isAuthenticated, component: Component, ...rest }) => (
     <Route {...rest} render={props => (

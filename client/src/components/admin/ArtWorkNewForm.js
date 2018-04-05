@@ -1,15 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { getUrlType } from '../../helpers/artWorks';
-import { Header } from '../../styles/shared';
-import { Redirect } from 'react-router-dom';
-import { Button, StyledContainer } from '../../styles/shared';
-import { StyledDropzone } from '../../styles/artWork';
-import { createComission } from '../../actions/comissions';
-import { createDrawing } from '../../actions/drawings';
-import { createPainting } from '../../actions/paintings';
-import { statusOptions, typeOptions } from '../../helpers/data';
-import { Form, Icon, Segment } from 'semantic-ui-react';
+import { connect, } from 'react-redux';
+import { createComission, } from '../../actions/comissions';
+import { createDrawing, } from '../../actions/drawings';
+import { createPainting, } from '../../actions/paintings';
+import { getUrlType, } from '../../helpers/artWorks';
+import { Header, } from '../../styles/shared';
+import { Redirect, } from 'react-router-dom';
+import { StyledDropzone, } from '../../styles/artWork';
+import { Button, StyledContainer, } from '../../styles/shared';
+import { statusOptions, typeOptions, } from '../../helpers/data';
+import { Form, Icon, Segment, } from 'semantic-ui-react';
 
 class ArtWorkNewForm extends React.Component {
   state = { 

@@ -1,9 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { handleLogout } from '../../actions/auth';
-import { withRouter } from 'react-router-dom';
-import { StyledLink, StyledMockLink, StyledNavbar, NavItems, NavLogo } from '../../styles/navbar';
-import { Icon } from 'semantic-ui-react';
+import { connect, } from 'react-redux';
+import { handleLogout, } from '../../actions/auth';
+import { Icon, } from 'semantic-ui-react';
+import { withRouter, } from 'react-router-dom';
+import { NavItems, NavLogo, StyledLink, StyledMockLink, StyledNavbar, } from '../../styles/navbar';
 
 class NavBar extends React.Component {
   state = { windowWidth: window.innerWidth };

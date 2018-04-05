@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
-import { connect } from 'react-redux';
-import { CvItem } from '../../styles/cv';
+import { connect, } from 'react-redux';
+import { CvItem, } from '../../styles/cv';
 
 class Cv extends React.Component {
 

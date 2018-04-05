@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { StyledBackground } from '../../styles/home';
-import { Transition } from 'semantic-ui-react';
+import React from 'react';
+import { StyledBackground, } from '../../styles/home';
+import { Transition, } from 'semantic-ui-react';
 
-class Home extends Component {
+class Home extends React.Component {
   state = { modal: true, visible: false };
 
   componentDidMount() {

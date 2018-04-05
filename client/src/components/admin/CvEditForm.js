@@ -1,10 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { updateCv } from '../../actions/cvs';
-import { Form, Icon, Input } from 'semantic-ui-react';
+import { connect, } from 'react-redux';
+import { updateCv, } from '../../actions/cvs';
+import { Form, Icon, Input, } from 'semantic-ui-react';
 
 class CvEditForm extends React.Component {
-  state = { title: '', date: '', location: ''};
+  state = { date: '', location: '', title: '', };
 
   componentDidMount() {
     this.setState({ title: this.props.title, date: this.props.date, location: this.props.location });

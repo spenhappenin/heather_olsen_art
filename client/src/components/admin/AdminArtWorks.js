@@ -1,11 +1,11 @@
 import React from 'react';
 import Copyright from '../shared/Copyright';
 import InfiniteScroll from 'react-infinite-scroller';
-import { connect } from 'react-redux';
-import { incCurrentPage } from '../../actions/currentPage';
-import { Link } from 'react-router-dom';
-import { Header, Button, StyledContainer } from '../../styles/shared';
-import { Grid, Image, Loader, Segment, Transition } from 'semantic-ui-react';
+import { connect, } from 'react-redux';
+import { incCurrentPage, } from '../../actions/currentPage';
+import { Link, } from 'react-router-dom';
+import { Button, Header, StyledContainer, } from '../../styles/shared';
+import { Grid, Image, Loader, Segment, Transition, } from 'semantic-ui-react';
 
 class AdminArtWorks extends React.Component {
   state = { loaded: false, visible: false };

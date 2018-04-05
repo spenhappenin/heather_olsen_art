@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from '../../styles/shared';
-import { Form, Input, Segment } from 'semantic-ui-react';
+import { Button, } from '../../styles/shared';
+import { Form, Input, Segment, } from 'semantic-ui-react';
 
 const Subscribe = () => (
   <Segment basic>

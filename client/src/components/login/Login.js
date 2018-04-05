@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { handleLogin } from '../../actions/auth';
-import { Header } from '../../styles/shared';
-import { StyledContainer, Button } from '../../styles/shared';
-import { Form, Segment } from 'semantic-ui-react';
+import React from 'react';
+import { connect, } from 'react-redux';
+import { handleLogin, } from '../../actions/auth';
+import { Header, } from '../../styles/shared';
+import { Button, StyledContainer, } from '../../styles/shared';
+import { Form, Segment, } from 'semantic-ui-react';
 
-class Login extends Component {
+class Login extends React.Component {
   state = { email: '', password: '' };
 
   handleChange = (e) => {

@@ -15,20 +15,21 @@ import NavBar from './shared/NavBar';
 import NoMatch from './NoMatch';
 import Media from './media/Media';
 import ProtectedRoute from './ProtectedRoute';
-import { connect } from 'react-redux';
-import { fetchComissions } from '../actions/comissions';
-import { fetchDrawings } from '../actions/drawings';
-import { fetchPaintings } from '../actions/paintings';
-import { handleLogout } from '../actions/auth';
-import { Link } from 'react-router-dom';
-import { Route, Switch, withRouter } from 'react-router-dom';
-import { Menu, Sidebar } from 'semantic-ui-react';
+import { connect, } from 'react-redux';
+import { fetchComissions, } from '../actions/comissions';
+import { fetchDrawings, } from '../actions/drawings';
+import { fetchPaintings, } from '../actions/paintings';
+import { handleLogout, } from '../actions/auth';
+import { Link, } from 'react-router-dom';
+import { Menu, Sidebar, } from 'semantic-ui-react';
+import { Route, Switch, withRouter, } from 'react-router-dom';
 
 class App extends Component {
-  state = { sideNav: false, dimmed: false, logout: false };
+  state = { dimmed: false, logout: false, sideNav: false, };
 
   toggleSideNav = () => {
-    const { sideNav, dimmed } = this.state;
+    const { dimmed, sideNav, } = this.state;
+    
     window.scrollTo(0, 0);
     this.setState({ sideNav: !sideNav, dimmed: !dimmed });
   }

@@ -1,11 +1,11 @@
 import React from 'react';
 import Copyright from '../shared/Copyright';
 import Cv from './Cv';
-import { connect } from 'react-redux';
-import { Header } from '../../styles/shared';
-import { fetchCvs } from '../../actions/cvs';
-import { StyledContainer, SocialLink } from '../../styles/shared';
-import { Segment } from 'semantic-ui-react';
+import { connect, } from 'react-redux';
+import { Header, } from '../../styles/shared';
+import { fetchCvs, } from '../../actions/cvs';
+import { Segment, } from 'semantic-ui-react';
+import { StyledContainer, SocialLink, } from '../../styles/shared';
 
 class Cvs extends React.Component {
 

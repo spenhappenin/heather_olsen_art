@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from '../../styles/shared';
-import { Form } from 'semantic-ui-react';
+import { Button, } from '../../styles/shared';
+import { Form, } from 'semantic-ui-react';
 
 const ContactForm = () => (
   <Form action='https://formspree.io/heatherolsenart@gmail.com' target="_blank" method='POST'>

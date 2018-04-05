@@ -1,7 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { deleteCv } from '../../actions/cvs';
-import { Button, Icon, Modal } from 'semantic-ui-react';
+import { connect, } from 'react-redux';
+import { deleteCv, } from '../../actions/cvs';
+import { Button, Icon, Modal, } from 'semantic-ui-react';
 
 class DeleteModal extends React.Component {
 
