@@ -6,20 +6,21 @@ import { withRouter, } from 'react-router-dom';
 import { NavItems, NavLogo, StyledLink, StyledMockLink, StyledNavbar, } from '../../styles/navbar';
 
 class NavBar extends React.Component {
-  state = { windowWidth: window.innerWidth };
+  state = { windowWidth: window.innerWidth, };
 
   handleResize = (e) => this.setState({ windowWidth: window.innerWidth });
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
-  }
+  };
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
-  }
+  };
 
   showLogout = () => {
     const { user, dispatch, history } = this.props;
+
     if(user.id) {
       return(
         <StyledMockLink 
@@ -27,126 +28,73 @@ class NavBar extends React.Component {
           className='nav-link' 
           rel="noopener noreferrer"
         >
-          Logout
+          LOGOUT
         </StyledMockLink>
       )
     }
   };
 
   rightNavs = () => {
-    if(this.props.user.id) {
-      return(
-        <NavItems>
-          <StyledLink 
-            to='/admin-paintings' 
-            activeStyle={{ color: '#3c3c3c' }} 
-            className='nav-link' 
-            rel="noopener noreferrer"
-          >
-            Paintings
-          </StyledLink>
-          <StyledLink 
-            to='/admin-drawings' 
-            activeStyle={{ color: '#3c3c3c' }} 
-            className='nav-link' 
-            rel="noopener noreferrer"
-          >
-            Drawings
-          </StyledLink>
-          <StyledLink 
-            to='/admin-comissions' 
-            activeStyle={{ color: '#3c3c3c' }} 
-            className='nav-link' 
-            rel="noopener noreferrer"
-          >
-            Comissions
-          </StyledLink>
-          <StyledLink 
-            to='/admin-cv' 
-            activeStyle={{ color: '#3c3c3c' }} 
-            className='nav-link' 
-            rel="noopener noreferrer"
-          >
-            CV
-          </StyledLink>
-          <StyledLink 
-            to='/media' 
-            activeStyle={{ color: '#3c3c3c' }} 
-            className='nav-link' 
-            rel="noopener noreferrer"
-          >
-            Media
-          </StyledLink>
-          <StyledLink 
-            to='/contact' 
-            activeStyle={{ color: '#3c3c3c' }} 
-            className='nav-link' 
-            rel="noopener noreferrer"
-          >
-            Contact
-          </StyledLink>
-          {this.showLogout()}
-        </NavItems>
-      )
-    } else {
-      return(
-        <NavItems>
-          <StyledLink 
-            to='/paintings' 
-            activeStyle={{ color: '#3c3c3c' }} 
-            className='nav-link' 
-            rel="noopener noreferrer"
-          >
-            Paintings
-          </StyledLink>
-          <StyledLink 
-            to='/drawings' 
-            activeStyle={{ color: '#3c3c3c' }} 
-            className='nav-link' 
-            rel="noopener noreferrer"
-          >
-            Drawings
-          </StyledLink>
-          <StyledLink 
-            to='/comissions' 
-            activeStyle={{ color: '#3c3c3c' }} 
-            className='nav-link' 
-            rel="noopener noreferrer"
-          >
-            Comissions
-          </StyledLink>
-          <StyledLink 
-            to='/cv' 
-            activeStyle={{ color: '#3c3c3c' }} 
-            className='nav-link' 
-            rel="noopener noreferrer"
-          >
-            CV
-          </StyledLink>
-          <StyledLink 
-            to='/media' 
-            activeStyle={{ color: '#3c3c3c' }} 
-            className='nav-link' 
-            rel="noopener noreferrer"
-          >
-            Media
-          </StyledLink>
-          <StyledLink 
-            to='/contact' 
-            activeStyle={{ color: '#3c3c3c' }} 
-            className='nav-link' 
-            rel="noopener noreferrer"
-          >
-            Contact
-          </StyledLink>
-          { this.showLogout() }
-        </NavItems>
-      )
-    }
+    const { id, } = this.props.user;
+
+    return (
+      <NavItems>
+        <StyledLink 
+          to={ id ? '/admin-paintings' : '/paintings'} 
+          activeStyle={{ color: '#525252' }} 
+          className='nav-link' 
+          rel="noopener noreferrer"
+        >
+          PAINTINGS
+        </StyledLink>
+        <StyledLink 
+          to={ id ? '/admin-drawings' : 'drawings' } 
+          activeStyle={{ color: '#525252' }} 
+          className='nav-link' 
+          rel="noopener noreferrer"
+        >
+          DRAWINGS
+        </StyledLink>
+        <StyledLink 
+          to={ id ? '/admin-comissions' : 'comissions' }
+          activeStyle={{ color: '#525252' }} 
+          className='nav-link' 
+          rel="noopener noreferrer"
+        >
+          COMISSIONS
+        </StyledLink>
+        <StyledLink 
+          to={ id ? '/admin-cv' : '/cv' }
+          activeStyle={{ color: '#525252' }} 
+          className='nav-link' 
+          rel="noopener noreferrer"
+        >
+          CV
+        </StyledLink>
+        <StyledLink 
+          to='/media' 
+          activeStyle={{ color: '#525252' }} 
+          className='nav-link' 
+          rel="noopener noreferrer"
+        >
+          MEDIA
+        </StyledLink>
+        <StyledLink 
+          to='/contact' 
+          activeStyle={{ color: '#525252' }} 
+          className='nav-link' 
+          rel="noopener noreferrer"
+        >
+          CONTACT
+        </StyledLink>
+        { this.showLogout() }
+      </NavItems>
+    );
   };
   
   render() {
-    const { windowWidth } = this.state;
+    const { windowWidth, } = this.state;
+
     if(windowWidth <= 767) {
       return(
         <StyledNavbar mobile>
@@ -159,7 +107,7 @@ class NavBar extends React.Component {
           />
           <NavLogo>
             <StyledLink to='/' title rel="noopener noreferrer">
-              Heather Olsen Art
+              HEATHER OLSEN ART
             </StyledLink>
           </NavLogo>
         </StyledNavbar>
@@ -170,7 +118,7 @@ class NavBar extends React.Component {
           <StyledNavbar>
             <NavLogo>
               <StyledLink to='/' title rel="noopener noreferrer">
-                Heather Olsen Art
+                HEATHER OLSEN ART
               </StyledLink>
             </NavLogo>
             { this.rightNavs() }
@@ -179,10 +127,10 @@ class NavBar extends React.Component {
       )
     }
   }
-}
+};
 
 const mapStateToProps = (state) => {
-  return { user: state.user }
-}
+  return { user: state.user, };
+};
 
 export default withRouter(connect(mapStateToProps)(NavBar));

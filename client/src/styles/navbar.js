@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { NavLink, } from 'react-router-dom';
 
 // --  Media Queries  --
 // At 767 width, the hamburger menu needs to be rendered
@@ -64,9 +64,10 @@ export const StyledLink = styled(NavLink)`
   justify-content: center;
   padding-left: 10px;
   padding-right: 10px;
-  color: ${ props => props.title ? '#5c5c5c' : '#a8a8a8'};
-  font-size: ${ props => props.title ? '20px' : '16px'};
-  font-family: ${ props => props.title ? "'Archivo Black', sans-serif !important" : "Raleway', sans-serif !important" };
+  color: ${ props => props.title ? '#787878' : '#b7b7b7'};
+  font-size: ${ props => props.title ? '20px' : '13px'};
+  font-family: ${ props => props.title ? "'Merriweather Sans', sans-serif !important" : "'Julius Sans One', sans-serif !important" };
+  letter-spacing: 1px;
 
   &:hover {
     transition: background-color 1s ease;
@@ -80,8 +81,9 @@ export const StyledMockLink = styled.span`
   justify-content: center;
   padding-left: 10px;
   padding-right: 10px;
-  color: #a8a8a8;
-  font-size: 16px;
+  color: #b7b7b7;
+  font-size: 13px;
+  font-family: 'Julius Sans One', sans-serif !important;
 
   @media (max-width: ${mobile}px) {
     padding-left: 15px;

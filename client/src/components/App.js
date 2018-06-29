@@ -21,6 +21,7 @@ import { fetchDrawings, } from '../actions/drawings';
 import { fetchPaintings, } from '../actions/paintings';
 import { handleLogout, } from '../actions/auth';
 import { Link, } from 'react-router-dom';
+import styled from 'styled-components';
 import { Menu, Sidebar, } from 'semantic-ui-react';
 import { Route, Switch, withRouter, } from 'react-router-dom';
 
@@ -38,23 +39,23 @@ class App extends Component {
 
   rightNavs = () => {
     const navs = [
-      { name: 'Home', path: '/', adminPath: '/'},
-      { name: 'Paintings', path: '/paintings', adminPath: '/admin-paintings' },
-      { name: 'Drawings', path: '/drawings', adminPath: '/admin-drawings' },
-      { name: 'Comissions', path: '/comissions', adminPath: '/admin-comissions' },
-      { name: 'Cv', path: '/cv', adminPath: '/admin-cv' },
-      { name: 'Media', path: '/media', adminPath: '/media' },
-      { name: 'Contact', path: '/contact', adminPath: '/contact' },
+      { name: 'HOME', path: '/', adminPath: '/'},
+      { name: 'PAINTINGS', path: '/paintings', adminPath: '/admin-paintings' },
+      { name: 'DRAWINGS', path: '/drawings', adminPath: '/admin-drawings' },
+      { name: 'COMISSIONS', path: '/comissions', adminPath: '/admin-comissions' },
+      { name: 'CV', path: '/cv', adminPath: '/admin-cv' },
+      { name: 'MEDIA', path: '/media', adminPath: '/media' },
+      { name: 'CONTACT', path: '/contact', adminPath: '/contact' },
     ]
 
     // If user id then add the logout link
     if(this.props.user.id) 
-      navs.push({ adminName: 'Logout', logout: true });
+      navs.push({ adminName: 'LOGOUT', logout: true });
 
     return navs.map( nav => {
       if(nav.logout) {
         return(
-          <Menu.Item
+          <SidebarItem
             key={nav.adminName}
             name={this.props.user.id ? nav.adminName : nav.name}
             onClick={(e) => {
@@ -66,7 +67,7 @@ class App extends Component {
         )
       }
       return(
-        <Menu.Item
+        <SidebarItem
           as={Link}
           key={nav.name}
           to={this.props.user.id ? nav.adminPath : nav.path}
@@ -160,6 +161,13 @@ class App extends Component {
     );
   }
 }
+
+const SidebarItem = styled(Menu.Item)`
+  color: #b7b7b7 !important;
+  font-family: 'Julius Sans One', sans-serif !important;
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+`;
 
 const styles = {
   sidebar: {
