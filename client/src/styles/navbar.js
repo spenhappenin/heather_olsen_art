@@ -31,7 +31,7 @@ export const StyledNavbar = styled.div`
     align-items: center;
     height: 52px;
   };
-`
+`;
 
 export const NavLogo = styled.div`
   width: 20%;
@@ -46,7 +46,7 @@ export const NavLogo = styled.div`
     display: flex;
     justify-content: center;
   };
-`
+`;
 
 export const NavItems = styled.div`
   display: flex;
@@ -56,7 +56,7 @@ export const NavItems = styled.div`
   @media (max-width: ${desktop}px) {
     width: 100%;
   };
-`
+`;
 
 export const StyledLink = styled(NavLink)`
   display: flex;
@@ -73,7 +73,7 @@ export const StyledLink = styled(NavLink)`
     transition: background-color 1s ease;
     color: #5f5f5f;
   } 
-`
+`;
 
 export const StyledMockLink = styled.span`
   display: flex;
@@ -94,4 +94,4 @@ export const StyledMockLink = styled.span`
     transition: background-color 1s ease;
     color: #5f5f5f;
   } 
-`
+`;
