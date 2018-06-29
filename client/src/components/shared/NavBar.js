@@ -8,90 +8,58 @@ import { NavItems, NavLogo, StyledLink, StyledMockLink, StyledNavbar, } from '..
 class NavBar extends React.Component {
   state = { windowWidth: window.innerWidth, };
 
-  handleResize = (e) => this.setState({ windowWidth: window.innerWidth });
-
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
   };
-
+  
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
   };
 
+  handleResize = (e) => this.setState({ windowWidth: window.innerWidth });
+
   showLogout = () => {
-    const { user, dispatch, history } = this.props;
+    const { dispatch, history, user, } = this.props;
 
     if(user.id) {
       return(
         <StyledMockLink 
-          onClick={() => dispatch(handleLogout(history))} 
+          onClick={ () => dispatch(handleLogout(history)) } 
           className='nav-link' 
           rel="noopener noreferrer"
         >
           LOGOUT
         </StyledMockLink>
       )
-    }
+    };
   };
 
-  rightNavs = () => {
+  displayRoutes = () => {
     const { id, } = this.props.user;
 
-    return (
-      <NavItems>
-        <StyledLink 
-          to={ id ? '/admin-paintings' : '/paintings'} 
-          activeStyle={{ color: '#525252' }} 
-          className='nav-link' 
+    const links = [
+      { route: '/paintings', adminRoute: '/admin-paintings', text: 'PAINTINGS', },
+      { route: '/drawings', adminRoute: '/admin-drawings', text: 'DRAWINGS', },
+      { route: '/comissions', adminRoute: '/admin-comissions', text: 'COMISSIONS', },
+      { route: '/cv', adminRoute: '/admin-cv', text: 'CV', },
+      { route: '/media', adminRoute: '/media', text: 'MEDIA', },
+      { route: '/contact', adminRoute: '/contact', text: 'CONTACT', }
+    ];
+
+    return links.map( link => {
+      return (
+        <StyledLink
+          to={id ? link.adminRoute : link.route}
+          activeStyle={{ color: '#525252' }}
+          className='nav-link'
           rel="noopener noreferrer"
         >
-          PAINTINGS
+          { link.text }
         </StyledLink>
-        <StyledLink 
-          to={ id ? '/admin-drawings' : 'drawings' } 
-          activeStyle={{ color: '#525252' }} 
-          className='nav-link' 
-          rel="noopener noreferrer"
-        >
-          DRAWINGS
-        </StyledLink>
-        <StyledLink 
-          to={ id ? '/admin-comissions' : 'comissions' }
-          activeStyle={{ color: '#525252' }} 
-          className='nav-link' 
-          rel="noopener noreferrer"
-        >
-          COMISSIONS
-        </StyledLink>
-        <StyledLink 
-          to={ id ? '/admin-cv' : '/cv' }
-          activeStyle={{ color: '#525252' }} 
-          className='nav-link' 
-          rel="noopener noreferrer"
-        >
-          CV
-        </StyledLink>
-        <StyledLink 
-          to='/media' 
-          activeStyle={{ color: '#525252' }} 
-          className='nav-link' 
-          rel="noopener noreferrer"
-        >
-          MEDIA
-        </StyledLink>
-        <StyledLink 
-          to='/contact' 
-          activeStyle={{ color: '#525252' }} 
-          className='nav-link' 
-          rel="noopener noreferrer"
-        >
-          CONTACT
-        </StyledLink>
-        { this.showLogout() }
-      </NavItems>
-    );
+      )
+    });
   };
-  
+
   render() {
     const { windowWidth, } = this.state;
 
@@ -121,7 +89,10 @@ class NavBar extends React.Component {
                 HEATHER OLSEN ART
               </StyledLink>
             </NavLogo>
-            { this.rightNavs() }
+            <NavItems>
+              { this.displayRoutes() }
+              { this.showLogout() }
+            </NavItems>
           </StyledNavbar>
         </div>
       )

@@ -10,14 +10,15 @@ import { Switch, } from 'react-router-dom';
 import { Dimmer, Loader, } from 'semantic-ui-react';
 
 class FetchPaintings extends React.Component {
-  state = { loaded: false };
+  state = { loaded: false, };
 
-  setLoaded = () => this.setState({ loaded: true });
+  setLoaded = () => this.setState({ loaded: true, });
 
   componentDidMount() {
-    const { currentPage, dispatch, totalPages } = this.props;
+    const { currentPage, dispatch, } = this.props;
+
     dispatch(fetchPaintings(this.setLoaded(), currentPage));
-  }
+  };
 
   render() {
     if (!this.state.loaded) {
@@ -49,16 +50,15 @@ class FetchPaintings extends React.Component {
           type='painting'
         />
       </Switch>
-    )
-
-  }
-}
+    );
+  };
+};
 
 const mapStateToProps = (state) => {
   return {
     currentPage: state.currentPage,
     totalPages: state.totalPages,
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(FetchPaintings);

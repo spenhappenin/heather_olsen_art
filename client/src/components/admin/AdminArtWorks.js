@@ -2,18 +2,17 @@ import React from 'react';
 import Copyright from '../shared/Copyright';
 import InfiniteScroll from 'react-infinite-scroller';
 import { connect, } from 'react-redux';
-import { incCurrentPage, } from '../../actions/currentPage';
 import { Link, } from 'react-router-dom';
 import { Button, Header, StyledContainer, } from '../../styles/shared';
-import { Grid, Image, Loader, Segment, Transition, } from 'semantic-ui-react';
+import { Grid, Image, Segment, Transition, } from 'semantic-ui-react';
 
 class AdminArtWorks extends React.Component {
-  state = { loaded: false, visible: false };
+  state = { loaded: false, visible: false, };
 
-  setLoaded = () => this.setState({ loaded: true });
+  setLoaded = () => this.setState({ loaded: true, });
 
   componentDidMount() {
-    this.setState({ visible: !this.state.visible });
+    this.setState({ visible: !this.state.visible, });
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -24,8 +23,8 @@ class AdminArtWorks extends React.Component {
   // }
 
   loadMore = () => {
-    const { currentPage, dispatch, fetchArtWorks } = this.props;
-    const { page } = this.state;
+    const { currentPage, dispatch, fetchArtWorks, } = this.props;
+
     dispatch(fetchArtWorks(this.setLoaded, currentPage + 1, true));
   }
 
@@ -74,9 +73,9 @@ class AdminArtWorks extends React.Component {
         </InfiniteScroll>
         <Copyright />
       </Segment>
-    )
-  }
-}
+    );
+  };
+};
 
 const mapStateToProps = (state, props) => {
   switch (props.type) {
@@ -88,14 +87,7 @@ const mapStateToProps = (state, props) => {
       return { works: state.drawings, totalPages: state.totalPages, currentPage: state.currentPage }
     default:
       return {};
-  }
-}
-
-const styles = {
-  scroller: {
-    height: '65vh',
-    overflow: 'auto'
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(AdminArtWorks);

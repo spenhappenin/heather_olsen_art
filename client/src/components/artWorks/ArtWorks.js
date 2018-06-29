@@ -1,5 +1,4 @@
 import React from 'react';
-import ArtWork from './ArtWork';
 import Copyright from '../shared/Copyright';
 import InfiniteScroll from "react-infinite-scroller";
 import Lightbox from 'react-images';
@@ -68,7 +67,6 @@ class ArtWorks extends React.Component {
 
   loadMore = () => {
     const { currentPage, dispatch, fetchArtWorks, } = this.props;
-    const { page, } = this.state;
 
     dispatch(fetchArtWorks(this.setLoaded, currentPage + 1, true));
   };
