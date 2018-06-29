@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { css } from 'styled-components'
-import { Link } from 'react-router-dom';
-import { Segment } from 'semantic-ui-react';
+import { css, } from 'styled-components'
+import { Link, } from 'react-router-dom';
+import { Segment, } from 'semantic-ui-react';
 
 // object of screen sizes
 const sizes = {
@@ -10,7 +10,7 @@ const sizes = {
   tablet: 768,
   phablet: 572,
   phone: 330
-}
+};
 
 // creates media object to use for queries
 export const media = Object.keys(sizes).reduce((accumulator, label) => {
@@ -28,11 +28,11 @@ export const StyledContainer = styled(Segment)`
   ${ media.tablet`padding: 50px 50px 100px 50px !important;`};
   ${ media.phablet`padding: 50px 30px 100px 30px !important;`};
   ${ media.phone`padding: 50px 20px 100px 20px !important;` };
-`
+`;
 
 export const DimmerContainer = styled.div`
   height: 100vh;
-`
+`;
 
 // --- Text ---
 
@@ -41,18 +41,18 @@ export const Header = styled.p`
   border: none;
   margin: calc(2rem - .14285714em) 0 1rem;
   padding: 0 0;
-  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  font-family: 'Julius Sans One', sans-serif;
   font-weight: 700;
   line-height: 1.28571429em;
   color: rgba(0,0,0,.87);
   text-transform: ${ props => props.primary ? 'uppercase' : 'none'};
-`
+`;
 
 export const SocialLink = styled(Link)`
   margin-bottom: 14px;
   font-weight: 100;
   color: #4f4f4f;
-`
+`;
 
 // --- Buttons ---
 
@@ -75,7 +75,7 @@ export const Button = styled.button`
     transition: background-color 0.3s ease;
     background-color: ${ props => props.modal ? '#6e92a1' : '#595959'};
   }
-`
+`;
 
 export const CvButton = styled.button`
   color: #fff;
@@ -96,4 +96,4 @@ export const CvButton = styled.button`
     transition: background-color 0.3s ease;
     background-color: ${ props => props.modal ? '#6e92a1' : '#595959'};
   }
-`
+`;
