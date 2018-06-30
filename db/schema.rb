@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171219040345) do
+ActiveRecord::Schema.define(version: 20180630170220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,21 @@ ActiveRecord::Schema.define(version: 20171219040345) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
+  end
+
+  create_table "artwork_categories", force: :cascade do |t|
+    t.bigint "category_id"
+    t.bigint "art_work_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["art_work_id"], name: "index_artwork_categories_on_art_work_id"
+    t.index ["category_id"], name: "index_artwork_categories_on_category_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "cvs", force: :cascade do |t|
@@ -83,6 +98,8 @@ ActiveRecord::Schema.define(version: 20171219040345) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "artwork_categories", "art_works"
+  add_foreign_key "artwork_categories", "categories"
   add_foreign_key "series_art_works", "art_works"
   add_foreign_key "series_art_works", "series"
 end

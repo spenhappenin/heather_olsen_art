@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import AdminCvs from './admin/AdminCvs';
 import ArtWorks from './artWorks/ArtWorks';
 import Contact from './contact/Contact';
@@ -15,6 +15,7 @@ import NavBar from './shared/NavBar';
 import NoMatch from './NoMatch';
 import Media from './media/Media';
 import ProtectedRoute from './ProtectedRoute';
+import Work from './Work';
 import { connect, } from 'react-redux';
 import { fetchComissions, } from '../actions/comissions';
 import { fetchDrawings, } from '../actions/drawings';
@@ -25,17 +26,17 @@ import styled from 'styled-components';
 import { Menu, Sidebar, } from 'semantic-ui-react';
 import { Route, Switch, withRouter, } from 'react-router-dom';
 
-class App extends Component {
+class App extends React.Component {
   state = { dimmed: false, logout: false, sideNav: false, };
 
   toggleSideNav = () => {
     const { dimmed, sideNav, } = this.state;
     
     window.scrollTo(0, 0);
-    this.setState({ sideNav: !sideNav, dimmed: !dimmed });
-  }
+    this.setState({ sideNav: !sideNav, dimmed: !dimmed, });
+  };
 
-  closeSideNav = () => this.setState({ sideNav: false, dimmed: false });
+  closeSideNav = () => this.setState({ sideNav: false, dimmed: false, });
 
   rightNavs = () => {
     const navs = [
@@ -46,7 +47,7 @@ class App extends Component {
       { name: 'CV', path: '/cv', adminPath: '/admin-cv' },
       { name: 'MEDIA', path: '/media', adminPath: '/media' },
       { name: 'CONTACT', path: '/contact', adminPath: '/contact' },
-    ]
+    ];
 
     // If user id then add the logout link
     if(this.props.user.id) 
@@ -98,7 +99,7 @@ class App extends Component {
             direction='top' 
             vertical 
             inverted
-            style={styles.sidebar}
+            style={{ paddingLeft: '30px !important' }}
           >
             { this.rightNavs() }
           </Sidebar>
@@ -147,6 +148,7 @@ class App extends Component {
                 <ProtectedRoute path='/admin-drawings' component={FetchDrawings} />
                 <ProtectedRoute exact path='/admin-cv' component={AdminCvs} />
                 <ProtectedRoute exact path='/admin-cv/new' component={CvNewForm} />
+                <Route exact path='/work' component={Work} />
                 <Route exact path='/cv' component={Cvs} />
                 <Route exact path='/media' component={Media} />
                 <Route exact path='/contact' component={Contact} />
@@ -159,8 +161,8 @@ class App extends Component {
         </Sidebar.Pushable>
       </div>
     );
-  }
-}
+  };
+};
 
 const SidebarItem = styled(Menu.Item)`
   color: #b7b7b7 !important;
@@ -169,15 +171,9 @@ const SidebarItem = styled(Menu.Item)`
   padding-bottom: 16px !important;
 `;
 
-const styles = {
-  sidebar: {
-    paddingLeft: '30px !important'
-  }
-}
-
 const mapStateToProps = (state) => {
   return { user: state.user };
-}
+};
 
 // TODO: Find the more optimal solution instead of withRouter (see article)
 export default withRouter(connect(mapStateToProps)(App));
