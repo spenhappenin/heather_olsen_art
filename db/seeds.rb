@@ -4,6 +4,15 @@ puts 'Test User Created!'
 
 status = ['for sale', 'nfs', 'sold']
 
+# --- Create Categories
+Category.create(title: 'still life', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1519773180/Grapes%20of%20Wrath.jpg')
+Category.create(title: 'animals', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1529967631/Hare%20Study.jpg')
+Category.create(title: 'figures', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1518756176/Pucker%20Up%20%28diptych%201%29.jpg')
+Category.create(title: 'drawings', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1515719879/Female%20Portrait%20Etude.jpg')
+Category.create(title: 'comissions', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1517895361/Midnight%20Smoke.jpg')
+Category.create(title: 'available', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1529967241/Blonde%20with%20Glasses.jpg')
+
+p 'Categories seeded!'
 
 # --- Create Drawings ----
 25.times do |i|

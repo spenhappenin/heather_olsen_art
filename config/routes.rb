@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     get '/comissions', to: 'art_works#fetch_comissions'
     get '/paintings', to: 'art_works#fetch_paintings'
     get '/drawings', to: 'art_works#fetch_drawings'
+    get '/works', to: 'categories#fetch_works'
     get '/cvs', to: 'cvs#fetch_cvs'
     put '/cv/:id', to: 'cvs#update_cv'
     resources :cvs, only: [:create, :destroy]

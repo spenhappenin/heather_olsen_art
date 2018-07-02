@@ -38,6 +38,7 @@ class NavBar extends React.Component {
     const { id, } = this.props.user;
 
     const links = [
+      { route: '/work', adminRoute: '/work', text: 'ARTWORK', },
       { route: '/paintings', adminRoute: '/admin-paintings', text: 'PAINTINGS', },
       { route: '/drawings', adminRoute: '/admin-drawings', text: 'DRAWINGS', },
       { route: '/comissions', adminRoute: '/admin-comissions', text: 'COMISSIONS', },
