@@ -149,6 +149,7 @@ class App extends React.Component {
                 <ProtectedRoute exact path='/admin-cv' component={AdminCvs} />
                 <ProtectedRoute exact path='/admin-cv/new' component={CvNewForm} />
                 <Route path='/work' component={FetchCategories} />
+                <Route path='/work/:work-title'  />
                 <Route exact path='/cv' component={Cvs} />
                 <Route exact path='/media' component={Media} />
                 <Route exact path='/contact' component={Contact} />

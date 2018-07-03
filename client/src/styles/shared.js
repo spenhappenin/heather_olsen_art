@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { css, } from 'styled-components'
-import { Link, } from 'react-router-dom';
+import { Link as ReactRouterLink, } from 'react-router-dom';
 import { Segment, } from 'semantic-ui-react';
 
 // object of screen sizes
@@ -48,7 +48,14 @@ export const Header = styled.p`
   text-transform: ${ props => props.primary ? 'uppercase' : 'none'};
 `;
 
-export const SocialLink = styled(Link)`
+export const Link = styled(ReactRouterLink)`
+  color: inherit;
+  &:hover {
+    color: inherit;
+  }
+`;
+
+export const SocialLink = styled(ReactRouterLink)`
   margin-bottom: 14px;
   font-weight: 100;
   color: #4f4f4f;

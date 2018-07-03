@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link, } from '../styles/shared';
 import { StyledContainer, } from '../styles/shared';
 import { Grid, Image, Segment, } from 'semantic-ui-react';
 
@@ -8,28 +9,42 @@ class Categories extends React.Component {
   displayCategories = () => {
     return this.props.categories.map( c => (
       <Grid.Column mobile={8} tablet={4} computer={5}>
-        <CategoryImage url={ c.display_image } />
-        <CategoryTitle>{ c.title }</CategoryTitle>
+        <CategoryContainer>
+        <Link to={`/work/${c.route}`}>
+          <CategoryImage url={ c.display_image } />
+          <CategoryTitle>{ c.title }</CategoryTitle>
+        </Link>
+        </CategoryContainer>
       </Grid.Column>
     ));
   };
 
   render() {
     return(
-      <CategoryContainer>
+      <CategoriesContainer>
         <Grid columns='equal' centered>
           { this.displayCategories() }
         </Grid>
-      </CategoryContainer>
+      </CategoriesContainer>
     );
   };
 };
 
-const CategoryContainer = styled.div`
-  margin-bottom: 100px;
+const CategoriesContainer = styled.div`
+  margin-bottom: 125px;
   margin-top: 50px;
   padding-left: 60px;
   padding-right: 60px;
+`;
+
+const CategoryContainer = styled.div`
+  opacity: 1;
+  transition: opacity .2s ease-out;
+
+  &:hover {
+    opacity: 0.7;
+    transition: opacity .2s ease-out;
+  }
 `;
 
 const CategoryTitle = styled.p`

@@ -27,8 +27,9 @@ class FetchCategories extends React.Component {
             <Loader />
           </Dimmer>
         </DimmerContainer>
-      )
-    }
+      );
+    };
+
     return(
       <Switch>
         <Route 
