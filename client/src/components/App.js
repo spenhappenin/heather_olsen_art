@@ -15,6 +15,7 @@ import NavBar from './shared/NavBar';
 import NoMatch from './NoMatch';
 import Media from './media/Media';
 import ProtectedRoute from './ProtectedRoute';
+import ShowArtWorks from './ShowArtWorks';
 import FetchCategories from './FetchCategories';
 import { connect, } from 'react-redux';
 import { fetchComissions, } from '../actions/comissions';
@@ -149,7 +150,6 @@ class App extends React.Component {
                 <ProtectedRoute exact path='/admin-cv' component={AdminCvs} />
                 <ProtectedRoute exact path='/admin-cv/new' component={CvNewForm} />
                 <Route path='/work' component={FetchCategories} />
-                <Route path='/work/:work-title'  />
                 <Route exact path='/cv' component={Cvs} />
                 <Route exact path='/media' component={Media} />
                 <Route exact path='/contact' component={Contact} />

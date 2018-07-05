@@ -18,6 +18,20 @@ class Api::ArtWorksController < ApplicationController
     render json: ArtWork.where(type_of: 'drawing').order('created_at DESC')
   end
 
+
+
+
+
+  def fetch_art_works
+    # binding.pry
+    category = Category.where(route: params[:category]).first
+    render json: category.art_works
+  end
+
+
+
+
+
   def create
     uploaded_image_name = params.keys.first
     uploaded_file = params[uploaded_image_name]

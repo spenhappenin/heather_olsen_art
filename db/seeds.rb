@@ -1,43 +1,115 @@
-
 User.create(name: 'Heather Olsen', email: 'test@test.com', password: 'password', password_confirmation: 'password')
-puts 'Test User Created!'
+p 'Test User Created!'
 
 status = ['for sale', 'nfs', 'sold']
 
-# --- Create Categories
-Category.create(title: 'still life', route: 'still-life', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1519773180/Grapes%20of%20Wrath.jpg')
-Category.create(title: 'animals', route: 'animals', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1529967631/Hare%20Study.jpg')
-Category.create(title: 'figures', route: 'figures',display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1518756176/Pucker%20Up%20%28diptych%201%29.jpg')
-Category.create(title: 'drawings', route: 'drawings', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1515719879/Female%20Portrait%20Etude.jpg')
-Category.create(title: 'comissions', route: 'comissions', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1517895361/Midnight%20Smoke.jpg')
-Category.create(title: 'available', route: 'available', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1529967241/Blonde%20with%20Glasses.jpg')
-
-p 'Categories seeded!'
-
-# --- Create Drawings ----
+# --- Create Available ---
+available = Category.create(title: 'available', route: 'available', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1529967241/Blonde%20with%20Glasses.jpg')
 25.times do |i|
-  ArtWork.create(title: Faker::Seinfeld.character, url: Faker::Avatar.image, 
-                    type_of: 'drawing', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now, status: status.sample)
+  artwork = ArtWork.create(
+    title: Faker::Seinfeld.character, 
+    url: Faker::Avatar.image, 
+    medium: 'oil', 
+    surface: 'canvas', 
+    dimensions: '15 x 15', 
+    price: 250.00, 
+    date_complete: Time.now, 
+    status: status.sample
+  )
+  p artwork.id
+  ArtworkCategory.create(category_id: available.id, art_work_id: artwork.id)
 end
+p 'Available Category, ArtWorks, and ArtworkCategories seeded!'
 
-puts 'Drawings seeded!'
+# --- Create Figures ---
+figures = Category.create(title: 'figures', route: 'figures',display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1518756176/Pucker%20Up%20%28diptych%201%29.jpg')
 
-
-# --- Create Comissions ----
 25.times do |i|
-  ArtWork.create(title: Faker::Seinfeld.character, url: Faker::Avatar.image, 
-                    type_of: 'comission', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now, status: status.sample)
+  artwork = ArtWork.create(
+    title: Faker::Seinfeld.character, 
+    url: Faker::Avatar.image, 
+    medium: 'oil', 
+    surface: 'canvas', 
+    dimensions: '15 x 15', 
+    price: 250.00, 
+    date_complete: Time.now, 
+    status: status.sample
+  )
+  ArtworkCategory.create(category_id: figures.id, art_work_id: artwork.id)
 end
-puts 'Comissions seeded!'
+p 'Figures Category, ArtWorks, and ArtworkCategories seeded!'
 
+# --- Create Still Life ---
+still_life = Category.create(title: 'still life', route: 'still-life', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1519773180/Grapes%20of%20Wrath.jpg')
 
-# --- Create Paintings ----
 25.times do |i|
-  ArtWork.create(title: Faker::GameOfThrones.character, url: Faker::Avatar.image, 
-                    type_of: 'painting', medium: 'oil', surface: 'canvas', dimensions: '15 x 15', price: 250.00, date_complete: Time.now, status: status.sample)
+  artwork = ArtWork.create(
+    title: Faker::Seinfeld.character, 
+    url: Faker::Avatar.image, 
+    medium: 'oil', 
+    surface: 'canvas', 
+    dimensions: '15 x 15', 
+    price: 250.00, 
+    date_complete: Time.now, 
+    status: status.sample
+  )
+  ArtworkCategory.create(category_id: still_life.id, art_work_id: artwork.id)
 end
-                
-puts 'Paintings seeded!'
+p 'Still Life Category, ArtWorks, and ArtworkCategories seeded!'
+
+# --- Create Animals ---
+animals = Category.create(title: 'animals', route: 'animals', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1529967631/Hare%20Study.jpg')
+
+25.times do |i|
+  artwork = ArtWork.create(
+    title: Faker::Seinfeld.character, 
+    url: Faker::Avatar.image, 
+    medium: 'oil', 
+    surface: 'canvas', 
+    dimensions: '15 x 15', 
+    price: 250.00, 
+    date_complete: Time.now, 
+    status: status.sample
+  )
+  ArtworkCategory.create(category_id: animals.id, art_work_id: artwork.id)
+end
+p 'Animals Category, ArtWorks, and ArtworkCategories seeded!'
+
+# --- Create Drawings ---
+drawings = Category.create(title: 'drawings', route: 'drawings', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1515719879/Female%20Portrait%20Etude.jpg')
+
+25.times do |i|
+  artwork = ArtWork.create(
+    title: Faker::Seinfeld.character, 
+    url: Faker::Avatar.image, 
+    medium: 'oil', 
+    surface: 'canvas', 
+    dimensions: '15 x 15', 
+    price: 250.00, 
+    date_complete: Time.now, 
+    status: status.sample
+  )
+  ArtworkCategory.create(category_id: drawings.id, art_work_id: artwork.id)
+end
+p 'Drawings Category, ArtWorks, and ArtworkCategories seeded!'
+  
+# --- Create Comissions ---
+comissions = Category.create(title: 'comissions', route: 'comissions', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1517895361/Midnight%20Smoke.jpg')
+
+25.times do |i|
+  artwork = ArtWork.create(
+    title: Faker::Seinfeld.character, 
+    url: Faker::Avatar.image, 
+    medium: 'oil', 
+    surface: 'canvas', 
+    dimensions: '15 x 15', 
+    price: 250.00, 
+    date_complete: Time.now, 
+    status: status.sample
+  )
+  ArtworkCategory.create(category_id: comissions.id, art_work_id: artwork.id)
+end
+p 'Comissions Category, ArtWorks, and ArtworkCategories seeded!'
 
 3.times do 
   Cv.create(title: '“President’s Show”', cv_type: 'exhibition', cv_date: Time.now, location: 'SLCC Media Center, SLC, UT')
@@ -59,4 +131,4 @@ end
   Cv.create(title: 'University of Utah', cv_type: 'education', cv_date: Time.now)
 end
 
-puts 'Cvs seeded!'
+p 'Cvs seeded!'

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Categories from './Categories';
+import ShowArtWorks from './ShowArtWorks';
 import { DimmerContainer, } from '../styles/shared';
 import { Route, Switch, } from 'react-router-dom';
 import { Dimmer, Loader, } from 'semantic-ui-react';
@@ -39,6 +40,7 @@ class FetchCategories extends React.Component {
             <Categories categories={this.state.categories} />
           )} 
         />
+        <Route exact path='/work/:work_title' component={ShowArtWorks} />
       </Switch>
     );
   };
