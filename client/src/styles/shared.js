@@ -22,7 +22,7 @@ export const media = Object.keys(sizes).reduce((accumulator, label) => {
   return accumulator
 }, {})
 
-export const StyledContainer = styled(Segment)`
+export const StyledContainer = styled.div`
   ${ media.giant`padding: 50px 300px 100px 300px !important;`};
   ${ media.desktop`padding: 50px 160px 100px 160px !important;`};
   ${ media.tablet`padding: 50px 50px 100px 50px !important;`};

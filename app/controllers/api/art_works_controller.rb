@@ -1,36 +1,27 @@
 class Api::ArtWorksController < ApplicationController
   before_action :set_art_work, only: [:update, :destroy]
 
-  def fetch_comissions    
-    render json: ArtWork.where(type_of: 'comission').order('created_at DESC')
-  end
+  # def fetch_comissions    
+  #   render json: ArtWork.where(type_of: 'comission').order('created_at DESC')
+  # end
 
-  def fetch_paintings
-    art_works = ArtWork.where(type_of: 'painting').order('created_at DESC').page(params[:page]).per(12)
-    render json: { 
-      total_pages: art_works.total_pages,
-      art_works: art_works
-    }
-    # artWorks = ArtWork.where(type_of: 'painting').order('created_at DESC').page()
-  end
+  # def fetch_paintings
+  #   art_works = ArtWork.where(type_of: 'painting').order('created_at DESC').page(params[:page]).per(12)
+  #   render json: { 
+  #     total_pages: art_works.total_pages,
+  #     art_works: art_works
+  #   }
+  #   # artWorks = ArtWork.where(type_of: 'painting').order('created_at DESC').page()
+  # end
 
-  def fetch_drawings
-    render json: ArtWork.where(type_of: 'drawing').order('created_at DESC')
-  end
-
-
-
-
+  # def fetch_drawings
+  #   render json: ArtWork.where(type_of: 'drawing').order('created_at DESC')
+  # end
 
   def fetch_art_works
-    # binding.pry
     category = Category.where(route: params[:category]).first
     render json: category.art_works
   end
-
-
-
-
 
   def create
     uploaded_image_name = params.keys.first
@@ -68,5 +59,4 @@ class Api::ArtWorksController < ApplicationController
     def set_art_work
       @art_work = ArtWork.find(params[:id])
     end
-
 end
