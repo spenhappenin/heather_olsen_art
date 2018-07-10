@@ -97,8 +97,8 @@ class NavBar extends React.Component {
           </StyledNavbar>
         </div>
       )
-    }
-  }
+    };
+  };
 };
 
 const mapStateToProps = (state) => {

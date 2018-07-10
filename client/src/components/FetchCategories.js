@@ -1,7 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import Categories from './Categories';
+import ProtectedRoute from './ProtectedRoute';
 import ShowArtWorks from './ShowArtWorks';
+import SingleArtWork from './SingleArtWork';
+import AdminShowArtWorks from './AdminShowArtWorks';
+import { connect, } from 'react-redux';
 import { DimmerContainer, } from '../styles/shared';
 import { Route, Switch, } from 'react-router-dom';
 import { Dimmer, Loader, } from 'semantic-ui-react';
@@ -40,10 +44,19 @@ class FetchCategories extends React.Component {
             <Categories categories={this.state.categories} />
           )} 
         />
-        <Route exact path='/work/:work_title' component={ShowArtWorks} />
+        {/* {
+          this.props.user.id ?
+            <ProtectedRoute exact path='/work/:work_title' component={AdminShowArtWorks} />
+            : */}
+            <Route exact path='/work/:work_title' component={ShowArtWorks} />
+          // }
       </Switch>
     );
   };
 };
 
-export default FetchCategories;
+const mapStateToProps = (state) => {
+  return { user: state.user, };
+};
+
+export default connect(mapStateToProps)(FetchCategories);

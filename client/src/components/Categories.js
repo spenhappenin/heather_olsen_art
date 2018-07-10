@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect, } from 'react-redux';
 import { Link, } from '../styles/shared';
 import { StyledContainer, } from '../styles/shared';
 import { Grid, Image, Segment, } from 'semantic-ui-react';
@@ -7,10 +8,12 @@ import { Grid, Image, Segment, } from 'semantic-ui-react';
 class Categories extends React.Component {
 
   displayCategories = () => {
+    const { user, } = this.props;
+    
     return this.props.categories.map( c => (
       <Grid.Column mobile={8} tablet={4} computer={5}>
         <CategoryContainer>
-        <Link to={`/work/${c.route}`}>
+        <Link to={user.id ? `/work/admin-${c.route}` : `/work/${c.route}`}>
           <CategoryImage url={ c.display_image } />
           <CategoryTitle>{ c.title }</CategoryTitle>
         </Link>
@@ -28,6 +31,10 @@ class Categories extends React.Component {
       </CategoriesContainer>
     );
   };
+};
+
+const mapStateToProps = (state) => {
+  return { user: state.user };
 };
 
 const CategoriesContainer = styled.div`
@@ -71,4 +78,4 @@ const CategoryImage = styled.div`
   }
 `;
 
-export default Categories;
+export default connect(mapStateToProps)(Categories);

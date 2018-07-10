@@ -1,6 +1,5 @@
 import React from 'react';
 import AdminCvs from './admin/AdminCvs';
-import ArtWorks from './artWorks/ArtWorks';
 import Contact from './contact/Contact';
 import CvNewForm from './admin/CvNewForm';
 import Cvs from './cvs/Cvs';
@@ -42,9 +41,7 @@ class App extends React.Component {
   rightNavs = () => {
     const navs = [
       { name: 'HOME', path: '/', adminPath: '/'},
-      { name: 'PAINTINGS', path: '/paintings', adminPath: '/admin-paintings' },
-      { name: 'DRAWINGS', path: '/drawings', adminPath: '/admin-drawings' },
-      { name: 'COMISSIONS', path: '/comissions', adminPath: '/admin-comissions' },
+      { name: 'ARTWORK', path: '/work', adminPath: '/work' },
       { name: 'CV', path: '/cv', adminPath: '/admin-cv' },
       { name: 'MEDIA', path: '/media', adminPath: '/media' },
       { name: 'CONTACT', path: '/contact', adminPath: '/contact' },
@@ -84,7 +81,7 @@ class App extends React.Component {
       )
     }
     )
-  }
+  };
 
   render() {
     return (
@@ -108,45 +105,6 @@ class App extends React.Component {
             <Flash />
             <FetchUser>
               <Switch>
-                <Route 
-                  exact 
-                  path='/comissions'
-                  render={ props => (
-                    <ArtWorks 
-                      {...props} 
-                      fetchArtWorks={fetchComissions} 
-                      title='Comissions' 
-                      type='comission' 
-                    /> 
-                  )}
-                />
-                <ProtectedRoute path='/admin-comissions' component={FetchComissions} />
-                <Route 
-                  exact
-                  path='/paintings'
-                  render={ props => (
-                    <ArtWorks 
-                      {...props} 
-                      fetchArtWorks={fetchPaintings} 
-                      title='Paintings' 
-                      type='painting' 
-                    /> 
-                  )}
-                />
-                <ProtectedRoute path='/admin-paintings' component={FetchPaintings} />
-                <Route 
-                  exact
-                  path='/drawings'
-                  render={ props => (
-                    <ArtWorks
-                      {...props}
-                      fetchArtWorks={fetchDrawings}
-                      title='Drawings'
-                      type='drawing'
-                    />
-                  )}
-                />
-                <ProtectedRoute path='/admin-drawings' component={FetchDrawings} />
                 <ProtectedRoute exact path='/admin-cv' component={AdminCvs} />
                 <ProtectedRoute exact path='/admin-cv/new' component={CvNewForm} />
                 <Route path='/work' component={FetchCategories} />

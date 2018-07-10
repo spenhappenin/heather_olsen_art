@@ -5,4 +5,9 @@ class ArtWork < ApplicationRecord
 
   has_many :artwork_categories
   has_many :categories, :through => :artwork_categories
+
+  def self.category_title(title)
+    new_title = title.split('-').drop(1)
+    new_title = new_title.join('-')
+  end
 end
