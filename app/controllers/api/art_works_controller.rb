@@ -17,7 +17,17 @@ class Api::ArtWorksController < ApplicationController
 
     begin
       cloud_image = Cloudinary::Uploader.upload(uploaded_file, public_id: params[:title], secure: true)
-      art_work = ArtWork.create(url: cloud_image['secure_url'], title: params['title'], type_of: params['type_of'], medium: params['medium'], surface: params['surface'], dimensions: params['dimensions'], price: params['price'], status: params['status'], date_complete: params['date_complete'])
+      art_work = ArtWork.create(
+        url: cloud_image['secure_url'], 
+        title: params['title'], 
+        type_of: params['type_of'], 
+        medium: params['medium'], 
+        surface: params['surface'], 
+        dimensions: params['dimensions'], 
+        price: params['price'], 
+        status: params['status'], 
+        date_complete: params['date_complete']
+      )
       render json: art_work
     rescue
       # TODO: Generate an error 
@@ -26,7 +36,17 @@ class Api::ArtWorksController < ApplicationController
   end
 
   def update 
-    if @art_work.update(title: params[:title], medium: params[:medium], surface: params[:surface], dimensions: params[:dimensions], price: params[:price], status: params[:status], date_complete: params[:dateComplete], url: params[:url])
+    if @art_work.update(
+      title: params[:title], 
+      medium: params[:medium], 
+      surface: params[:surface], 
+      dimensions: params[:dimensions], 
+      price: params[:price], 
+      status: params[:status], 
+      date_complete: params[:dateComplete], 
+      url: params[:url]
+    )
+      ArtWork.update_categories(@art_work, params[:categories])
       render json: @art_work
     else
       # TODO: Generate an error 

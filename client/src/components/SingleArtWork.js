@@ -2,10 +2,21 @@ import React from 'react';
 import axios from 'axios';
 import DeleteArtWorkModal from './admin/DeleteArtWorkModal';
 import { Button, Header, StyledContainer, } from '../styles/shared';
-import { Form, Icon, Image, } from 'semantic-ui-react';
+import { Dropdown, Form, Icon, Image, } from 'semantic-ui-react';
 
 class SingleArtWork extends React.Component {
-  state = { title: '', surface: '', medium: '', dimensions: '', price: '', status: '', dateComplete: '', url: '', open: false, };
+  state = { 
+    title: '', 
+    surface: '', 
+    medium: '', 
+    dimensions: '', 
+    price: '', 
+    status: '', 
+    dateComplete: '', 
+    url: '', 
+    open: false, 
+    categories: [],
+  };
 
   componentDidMount() {
     axios.get(`/api/single_artwork/${this.props.match.params.id}`)
@@ -62,14 +73,6 @@ class SingleArtWork extends React.Component {
         <br />
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths='equal'>
-            {/* <Form.Select
-              name='type'
-              label='Type'
-              placeholder='Painting...'
-              options={typeOptions}
-              value={type}
-              onChange={this.handleChange}
-            /> */}
             <Form.Input
               required
               name='title'
@@ -77,6 +80,17 @@ class SingleArtWork extends React.Component {
               placeholder='Some Art Title'
               value={this.state.title}
               onChange={this.handleChange}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Dropdown 
+              name='categories' 
+              placeholder='Categories' 
+              fluid 
+              multiple 
+              selection 
+              options={categoryOptions} 
+              onChange={this.handleChange} 
             />
           </Form.Group>
           <Form.Group widths='equal'>
@@ -153,10 +167,25 @@ class SingleArtWork extends React.Component {
   };
 };
 
-export const statusOptions = [
+const statusOptions = [
   { key: 'for sale', text: 'For Sale', value: 'for sale' },
   { key: 'nfs', text: 'NFS', value: 'nfs' },
   { key: 'sold', text: 'Sold', value: 'sold' }
+];
+
+const categoryOptions = [
+  // { key: 1, text: 'Available', value: 'available', },
+  // { key: 2, text: 'Figures', value: 'figures', },
+  // { key: 3, text: 'Still Life', value: 'still life', },
+  // { key: 4, text: 'Animals', value: 'animals', },
+  // { key: 5, text: 'Drawings', value: 'drawings', },
+  // { key: 6, text: 'Comissions', value: 'comissions', },
+  { key: 1, text: 'Available', value: { id: 1, title: 'available' }, },
+  { key: 2, text: 'Figures', value: { id: 2, title: 'figures' }, },
+  { key: 3, text: 'Still Life', value: { id: 3, title: 'still life' }, },
+  { key: 4, text: 'Animals', value: { id: 4, title: 'animals' }, },
+  { key: 5, text: 'Drawings', value: { id: 5, title: 'drawings' }, },
+  { key: 6, text: 'Comissions', value: { id: 6, title: 'comissions' }, },
 ];
 
 export default SingleArtWork;
