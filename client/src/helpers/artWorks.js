@@ -29,6 +29,10 @@ export const getUrlType = (baseUrl) => {
   return <h1>New {url3} Form</h1>
 };
 
+// As an admin, gets the title of the category without the `admin-` attached on front
 export const getCategoryTitle = (category) => {
+  // TODO: need to split `category` and cut off the `admin-` from the beginning.
+  // let c = category.split('-');
+  // let discard = c.shift();
   return category.replace(new RegExp("\\-"), ' ');
 };

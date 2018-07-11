@@ -1,55 +1,53 @@
 import React from 'react';
+import axios from 'axios';
+import Modal from 'react-responsive-modal';
 import { connect, } from 'react-redux';
-import { deleteComission, } from '../../actions/comissions';
-import { deleteDrawing, } from '../../actions/drawings';
-import { deletePainting, } from '../../actions/paintings';
-import { Button, Icon, Modal, } from 'semantic-ui-react';
+import { setFlash, } from '../../actions/flash';
+import { setHeaders, } from '../../actions/headers';
+import { Button, Icon, } from 'semantic-ui-react';
 
 class DeleteArtWorkModal extends React.Component {
 
   handleClick = () => {
-    const { dispatch, type, artWorkId } = this.props;
-    switch(type) {
-      case 'comission':
-        dispatch(deleteComission(artWorkId));
+    axios.delete(`/api/art_works/${this.props.artWorkId}`)
+      .then( res => {
+        this.props.onClose();
         this.props.goBack();
-        break;
-      case 'painting':
-        dispatch(deletePainting(artWorkId));
-        this.props.goBack();
-        break;
-      case 'drawing':
-        dispatch(deleteDrawing(artWorkId));
-        this.props.goBack();
-        break;
-      default: 
-        return {};
-    }
-  }
+        this.props.dispatch(setFlash('Comission successfully deleted.', 'green'));
+      })
+      .catch( err => {
+        const { response: { headers, }, } = err;
+
+        this.props.dispatch({ type: 'SET_HEADERS', headers });
+        this.props.dispatch(setFlash('Failed to update comission at this time. Please try again later.', 'red'));
+      })
+  };
 
   render() {
+    // TODO: Edit design and convert to styled-components
     return (
-      <Modal size='tiny' open={this.props.open} onClose={this.props.onClose}>
-        <Modal.Header>
+      <Modal open={this.props.open} onClose={this.props.onClose}>
+        <br />
+        <h1>
           <Icon name='warning sign' color='yellow' size='large' />
           Delete { this.props.artWorkTitle }
-          </Modal.Header>
-        <Modal.Content>
+        </h1>
+        <div>
           <p>Are you sure you want to delete {this.props.cv_title}?</p>
-        </Modal.Content>
-        <Modal.Actions>
+        </div>
+        <div>
           <Button onClick={this.props.onClose}>
             <Icon name='remove' color='red' />
             No
-            </Button>
+          </Button>
           <Button onClick={this.handleClick}>
             <Icon name='checkmark' color='green' />
             Yes
           </Button>
-        </Modal.Actions>
+        </div>
       </Modal>
-    )
-  }
-}
+    );
+  };
+};
 
 export default connect()(DeleteArtWorkModal);

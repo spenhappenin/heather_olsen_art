@@ -44,12 +44,13 @@ class FetchCategories extends React.Component {
             <Categories categories={this.state.categories} />
           )} 
         />
-        {/* {
+        {
           this.props.user.id ?
             <ProtectedRoute exact path='/work/:work_title' component={AdminShowArtWorks} />
-            : */}
+            :
             <Route exact path='/work/:work_title' component={ShowArtWorks} />
-          // }
+          }
+          <ProtectedRoute exact path='/work/:work_title/:id' component={SingleArtWork} />
       </Switch>
     );
   };
