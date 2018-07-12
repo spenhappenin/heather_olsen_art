@@ -8,7 +8,13 @@ class Api::ArtWorksController < ApplicationController
   end
 
   def single_artwork
-    render json: ArtWork.find(params[:id])
+    artwork = ArtWork.find(params[:id])
+    artworkCategories = ArtWork.get_category_list(artwork)
+    render json: { 
+      artwork: artwork, 
+      artworkCategories: artworkCategories, 
+      categories: Category.all 
+    }
   end
 
   def create
@@ -46,7 +52,7 @@ class Api::ArtWorksController < ApplicationController
       date_complete: params[:dateComplete], 
       url: params[:url]
     )
-      ArtWork.update_categories(@art_work, params[:categories])
+      ArtWork.update_categories(@art_work, params[:artworkCategories])
       render json: @art_work
     else
       # TODO: Generate an error 

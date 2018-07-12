@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import DeleteArtWorkModal from './admin/DeleteArtWorkModal';
+import { setFlash, } from '../actions/flash';
 import { Button, Header, StyledContainer, } from '../styles/shared';
 import { Dropdown, Form, Icon, Image, } from 'semantic-ui-react';
 
@@ -14,24 +15,27 @@ class SingleArtWork extends React.Component {
     status: '', 
     dateComplete: '', 
     url: '', 
-    open: false, 
-    categories: [],
+    open: false,
+    categories: [], 
+    artworkCategories: [],
   };
 
   componentDidMount() {
     axios.get(`/api/single_artwork/${this.props.match.params.id}`)
       .then( res => {
         this.setState({ 
-          artWork: res.data,
-          title: res.data.title, 
-          url: res.data.src, 
-          medium: res.data.medium, 
-          surface: res.data.surface, 
-          dimensions: res.data.dimensions, 
-          price: res.data.price, 
-          dateComplete: res.data.date_complete, 
-          status: res.data.status,
-          url: res.data.url 
+          artWork: res.data.artwork,
+          title: res.data.artwork.title, 
+          url: res.data.artwork.src, 
+          medium: res.data.artwork.medium, 
+          surface: res.data.artwork.surface, 
+          dimensions: res.data.artwork.dimensions, 
+          price: res.data.artwork.price, 
+          dateComplete: res.data.artwork.date_complete, 
+          status: res.data.artwork.status,
+          url: res.data.artwork.url,
+          categories: res.data.categories,
+          artworkCategories: res.data.artworkCategories,
           // fileData: res.data.fileData, 
         });
       })
@@ -41,8 +45,17 @@ class SingleArtWork extends React.Component {
       })
   };
 
-  handleChange = (e, { name, value }) => {
-    this.setState({ [name]: value });
+  handleChange = (e, { name, value }) => this.setState({ [name]: value });
+  
+  handleCheckbox = (e, data) => {
+    if(data.checked) {
+      if(!this.state.artworkCategories.includes(data.id)) {
+        this.setState({ artworkCategories: [...this.state.artworkCategories, data.id], });
+      }
+    } else {
+      let filtered = this.state.artworkCategories.filter( c => c !== data.id);
+      this.setState({ artworkCategories: filtered, });
+    };
   };
   
   handleSubmit = (e) => {
@@ -51,15 +64,30 @@ class SingleArtWork extends React.Component {
     e.preventDefault();
     axios.put(`/api/art_works/${this.props.match.params.id}`, { ...this.state, })
       .then( res => {
-        // debugger
+        this.props.dispatch(setFlash('Artwork Updated!', 'green'));
       })
       .catch( err => {
-        debugger
+        // TODO: Error handling
+        console.log('Error...')
       })
   };
 
   show = () => () => this.setState({ open: true, });
+
   close = () => this.setState({ open: false, });
+
+  categoryCheckboxes = () => {
+    return this.state.categories.map( c => (
+      <Form.Checkbox 
+        key={c.id} 
+        id={c.id}
+        name={c.title} 
+        label={c.title}
+        checked={this.state.artworkCategories.includes(c.id)} 
+        onChange={this.handleCheckbox.bind(this)} 
+      />
+    ))
+  }
 
   render() {
     return(
@@ -83,15 +111,7 @@ class SingleArtWork extends React.Component {
             />
           </Form.Group>
           <Form.Group>
-            <Dropdown 
-              name='categories' 
-              placeholder='Categories' 
-              fluid 
-              multiple 
-              selection 
-              options={categoryOptions} 
-              onChange={this.handleChange} 
-            />
+            { this.categoryCheckboxes() }
           </Form.Group>
           <Form.Group widths='equal'>
             <Form.Input
@@ -171,21 +191,6 @@ const statusOptions = [
   { key: 'for sale', text: 'For Sale', value: 'for sale' },
   { key: 'nfs', text: 'NFS', value: 'nfs' },
   { key: 'sold', text: 'Sold', value: 'sold' }
-];
-
-const categoryOptions = [
-  // { key: 1, text: 'Available', value: 'available', },
-  // { key: 2, text: 'Figures', value: 'figures', },
-  // { key: 3, text: 'Still Life', value: 'still life', },
-  // { key: 4, text: 'Animals', value: 'animals', },
-  // { key: 5, text: 'Drawings', value: 'drawings', },
-  // { key: 6, text: 'Comissions', value: 'comissions', },
-  { key: 1, text: 'Available', value: { id: 1, title: 'available' }, },
-  { key: 2, text: 'Figures', value: { id: 2, title: 'figures' }, },
-  { key: 3, text: 'Still Life', value: { id: 3, title: 'still life' }, },
-  { key: 4, text: 'Animals', value: { id: 4, title: 'animals' }, },
-  { key: 5, text: 'Drawings', value: { id: 5, title: 'drawings' }, },
-  { key: 6, text: 'Comissions', value: { id: 6, title: 'comissions' }, },
 ];
 
 export default SingleArtWork;

@@ -14,18 +14,23 @@ class ArtWork < ApplicationRecord
 
   def self.update_categories(artwork, categories)
     artwork_categories = artwork.artwork_categories
-
-    # handles create
     categories.each do |c|
-      ArtworkCategory.find_or_create_by(category_id: c[:id], art_work_id: artwork[:id])
+      ArtworkCategory.find_or_create_by(category_id: c, art_work_id: artwork[:id])
     end
 
-    # handles delete 
-    category_array = categories.map { |c| c[:id] }
     artwork_categories.each do |ac|
-      unless category_array.include?(ac[:category_id])
+      unless categories.include?(ac[:category_id])
         ac.destroy
       end
     end
+  end
+
+  def self.get_category_list(artwork)
+    category_array = []
+    artwork.artwork_categories.each do |ac|
+      c = Category.find(ac[:category_id])
+      category_array << c.id
+    end
+    return category_array
   end
 end
