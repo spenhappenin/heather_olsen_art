@@ -20,20 +20,19 @@ class Api::ArtWorksController < ApplicationController
   def create
     uploaded_image_name = params.keys.first
     uploaded_file = params[uploaded_image_name]
-
     begin
       cloud_image = Cloudinary::Uploader.upload(uploaded_file, public_id: params[:title], secure: true)
       art_work = ArtWork.create(
         url: cloud_image['secure_url'], 
         title: params['title'], 
-        type_of: params['type_of'], 
         medium: params['medium'], 
         surface: params['surface'], 
         dimensions: params['dimensions'], 
         price: params['price'], 
         status: params['status'], 
         date_complete: params['date_complete']
-      )
+        )
+      ArtWork.update_categories(art_work, JSON.parse(params[:artwork_categories]))
       render json: art_work
     rescue
       # TODO: Generate an error 
@@ -61,13 +60,14 @@ class Api::ArtWorksController < ApplicationController
   end
 
   def destroy
+    # deletes record from Cloudinary
     Cloudinary::Api.delete_resources([@art_work.title])
     @art_work.destroy
   end
 
   private 
     def art_work_params
-      params.require(:art_works).permit(:title, :url, :type_of, :medium, :surface, :dimensions, :price, :date_complete)
+      params.require(:art_works).permit(:title, :url, :type_of, :medium, :surface, :dimensions, :price, :date_complete, :fileData)
     end
 
     def set_art_work

@@ -10,6 +10,7 @@ gem 'devise_token_auth'
 gem 'cloudinary'
 gem 'nokogiri', '~> 1.8.1'
 gem 'kaminari'
+gem 'json'
 
 group :development, :test do
   gem 'pry'

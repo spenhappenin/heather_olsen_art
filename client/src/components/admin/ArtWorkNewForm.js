@@ -13,10 +13,18 @@ import { Form, Icon, Segment, } from 'semantic-ui-react';
 
 class ArtWorkNewForm extends React.Component {
   state = { 
-    title: '', url: '', type: '', 
-    medium: '', surface: '', dimensions: '', 
-    price: '', dateComplete: '', fileData: '', 
-    status: '', fireRedirect: false, fileUploading: false 
+    title: '', 
+    url: '', 
+    type: '', 
+    medium: '', 
+    surface: '', 
+    dimensions: '', 
+    price: '', 
+    dateComplete: '', 
+    fileData: '', 
+    status: '', 
+    fireRedirect: false, 
+    fileUploading: false, 
   };
 
   componentDidMount() {

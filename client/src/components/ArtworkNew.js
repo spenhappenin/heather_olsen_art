@@ -1,12 +1,12 @@
 import React from 'react';
 import axios from 'axios';
-import DeleteArtWorkModal from './admin/DeleteArtWorkModal';
-import { setFlash, } from '../actions/flash';
+import { Form, } from 'semantic-ui-react';
+import { StyledDropzone, } from '../styles/artWork';
 import { Button, Header, StyledContainer, } from '../styles/shared';
-import { Dropdown, Form, Icon, Image, } from 'semantic-ui-react';
 
-class SingleArtWork extends React.Component {
+class ArtworkNew extends React.Component {
   state = { 
+    fileData: '',
     title: '', 
     surface: '', 
     medium: '', 
@@ -14,32 +14,19 @@ class SingleArtWork extends React.Component {
     price: '', 
     status: '', 
     dateComplete: '', 
-    url: '', 
     open: false,
     categories: [], 
     artworkCategories: [],
+    fileUploading: false, 
   };
 
   componentDidMount() {
-    axios.get(`/api/single_artwork/${this.props.match.params.id}`)
+    axios.get('/api/works')
       .then( res => {
-        this.setState({ 
-          artWork: res.data.artwork,
-          title: res.data.artwork.title, 
-          url: res.data.artwork.src, 
-          medium: res.data.artwork.medium, 
-          surface: res.data.artwork.surface, 
-          dimensions: res.data.artwork.dimensions, 
-          price: res.data.artwork.price, 
-          dateComplete: res.data.artwork.date_complete, 
-          status: res.data.artwork.status,
-          url: res.data.artwork.url,
-          categories: res.data.categories,
-          artworkCategories: res.data.artworkCategories,
-        });
+        this.setState({ categories: res.data, });
       })
       .catch( err => {
-        // TODO: error handle
+        // TODO: Error handling
         console.log('Error...')
       })
   };
@@ -58,22 +45,30 @@ class SingleArtWork extends React.Component {
   };
   
   handleSubmit = (e) => {
-    const { match: { params: { id, }, }, } = this.props;
-
     e.preventDefault();
-    axios.put(`/api/art_works/${this.props.match.params.id}`, { ...this.state, })
+
+    let data = new FormData();
+    let photo = this.state.fileData;
+
+    data.append(photo.name, photo);
+    data.append('title', this.state.title);
+    data.append('medium', this.state.medium);
+    data.append('surface', this.state.surface);
+    data.append('dimensions', this.state.dimensions);
+    data.append('price', this.state.price);
+    data.append('date_complete', this.state.dateComplete);
+    data.append('status', this.state.status);
+    data.append('artwork_categories', JSON.stringify(this.state.artworkCategories));
+    // debugger
+    axios.post('/api/art_works', data)
       .then( res => {
-        this.props.dispatch(setFlash('Artwork Updated!', 'green'));
+        debugger
       })
       .catch( err => {
         // TODO: Error handling
-        console.log('Error...')
+        debugger
       })
   };
-
-  show = () => () => this.setState({ open: true, });
-
-  close = () => this.setState({ open: false, });
 
   categoryCheckboxes = () => {
     return this.state.categories.map( c => (
@@ -85,21 +80,36 @@ class SingleArtWork extends React.Component {
         checked={this.state.artworkCategories.includes(c.id)} 
         onChange={this.handleCheckbox.bind(this)} 
       />
-    ))
-  }
+    ));
+  };
+
+  onDrop = (photos) => {
+    this.toggleUploading();
+    this.setState({ fileData: photos[0], });
+  };
+
+  toggleUploading = () => this.setState({ fileUploading: !this.state.fileUploading, });
 
   render() {
     return(
       <StyledContainer>
-        <Header title>{ this.state.title }</Header>
-        <Button onClick={this.props.history.goBack}><Icon name='arrow left' />Back</Button>
-        <Button onClick={this.show()}>Delete</Button>
-        <DeleteArtWorkModal artWorkTitle={this.state.title} artWorkId={this.props.match.params.id} open={this.state.open} onClose={this.close} type={this.props.type} goBack={this.props.history.goBack} />
-        <br />
-        <br />
-        <Image alt={this.state.title} src={this.state.url} size='small'/>
-        <br />
-        <Form onSubmit={this.handleSubmit}>
+        <Header title>New Art Work</Header>
+        <Form onSubmit={this.handleSubmit.bind(this)}>
+          <StyledDropzone onDrop={this.onDrop}>
+            {({ isDragActive, isDragReject, acceptedFiles, rejectedFiles }) => {
+              if (isDragActive) {
+                return "This file is authorized";
+              }
+              if (isDragReject) {
+                return "This file is not authorized";
+              }
+              return acceptedFiles.length || rejectedFiles.length ? 
+                <h4 textAlign='center'>{`Accepted ${acceptedFiles.length}, rejected ${rejectedFiles.length} files`}</h4>
+              : 
+                <h4 textAlign='center'>Drag photo here or click to select a file.</h4>;
+            }}
+          </StyledDropzone>
+          <br />
           <Form.Group widths='equal'>
             <Form.Input
               required
@@ -168,17 +178,6 @@ class SingleArtWork extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Group>
-          <Form.Group widths='equal'>
-            <Form.Input
-              required
-              type='url'
-              name='url'
-              label='Image URL'
-              placeholder='https://image-url.com'
-              value={this.state.url}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
           <br />
           <Button type='submit'>Submit</Button>
         </Form>
@@ -193,4 +192,4 @@ const statusOptions = [
   { key: 'sold', text: 'Sold', value: 'sold' }
 ];
 
-export default SingleArtWork;
+export default ArtworkNew;

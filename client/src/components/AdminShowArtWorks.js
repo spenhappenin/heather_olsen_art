@@ -5,7 +5,7 @@ import { connect, } from 'react-redux';
 import { formatArt, } from '../helpers/artWorks';
 import { getCategoryTitle, } from '../helpers/artWorks';
 import { setFlash, } from '../actions/flash';
-import { Header, StyledContainer, } from '../styles/shared';
+import { Button, Header, StyledContainer, } from '../styles/shared';
 import { Grid, Image, Transition, } from 'semantic-ui-react';
 
 class AdminShowArtWorks extends React.Component {
@@ -58,6 +58,11 @@ class AdminShowArtWorks extends React.Component {
     return(
       <StyledContainer>
         <Header primary>{ categoryTitle }</Header>
+        <Link to={`${this.props.path}/new`} rel="noopener noreferrer">
+          <Button>New</Button>
+        </Link>
+        <br />
+        <br />
         <Grid>
           { this.displayArtWorks() }
         </Grid>
