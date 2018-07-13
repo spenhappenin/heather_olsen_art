@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect, } from 'react-redux';
+import { Grid, } from 'semantic-ui-react';
 import { Link, } from '../styles/shared';
-import { StyledContainer, } from '../styles/shared';
-import { Grid, Image, Segment, } from 'semantic-ui-react';
 
 class Categories extends React.Component {
 
@@ -40,8 +39,8 @@ const mapStateToProps = (state) => {
 const CategoriesContainer = styled.div`
   margin-bottom: 125px;
   margin-top: 50px;
-  padding-left: 60px;
-  padding-right: 60px;
+  padding-left: 9%;
+  padding-right: 9%;
 `;
 
 const CategoryContainer = styled.div`
@@ -55,10 +54,11 @@ const CategoryContainer = styled.div`
 `;
 
 const CategoryTitle = styled.p`
-  text-align: center;
-  padding-top: 10px;
-  text-transform: uppercase;
   font-family: 'Julius Sans One', sans-serif !important;
+  font-size: 17px;
+  padding-top: 10px;
+  text-align: center;
+  text-transform: uppercase;
 `;
 
 const CategoryImage = styled.div`
