@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import ArtworkNew from './ArtworkNew';
+import AllArtwork from './AllArtwork';
 import Categories from './Categories';
 import ProtectedRoute from './ProtectedRoute';
 import ShowArtWorks from './ShowArtWorks';
@@ -45,14 +46,15 @@ class FetchCategories extends React.Component {
             <Categories categories={this.state.categories} />
           )} 
         />
+        <ProtectedRoute exact path='/work/all' component={AllArtwork} />
         {
           this.props.user.id ?
             <ProtectedRoute exact path='/work/:work_title' component={AdminShowArtWorks} />
-            :
+          :
             <Route exact path='/work/:work_title' component={ShowArtWorks} />
-          }
-          <ProtectedRoute exact path='/work/:work_title/new' component={ArtworkNew} />
-          <ProtectedRoute exact path='/work/:work_title/:id' component={SingleArtWork} />
+        }
+        <ProtectedRoute exact path='/work/:work_title/new' component={ArtworkNew} />
+        <ProtectedRoute exact path='/work/:work_title/:id' component={SingleArtWork} />
       </Switch>
     );
   };

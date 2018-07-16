@@ -1,6 +1,10 @@
 class Api::ArtWorksController < ApplicationController
   before_action :set_art_work, only: [:update, :destroy]
 
+  def all_artworks
+    render json: ArtWork.all.order(date_complete: :desc)
+  end
+
   def fetch_art_works
     title = current_user ? ArtWork.category_title(params[:category]) : params[:category]
     category = Category.where(route: title).first

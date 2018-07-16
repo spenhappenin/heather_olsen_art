@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect, } from 'react-redux';
 import { Grid, } from 'semantic-ui-react';
-import { Link, } from '../styles/shared';
+import { Button, Link, } from '../styles/shared';
 
 class Categories extends React.Component {
 
@@ -12,18 +12,28 @@ class Categories extends React.Component {
     return this.props.categories.map( c => (
       <Grid.Column mobile={8} tablet={4} computer={5}>
         <CategoryContainer>
-        <Link to={user.id ? `/work/admin-${c.route}` : `/work/${c.route}`}>
-          <CategoryImage url={ c.display_image } />
-          <CategoryTitle>{ c.title }</CategoryTitle>
-        </Link>
+          <Link to={user.id ? `/work/admin-${c.route}` : `/work/${c.route}`}>
+            <CategoryImage url={ c.display_image } />
+            <CategoryTitle>{ c.title }</CategoryTitle>
+          </Link>
         </CategoryContainer>
       </Grid.Column>
     ));
   };
 
+  displayAdminMenu = () => (
+    <AdminMenu>
+      <Button group>New Category</Button>
+      <Link to='/work/all'>
+        <Button>All Art</Button>
+      </Link>
+    </AdminMenu>
+  );
+
   render() {
     return(
       <CategoriesContainer>
+        { this.props.user.id && this.displayAdminMenu() }
         <Grid columns='equal' centered>
           { this.displayCategories() }
         </Grid>
@@ -36,6 +46,10 @@ const mapStateToProps = (state) => {
   return { user: state.user };
 };
 
+const AdminMenu = styled.div`
+  margin-bottom: 25px;
+`;
+
 const CategoriesContainer = styled.div`
   margin-bottom: 125px;
   margin-top: 50px;
@@ -44,6 +58,7 @@ const CategoriesContainer = styled.div`
 `;
 
 const CategoryContainer = styled.div`
+  max-width: 376px;
   opacity: 1;
   transition: opacity .2s ease-out;
 
@@ -63,7 +78,6 @@ const CategoryTitle = styled.p`
 
 const CategoryImage = styled.div`
   border: 1px solid #0000002e;
-  display: flex;
   background: ${ props => `url(${props.url})` };
   background-size: cover;
   background-position: center;

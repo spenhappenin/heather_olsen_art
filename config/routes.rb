@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get '/paintings', to: 'art_works#fetch_paintings'
     get '/drawings', to: 'art_works#fetch_drawings'
     get '/works', to: 'categories#fetch_works'
+    get '/all_artworks', to: 'art_works#all_artworks'
     get '/artworks', to: 'art_works#fetch_art_works'
     get '/single_artwork/:id', to: 'art_works#single_artwork'
     get '/cvs', to: 'cvs#fetch_cvs'

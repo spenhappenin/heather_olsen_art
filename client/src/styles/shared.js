@@ -74,6 +74,7 @@ export const Button = styled.button`
   letter-spacing: 1px;
   font-size: 11px;
   cursor: pointer;
+  margin-right: ${ props => props.group ? '15px' : null };
 
   &:focus {
     outline: 0;
