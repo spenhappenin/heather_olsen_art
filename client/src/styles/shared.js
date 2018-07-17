@@ -37,7 +37,7 @@ export const DimmerContainer = styled.div`
 // --- Text ---
 
 export const Header = styled.p`
-  font-size: ${ props => props.primary ? '34px' : '25px'};
+  font-size: ${ props => props.primary ? '34px' : '20px'};
   border: none;
   margin: calc(2rem - .14285714em) 0 1rem;
   padding: 0 0;

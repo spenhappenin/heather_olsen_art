@@ -54,7 +54,7 @@ class FetchCategories extends React.Component {
             <Route exact path='/work/:work_title' component={ShowArtWorks} />
         }
         <ProtectedRoute exact path='/work/:work_title/new' component={ArtworkNew} />
-        <ProtectedRoute exact path='/work/:work_title/:id' component={SingleArtWork} />
+        <ProtectedRoute exact path='/work/edit/:id' component={SingleArtWork} />
       </Switch>
     );
   };

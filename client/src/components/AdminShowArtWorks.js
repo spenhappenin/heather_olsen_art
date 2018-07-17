@@ -42,7 +42,7 @@ class AdminShowArtWorks extends React.Component {
       :
         <Column>
           <Transition visible={visible} animation='fade' duration={2000}>
-            <Link to={`${this.props.location.pathname}/${a.id}`} rel="noopener noreferrer">
+            <Link to={`edit/${a.id}`} rel="noopener noreferrer">
               <Image
                 alt={a.title}
                 fluid
