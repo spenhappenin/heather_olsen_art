@@ -1,19 +1,21 @@
 import React from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import { Link, } from 'react-router-dom';
 import { connect, } from 'react-redux';
 import { formatArt, } from '../helpers/artWorks';
 import { getCategoryTitle, } from '../helpers/artWorks';
 import { setFlash, } from '../actions/flash';
 import { Button, Header, StyledContainer, } from '../styles/shared';
-import { Grid, Image, Transition, } from 'semantic-ui-react';
+import { Image, Transition, } from 'semantic-ui-react';
 
 class AdminShowArtWorks extends React.Component {
-  state = { artWorks: [], categoryTitle: '', erroredImages: [], };
+  state = { artWorks: [], categoryTitle: '', erroredImages: [], windowWidth: window.innerWidth, };
 
   componentDidMount() {
     const { match: { params: { work_title, }, }, } = this.props;
     
+    window.addEventListener('resize', this.handleResize);
     axios.get(`/api/artworks?category=${work_title}`)
       .then( res => {
         const art = [];
@@ -25,6 +27,10 @@ class AdminShowArtWorks extends React.Component {
       })
   };
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  };
+
   displayArtWorks = () => {
     const { artWorks, erroredImages, visible, } = this.state;
 
@@ -34,7 +40,7 @@ class AdminShowArtWorks extends React.Component {
       return erroredImages.includes(a.id) ?
         null
       :
-        <Grid.Column key={i} mobile={8} tablet={4} computer={4} style={styles.flex}>
+        <Column>
           <Transition visible={visible} animation='fade' duration={2000}>
             <Link to={`${this.props.location.pathname}/${a.id}`} rel="noopener noreferrer">
               <Image
@@ -46,14 +52,16 @@ class AdminShowArtWorks extends React.Component {
               />
             </Link>
           </Transition>
-        </Grid.Column>
+        </Column>
     });
   };
 
   handleImageError = (id) => this.setState({ erroredImages: [...this.state.erroredImages, id], });
 
+  handleResize = (e) => this.setState({ windowWidth: window.innerWidth });
+
   render() {
-    const { categoryTitle, } = this.state;
+    const { categoryTitle, windowWidth, } = this.state;
 
     return(
       <StyledContainer>
@@ -63,7 +71,7 @@ class AdminShowArtWorks extends React.Component {
         </Link>
         <br />
         <br />
-        <Grid>
+        <Grid width={windowWidth}>
           { this.displayArtWorks() }
         </Grid>
       </StyledContainer>
@@ -71,12 +79,17 @@ class AdminShowArtWorks extends React.Component {
   };
 };
 
-const styles = {
-  flex: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
-};
+const Grid = styled.div`
+  display: grid;
+  grid-gap: 25px;
+  /* TODO: Better way to break on mobile? */
+  grid-template-columns: ${ props => `repeat(${props.width <= 750 ? 2 : 4}, 1fr)` };
+`;
+
+const Column = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+`;
 
 export default connect()(AdminShowArtWorks);

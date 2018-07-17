@@ -1,19 +1,28 @@
 import React from 'react';
 import axios from 'axios';
 import Lightbox from 'react-images';
+import styled from 'styled-components';
 import { connect, } from 'react-redux';
 import { formatArt, } from '../helpers/artWorks';
 import { getCategoryTitle, } from '../helpers/artWorks';
 import { setFlash, } from '../actions/flash';
 import { Header, StyledContainer, } from '../styles/shared';
-import { Grid, Image, Transition, } from 'semantic-ui-react';
+import { Image, Transition, } from 'semantic-ui-react';
 
 class ShowArtWorks extends React.Component {
-  state = { artWorks: [], categoryTitle: '', currentImage: 0, erroredImages: [], lightboxIsOpen: false, };
+  state = { 
+    artWorks: [], 
+    categoryTitle: '', 
+    currentImage: 0, 
+    erroredImages: [], 
+    lightboxIsOpen: false, 
+    windowWidth: window.innerWidth, 
+  };
 
   componentDidMount() {
     const { match: { params: { work_title, }, }, } = this.props;
 
+    window.addEventListener('resize', this.handleResize);
     axios.get(`/api/artworks?category=${work_title}`)
       .then( res => {
         const art = [];
@@ -23,6 +32,10 @@ class ShowArtWorks extends React.Component {
       .catch( err => {
         this.props.dispatch(setFlash('An error has occured, please try again later.', 'red'))
       })
+  };
+  
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
   };
   
   closeLightbox = () => this.setState({ currentImage: 0, lightboxIsOpen: false, });
@@ -35,8 +48,8 @@ class ShowArtWorks extends React.Component {
     return artWorks.map( (artWork, i) => {
       return erroredImages.includes(artWork.id) ?
         null
-        :
-        <Grid.Column key={artWork.id} mobile={8} tablet={4} computer={4} style={styles.flex}>
+      :
+        <Column>
           <Transition visible={visible} animation='fade' duration={2000}>
             <Image
               alt={artWork.title}
@@ -45,9 +58,10 @@ class ShowArtWorks extends React.Component {
               onClick={(e) => this.openLightbox(i, e)}
               onError={() => this.handleImageError(artWork.id)}
               fluid
+              style={{ border: '1px solid red !important', }}
             />
           </Transition>
-        </Grid.Column>
+        </Column>
     });
   };
 
@@ -59,18 +73,20 @@ class ShowArtWorks extends React.Component {
 
   handleImageError = (id) => this.setState({ erroredImages: [...this.state.erroredImages, id], });
 
+  handleResize = (e) => this.setState({ windowWidth: window.innerWidth });
+
   openLightbox = (index, event) => {
     event.preventDefault();
     this.setState({ currentImage: index, lightboxIsOpen: true, });
   };
 
   render() {
-    const { artWorks, categoryTitle, currentImage, lightboxIsOpen, } = this.state;
+    const { artWorks, categoryTitle, currentImage, lightboxIsOpen, windowWidth, } = this.state;
 
     return(
       <StyledContainer>
         <Header primary>{ categoryTitle }</Header>
-        <Grid>
+        <Grid width={windowWidth}>
           { this.displayArtWorks() }
           <Lightbox
             currentImage={currentImage}
@@ -88,12 +104,16 @@ class ShowArtWorks extends React.Component {
   };
 };
 
-const styles = {
-  flex: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
-};
+const Grid = styled.div`
+  display: grid;
+  grid-gap: 25px;
+  grid-template-columns: ${ props => `repeat(${props.width <= 750 ? 2 : 4}, 1fr)` };
+`;
+
+const Column = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+`;
 
 export default connect()(ShowArtWorks);
