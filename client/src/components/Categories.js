@@ -46,7 +46,7 @@ class Categories extends React.Component {
     if (window.confirm("Are you sure you want to delete?"))
       axios.delete(`/api/categories/${id}`)
         .then( res => {
-          // this.props.history.push('/work');
+          this.props.delete(id);
         })
         .catch( err => {
           // TODO: Error Handling

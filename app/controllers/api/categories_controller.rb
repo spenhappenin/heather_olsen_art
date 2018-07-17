@@ -10,19 +10,21 @@ class Api::CategoriesController < ApplicationController
   end
 
   def create
-    render json: Category.create(
+    category = Category.create(
       title: params[:title], 
       display_image: params[:display_image], 
       route: params[:title].parameterize
     )
+    render json: category
   end
 
   def update
-    render json: @category.update(
+    @category.update(
       title: params[:title], 
       display_image: params[:display_image], 
       route: params[:title].parameterize
     )
+    render json: @category
   end
 
   def destroy

@@ -27,6 +27,24 @@ class FetchCategories extends React.Component {
       })
   };
 
+  createCategory = (category) => {
+    this.setState({ categories: [...this.state.categories, category] });
+  };
+
+  updateCategory = (category) => {
+    let categories = this.state.categories.map( c => {
+      if (c.id === category.id)
+        return c = category
+      return c;
+    })
+    this.setState({ categories, });
+  };
+
+  deleteCategory = (id) => {
+    const categories = this.state.categories.filter( c => c.id !== id)
+    this.setState({ categories, });
+  };
+
   render() {
     if(!this.state.loaded) {
       return(
@@ -44,7 +62,7 @@ class FetchCategories extends React.Component {
           exact 
           path='/work' 
           render={ props => (
-            <Categories categories={this.state.categories}  />
+            <Categories categories={this.state.categories} delete={this.deleteCategory} />
           )} 
         />
         {
@@ -53,16 +71,27 @@ class FetchCategories extends React.Component {
             exact 
             path='/work/new-category' 
             render={ props => (
-              <CategoryForm cool='cool' />
+              <CategoryForm 
+                create={this.createCategory}
+                update={this.updateCategory} 
+              />
             )} 
           />
         }
-        {/* <ProtectedRoute exact path='/work/new-category' component={CategoryForm} /> */}
-        {/* <Route exact path='/work/new-category' render={ props => (
-          <CategoryForm  />
-         )} 
-        /> */}
-        <ProtectedRoute exact path='/work/edit-category/:id' component={CategoryForm} />
+        {
+          this.props.user.id && 
+          <Route 
+            exact 
+            path='/work/edit-category/:id'
+            render={ props => (
+              <CategoryForm 
+                create={this.createCategory}
+                update={this.updateCategory} 
+                delete={this.deleteCategory}
+              />
+            )} 
+          />
+        }
         <ProtectedRoute exact path='/work/all' component={AllArtwork} />
         {
           this.props.user.id ?
