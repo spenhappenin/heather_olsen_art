@@ -3,6 +3,7 @@ import axios from 'axios';
 import ArtworkNew from './ArtworkNew';
 import AllArtwork from './AllArtwork';
 import Categories from './Categories';
+import CategoryForm from './CategoryForm';
 import ProtectedRoute from './ProtectedRoute';
 import ShowArtWorks from './ShowArtWorks';
 import SingleArtWork from './SingleArtWork';
@@ -43,9 +44,25 @@ class FetchCategories extends React.Component {
           exact 
           path='/work' 
           render={ props => (
-            <Categories categories={this.state.categories} />
+            <Categories categories={this.state.categories}  />
           )} 
         />
+        {
+          this.props.user.id && 
+          <Route 
+            exact 
+            path='/work/new-category' 
+            render={ props => (
+              <CategoryForm cool='cool' />
+            )} 
+          />
+        }
+        {/* <ProtectedRoute exact path='/work/new-category' component={CategoryForm} /> */}
+        {/* <Route exact path='/work/new-category' render={ props => (
+          <CategoryForm  />
+         )} 
+        /> */}
+        <ProtectedRoute exact path='/work/edit-category/:id' component={CategoryForm} />
         <ProtectedRoute exact path='/work/all' component={AllArtwork} />
         {
           this.props.user.id ?

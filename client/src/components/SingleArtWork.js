@@ -91,7 +91,7 @@ class SingleArtWork extends React.Component {
   render() {
     return(
       <StyledContainer>
-        <Header title>{ this.state.title }</Header>
+        <Header primary>{ this.state.title }</Header>
         <Button onClick={this.props.history.goBack}><Icon name='arrow left' />Back</Button>
         <Button onClick={this.show()}>Delete</Button>
         <DeleteArtWorkModal artWorkTitle={this.state.title} artWorkId={this.props.match.params.id} open={this.state.open} onClose={this.close} type={this.props.type} goBack={this.props.history.goBack} />

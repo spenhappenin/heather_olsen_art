@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Link, } from 'react-router-dom';
-import { StyledContainer, Button, Header, } from '../styles/shared';
+import { Button, Header, StyledContainer, } from '../styles/shared';
 
 class AllArtwork extends React.Component {
   state = { artwork: [], };

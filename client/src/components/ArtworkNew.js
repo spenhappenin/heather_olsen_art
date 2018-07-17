@@ -59,7 +59,6 @@ class ArtworkNew extends React.Component {
     data.append('date_complete', this.state.dateComplete);
     data.append('status', this.state.status);
     data.append('artwork_categories', JSON.stringify(this.state.artworkCategories));
-    // debugger
     axios.post('/api/art_works', data)
       .then( res => {
         debugger
@@ -93,7 +92,7 @@ class ArtworkNew extends React.Component {
   render() {
     return(
       <StyledContainer>
-        <Header title>New Art Work</Header>
+        <Header primary>New Art Work</Header>
         <Form onSubmit={this.handleSubmit.bind(this)}>
           <StyledDropzone onDrop={this.onDrop}>
             {({ isDragActive, isDragReject, acceptedFiles, rejectedFiles }) => {
