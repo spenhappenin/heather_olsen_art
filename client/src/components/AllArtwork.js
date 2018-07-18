@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import InfiniteScroll from 'react-infinite-scroller';
 import { Link, } from 'react-router-dom';
 import { Button, Header, StyledContainer, } from '../styles/shared';
 
@@ -29,6 +30,10 @@ class AllArtwork extends React.Component {
     ));
   };
 
+  loadMore = () => {
+    
+  };
+
   render() {
     return(
       <StyledContainer>
@@ -39,7 +44,14 @@ class AllArtwork extends React.Component {
         <br />
         <br />
         <Grid>
-          { this.renderArtwork() }
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={this.loadMore}
+            hasMore={true || false}
+            loader={<div className="loader" key={0}>Loading ...</div>}
+          >
+            { this.renderArtwork() }
+          </InfiniteScroll>
         </Grid>
       </StyledContainer>
     );

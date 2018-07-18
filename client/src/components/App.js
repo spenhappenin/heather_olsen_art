@@ -145,6 +145,7 @@ class App extends React.Component {
             <Flash />
             <FetchUser>
               <Switch>
+                <ProtectedRoute exact path='/work/all' component={AllArtwork} />
                 <Route 
                   exact 
                   path='/work' 
@@ -187,7 +188,6 @@ class App extends React.Component {
                 }
                 <ProtectedRoute exact path='/work/:work_title/new' component={ArtworkNew} />
                 <ProtectedRoute exact path='/work/edit/:id' component={ArtworkEdit} />
-                <ProtectedRoute exact path='/work/all' component={AllArtwork} />
                 <ProtectedRoute exact path='/admin-cv' component={AdminCvs} />
                 <ProtectedRoute exact path='/admin-cv/new' component={CvNewForm} />
                 <Route exact path='/cv' component={Cvs} />

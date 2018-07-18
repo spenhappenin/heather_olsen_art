@@ -2,6 +2,7 @@ class Api::ArtworksController < ApplicationController
   before_action :set_artwork, only: [:update, :destroy]
 
   def all_artworks
+    binding.pry
     render json: Artwork.all.order(date_complete: :desc)
   end
 
