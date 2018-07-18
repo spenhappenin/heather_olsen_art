@@ -12,7 +12,7 @@ import NavBar from './shared/NavBar';
 import NoMatch from './NoMatch';
 import Media from './media/Media';
 import ProtectedRoute from './ProtectedRoute';
-import FetchCategories from './FetchCategories';
+// // import FetchCategories from './FetchCategories';
 import { connect, } from 'react-redux';
 import { handleLogout, } from '../actions/auth';
 import { Link, } from 'react-router-dom';
@@ -23,6 +23,7 @@ import ArtworkNew from './ArtworkNew';
 import AllArtwork from './AllArtwork';
 import CategoryForm from './CategoryForm';
 import ArtworkEdit from './ArtworkEdit';
+import { setHeaders, } from '../actions/headers';
 
 const AdminArtworks = asyncComponent( () => 
   import('./AdminArtworks').then( module => module.default)
@@ -43,6 +44,7 @@ class App extends React.Component {
   componentDidMount() {
     axios.get('/api/works')
       .then( res => {
+        this.props.dispatch(setHeaders(res.headers));
         this.setState({ categories: res.data, loaded: true, });
       })
       .catch( err => {

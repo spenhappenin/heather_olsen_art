@@ -1,17 +1,20 @@
 import React from 'react';
+import { connect, } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Link, } from 'react-router-dom';
 import { Button, Header, StyledContainer, } from '../styles/shared';
+import { setHeaders, } from '../actions/headers';
 
 class AllArtwork extends React.Component {
-  state = { artwork: [], };
+  state = { artwork: [], currentPage: 1, total_pages: 0, };
 
   componentDidMount() {
     axios.get('/api/all_artworks')
       .then( res => {
-        this.setState({ artwork: res.data, });
+        this.props.dispatch(setHeaders(res.headers));
+        this.setState({ artwork: res.data.artwork, total_pages: res.data.total_pages });
       })
       .catch( err => {
         // TODO: Error handling
@@ -31,7 +34,22 @@ class AllArtwork extends React.Component {
   };
 
   loadMore = () => {
-    
+    const page = this.state.currentPage + 1;
+    axios.get(`/api/all_artworks?page=${page}`)
+      .then( res => {
+        this.setState( state => { 
+          this.props.dispatch(setHeaders(res.headers));
+          return {
+            artwork: [...state.artwork, ...res.data.artwork], 
+            total_pages: res.data.total_pages, 
+            currentPage: this.state.currentPage + 1 
+          }
+        });
+      })
+      .catch( err => {
+        // TODO: Error handling
+        console.log('Error...')
+      })
   };
 
   render() {
@@ -43,16 +61,17 @@ class AllArtwork extends React.Component {
         </Link>
         <br />
         <br />
-        <Grid>
           <InfiniteScroll
-            pageStart={0}
+            pageStart={1}
             loadMore={this.loadMore}
-            hasMore={true || false}
+            hasMore={this.state.currentPage < this.state.total_pages}
             loader={<div className="loader" key={0}>Loading ...</div>}
+            initialLoad={false}
           >
+        <Grid>
             { this.renderArtwork() }
-          </InfiniteScroll>
         </Grid>
+          </InfiniteScroll>
       </StyledContainer>
     );
   };
@@ -90,4 +109,4 @@ const Grid = styled.div`
   grid-template-columns: repeat(3, 1fr);
 `;
 
-export default AllArtwork;
+export default connect()(AllArtwork);

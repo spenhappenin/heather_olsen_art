@@ -2,8 +2,8 @@ class Api::ArtworksController < ApplicationController
   before_action :set_artwork, only: [:update, :destroy]
 
   def all_artworks
-    binding.pry
-    render json: Artwork.all.order(date_complete: :desc)
+    artwork = Artwork.all.order(date_complete: :desc).page(params[:page]).per(25)
+    render json: { artwork: artwork, total_pages: artwork.total_pages }
   end
 
   def fetch_artworks
