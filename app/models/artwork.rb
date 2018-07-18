@@ -1,4 +1,4 @@
-class ArtWork < ApplicationRecord
+class Artwork < ApplicationRecord
   validates_presence_of :title
   # validates_uniqueness_of :title
   validates_inclusion_of :status, :in => ["for sale", "nfs", "sold"]
@@ -15,7 +15,7 @@ class ArtWork < ApplicationRecord
   def self.update_categories(artwork, categories)
     artwork_categories = artwork.artwork_categories
     categories.each do |c|
-      ArtworkCategory.find_or_create_by(category_id: c, art_work_id: artwork[:id])
+      ArtworkCategory.find_or_create_by(category_id: c, artwork_id: artwork[:id])
     end
 
     artwork_categories.each do |ac|

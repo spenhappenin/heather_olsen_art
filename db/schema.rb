@@ -10,12 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180703010718) do
+ActiveRecord::Schema.define(version: 20180718034544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "art_works", force: :cascade do |t|
+  create_table "artwork_categories", force: :cascade do |t|
+    t.bigint "category_id"
+    t.bigint "artwork_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artwork_id"], name: "index_artwork_categories_on_artwork_id"
+    t.index ["category_id"], name: "index_artwork_categories_on_category_id"
+  end
+
+  create_table "artworks", force: :cascade do |t|
     t.string "title"
     t.text "url"
     t.string "type_of"
@@ -27,15 +36,6 @@ ActiveRecord::Schema.define(version: 20180703010718) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
-  end
-
-  create_table "artwork_categories", force: :cascade do |t|
-    t.bigint "category_id"
-    t.bigint "art_work_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["art_work_id"], name: "index_artwork_categories_on_art_work_id"
-    t.index ["category_id"], name: "index_artwork_categories_on_category_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -100,8 +100,8 @@ ActiveRecord::Schema.define(version: 20180703010718) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
-  add_foreign_key "artwork_categories", "art_works"
+  add_foreign_key "artwork_categories", "artworks"
   add_foreign_key "artwork_categories", "categories"
-  add_foreign_key "series_art_works", "art_works"
+  add_foreign_key "series_art_works", "artworks", column: "art_work_id"
   add_foreign_key "series_art_works", "series"
 end

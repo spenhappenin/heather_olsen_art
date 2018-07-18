@@ -59,7 +59,7 @@ class ArtworkNew extends React.Component {
     data.append('date_complete', this.state.dateComplete);
     data.append('status', this.state.status);
     data.append('artwork_categories', JSON.stringify(this.state.artworkCategories));
-    axios.post('/api/art_works', data)
+    axios.post('/api/artworks', data)
       .then( res => {
         debugger
       })

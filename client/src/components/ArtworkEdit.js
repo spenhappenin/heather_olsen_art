@@ -61,7 +61,7 @@ class ArtworkEdit extends React.Component {
     const { match: { params: { id, }, }, } = this.props;
 
     e.preventDefault();
-    axios.put(`/api/art_works/${this.props.match.params.id}`, { ...this.state, })
+    axios.put(`/api/artworks/${this.props.match.params.id}`, { ...this.state, })
       .then( res => {
         this.props.dispatch(setFlash('Artwork Updated!', 'green'));
         this.props.history.goBack();

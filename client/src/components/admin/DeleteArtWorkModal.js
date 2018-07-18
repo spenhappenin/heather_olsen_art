@@ -9,7 +9,7 @@ import { Button, Icon, } from 'semantic-ui-react';
 class DeleteArtWorkModal extends React.Component {
 
   handleClick = () => {
-    axios.delete(`/api/art_works/${this.props.artWorkId}`)
+    axios.delete(`/api/artworks/${this.props.artWorkId}`)
       .then( res => {
         this.props.onClose();
         this.props.goBack();

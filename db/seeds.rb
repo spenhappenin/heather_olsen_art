@@ -17,7 +17,7 @@ available = Category.create(title: 'available', route: 'available', display_imag
     status: status.sample
   )
   p artwork.id
-  ArtworkCategory.create(category_id: available.id, art_work_id: artwork.id)
+  ArtworkCategory.create(category_id: available.id, artwork_id: artwork.id)
 end
 p 'Available Category, ArtWorks, and ArtworkCategories seeded!'
 
@@ -35,7 +35,7 @@ figures = Category.create(title: 'figures', route: 'figures',display_image: 'htt
     date_complete: Time.now, 
     status: status.sample
   )
-  ArtworkCategory.create(category_id: figures.id, art_work_id: artwork.id)
+  ArtworkCategory.create(category_id: figures.id, artwork_id: artwork.id)
 end
 p 'Figures Category, ArtWorks, and ArtworkCategories seeded!'
 
@@ -53,7 +53,7 @@ still_life = Category.create(title: 'still life', route: 'still-life', display_i
     date_complete: Time.now, 
     status: status.sample
   )
-  ArtworkCategory.create(category_id: still_life.id, art_work_id: artwork.id)
+  ArtworkCategory.create(category_id: still_life.id, artwork_id: artwork.id)
 end
 p 'Still Life Category, ArtWorks, and ArtworkCategories seeded!'
 
@@ -71,7 +71,7 @@ animals = Category.create(title: 'animals', route: 'animals', display_image: 'ht
     date_complete: Time.now, 
     status: status.sample
   )
-  ArtworkCategory.create(category_id: animals.id, art_work_id: artwork.id)
+  ArtworkCategory.create(category_id: animals.id, artwork_id: artwork.id)
 end
 p 'Animals Category, ArtWorks, and ArtworkCategories seeded!'
 
@@ -89,7 +89,7 @@ drawings = Category.create(title: 'drawings', route: 'drawings', display_image: 
     date_complete: Time.now, 
     status: status.sample
   )
-  ArtworkCategory.create(category_id: drawings.id, art_work_id: artwork.id)
+  ArtworkCategory.create(category_id: drawings.id, artwork_id: artwork.id)
 end
 p 'Drawings Category, ArtWorks, and ArtworkCategories seeded!'
   
@@ -107,7 +107,7 @@ comissions = Category.create(title: 'comissions', route: 'comissions', display_i
     date_complete: Time.now, 
     status: status.sample
   )
-  ArtworkCategory.create(category_id: comissions.id, art_work_id: artwork.id)
+  ArtworkCategory.create(category_id: comissions.id, artwork_id: artwork.id)
 end
 p 'Comissions Category, ArtWorks, and ArtworkCategories seeded!'
 
