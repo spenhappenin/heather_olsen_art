@@ -5,9 +5,9 @@ import AllArtwork from './AllArtwork';
 import Categories from './Categories';
 import CategoryForm from './CategoryForm';
 import ProtectedRoute from './ProtectedRoute';
-import ShowArtWorks from './ShowArtWorks';
-import SingleArtWork from './SingleArtWork';
-import AdminShowArtWorks from './AdminShowArtWorks';
+import Artworks from './Artworks';
+import ArtworkEdit from './ArtworkEdit';
+import AdminArtworks from './AdminArtworks';
 import { connect, } from 'react-redux';
 import { DimmerContainer, } from '../styles/shared';
 import { Route, Switch, } from 'react-router-dom';
@@ -95,12 +95,12 @@ class FetchCategories extends React.Component {
         <ProtectedRoute exact path='/work/all' component={AllArtwork} />
         {
           this.props.user.id ?
-            <ProtectedRoute exact path='/work/:work_title' component={AdminShowArtWorks} />
+            <ProtectedRoute exact path='/work/:work_title' component={AdminArtworks} />
           :
-            <Route exact path='/work/:work_title' component={ShowArtWorks} />
+            <Route exact path='/work/:work_title' component={Artworks} />
         }
         <ProtectedRoute exact path='/work/:work_title/new' component={ArtworkNew} />
-        <ProtectedRoute exact path='/work/edit/:id' component={SingleArtWork} />
+        <ProtectedRoute exact path='/work/edit/:id' component={ArtworkEdit} />
       </Switch>
     );
   };

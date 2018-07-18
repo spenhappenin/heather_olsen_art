@@ -5,7 +5,7 @@ import { setFlash, } from '../actions/flash';
 import { Button, Header, StyledContainer, } from '../styles/shared';
 import { Dropdown, Form, Icon, Image, } from 'semantic-ui-react';
 
-class SingleArtWork extends React.Component {
+class ArtworkEdit extends React.Component {
   state = { 
     title: '', 
     surface: '', 
@@ -194,4 +194,4 @@ const statusOptions = [
   { key: 'sold', text: 'Sold', value: 'sold' }
 ];
 
-export default SingleArtWork;
+export default ArtworkEdit;

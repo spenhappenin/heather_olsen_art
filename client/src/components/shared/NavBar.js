@@ -39,9 +39,6 @@ class NavBar extends React.Component {
 
     const links = [
       { route: '/work', adminRoute: '/work', text: 'ARTWORK', },
-      // { route: '/paintings', adminRoute: '/admin-paintings', text: 'PAINTINGS', },
-      // { route: '/drawings', adminRoute: '/admin-drawings', text: 'DRAWINGS', },
-      // { route: '/comissions', adminRoute: '/admin-comissions', text: 'COMISSIONS', },
       { route: '/cv', adminRoute: '/admin-cv', text: 'CV', },
       { route: '/media', adminRoute: '/media', text: 'MEDIA', },
       { route: '/contact', adminRoute: '/contact', text: 'CONTACT', }
