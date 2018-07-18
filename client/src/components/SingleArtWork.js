@@ -64,6 +64,7 @@ class SingleArtWork extends React.Component {
     axios.put(`/api/art_works/${this.props.match.params.id}`, { ...this.state, })
       .then( res => {
         this.props.dispatch(setFlash('Artwork Updated!', 'green'));
+        this.props.history.goBack();
       })
       .catch( err => {
         // TODO: Error handling

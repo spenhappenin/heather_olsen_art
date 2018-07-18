@@ -53,12 +53,12 @@ const ArtworkCard = styled.div`
   height: 60px;
 `;
 
-const CardImage = styled.img`
+const CardImage = styled.div`
   /* FIXME: doesnt work for some reason - have to use img tag?? */
-  /* background-image: ${ props => `url(${props.src})` };
+  background-image: ${ props => `url(${props.src})` };
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat; */
+  background-repeat: no-repeat;
   height: 60px;
   width: 60px;
 `;
