@@ -58,13 +58,13 @@ class FetchCategories extends React.Component {
 
     return(
       <Switch>
-        <Route 
+        {/* <Route 
           exact 
           path='/work' 
           render={ props => (
             <Categories categories={this.state.categories} delete={this.deleteCategory} />
           )} 
-        />
+        /> */}
         {
           this.props.user.id && 
           <Route 

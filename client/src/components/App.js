@@ -1,17 +1,17 @@
 import React from 'react';
+import axios from 'axios';
+import asyncComponent from './asyncComponent';
 import AdminCvs from './admin/AdminCvs';
 import Contact from './contact/Contact';
 import CvNewForm from './admin/CvNewForm';
 import Cvs from './cvs/Cvs';
 import FetchUser from './shared/FetchUser';
 import Flash from './shared/Flash';
-import Home from './root/Home';
 import Login from './login/Login';
 import NavBar from './shared/NavBar';
 import NoMatch from './NoMatch';
 import Media from './media/Media';
 import ProtectedRoute from './ProtectedRoute';
-import ArtWorks from './ArtWorks';
 import FetchCategories from './FetchCategories';
 import { connect, } from 'react-redux';
 import { handleLogout, } from '../actions/auth';
@@ -19,9 +19,37 @@ import { Link, } from 'react-router-dom';
 import styled from 'styled-components';
 import { Menu, Sidebar, } from 'semantic-ui-react';
 import { Route, Switch, withRouter, } from 'react-router-dom';
+import ArtworkNew from './ArtworkNew';
+import AllArtwork from './AllArtwork';
+import CategoryForm from './CategoryForm';
+import ArtworkEdit from './ArtworkEdit';
+
+const AdminArtworks = asyncComponent( () => 
+  import('./AdminArtworks').then( module => module.default)
+);
+const Artworks = asyncComponent( () => 
+  import('./Artworks').then( module => module.default)
+);
+const Categories = asyncComponent( () => 
+  import('./Categories').then( module => module.default)
+);
+const Home = asyncComponent( () => 
+  import('./root/Home').then( module => module.default)
+);
 
 class App extends React.Component {
-  state = { dimmed: false, logout: false, sideNav: false, };
+  state = { dimmed: false, logout: false, sideNav: false, categories: [], loaded: false, };
+
+  componentDidMount() {
+    axios.get('/api/works')
+      .then( res => {
+        this.setState({ categories: res.data, loaded: true, });
+      })
+      .catch( err => {
+        // TODO: Add error handling
+        console.log(err.response)
+      })
+  };
 
   toggleSideNav = () => {
     const { dimmed, sideNav, } = this.state;
@@ -31,6 +59,24 @@ class App extends React.Component {
   };
 
   closeSideNav = () => this.setState({ sideNav: false, dimmed: false, });
+
+  createCategory = (category) => {
+    this.setState({ categories: [...this.state.categories, category] });
+  };
+
+  updateCategory = (category) => {
+    let categories = this.state.categories.map( c => {
+      if (c.id === category.id)
+        return c = category
+      return c;
+    })
+    this.setState({ categories, });
+  };
+
+  deleteCategory = (id) => {
+    const categories = this.state.categories.filter( c => c.id !== id)
+    this.setState({ categories, });
+  };
 
   rightNavs = () => {
     const navs = [
@@ -99,9 +145,51 @@ class App extends React.Component {
             <Flash />
             <FetchUser>
               <Switch>
+                <Route 
+                  exact 
+                  path='/work' 
+                  render={ props => (
+                    <Categories categories={this.state.categories} delete={this.deleteCategory} />
+                  )} 
+                />
+                {
+                  this.props.user.id && 
+                  <Route 
+                    exact 
+                    path='/work/new-category' 
+                    render={ props => (
+                      <CategoryForm 
+                        create={this.createCategory}
+                        update={this.updateCategory} 
+                      />
+                    )} 
+                  />
+                }
+                {
+                  this.props.user.id && 
+                  <Route 
+                    exact 
+                    path='/work/edit-category/:id'
+                    render={ props => (
+                      <CategoryForm 
+                        create={this.createCategory}
+                        update={this.updateCategory} 
+                        delete={this.deleteCategory}
+                      />
+                    )} 
+                  />
+                }
+                {
+                  this.props.user.id ?
+                    <ProtectedRoute exact path='/work/:work_title' component={AdminArtworks} />
+                  :
+                    <Route exact path='/work/:work_title' component={Artworks} />
+                }
+                <ProtectedRoute exact path='/work/:work_title/new' component={ArtworkNew} />
+                <ProtectedRoute exact path='/work/edit/:id' component={ArtworkEdit} />
+                <ProtectedRoute exact path='/work/all' component={AllArtwork} />
                 <ProtectedRoute exact path='/admin-cv' component={AdminCvs} />
                 <ProtectedRoute exact path='/admin-cv/new' component={CvNewForm} />
-                <Route path='/work' component={FetchCategories} />
                 <Route exact path='/cv' component={Cvs} />
                 <Route exact path='/media' component={Media} />
                 <Route exact path='/contact' component={Contact} />

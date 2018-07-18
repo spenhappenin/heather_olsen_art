@@ -1,5 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+// import LazyLoad from 'react-lazy-load';
+// import LazyLoad from 'react-lazyload';
+// import { LazyImage } from "react-lazy-images";
+import { Lazy } from 'react-lazy'
 import Lightbox from 'react-images';
 import styled from 'styled-components';
 import { connect, } from 'react-redux';
@@ -7,11 +11,11 @@ import { formatArt, } from '../helpers/artWorks';
 import { getCategoryTitle, } from '../helpers/artWorks';
 import { setFlash, } from '../actions/flash';
 import { Header, StyledContainer, } from '../styles/shared';
-import { Image, Transition, } from 'semantic-ui-react';
+import { Transition, } from 'semantic-ui-react';
 
 class Artworks extends React.Component {
   state = { 
-    artWorks: [], 
+    artworks: [], 
     categoryTitle: '', 
     currentImage: 0, 
     erroredImages: [], 
@@ -27,7 +31,7 @@ class Artworks extends React.Component {
       .then( res => {
         const art = [];
         res.data.map( a => art.push(formatArt(a)));
-        this.setState({ artWorks: art, categoryTitle: getCategoryTitle(work_title), });
+        this.setState({ artworks: art, categoryTitle: getCategoryTitle(work_title), });
       })
       .catch( err => {
         this.props.dispatch(setFlash('An error has occured, please try again later.', 'red'))
@@ -40,27 +44,28 @@ class Artworks extends React.Component {
   
   closeLightbox = () => this.setState({ currentImage: 0, lightboxIsOpen: false, });
 
-  displayArtWorks = () => {
-    const { artWorks, erroredImages, visible, } = this.state;
+  displayArtworks = () => {
+    const { artworks, erroredImages, visible, } = this.state;
 
-    if (!artWorks) return;
+    if (!artworks) return;
 
-    return artWorks.map( (artWork, i) => {
-      return erroredImages.includes(artWork.id) ?
+    return artworks.map( (artwork, i) => {
+      return erroredImages.includes(artwork.id) ?
         null
       :
         <Column>
-          <Transition visible={visible} animation='fade' duration={2000}>
-            <Image
-              alt={artWork.title}
-              src={artWork.src}
-              href={artWork.src}
-              onClick={(e) => this.openLightbox(i, e)}
-              onError={() => this.handleImageError(artWork.id)}
-              fluid
-              style={{ border: '1px solid red !important', }}
-            />
-          </Transition>
+            {/* <Transition visible={visible} animation='fade' duration={2000}> */}
+            <Lazy component="a" href="/">
+              <Image
+                alt={artwork.title}
+                src={artwork.src}
+                href={artwork.src}
+                onClick={(e) => this.openLightbox(i, e)}
+                onError={() => this.handleImageError(artwork.id)}
+                style={{ width: '100%' }}
+              />
+            </Lazy>
+            {/* </Transition> */}
         </Column>
     });
   };
@@ -81,16 +86,16 @@ class Artworks extends React.Component {
   };
 
   render() {
-    const { artWorks, categoryTitle, currentImage, lightboxIsOpen, windowWidth, } = this.state;
+    const { artworks, categoryTitle, currentImage, lightboxIsOpen, windowWidth, } = this.state;
 
     return(
       <StyledContainer>
         <Header primary>{ categoryTitle }</Header>
         <Grid width={windowWidth}>
-          { this.displayArtWorks() }
+          { this.displayArtworks() }
           <Lightbox
             currentImage={currentImage}
-            images={artWorks}
+            images={artworks}
             isOpen={lightboxIsOpen}
             onClickImage={this.handleClickImage}
             onClickNext={this.gotoNext}
@@ -114,6 +119,10 @@ const Column = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
+`;
+
+const Image = styled.img`
+  width: 100%;
 `;
 
 export default connect()(Artworks);

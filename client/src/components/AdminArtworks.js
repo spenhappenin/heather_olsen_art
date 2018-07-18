@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import Loadable from 'react-loadable';
 import { Link, } from 'react-router-dom';
 import { connect, } from 'react-redux';
 import { formatArt, } from '../helpers/artWorks';
@@ -8,6 +9,14 @@ import { getCategoryTitle, } from '../helpers/artWorks';
 import { setFlash, } from '../actions/flash';
 import { Button, Header, StyledContainer, } from '../styles/shared';
 import { Image, Transition, } from 'semantic-ui-react';
+// import { Lazy } from 'react-lazy'
+// const LoadableArtwork = Loadable({
+//   loader: () => import('./Artwork'),
+//   loading() {
+//     return <div>Loading...</div>
+//   }
+// });
+// import Artwork from './Artwork';
 
 class AdminArtworks extends React.Component {
   state = { artWorks: [], categoryTitle: '', erroredImages: [], windowWidth: window.innerWidth, };
@@ -41,6 +50,8 @@ class AdminArtworks extends React.Component {
         null
       :
         <Column>
+          {/* <LoadableArtwork { ...a } /> */}
+          {/* <Artwork { ...a } /> */}
           <Transition visible={visible} animation='fade' duration={2000}>
             <Link to={`edit/${a.id}`} rel="noopener noreferrer">
               <Image
