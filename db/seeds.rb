@@ -1,14 +1,17 @@
 User.create(name: 'Heather Olsen', email: 'test@test.com', password: 'password', password_confirmation: 'password')
-p 'Test User Created!'
+p 'Test User Created - email: "test@test.com, password: "password"'
 
 status = ['for sale', 'nfs', 'sold']
 
 # --- Create Available ---
 available = Category.create(title: 'available', route: 'available', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1529967241/Blonde%20with%20Glasses.jpg')
 25.times do |i|
-  artwork = ArtWork.create(
+  img = Faker::Avatar.image
+  artwork = Artwork.create(
     title: Faker::Seinfeld.character, 
-    url: Faker::Avatar.image, 
+    url: img, 
+    url_thumbnail: img, 
+    url_mobile: img, 
     medium: 'oil', 
     surface: 'canvas', 
     dimensions: '15 x 15', 
@@ -16,7 +19,6 @@ available = Category.create(title: 'available', route: 'available', display_imag
     date_complete: Time.now, 
     status: status.sample
   )
-  p artwork.id
   ArtworkCategory.create(category_id: available.id, artwork_id: artwork.id)
 end
 p 'Available Category, ArtWorks, and ArtworkCategories seeded!'
@@ -25,9 +27,12 @@ p 'Available Category, ArtWorks, and ArtworkCategories seeded!'
 figures = Category.create(title: 'figures', route: 'figures',display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1518756176/Pucker%20Up%20%28diptych%201%29.jpg')
 
 25.times do |i|
-  artwork = ArtWork.create(
+  img = Faker::Avatar.image
+  artwork = Artwork.create(
     title: Faker::Seinfeld.character, 
-    url: Faker::Avatar.image, 
+    url: img, 
+    url_thumbnail: img, 
+    url_mobile: img, 
     medium: 'oil', 
     surface: 'canvas', 
     dimensions: '15 x 15', 
@@ -43,9 +48,12 @@ p 'Figures Category, ArtWorks, and ArtworkCategories seeded!'
 still_life = Category.create(title: 'still life', route: 'still-life', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1519773180/Grapes%20of%20Wrath.jpg')
 
 25.times do |i|
-  artwork = ArtWork.create(
+  img = Faker::Avatar.image
+  artwork = Artwork.create(
     title: Faker::Seinfeld.character, 
-    url: Faker::Avatar.image, 
+    url: img, 
+    url_thumbnail: img, 
+    url_mobile: img,  
     medium: 'oil', 
     surface: 'canvas', 
     dimensions: '15 x 15', 
@@ -61,9 +69,12 @@ p 'Still Life Category, ArtWorks, and ArtworkCategories seeded!'
 animals = Category.create(title: 'animals', route: 'animals', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1529967631/Hare%20Study.jpg')
 
 25.times do |i|
-  artwork = ArtWork.create(
+  img = Faker::Avatar.image
+  artwork = Artwork.create(
     title: Faker::Seinfeld.character, 
-    url: Faker::Avatar.image, 
+    url: img, 
+    url_thumbnail: img, 
+    url_mobile: img, 
     medium: 'oil', 
     surface: 'canvas', 
     dimensions: '15 x 15', 
@@ -79,9 +90,12 @@ p 'Animals Category, ArtWorks, and ArtworkCategories seeded!'
 drawings = Category.create(title: 'drawings', route: 'drawings', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1515719879/Female%20Portrait%20Etude.jpg')
 
 25.times do |i|
-  artwork = ArtWork.create(
+  img = Faker::Avatar.image
+  artwork = Artwork.create(
     title: Faker::Seinfeld.character, 
-    url: Faker::Avatar.image, 
+    url: img, 
+    url_thumbnail: img, 
+    url_mobile: img, 
     medium: 'oil', 
     surface: 'canvas', 
     dimensions: '15 x 15', 
@@ -97,9 +111,12 @@ p 'Drawings Category, ArtWorks, and ArtworkCategories seeded!'
 comissions = Category.create(title: 'comissions', route: 'comissions', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1517895361/Midnight%20Smoke.jpg')
 
 25.times do |i|
-  artwork = ArtWork.create(
+  img = Faker::Avatar.image
+  artwork = Artwork.create(
     title: Faker::Seinfeld.character, 
-    url: Faker::Avatar.image, 
+    url: img, 
+    url_thumbnail: img, 
+    url_mobile: img, 
     medium: 'oil', 
     surface: 'canvas', 
     dimensions: '15 x 15', 

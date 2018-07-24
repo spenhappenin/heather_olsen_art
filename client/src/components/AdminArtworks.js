@@ -9,14 +9,6 @@ import { getCategoryTitle, } from '../helpers/artWorks';
 import { setFlash, } from '../actions/flash';
 import { Button, Header, StyledContainer, } from '../styles/shared';
 import { Image, Transition, } from 'semantic-ui-react';
-// import { Lazy } from 'react-lazy'
-// const LoadableArtwork = Loadable({
-//   loader: () => import('./Artwork'),
-//   loading() {
-//     return <div>Loading...</div>
-//   }
-// });
-// import Artwork from './Artwork';
 
 class AdminArtworks extends React.Component {
   state = { artWorks: [], categoryTitle: '', erroredImages: [], windowWidth: window.innerWidth, };
@@ -27,12 +19,10 @@ class AdminArtworks extends React.Component {
     window.addEventListener('resize', this.handleResize);
     axios.get(`/api/artworks?category=${work_title}`)
       .then( res => {
-        const art = [];
-        res.data.map( a => art.push(formatArt(a)) );
-        this.setState({ artWorks: art, categoryTitle: getCategoryTitle(work_title), });
+        this.setState({ artWorks: res.data, categoryTitle: getCategoryTitle(work_title), });
       })
       .catch( err => {
-        this.props.dispatch(setFlash('An error has occured, please try again later.', 'red'))
+        this.props.dispatch(setFlash(err.response, 'red'))
       })
   };
 
@@ -41,25 +31,22 @@ class AdminArtworks extends React.Component {
   };
 
   displayArtWorks = () => {
-    const { artWorks, erroredImages, visible, } = this.state;
+    const { artWorks, erroredImages, visible, windowWidth, } = this.state;
 
     if (!artWorks) return;
 
-    return artWorks.map( (a, i) => {
+    return artWorks.map( a => {
       return erroredImages.includes(a.id) ?
         null
       :
         <Column>
-          {/* <LoadableArtwork { ...a } /> */}
-          {/* <Artwork { ...a } /> */}
           <Transition visible={visible} animation='fade' duration={2000}>
             <Link to={`edit/${a.id}`} rel="noopener noreferrer">
               <Image
                 alt={a.title}
                 fluid
-                href={a.src}
                 onError={() => this.handleImageError(a.id)}
-                src={a.src}
+                srcSet={[`${a.url} 1024w`, `${a.url_mobile} 750w`]}
               />
             </Link>
           </Transition>
@@ -69,7 +56,7 @@ class AdminArtworks extends React.Component {
 
   handleImageError = (id) => this.setState({ erroredImages: [...this.state.erroredImages, id], });
 
-  handleResize = (e) => this.setState({ windowWidth: window.innerWidth });
+  handleResize = () => this.setState({ windowWidth: window.innerWidth, });
 
   render() {
     const { categoryTitle, windowWidth, } = this.state;

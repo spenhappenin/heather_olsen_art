@@ -1,11 +1,12 @@
 import React from 'react';
-import { connect, } from 'react-redux';
 import axios from 'axios';
-import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroller';
+import styled from 'styled-components';
+import { connect, } from 'react-redux';
 import { Link, } from 'react-router-dom';
-import { Button, Header, StyledContainer, } from '../styles/shared';
 import { setHeaders, } from '../actions/headers';
+import { setFlash, } from '../actions/flash';
+import { Button, Header, StyledContainer, } from '../styles/shared';
 
 class AllArtwork extends React.Component {
   state = { artwork: [], currentPage: 1, total_pages: 0, };
@@ -17,8 +18,7 @@ class AllArtwork extends React.Component {
         this.setState({ artwork: res.data.artwork, total_pages: res.data.total_pages });
       })
       .catch( err => {
-        // TODO: Error handling
-        console.log('Error...')
+        this.props.dispatch(setFlash(err.response, 'red'));
       })
   };
 
@@ -26,7 +26,7 @@ class AllArtwork extends React.Component {
     return this.state.artwork.map( a => (
       <Link to={`edit/${a.id}`}>
         <ArtworkCard>
-          <CardImage src={a.url} />
+          <CardImage src={a.url_thumbnail} />
           <CardTitle>{a.title}</CardTitle>
         </ArtworkCard>
       </Link>
@@ -47,8 +47,7 @@ class AllArtwork extends React.Component {
         });
       })
       .catch( err => {
-        // TODO: Error handling
-        console.log('Error...')
+        this.props.dispatch(setFlash(err.response, 'red'));
       })
   };
 
@@ -85,7 +84,6 @@ const ArtworkCard = styled.div`
 `;
 
 const CardImage = styled.div`
-  /* FIXME: doesnt work for some reason - have to use img tag?? */
   background-image: ${ props => `url(${props.src})` };
   background-size: cover;
   background-position: center;

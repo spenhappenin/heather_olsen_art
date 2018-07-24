@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect, } from 'react-redux';
 import axios from 'axios';
 import DeleteArtWorkModal from './admin/DeleteArtWorkModal';
 import { setFlash, } from '../actions/flash';
+import { setHeaders, } from '../actions/headers';
 import { Button, Header, StyledContainer, } from '../styles/shared';
 import { Dropdown, Form, Icon, Image, } from 'semantic-ui-react';
 
@@ -14,7 +16,9 @@ class ArtworkEdit extends React.Component {
     price: '', 
     status: '', 
     dateComplete: '', 
-    url: '', 
+    url: '',
+    url_thumbnail: '',
+    url_mobile: '', 
     open: false,
     categories: [], 
     artworkCategories: [],
@@ -23,28 +27,32 @@ class ArtworkEdit extends React.Component {
   componentDidMount() {
     axios.get(`/api/single_artwork/${this.props.match.params.id}`)
       .then( res => {
+        const { headers, data, } = res;
+
+        this.props.dispatch(setHeaders(headers));
         this.setState({ 
-          artWork: res.data.artwork,
-          title: res.data.artwork.title, 
-          url: res.data.artwork.src, 
-          medium: res.data.artwork.medium, 
-          surface: res.data.artwork.surface, 
-          dimensions: res.data.artwork.dimensions, 
-          price: res.data.artwork.price, 
-          dateComplete: res.data.artwork.date_complete, 
-          status: res.data.artwork.status,
-          url: res.data.artwork.url,
-          categories: res.data.categories,
-          artworkCategories: res.data.artworkCategories,
+          artWork: data.artwork,
+          title: data.artwork.title, 
+          url: data.artwork.src, 
+          medium: data.artwork.medium,
+          surface: data.artwork.surface, 
+          dimensions: data.artwork.dimensions, 
+          price: data.artwork.price, 
+          dateComplete: data.artwork.date_complete, 
+          status: data.artwork.status,
+          url: data.artwork.url,
+          url_thumbnail: data.artwork.url_thumbnail,
+          url_mobile: data.artwork.url_mobile,
+          categories: data.categories,
+          artworkCategories: data.artworkCategories,
         });
       })
       .catch( err => {
-        // TODO: error handle
-        console.log('Error...')
+        this.props.dispatch(setFlash(err.response, 'red'))
       })
   };
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value });
+  handleChange = (e, { name, value }) => this.setState({ [name]: value, });
   
   handleCheckbox = (e, data) => {
     if(data.checked) {
@@ -67,8 +75,7 @@ class ArtworkEdit extends React.Component {
         this.props.history.goBack();
       })
       .catch( err => {
-        // TODO: Error handling
-        console.log('Error...')
+        this.props.dispatch(setFlash(err.response, 'red'))
       })
   };
 
@@ -180,6 +187,26 @@ class ArtworkEdit extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Group>
+          <Form.Group widths='equal'>
+            <Form.Input
+              type='url'
+              name='url_thumbnail'
+              label='Image URL Thumbnail'
+              placeholder='https://image-url.com'
+              value={this.state.url_thumbnail}
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+          <Form.Group widths='equal'>
+            <Form.Input
+              type='url'
+              name='url_mobile'
+              label='Image URL Mobile'
+              placeholder='https://image-url.com'
+              value={this.state.url_mobile}
+              onChange={this.handleChange}
+            />
+          </Form.Group>
           <br />
           <Button type='submit'>Submit</Button>
         </Form>
@@ -194,4 +221,4 @@ const statusOptions = [
   { key: 'sold', text: 'Sold', value: 'sold' }
 ];
 
-export default ArtworkEdit;
+export default connect()(ArtworkEdit);

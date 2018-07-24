@@ -22,3 +22,10 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+Artwork Image sizes relative to screen
+  • thumbnail: 100w
+  • mobile: 750w
+  • desktop: 1100w
+  

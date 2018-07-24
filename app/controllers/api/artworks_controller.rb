@@ -54,7 +54,9 @@ class Api::ArtworksController < ApplicationController
       price: params[:price], 
       status: params[:status], 
       date_complete: params[:dateComplete], 
-      url: params[:url]
+      url: params[:url],
+      url_thumbnail: params[:url_thumbnail],
+      url_mobile: params[:url_mobile]
     )
       Artwork.update_categories(@artwork, params[:artworkCategories])
       render json: @artwork

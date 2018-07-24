@@ -1,9 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-// import LazyLoad from 'react-lazy-load';
-// import LazyLoad from 'react-lazyload';
-// import { LazyImage } from "react-lazy-images";
-import { Lazy } from 'react-lazy'
 import Lightbox from 'react-images';
 import styled from 'styled-components';
 import { connect, } from 'react-redux';
@@ -54,18 +50,16 @@ class Artworks extends React.Component {
         null
       :
         <Column>
-            {/* <Transition visible={visible} animation='fade' duration={2000}> */}
-            <Lazy component="a" href="/">
-              <Image
-                alt={artwork.title}
-                src={artwork.src}
-                href={artwork.src}
-                onClick={(e) => this.openLightbox(i, e)}
-                onError={() => this.handleImageError(artwork.id)}
-                style={{ width: '100%' }}
-              />
-            </Lazy>
-            {/* </Transition> */}
+          <Transition visible={visible} animation='fade' duration={2000}>
+            <Image
+              alt={artwork.title}
+              srcSet={artwork.srcSet}
+              href={artwork.src}
+              onClick={(e) => this.openLightbox(i, e)}
+              onError={() => this.handleImageError(artwork.id)}
+              style={{ width: '100%' }}
+            />
+          </Transition>
         </Column>
     });
   };
@@ -102,6 +96,7 @@ class Artworks extends React.Component {
             onClickPrev={this.gotoPrevious}
             onClickThumbnail={this.gotoImage}
             onClose={this.closeLightbox}
+            preloadNextImage
           />
         </Grid>
       </StyledContainer>
