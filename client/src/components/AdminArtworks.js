@@ -8,7 +8,7 @@ import { formatArt, } from '../helpers/artWorks';
 import { getCategoryTitle, } from '../helpers/artWorks';
 import { setFlash, } from '../actions/flash';
 import { Button, Header, StyledContainer, } from '../styles/shared';
-import { Image, Transition, } from 'semantic-ui-react';
+import { Transition, } from 'semantic-ui-react';
 
 class AdminArtworks extends React.Component {
   state = { artWorks: [], categoryTitle: '', erroredImages: [], windowWidth: window.innerWidth, };
@@ -44,7 +44,6 @@ class AdminArtworks extends React.Component {
             <Link to={`edit/${a.id}`} rel="noopener noreferrer">
               <Image
                 alt={a.title}
-                fluid
                 onError={() => this.handleImageError(a.id)}
                 srcSet={[`${a.url} 1024w`, `${a.url_mobile} 750w`]}
               />
@@ -88,6 +87,10 @@ const Column = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
+`;
+
+const Image = styled.img`
+  width: 100%;
 `;
 
 export default connect()(AdminArtworks);

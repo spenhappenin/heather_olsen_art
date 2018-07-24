@@ -23,11 +23,11 @@ export const media = Object.keys(sizes).reduce((accumulator, label) => {
 }, {})
 
 export const StyledContainer = styled.div`
-  ${ media.giant`padding: 50px 125px 125px 125px !important;`};
-  ${ media.desktop`padding: 50px 100px 125px 100px !important;`};
-  ${ media.tablet`padding: 50px 50px 125px 50px !important;`};
-  ${ media.phablet`padding: 50px 30px 125px 30px !important;`};
-  ${ media.phone`padding: 50px 20px 125px 20px !important;` };
+  ${ media.giant`margin: 50px 280px 125px 280px !important;`};
+  ${ media.desktop`margin: 50px 100px 125px 100px !important;`};
+  ${ media.tablet`margin: 50px 50px 125px 50px !important;`};
+  ${ media.phablet`margin: 50px 30px 125px 30px !important;`};
+  ${ media.phone`margin: 50px 20px 125px 20px !important;` };
 `;
 
 export const DimmerContainer = styled.div`
