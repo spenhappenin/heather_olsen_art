@@ -28,7 +28,9 @@ class Api::ArtworksController < ApplicationController
     begin
       cloud_image = Cloudinary::Uploader.upload(uploaded_file, public_id: params[:title], secure: true)
       artwork = Artwork.create(
-        url: cloud_image['secure_url'], 
+        url: Artwork.transform_image_url(cloud_image['secure_url'], 1100), 
+        url_mobile: Artwork.transform_image_url(cloud_image['secure_url'], 750), 
+        url_thumbnail: Artwork.transform_image_url(cloud_image['secure_url'], 100), 
         title: params['title'], 
         medium: params['medium'], 
         surface: params['surface'], 
@@ -36,7 +38,7 @@ class Api::ArtworksController < ApplicationController
         price: params['price'], 
         status: params['status'], 
         date_complete: params['date_complete']
-        )
+      )
       Artwork.update_categories(artwork, JSON.parse(params[:artwork_categories]))
       render json: artwork
     rescue
