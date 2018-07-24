@@ -1,4 +1,5 @@
 import React from 'react';
+import About from './About';
 import axios from 'axios';
 import asyncComponent from './asyncComponent';
 import AdminCvs from './admin/AdminCvs';
@@ -196,6 +197,7 @@ class App extends React.Component {
                 <Route exact path='/media' component={Media} />
                 <Route exact path='/contact' component={Contact} />
                 <Route exact path='/' component={Home} />
+                <Route exact path='/about' render={ props => <About user={this.props.user} />} />
                 <Route exact path='/login' component={Login} />
                 <Route component={NoMatch} />
               </Switch>

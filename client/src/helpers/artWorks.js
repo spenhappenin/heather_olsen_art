@@ -24,8 +24,6 @@ export const formatArt = (work) => {
     medium, 
     date_complete, 
     url, 
-    url_thumbnail, 
-    url_mobile, 
     price, 
     status 
   } = work;
@@ -33,9 +31,7 @@ export const formatArt = (work) => {
   const caption = `${title} - ${dimensions} - ${medium} on ${surface} - ${moment(date_complete).format('YYYY')} - ${displayStatus(status, price)}`;
   return { 
     id, 
-    srcSet: [`${url} 1024w`, `${url_mobile} 750w`],
-    url_mobile,
-    url_thumbnail,
+    srcSet: [`${generateImageUrl(url, 1100)} 1024w`, `${generateImageUrl(url, 750)} 750w`],
     caption, 
     title, 
     medium, 
@@ -45,6 +41,12 @@ export const formatArt = (work) => {
     price, 
     status,
   }
+};
+
+export const generateImageUrl = (url, size) => {
+  let newUrl = url.split('/');
+  newUrl.splice(6, 0, `c_scale,w_${size}`);
+  return newUrl.join('/');
 };
 
 // As an admin, gets the title of the category without the `admin-` attached on front

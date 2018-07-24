@@ -6,10 +6,11 @@ import { connect, } from 'react-redux';
 import { Link, } from 'react-router-dom';
 import { setHeaders, } from '../actions/headers';
 import { setFlash, } from '../actions/flash';
+import { generateImageUrl, } from '../helpers/artWorks';
 import { Button, Header, StyledContainer, } from '../styles/shared';
 
 class AllArtwork extends React.Component {
-  state = { artwork: [], currentPage: 1, total_pages: 0, };
+  state = { artwork: [], currentPage: 1, thumbnailSize: 100, total_pages: 0, };
 
   componentDidMount() {
     axios.get('/api/all_artworks')
@@ -26,7 +27,7 @@ class AllArtwork extends React.Component {
     return this.state.artwork.map( a => (
       <Link to={`edit/${a.id}`}>
         <ArtworkCard>
-          <CardImage src={a.url_thumbnail} />
+          <CardImage src={generateImageUrl(a.url, this.state.thumbnailSize)} />
           <CardTitle>{a.title}</CardTitle>
         </ArtworkCard>
       </Link>

@@ -41,6 +41,7 @@ class NavBar extends React.Component {
       { route: '/work', adminRoute: '/work', text: 'ARTWORK', },
       { route: '/cv', adminRoute: '/admin-cv', text: 'CV', },
       { route: '/media', adminRoute: '/media', text: 'MEDIA', },
+      { route: '/about', adminRoute: '/about', text: 'ABOUT', },
       { route: '/contact', adminRoute: '/contact', text: 'CONTACT', }
     ];
 

@@ -17,8 +17,6 @@ class ArtworkEdit extends React.Component {
     status: '', 
     dateComplete: '', 
     url: '',
-    url_thumbnail: '',
-    url_mobile: '', 
     open: false,
     categories: [], 
     artworkCategories: [],
@@ -41,8 +39,6 @@ class ArtworkEdit extends React.Component {
           dateComplete: data.artwork.date_complete, 
           status: data.artwork.status,
           url: data.artwork.url,
-          url_thumbnail: data.artwork.url_thumbnail,
-          url_mobile: data.artwork.url_mobile,
           categories: data.categories,
           artworkCategories: data.artworkCategories,
         });
@@ -184,26 +180,6 @@ class ArtworkEdit extends React.Component {
               label='Image URL'
               placeholder='https://image-url.com'
               value={this.state.url}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Form.Group widths='equal'>
-            <Form.Input
-              type='url'
-              name='url_thumbnail'
-              label='Image URL Thumbnail'
-              placeholder='https://image-url.com'
-              value={this.state.url_thumbnail}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Form.Group widths='equal'>
-            <Form.Input
-              type='url'
-              name='url_mobile'
-              label='Image URL Mobile'
-              placeholder='https://image-url.com'
-              value={this.state.url_mobile}
               onChange={this.handleChange}
             />
           </Form.Group>

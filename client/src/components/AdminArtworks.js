@@ -5,10 +5,10 @@ import Loadable from 'react-loadable';
 import { Link, } from 'react-router-dom';
 import { connect, } from 'react-redux';
 import { formatArt, } from '../helpers/artWorks';
-import { getCategoryTitle, } from '../helpers/artWorks';
 import { setFlash, } from '../actions/flash';
-import { Button, Header, StyledContainer, } from '../styles/shared';
 import { Transition, } from 'semantic-ui-react';
+import { generateImageUrl, getCategoryTitle, } from '../helpers/artWorks';
+import { Button, Header, StyledContainer, } from '../styles/shared';
 
 class AdminArtworks extends React.Component {
   state = { artWorks: [], categoryTitle: '', erroredImages: [], windowWidth: window.innerWidth, };
@@ -45,7 +45,10 @@ class AdminArtworks extends React.Component {
               <Image
                 alt={a.title}
                 onError={() => this.handleImageError(a.id)}
-                srcSet={[`${a.url} 1024w`, `${a.url_mobile} 750w`]}
+                srcSet={[
+                  `${generateImageUrl(a.url, 1100)} 1024w`, 
+                  `${generateImageUrl(a.url, 750)} 750w`
+                ]}
               />
             </Link>
           </Transition>
