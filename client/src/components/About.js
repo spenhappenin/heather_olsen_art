@@ -75,6 +75,7 @@ class About extends React.Component {
               <p>{this.state.bio}</p>
               <br />
               <br />
+              <Header style={{ fontSize: '22px', }}>Artist Statement</Header>
               <p>{this.state.artist_statement}</p>
             </div>
         }
