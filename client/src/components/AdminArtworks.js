@@ -1,11 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import Loadable from 'react-loadable';
 import { Link, } from 'react-router-dom';
 import { connect, } from 'react-redux';
-import { formatArt, } from '../helpers/artWorks';
 import { setFlash, } from '../actions/flash';
+import { setHeaders, } from '../actions/headers';
 import { Transition, } from 'semantic-ui-react';
 import { generateImageUrl, getCategoryTitle, } from '../helpers/artWorks';
 import { Button, Header, StyledContainer, } from '../styles/shared';
@@ -19,6 +18,8 @@ class AdminArtworks extends React.Component {
     window.addEventListener('resize', this.handleResize);
     axios.get(`/api/artworks?category=${work_title}`)
       .then( res => {
+        const { dispatch, } = this.props;
+        dispatch(setHeaders(res.headers));
         this.setState({ artWorks: res.data, categoryTitle: getCategoryTitle(work_title), });
       })
       .catch( err => {
@@ -31,7 +32,7 @@ class AdminArtworks extends React.Component {
   };
 
   displayArtWorks = () => {
-    const { artWorks, erroredImages, visible, windowWidth, } = this.state;
+    const { artWorks, erroredImages, visible, } = this.state;
 
     if (!artWorks) return;
 

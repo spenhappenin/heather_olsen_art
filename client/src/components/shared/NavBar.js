@@ -16,12 +16,12 @@ class NavBar extends React.Component {
     window.removeEventListener('resize', this.handleResize);
   };
 
-  handleResize = (e) => this.setState({ windowWidth: window.innerWidth });
+  handleResize = (e) => this.setState({ windowWidth: window.innerWidth, });
 
   showLogout = () => {
     const { dispatch, history, user, } = this.props;
 
-    if(user.id) {
+    if(user.id)
       return(
         <StyledMockLink 
           onClick={ () => dispatch(handleLogout(history)) } 
@@ -31,7 +31,6 @@ class NavBar extends React.Component {
           LOGOUT
         </StyledMockLink>
       )
-    };
   };
 
   displayRoutes = () => {

@@ -1,30 +1,30 @@
 import React from 'react';
 import About from './About';
-import axios from 'axios';
-import asyncComponent from './asyncComponent';
 import AdminCvs from './admin/AdminCvs';
+import AllArtwork from './AllArtwork';
+import ArtworkEdit from './ArtworkEdit';
+import ArtworkNew from './ArtworkNew';
+import asyncComponent from './asyncComponent';
+import axios from 'axios';
+import CategoryForm from './CategoryForm';
 import Contact from './contact/Contact';
 import CvNewForm from './admin/CvNewForm';
 import Cvs from './cvs/Cvs';
 import FetchUser from './shared/FetchUser';
 import Flash from './shared/Flash';
 import Login from './login/Login';
+import Media from './media/Media';
 import NavBar from './shared/NavBar';
 import NoMatch from './NoMatch';
-import Media from './media/Media';
 import ProtectedRoute from './ProtectedRoute';
-// // import FetchCategories from './FetchCategories';
+import styled from 'styled-components';
 import { connect, } from 'react-redux';
 import { handleLogout, } from '../actions/auth';
 import { Link, } from 'react-router-dom';
-import styled from 'styled-components';
+import { setFlash, } from '../actions/flash';
+import { setHeaders, } from '../actions/headers';
 import { Menu, Sidebar, } from 'semantic-ui-react';
 import { Route, Switch, withRouter, } from 'react-router-dom';
-import ArtworkNew from './ArtworkNew';
-import AllArtwork from './AllArtwork';
-import CategoryForm from './CategoryForm';
-import ArtworkEdit from './ArtworkEdit';
-import { setHeaders, } from '../actions/headers';
 
 const AdminArtworks = asyncComponent( () => 
   import('./AdminArtworks').then( module => module.default)
@@ -49,8 +49,7 @@ class App extends React.Component {
         this.setState({ categories: res.data, loaded: true, });
       })
       .catch( err => {
-        // TODO: Add error handling
-        console.log(err.response)
+        this.props.dispatch(setFlash(err.response, 'red'));
       })
   };
 
@@ -197,7 +196,7 @@ class App extends React.Component {
                 <Route exact path='/media' component={Media} />
                 <Route exact path='/contact' component={Contact} />
                 <Route exact path='/' component={Home} />
-                <Route exact path='/about' render={ props => <About user={this.props.user} />} />
+                <Route exact path='/about' component={About} />
                 <Route exact path='/login' component={Login} />
                 <Route component={NoMatch} />
               </Switch>

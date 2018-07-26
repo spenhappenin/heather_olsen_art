@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import { connect, } from 'react-redux';
 import { Form, } from 'semantic-ui-react';
+import { setFlash, } from '../actions/flash';
+import { setHeaders, } from '../actions/headers';
 import { StyledDropzone, } from '../styles/artWork';
 import { Button, Header, StyledContainer, } from '../styles/shared';
 
@@ -23,11 +26,11 @@ class ArtworkNew extends React.Component {
   componentDidMount() {
     axios.get('/api/works')
       .then( res => {
+        this.props.dispatch(setHeaders(res.headers));
         this.setState({ categories: res.data, });
       })
       .catch( err => {
-        // TODO: Error handling
-        console.log('Error...')
+        this.props.dispatch(setFlash(err.response, 'red'));
       })
   };
 
@@ -46,10 +49,8 @@ class ArtworkNew extends React.Component {
   
   handleSubmit = (e) => {
     e.preventDefault();
-
     let data = new FormData();
     let photo = this.state.fileData;
-
     data.append(photo.name, photo);
     data.append('title', this.state.title);
     data.append('medium', this.state.medium);
@@ -61,11 +62,11 @@ class ArtworkNew extends React.Component {
     data.append('artwork_categories', JSON.stringify(this.state.artworkCategories));
     axios.post('/api/artworks', data)
       .then( res => {
-        debugger
+        this.props.dispatch(setHeaders(res.headers));
+        this.props.dispatch(setFlash('Artwork Added!', 'green'));
       })
       .catch( err => {
-        // TODO: Error handling
-        debugger
+        this.props.dispatch(setFlash(err.response, 'red'));
       })
   };
 
@@ -191,4 +192,4 @@ const statusOptions = [
   { key: 'sold', text: 'Sold', value: 'sold' }
 ];
 
-export default ArtworkNew;
+export default connect()(ArtworkNew);

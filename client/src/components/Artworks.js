@@ -6,8 +6,9 @@ import { connect, } from 'react-redux';
 import { formatArt, } from '../helpers/artWorks';
 import { getCategoryTitle, } from '../helpers/artWorks';
 import { setFlash, } from '../actions/flash';
-import { Header, StyledContainer, } from '../styles/shared';
+import { setHeaders, } from '../actions/headers';
 import { Transition, } from 'semantic-ui-react';
+import { Header, StyledContainer, } from '../styles/shared';
 
 class Artworks extends React.Component {
   state = { 
@@ -27,10 +28,11 @@ class Artworks extends React.Component {
       .then( res => {
         const art = [];
         res.data.map( a => art.push(formatArt(a)));
+        this.props.dispatch(setHeaders(res.headers));
         this.setState({ artworks: art, categoryTitle: getCategoryTitle(work_title), });
       })
       .catch( err => {
-        this.props.dispatch(setFlash('An error has occured, please try again later.', 'red'))
+        this.props.dispatch(setFlash(err.response, 'red'))
       })
   };
   

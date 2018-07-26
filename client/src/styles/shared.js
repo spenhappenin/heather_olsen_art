@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { css, } from 'styled-components'
 import { Link as ReactRouterLink, } from 'react-router-dom';
-import { Segment, } from 'semantic-ui-react';
 
 // object of screen sizes
 const sizes = {

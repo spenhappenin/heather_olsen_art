@@ -1,27 +1,90 @@
 import React from 'react';
+import axios from 'axios';
+import { connect, } from 'react-redux';
 import { Form, } from 'semantic-ui-react';
-import { Header, StyledContainer, } from '../styles/shared';
+import { setFlash, } from '../actions/flash';
+import { setHeaders, } from '../actions/headers';
+import { Button, Header, StyledContainer, } from '../styles/shared';
 
 class About extends React.Component {
+  state = { artist_statement: '', bio: '', };
+
+  componentDidMount() {
+    axios.get('/api/fetch_about')
+      .then( res => {
+        const { artist_statement, bio, } = res.data;
+
+        this.props.dispatch(setHeaders(res.headers));
+        this.setState({ artist_statement, bio });
+      })
+      .catch( err => {
+        this.props.dispatch(setFlash(err.response, 'red'));
+      })
+  };
+
+  handleChange = (e, { name, value }) => this.setState({ [name]: value, });
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    axios.put('/api/user_bio_statement', { ...this.state, })
+      .then( res => {
+        const { artist_statement, bio, } = res.data;
+
+        this.props.dispatch(setHeaders(res.headers));
+        this.props.dispatch(setFlash('About Content Updated!', 'green'));
+        this.setState({ artist_statement, bio, });
+      })
+      .catch( err => {
+        this.props.dispatch(setFlash(err.response, 'red'));
+      })
+  };
+
   render() {
     return(
       <StyledContainer>
-        <Header primary>Heather Olsen</Header>
+        <Header primary>About</Header>
         <br />
         <br />
         {
-          this.props.user ? 
-            <Form>
+          this.props.user.id ? 
+            <Form onSubmit={this.handleSubmit}>
               <Form.Group widths='equal'>
-                <Form.TextArea label='Bio' placeholder='This is a bio...' style={{ height: '200px' }} />
+                <Form.TextArea 
+                  label='Bio' 
+                  name='bio'
+                  onChange={this.handleChange}
+                  placeholder='This is a bio...' 
+                  style={{ height: '200px' }} 
+                  value={this.state.bio}
+                />
               </Form.Group>
+              <Form.Group widths='equal'>
+                <Form.TextArea 
+                  label='Artist Statement' 
+                  name='artist_statement'
+                  onChange={this.handleChange}
+                  placeholder='This is an artist statement...' 
+                  style={{ height: '200px' }} 
+                  value={this.state.artist_statement}
+                />
+              </Form.Group>
+              <Button type='submit'>Submit</Button>
             </Form>
           :
-            <p>Content</p>
+            <div>
+              <p>{this.state.bio}</p>
+              <br />
+              <br />
+              <p>{this.state.artist_statement}</p>
+            </div>
         }
       </StyledContainer>
     );
   };
 };
 
-export default About;
+const mapStateToProps = (state) => {
+  return { user: state.user, };
+};
+
+export default connect(mapStateToProps)(About);

@@ -13,6 +13,7 @@ class DeleteArtWorkModal extends React.Component {
       .then( res => {
         this.props.onClose();
         this.props.goBack();
+        this.props.dispatch(setHeaders(res.headers));
         this.props.dispatch(setFlash('Comission successfully deleted.', 'green'));
       })
       .catch( err => {

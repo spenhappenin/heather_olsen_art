@@ -2,7 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { connect, } from 'react-redux';
-import { Grid, Icon, } from 'semantic-ui-react';
+import { Grid, } from 'semantic-ui-react';
+import { setFlash, } from '../actions/flash';
+import { setHeaders, } from '../actions/headers';
 import { Button, Link, } from '../styles/shared';
 
 class Categories extends React.Component {
@@ -46,11 +48,13 @@ class Categories extends React.Component {
     if (window.confirm("Are you sure you want to delete?"))
       axios.delete(`/api/categories/${id}`)
         .then( res => {
+          const { dispatch, } = this.props;
+          dispatch(setHeaders(res.headers));
+          dispatch(setFlash('Category Deleted!', 'green'));
           this.props.delete(id);
         })
         .catch( err => {
-          // TODO: Error Handling
-          console.log('Error deleting Category')
+          this.props.dispatch(setFlash(err.response, 'red'));
         })
   }
 
@@ -118,17 +122,6 @@ const CategoryImage = styled.div`
     opacity: 0.7;
     transition: opacity .2s ease-out;
   }
-`;
-
-const CircleButton = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  border: 1px solid #131313;
-  background: #b3b4ab;
 `;
 
 export default connect(mapStateToProps)(Categories);

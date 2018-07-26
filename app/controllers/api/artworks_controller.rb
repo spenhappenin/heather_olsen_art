@@ -1,6 +1,17 @@
 class Api::ArtworksController < ApplicationController
   before_action :set_artwork, only: [:update, :destroy]
 
+  # TODO: Move to other controller
+  def fetch_user
+    render json: User.all.first
+  end
+
+  # TODO: Move to other controller
+  def user_bio_statement
+    current_user.update(bio: params[:bio], artist_statement: params[:artist_statement])
+    render json: current_user
+  end
+
   def all_artworks
     artwork = Artwork.all.order(date_complete: :desc).page(params[:page]).per(25)
     render json: { artwork: artwork, total_pages: artwork.total_pages }

@@ -11,15 +11,13 @@ class DeleteModal extends React.Component {
   handleClick = () => {
     axios.delete(`/api/artworks/${this.props.artWorkId}`)
       .then( res => {
+        this.props.dispatch(setHeaders(res.headers));
         this.props.onClose();
         this.props.goBack();
-        this.props.dispatch(setFlash('Successfully deleted.', 'green'));
+        this.props.dispatch(setFlash('Successfully Deleted.', 'green'));
       })
       .catch( err => {
-        const { response: { headers, }, } = err;
-
-        this.props.dispatch({ type: 'SET_HEADERS', headers });
-        this.props.dispatch(setFlash('Failed to update at this time. Please try again later.', 'red'));
+        this.props.dispatch(setFlash(err.response, 'red'));
       })
   };
 

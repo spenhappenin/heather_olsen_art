@@ -1,11 +1,11 @@
 import React from 'react';
-import { connect, } from 'react-redux';
 import axios from 'axios';
 import DeleteArtWorkModal from './admin/DeleteArtWorkModal';
+import { connect, } from 'react-redux';
 import { setFlash, } from '../actions/flash';
 import { setHeaders, } from '../actions/headers';
 import { Button, Header, StyledContainer, } from '../styles/shared';
-import { Dropdown, Form, Icon, Image, } from 'semantic-ui-react';
+import { Form, Icon, Image, } from 'semantic-ui-react';
 
 class ArtworkEdit extends React.Component {
   state = { 
@@ -38,7 +38,6 @@ class ArtworkEdit extends React.Component {
           price: data.artwork.price, 
           dateComplete: data.artwork.date_complete, 
           status: data.artwork.status,
-          url: data.artwork.url,
           categories: data.categories,
           artworkCategories: data.artworkCategories,
         });
@@ -65,8 +64,9 @@ class ArtworkEdit extends React.Component {
     const { match: { params: { id, }, }, } = this.props;
 
     e.preventDefault();
-    axios.put(`/api/artworks/${this.props.match.params.id}`, { ...this.state, })
+    axios.put(`/api/artworks/${id}`, { ...this.state, })
       .then( res => {
+        this.props.dispatch(setHeaders(res.headers));
         this.props.dispatch(setFlash('Artwork Updated!', 'green'));
         this.props.history.goBack();
       })
