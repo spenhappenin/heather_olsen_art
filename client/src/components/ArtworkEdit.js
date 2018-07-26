@@ -31,7 +31,7 @@ class ArtworkEdit extends React.Component {
         this.setState({ 
           artWork: data.artwork,
           title: data.artwork.title, 
-          url: data.artwork.src, 
+          url: data.artwork.url, 
           medium: data.artwork.medium,
           surface: data.artwork.surface, 
           dimensions: data.artwork.dimensions, 
