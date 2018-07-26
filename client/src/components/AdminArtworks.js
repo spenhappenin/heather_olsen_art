@@ -36,11 +36,11 @@ class AdminArtworks extends React.Component {
 
     if (!artWorks) return;
 
-    return artWorks.map( a => {
+    return artWorks.map( (a, i) => {
       return erroredImages.includes(a.id) ?
         null
       :
-        <Column>
+        <Column key={i}>
           <Transition visible={visible} animation='fade' duration={2000}>
             <Link to={`edit/${a.id}`} rel="noopener noreferrer">
               <Image

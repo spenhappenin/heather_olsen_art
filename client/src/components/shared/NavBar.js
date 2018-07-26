@@ -47,6 +47,7 @@ class NavBar extends React.Component {
     return links.map( link => {
       return (
         <StyledLink
+          key={link.route}
           to={id ? link.adminRoute : link.route}
           activeStyle={{ color: '#525252' }}
           className='nav-link'

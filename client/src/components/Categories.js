@@ -13,7 +13,7 @@ class Categories extends React.Component {
     const { user, } = this.props;
     
     return this.props.categories.map( c => (
-      <Grid.Column mobile={8} tablet={4} computer={5}>
+      <Grid.Column key={c.id} mobile={8} tablet={4} computer={5}>
         <CategoryContainer>
           <Link to={user.id ? `/work/admin-${c.route}` : `/work/${c.route}`}>
             <CategoryImage url={ c.display_image } />

@@ -24,8 +24,8 @@ class AllArtwork extends React.Component {
   };
 
   renderArtwork = () => {
-    return this.state.artwork.map( a => (
-      <Link to={`edit/${a.id}`}>
+    return this.state.artwork.map( (a, i) => (
+      <Link key={i} to={`edit/${a.id}`}>
         <ArtworkCard>
           <CardImage src={generateImageUrl(a.url, this.state.thumbnailSize)} />
           <CardTitle>{a.title}</CardTitle>

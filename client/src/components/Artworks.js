@@ -51,7 +51,7 @@ class Artworks extends React.Component {
       return erroredImages.includes(artwork.id) ?
         null
       :
-        <Column>
+        <Column key={i}>
           <Transition visible={visible} animation='fade' duration={2000}>
             <Image
               alt={artwork.title}
