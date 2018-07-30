@@ -1,26 +1,35 @@
 import React from 'react';
+import styled from 'styled-components';
 import { connect, } from 'react-redux';
 import { updateCv, } from '../../actions/cvs';
-import { Form, Icon, Input, } from 'semantic-ui-react';
+import { Form, Input, } from 'semantic-ui-react';
 
 class CvEditForm extends React.Component {
   state = { date: '', location: '', title: '', };
 
   componentDidMount() {
-    this.setState({ title: this.props.title, date: this.props.date, location: this.props.location });
-  }
+    const { date, location, title, } = this.props;
+    this.setState({ title, date, location, });
+  };
 
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
-  }
+  };
 
   handleSubmit = () => {
-    const { dispatch, id } = this.props;
-    const { date, location, title } = this.state;
+    const { dispatch, id, } = this.props;
+    const { date, location, title, } = this.state;
     dispatch(updateCv({cv_date: date, location, title}, id));
     this.props.toggleEdit();
-  }
+  };
+
+  renderButtons = () => (
+    <span>
+      <CvButton onClick={this.handleSubmit}>Accept</CvButton>
+      <CvButton onClick={this.props.toggleEdit}>Cancel</CvButton>
+    </span>
+  );
  
   render() {
     switch(this.props.type) {
@@ -32,8 +41,7 @@ class CvEditForm extends React.Component {
               value={this.state.title} 
               onChange={this.handleChange}
             />
-            <Icon circular name='checkmark' color='black' inverted onClick={this.handleSubmit} />
-            <Icon circular name='cancel' color='black' inverted onClick={this.props.toggleEdit} />
+            { this.renderButtons() }
           </Form>
         )
       case 'two':
@@ -50,8 +58,7 @@ class CvEditForm extends React.Component {
               value={this.state.date}
               onChange={this.handleChange}
             />
-            <Icon circular name='checkmark' color='black' inverted onClick={this.handleSubmit} />
-            <Icon circular name='cancel' color='black' inverted onClick={this.props.toggleEdit} />
+            { this.renderButtons() }
           </Form>
         )
       case 'three':
@@ -76,14 +83,35 @@ class CvEditForm extends React.Component {
               value={this.state.location}
               onChange={this.handleChange}
             />
-            <Icon circular name='checkmark' color='black' inverted onClick={this.handleSubmit} />
-            <Icon circular name='cancel' color='black' inverted onClick={this.props.toggleEdit} />
+            { this.renderButtons() }
           </Form>
         )
       default: 
-        return '';
-    }
+        return null;
+    };
+  };
+};
+
+const CvButton = styled.button`
+  color: #fff;
+  transition: background-color 0.3s ease;
+  background-color: #272727;
+  border-color: #272727;
+  padding: 10px 15px 10px 15px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 8px;
+  cursor: pointer;
+  margin-right: 15px;
+
+  &:focus {
+    outline: 0;
   }
-}
+  &:hover {
+    transition: background-color 0.3s ease;
+    background-color: #595959;
+  }
+`;
 
 export default connect()(CvEditForm);

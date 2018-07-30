@@ -2,55 +2,51 @@ import React from 'react';
 import Copyright from '../shared/Copyright';
 import Cv from './Cv';
 import { connect, } from 'react-redux';
-import { Header, } from '../../styles/shared';
+import { CvHeader, } from '../../styles/cv';
 import { fetchCvs, } from '../../actions/cvs';
-import { Segment, } from 'semantic-ui-react';
-import { StyledContainer, SocialLink, } from '../../styles/shared';
+import { Header, StyledContainer, SocialLink, } from '../../styles/shared';
 
 class Cvs extends React.Component {
 
   componentDidMount() {
-    const { dispatch } = this.props;
+    const { dispatch, } = this.props;
     dispatch(fetchCvs());
-  }
+  };
 
   displayCvs = (type) => {
-    const { cvs } = this.props;
-    return cvs.map( cv => {
-      if(cv.cv_type === type) {
-        return <Cv key={cv.id} cv={cv} />
-      } else {
-        return null;
-      }
-    })
-  }
+    const { cvs, } = this.props;
+    return cvs.map( cv => (
+      cv.cv_type === type &&
+        <Cv key={cv.id} cv={cv} />
+    ));
+  };
 
   render() {
     return(
-      <Segment as={StyledContainer} basic>
+      <StyledContainer>
         <Header primary>Curriculum Vitae</Header>
-        <h4>Juried Exhibitions</h4>
-        <Segment basic>
+        <CvHeader>Juried Exhibitions</CvHeader>
+        <div>
           { this.displayCvs('exhibition') }
-        </Segment>
-        <h4>Festivals and Events</h4>
-        <Segment basic>
-          {this.displayCvs('festival')}
-        </Segment>
-        <h4>Awards and Certificates</h4>
-        <Segment basic>
-          {this.displayCvs('award')}
-        </Segment>
-        <h4>Current Representation</h4>
-        <Segment basic>
-          {this.displayCvs('current_rep')}
-        </Segment>
-        <h4>Education</h4>
-         <Segment basic> 
-          {this.displayCvs('education')}
-        </Segment>
-        <h4>Website and Social Media</h4>
-        <Segment basic>
+        </div>
+        <CvHeader>Festivals and Events</CvHeader>
+        <div>
+          { this.displayCvs('festival') }
+        </div>
+        <CvHeader>Awards and Certificates</CvHeader>
+        <div>
+          { this.displayCvs('award') }
+        </div>
+        <CvHeader>Current Representation</CvHeader>
+        <div>
+          { this.displayCvs('current_rep') }
+        </div>
+        <CvHeader>Education</CvHeader>
+         <div> 
+          { this.displayCvs('education') }
+        </div>
+        <CvHeader>Website and Social Media</CvHeader>
+        <div>
           <SocialLink to='/' rel="noopener noreferrer">
             www.heatherolsenart.com
           </SocialLink>
@@ -62,15 +58,15 @@ class Cvs extends React.Component {
           <SocialLink to='https://www.facebook.com/heatherolsenart/' target="_blank" rel="noopener noreferrer">
             Facebook - www.facebook.com/heatherolsenart
           </SocialLink>
-        </Segment>
+        </div>
         <Copyright />
-      </Segment>
-    )
-  }
-}
+      </StyledContainer>
+    );
+  };
+};
 
 const mapStateToProps = (state) => {
-  return { cvs: state.cvs };
-}
+  return { cvs: state.cvs, };
+};
 
 export default connect(mapStateToProps)(Cvs);

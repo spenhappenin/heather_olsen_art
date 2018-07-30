@@ -2,6 +2,7 @@ import React from 'react';
 import AdminCv from './AdminCv';
 import Copyright from '../shared/Copyright';
 import { connect, } from 'react-redux';
+import { CvHeader, } from '../../styles/cv';
 import { fetchCvs, } from '../../actions/cvs';
 import { Header, } from '../../styles/shared';
 import { Link, } from 'react-router-dom';
@@ -33,17 +34,17 @@ class AdminCvs extends React.Component {
         <Link to='/admin-cv/new' rel="noopener noreferrer">
           <Button>New</Button>
         </Link>
-        <h4>Juried Exhibitions</h4>
+        <CvHeader>Juried Exhibitions</CvHeader>
         { this.displayCvs('exhibition') }
-        <h4>Festivals and Events</h4>
+        <CvHeader>Festivals and Events</CvHeader>
         { this.displayCvs('festival') }
-        <h4>Awards and Certificates</h4>
+        <CvHeader>Awards and Certificates</CvHeader>
         { this.displayCvs('award') }
-        <h4>Current Representation</h4>
+        <CvHeader>Current Representation</CvHeader>
         { this.displayCvs('current_rep') }
-        <h4>Education</h4>
+        <CvHeader>Education</CvHeader>
         { this.displayCvs('education') }
-        <h4>Website and Social Media</h4>
+        <CvHeader>Website and Social Media</CvHeader>
         <Segment basic>
           <p>www.heatherolsenart.com</p>
           <p>
