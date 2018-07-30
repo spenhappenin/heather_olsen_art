@@ -10,7 +10,7 @@ class Api::CvsController < ApplicationController
     if cv.save
       render json: cv
     else
-      render json: error_status(cv), status: 422
+      render_error(cv)
     end
   end
 
@@ -18,12 +18,14 @@ class Api::CvsController < ApplicationController
     if @cv.update(cv_params)
       render json: @cv
     else
-      render json: error_status(@cv), status: 422
+      render_error(@cv)
     end
   end
 
   def destroy
-    @cv.destroy
+    unless @cv.destroy
+      render_error(@cv)
+    end
   end
 
   private

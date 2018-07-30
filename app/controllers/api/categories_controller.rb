@@ -10,25 +10,34 @@ class Api::CategoriesController < ApplicationController
   end
 
   def create
-    category = Category.create(
+    category = Category.new(
       title: params[:title], 
       display_image: params[:display_image], 
       route: params[:title].parameterize
     )
-    render json: category
+    if category.save
+      render json: category
+    else
+      render_error(category)
+    end
   end
 
   def update
-    @category.update(
+    if @category.update(
       title: params[:title], 
       display_image: params[:display_image], 
       route: params[:title].parameterize
     )
-    render json: @category
+      render json: @category
+    else
+      render_error(@category)
+    end
   end
 
   def destroy
-    @category.destroy
+    unless @category.destroy
+      render_error(@category)
+    end
   end
 
   private

@@ -51,8 +51,7 @@ class Api::ArtworksController < ApplicationController
       Artwork.update_categories(artwork, JSON.parse(params[:artwork_categories]))
       render json: artwork
     rescue
-      # TODO: Generate an error 
-      puts 'Error!'
+      render_error(artwork)
     end
   end
 
@@ -70,13 +69,11 @@ class Api::ArtworksController < ApplicationController
       Artwork.update_categories(@artwork, params[:artworkCategories])
       render json: @artwork
     else
-      # TODO: Generate an error 
-      puts 'Error!'
+      render_error(@artwork)
     end
   end
 
   def destroy
-    # deletes record from Cloudinary
     Cloudinary::Api.delete_resources([@artwork.title])
     @artwork.destroy
   end
