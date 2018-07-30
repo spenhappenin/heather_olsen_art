@@ -12,9 +12,9 @@ class About extends React.Component {
   componentDidMount() {
     axios.get('/api/fetch_about')
       .then( res => {
-        const { artist_statement, bio, } = res.data;
+        const { data: { artist_statement, bio }, headers, } = res;
 
-        this.props.dispatch(setHeaders(res.headers));
+        this.props.dispatch(setHeaders(headers));
         this.setState({ artist_statement, bio });
       })
       .catch( err => {
@@ -28,9 +28,9 @@ class About extends React.Component {
     e.preventDefault();
     axios.put('/api/user_bio_statement', { ...this.state, })
       .then( res => {
-        const { artist_statement, bio, } = res.data;
+        const { data: { artist_statement, bio }, headers, } = res;
 
-        this.props.dispatch(setHeaders(res.headers));
+        this.props.dispatch(setHeaders(headers));
         this.props.dispatch(setFlash('About Content Updated!', 'green'));
         this.setState({ artist_statement, bio, });
       })

@@ -31,6 +31,7 @@ class Artworks extends React.Component {
         this.setState({ artworks: art, categoryTitle: getCategoryTitle(work_title), });
       })
       .catch( err => {
+        this.props.dispatch(setHeaders(err.headers));
         this.props.dispatch(setFlash(err.response, 'red'))
       })
   };
@@ -42,7 +43,7 @@ class Artworks extends React.Component {
   closeLightbox = () => this.setState({ currentImage: 0, lightboxIsOpen: false, });
 
   displayArtworks = () => {
-    const { artworks, erroredImages, visible, } = this.state;
+    const { artworks, erroredImages, } = this.state;
 
     if (!artworks) return;
 

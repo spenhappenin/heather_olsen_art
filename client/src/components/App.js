@@ -49,6 +49,7 @@ class App extends React.Component {
         this.setState({ categories: res.data, loaded: true, });
       })
       .catch( err => {
+        this.props.dispatch(setHeaders(err.headers));
         this.props.dispatch(setFlash(err.response, 'red'));
       })
   };
@@ -147,7 +148,6 @@ class App extends React.Component {
             <Flash />
             <FetchUser>
               <Switch>
-                <ProtectedRoute exact path='/work/all' component={AllArtwork} />
                 <Route 
                   exact 
                   path='/work' 
@@ -155,17 +155,13 @@ class App extends React.Component {
                     <Categories categories={this.state.categories} delete={this.deleteCategory} />
                   )} 
                 />
+                <ProtectedRoute exact path='/work/all' component={AllArtwork} />
                 {
                   this.props.user.id && 
                   <Route 
                     exact 
                     path='/work/new-category' 
-                    render={ props => (
-                      <CategoryForm 
-                        create={this.createCategory}
-                        update={this.updateCategory} 
-                      />
-                    )} 
+                    render={ props => <CategoryForm create={this.createCategory} /> } 
                   />
                 }
                 {

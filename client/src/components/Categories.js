@@ -54,6 +54,7 @@ class Categories extends React.Component {
           this.props.delete(id);
         })
         .catch( err => {
+          this.props.dispatch(setHeaders(err.headers));
           this.props.dispatch(setFlash(err.response, 'red'));
         })
   }

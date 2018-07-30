@@ -19,6 +19,7 @@ class AllArtwork extends React.Component {
         this.setState({ artwork: res.data.artwork, total_pages: res.data.total_pages });
       })
       .catch( err => {
+        this.props.dispatch(setHeaders(err.headers));
         this.props.dispatch(setFlash(err.response, 'red'));
       })
   };
@@ -48,6 +49,7 @@ class AllArtwork extends React.Component {
         });
       })
       .catch( err => {
+        this.props.dispatch(setHeaders(err.headers));
         this.props.dispatch(setFlash(err.response, 'red'));
       })
   };

@@ -23,6 +23,7 @@ class AdminArtworks extends React.Component {
         this.setState({ artWorks: res.data, categoryTitle: getCategoryTitle(work_title), });
       })
       .catch( err => {
+        this.props.dispatch(setHeaders(err.headers));
         this.props.dispatch(setFlash(err.response, 'red'))
       })
   };

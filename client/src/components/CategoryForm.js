@@ -18,6 +18,7 @@ class CategoryForm extends React.Component {
         this.setState({ title: res.data.title, display_image: res.data.display_image, });
       })
       .catch( err => {
+        this.props.dispatch(setHeaders(err.headers));
         this.props.dispatch(setFlash(err.response, 'red'));
       })
   };
@@ -37,6 +38,7 @@ class CategoryForm extends React.Component {
           this.props.history.push('/work');
         })
         .catch( err => {
+          this.props.dispatch(setHeaders(err.headers));
           this.props.dispatch(setFlash(err.response, 'red'));
         })
     : 
@@ -48,6 +50,7 @@ class CategoryForm extends React.Component {
           this.props.history.push('/work');
         })
         .catch( err => {
+          this.props.dispatch(setHeaders(err.headers));
           this.props.dispatch(setFlash(err.response, 'red'));
         })
   };
