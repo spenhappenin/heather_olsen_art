@@ -7,7 +7,6 @@ import { formatArt, } from '../helpers/artWorks';
 import { getCategoryTitle, } from '../helpers/artWorks';
 import { setFlash, } from '../actions/flash';
 import { setHeaders, } from '../actions/headers';
-import { Transition, } from 'semantic-ui-react';
 import { Header, StyledContainer, } from '../styles/shared';
 
 class Artworks extends React.Component {
@@ -52,16 +51,14 @@ class Artworks extends React.Component {
         null
       :
         <Column key={i}>
-          <Transition visible={visible} animation='fade' duration={2000}>
-            <Image
-              alt={artwork.title}
-              srcSet={artwork.srcSet}
-              href={artwork.src}
-              onClick={(e) => this.openLightbox(i, e)}
-              onError={() => this.handleImageError(artwork.id)}
-              style={{ width: '100%' }}
-            />
-          </Transition>
+          <Image
+            alt={artwork.title}
+            srcSet={artwork.srcSet}
+            href={artwork.src}
+            onClick={(e) => this.openLightbox(i, e)}
+            onError={() => this.handleImageError(artwork.id)}
+            style={{ width: '100%' }}
+          />
         </Column>
     });
   };
