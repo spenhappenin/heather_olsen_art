@@ -8,8 +8,19 @@ class Api::ArtworksController < ApplicationController
 
   # TODO: Move to other controller
   def user_bio_statement
-    current_user.update(bio: params[:bio], artist_statement: params[:artist_statement])
-    render json: current_user
+    uploaded_image_name = params.keys.first
+    uploaded_file = params[uploaded_image_name]
+    begin
+      cloud_image = Cloudinary::Uploader.upload(uploaded_file, public_id: uploaded_file.original_filename, secure: true)
+      current_user.update(
+        artist_statement: params[:artist_statement],
+        bio: params[:bio], 
+        image: cloud_image['secure_url']
+      )
+      render json: current_user
+    rescue
+      render_error(current_user)
+    end
   end
 
   def all_artworks
