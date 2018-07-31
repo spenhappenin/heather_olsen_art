@@ -12,20 +12,20 @@ import { Button, StyledContainer, } from '../../styles/shared';
 class AdminCvs extends React.Component {
 
   componentDidMount() {
-    const { dispatch } = this.props;
+    const { dispatch, } = this.props;
     dispatch(fetchCvs());
-  }
+  };
 
   displayCvs = (type) => {
-    const { cvs } = this.props;
+    const { cvs, } = this.props;
     return cvs.map( cv => {
       if(cv.cv_type === type) {
         return <AdminCv key={cv.id} cv={cv} />
       } else {
         return null;
       }
-    })
-  }
+    });
+  };
 
   render() {
     return (
@@ -60,12 +60,12 @@ class AdminCvs extends React.Component {
         </Segment>
         <Copyright />
       </Segment>
-    )
-  }
-}
+    );
+  };
+};
 
 const mapStateToProps = (state) => {
   return { cvs: state.cvs };
-}
+};
 
 export default connect(mapStateToProps)(AdminCvs);

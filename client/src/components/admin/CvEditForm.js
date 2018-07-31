@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect, } from 'react-redux';
 import { updateCv, } from '../../actions/cvs';
-import { Form, Input, } from 'semantic-ui-react';
 
 class CvEditForm extends React.Component {
   state = { date: '', location: '', title: '', };
@@ -49,14 +48,14 @@ class CvEditForm extends React.Component {
           <Form onSubmit={this.handleSubmit}>
             <Input
               name='title'
-              value={this.state.title}
               onChange={this.handleChange}
+              value={this.state.title}
             />
             <Input
               name='date'
+              onChange={this.handleChange}
               type='date'
               value={this.state.date}
-              onChange={this.handleChange}
             />
             { this.renderButtons() }
           </Form>
@@ -65,23 +64,24 @@ class CvEditForm extends React.Component {
         return(
           <Form onSubmit={this.handleSubmit}>
             <Input
-              required
               name='date'
+              onChange={this.handleChange}
+              required
+              smaller
               type='date'
               value={this.state.date}
-              onChange={this.handleChange}
             />
             <Input
-              required
               name='title'
-              value={this.state.title}
               onChange={this.handleChange}
+              required
+              value={this.state.title}
             />
             <Input
-              required
               name='location'
-              value={this.state.location}
               onChange={this.handleChange}
+              required
+              value={this.state.location}
             />
             { this.renderButtons() }
           </Form>
@@ -92,25 +92,44 @@ class CvEditForm extends React.Component {
   };
 };
 
+const Form = styled.form`
+  display: flex;
+`;
+
+const Input = styled.input`
+  border: 1px solid rgba(34,36,38,.15);
+  box-shadow: 0 0 0 0 transparent inset;
+  color: rgba(0,0,0,.87);
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  font-size: 14px !important;
+  height: 35px;
+  line-height: 1.21428571em;
+  margin: 0 0 5px 0;
+  outline: 0;
+  padding: .67857143em 1em;
+  transition: color .1s ease,border-color .1s ease;
+  width: ${ props => props.smaller ? '161px' : '225px' };
+`;
+
 const CvButton = styled.button`
-  color: #fff;
-  transition: background-color 0.3s ease;
   background-color: #272727;
   border-color: #272727;
-  padding: 10px 15px 10px 15px;
-  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+  font-size: 8px;
   font-weight: 600;
   letter-spacing: 1px;
-  font-size: 8px;
-  cursor: pointer;
-  margin-right: 15px;
+  margin-left: 10px;
+  padding: 10px 15px 10px 15px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
 
   &:focus {
     outline: 0;
   }
   &:hover {
-    transition: background-color 0.3s ease;
     background-color: #595959;
+    transition: background-color 0.3s ease;
   }
 `;
 
