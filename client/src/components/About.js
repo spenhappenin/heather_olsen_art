@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import ReactQuill from 'react-quill';
 import { connect, } from 'react-redux';
 import { Form, } from 'semantic-ui-react';
 import { setFlash, } from '../actions/flash';
@@ -22,7 +23,9 @@ class About extends React.Component {
       })
   };
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value, });
+  handleChange = (value, name) => {
+    this.setState({ [name]: value, });
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -48,41 +51,55 @@ class About extends React.Component {
         {
           this.props.user.id ? 
             <Form onSubmit={this.handleSubmit}>
-              <Form.Group widths='equal'>
-                <Form.TextArea 
-                  label='Bio' 
-                  name='bio'
-                  onChange={this.handleChange}
-                  placeholder='This is a bio...' 
-                  style={{ height: '200px' }} 
+              <Form.Field>
+                <Header>Bio</Header>
+                <ReactQuill
+                  modules={{ toolbar, }}
                   value={this.state.bio}
+                  onChange={(value) => this.handleChange(value, 'bio')} 
                 />
-              </Form.Group>
-              <Form.Group widths='equal'>
-                <Form.TextArea 
-                  label='Artist Statement' 
-                  name='artist_statement'
-                  onChange={this.handleChange}
-                  placeholder='This is an artist statement...' 
-                  style={{ height: '200px' }} 
+              </Form.Field>
+              <Form.Field>
+                <Header>Artist Statement</Header>
+                <ReactQuill
+                  modules={{ toolbar, }}
                   value={this.state.artist_statement}
+                  onChange={(value) => this.handleChange(value, 'artist_statement')} 
                 />
-              </Form.Group>
+              </Form.Field>
               <Button type='submit'>Submit</Button>
             </Form>
           :
             <div>
-              <p>{this.state.bio}</p>
+              <p dangerouslySetInnerHTML={createMarkup(this.state.bio)} />
               <br />
               <br />
               <Header style={{ fontSize: '22px', }}>Artist Statement</Header>
-              <p>{this.state.artist_statement}</p>
+              <p dangerouslySetInnerHTML={createMarkup(this.state.artist_statement)} />
             </div>
         }
       </StyledContainer>
     );
   };
 };
+
+const createMarkup = (html) => {
+  return { __html: html };
+};
+
+const toolbar = [
+  ['bold', 'italic', 'underline', 'strike'],
+  [{ header: [1, 2, 3, 4, 5, 6, false] }],
+  [{ list: 'ordered' }, { list: 'bullet' }],
+  [{ script: 'sub' }, { script: 'super' }],
+  [{ indent: '-1' }, { indent: '+1' }],
+  [{ direction: 'rtl' }],
+  [{ color: [] }, { background: [] }],
+  [{ font: [] }],
+  [{ align: [] }],
+  ['link'],
+  ['clean'],
+];
 
 const mapStateToProps = (state) => {
   return { user: state.user, };
