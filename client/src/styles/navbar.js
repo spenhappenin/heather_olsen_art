@@ -50,11 +50,12 @@ export const NavLogo = styled.div`
 
 export const NavItems = styled.div`
   display: flex;
-  flex-display: row;
+  flex-direction: row;
   width: 80%;
   
   @media (max-width: ${desktop}px) {
     width: 100%;
+    margin-top: 7px;
   };
 `;
 
