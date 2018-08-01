@@ -3,7 +3,7 @@ import axios from 'axios';
 import ReactQuill from 'react-quill';
 import styled from 'styled-components';
 import { connect, } from 'react-redux';
-import { Form, } from 'semantic-ui-react';
+import { Form, Responsive, } from 'semantic-ui-react';
 import { generateImageUrl, } from '../helpers/artwork';
 import { setFlash, } from '../actions/flash';
 import { setHeaders, } from '../actions/headers';
@@ -104,10 +104,17 @@ class About extends React.Component {
             </Form>
           :
             <div>
-              <Image src={generateImageUrl(this.state.image, 750)} client />
+              <BioContainer>
+                <Responsive maxWidth={749}>
+                  <Image src={generateImageUrl(this.state.image, 750)} client />
+                </Responsive>
+                <p dangerouslySetInnerHTML={createMarkup(this.state.bio)} />
+                <Responsive minWidth={750}>
+                  <Image src={generateImageUrl(this.state.image, 750)} client />
+                </Responsive>
+              </BioContainer>
               <br />
               <br />
-              <p dangerouslySetInnerHTML={createMarkup(this.state.bio)} />
               <br />
               <br />
               <Header style={{ fontSize: '22px', }}>Artist Statement</Header>
@@ -135,9 +142,28 @@ const toolbar = [
   ['link']
 ];
 
-const Image = styled.img`
-  height: 250px;
-  margin-left: ${ props => props.client ? null : '100px'};
+const Image = styled.div`
+  background-image: ${ props => `url(${props.src})` };
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 350px;
+  height: 350px; 
+  margin-left: ${ props => props.client ? '50px' : '100px'};
+
+  @media (max-width: 749px) {
+    height: 500px;
+    width: 100%;
+    margin-left: 0;
+  };
+`;
+
+const BioContainer = styled.div`
+  display: flex;
+
+  @media (max-width: 749px) {
+    flex-direction: column;
+  };
 `;
 
 const mapStateToProps = (state) => {

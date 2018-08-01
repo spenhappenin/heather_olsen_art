@@ -212,7 +212,7 @@ const SidebarItem = styled(Menu.Item)`
 `;
 
 const mapStateToProps = (state) => {
-  return { user: state.user };
+  return { user: state.user, };
 };
 
 // TODO: Find the more optimal solution instead of withRouter (see article)
