@@ -6,7 +6,7 @@ import { connect, } from 'react-redux';
 import { setFlash, } from '../actions/flash';
 import { setHeaders, } from '../actions/headers';
 import { Transition, } from 'semantic-ui-react';
-import { generateImageUrl, getCategoryTitle, } from '../helpers/artWorks';
+import { generateImageUrl, getCategoryTitle, } from '../helpers/artwork';
 import { Button, Header, StyledContainer, } from '../styles/shared';
 
 class AdminArtworks extends React.Component {

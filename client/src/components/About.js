@@ -4,6 +4,7 @@ import ReactQuill from 'react-quill';
 import styled from 'styled-components';
 import { connect, } from 'react-redux';
 import { Form, } from 'semantic-ui-react';
+import { generateImageUrl, } from '../helpers/artwork';
 import { setFlash, } from '../actions/flash';
 import { setHeaders, } from '../actions/headers';
 import { StyledDropzone, } from '../styles/artWork';
@@ -80,7 +81,7 @@ class About extends React.Component {
                       <h4 textAlign='center'>Drag photo here or click to select a file.</h4>;
                   }}
                 </StyledDropzone>
-                <Image src={this.state.image} />
+                <Image src={generateImageUrl(this.state.image, 750)} />
               </div>
               <br />
               <Form.Field>
@@ -103,7 +104,7 @@ class About extends React.Component {
             </Form>
           :
             <div>
-              <Image src={this.state.image} client />
+              <Image src={generateImageUrl(this.state.image, 750)} client />
               <br />
               <br />
               <p dangerouslySetInnerHTML={createMarkup(this.state.bio)} />

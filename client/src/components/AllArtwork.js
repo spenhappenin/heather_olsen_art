@@ -6,7 +6,7 @@ import { connect, } from 'react-redux';
 import { Link, } from 'react-router-dom';
 import { setHeaders, } from '../actions/headers';
 import { setFlash, } from '../actions/flash';
-import { generateImageUrl, } from '../helpers/artWorks';
+import { generateImageUrl, } from '../helpers/artwork';
 import { Button, Header, StyledContainer, } from '../styles/shared';
 
 class AllArtwork extends React.Component {
