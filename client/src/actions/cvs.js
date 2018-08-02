@@ -9,8 +9,8 @@ export const fetchCvs = () => {
         dispatch({ type: 'GET_CVS', cvs });
       })
       .catch( res => {
-        const { response: { headers } } = res;
-        dispatch({ type: 'SET_HEADERS', headers });
+        // const { response: { headers } } = res;
+        // dispatch({ type: 'SET_HEADERS', headers });
         dispatch(setFlash('Failed to retrieve CV records at this time. Please try again later.', 'red'));
       })
   }

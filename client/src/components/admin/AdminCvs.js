@@ -21,6 +21,7 @@ class AdminCvs extends React.Component {
     return cvs.map( cv => {
       if(cv.cv_type === type) {
         return <AdminCv key={cv.id} cv={cv} />
+        // return <p>{cv.title}</p> 
       } else {
         return null;
       }

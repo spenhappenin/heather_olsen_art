@@ -122,6 +122,8 @@ class ArtworkNew extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Group>
+          <label style={{ marginBottom: '4px', }}>Categories</label>
+          <br />
           <Form.Group>
             { this.categoryCheckboxes() }
           </Form.Group>
