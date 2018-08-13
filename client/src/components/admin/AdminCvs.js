@@ -30,20 +30,19 @@ class AdminCvs extends React.Component {
       })
   };
 
-  displayCvs = (type) => {
+  displayCvType = (type) => {
     const { cvs, } = this.state;
-
     return cvs.map( cv => {
-      // return cv.cv_type === type ?
-      //   <AdminCv key={cv.id} cv={cv} />
-      // : 
-      //   null
-      if (cv.cv_type === type)
-        return <AdminCv key={cv.id} cv={cv} />
-    });
-  }; 
+      if (cv.cv_type === type) {
+        // return <AdminCv key={cv.id} cv={cv} />
+        return <p>{cv.title}</p>
+      } else {
+        return null;
+        // return <p>Nope</p>
+      }
+    })
+  }
 
-  
   render() {
     return (
       <Segment as={StyledContainer} basic>
@@ -52,15 +51,15 @@ class AdminCvs extends React.Component {
           <Button>New</Button>
         </Link>
         <CvHeader>Juried Exhibitions</CvHeader>
-        { this.displayCvs('exhibition') }
+        { this.displayCvType('exhibition') }
         <CvHeader>Festivals and Events</CvHeader>
-        { this.displayCvs('festival') }
+        { this.displayCvType('festival') }
         <CvHeader>Awards and Certificates</CvHeader>
-        { this.displayCvs('award') }
+        { this.displayCvType('award') }
         <CvHeader>Current Representation</CvHeader>
-        { this.displayCvs('current_rep') }
+        { this.displayCvType('current_rep') }
         <CvHeader>Education</CvHeader>
-        { this.displayCvs('education') }
+        { this.displayCvType('education') }
         <CvHeader>Website and Social Media</CvHeader>
         <Segment basic>
           <p>www.heatherolsenart.com</p>
