@@ -1,29 +1,49 @@
 import React from 'react';
 import AdminCv from './AdminCv';
+import axios from 'axios';
 import Copyright from '../shared/Copyright';
 import { connect, } from 'react-redux';
 import { CvHeader, } from '../../styles/cv';
-import { fetchCvs, } from '../../actions/cvs';
 import { Header, } from '../../styles/shared';
 import { Link, } from 'react-router-dom';
 import { Segment, } from 'semantic-ui-react';
+import { setHeaders, } from '../../actions/headers';
+import { setFlash, } from '../../actions/flash';
 import { Button, StyledContainer, } from '../../styles/shared';
 
 class AdminCvs extends React.Component {
+  state = { cvs: [], };
 
   componentDidMount() {
     const { dispatch, } = this.props;
-    dispatch(fetchCvs());
+
+    axios.get('api/cvs')
+      .then( res => {
+        const { data: cvs, headers, } = res;
+        dispatch(setHeaders(headers));
+        this.setState({ cvs, });
+      })
+      .catch( err => {
+        debugger
+        dispatch(setHeaders(err.headers));
+        dispatch(setFlash('Failed to retrieve CV records at this time. Please try again later.', 'red'));
+      })
   };
 
   displayCvs = (type) => {
-    const { cvs, } = this.props;
-    return cvs.map( cv => (
-      cv.cv_type === type &&
-        <AdminCv key={cv.id} cv={cv} />
-    ));
-  };
+    const { cvs, } = this.state;
 
+    return cvs.map( cv => {
+      // return cv.cv_type === type ?
+      //   <AdminCv key={cv.id} cv={cv} />
+      // : 
+      //   null
+      if (cv.cv_type === type)
+        return <AdminCv key={cv.id} cv={cv} />
+    });
+  }; 
+
+  
   render() {
     return (
       <Segment as={StyledContainer} basic>
@@ -61,8 +81,4 @@ class AdminCvs extends React.Component {
   };
 };
 
-const mapStateToProps = (state) => {
-  return { cvs: state.cvs };
-};
-
-export default connect(mapStateToProps)(AdminCvs);
+export default connect()(AdminCvs);
