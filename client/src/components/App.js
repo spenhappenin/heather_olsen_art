@@ -1,6 +1,5 @@
 import React from 'react';
 import About from './About';
-import AdminCvs from './admin/AdminCvs';
 import AllArtwork from './AllArtwork';
 import ArtworkEdit from './ArtworkEdit';
 import ArtworkNew from './ArtworkNew';
@@ -8,9 +7,7 @@ import asyncComponent from './asyncComponent';
 import axios from 'axios';
 import CategoryForm from './CategoryForm';
 import Contact from './contact/Contact';
-import CvNewForm from './admin/CvNewForm';
-import Cvs from './cvs/Cvs';
-import FetchUser from './shared/FetchUser';
+import FetchCvs from './FetchCvs';
 import Flash from './shared/Flash';
 import Login from './login/Login';
 import Media from './media/Media';
@@ -186,9 +183,8 @@ class App extends React.Component {
                 }
                 <ProtectedRoute exact path='/work/:work_title/new' component={ArtworkNew} />
                 <ProtectedRoute exact path='/work/edit/:id' component={ArtworkEdit} />
-                <ProtectedRoute exact path='/admin-cv' component={AdminCvs} />
-                <ProtectedRoute exact path='/admin-cv/new' component={CvNewForm} />
-                <Route exact path='/cv' component={Cvs} />
+                <Route path='/cv' component={FetchCvs} />
+                <ProtectedRoute path='/admin-cv' component={FetchCvs} />
                 <Route exact path='/media' component={Media} />
                 <Route exact path='/contact' component={Contact} />
                 <Route exact path='/' component={Home} />

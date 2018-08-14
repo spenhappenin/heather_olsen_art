@@ -15,7 +15,6 @@ class FetchUser extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps)
     if (!this.state.loaded)
       this.loaded()
   }

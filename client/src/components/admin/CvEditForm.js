@@ -1,7 +1,9 @@
 import React from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import { connect, } from 'react-redux';
-import { updateCv, } from '../../actions/cvs';
+import { setHeaders, } from '../../actions/headers';
+import { setFlash, } from '../../actions/flash';
 
 class CvEditForm extends React.Component {
   state = { date: '', location: '', title: '', };
@@ -18,9 +20,18 @@ class CvEditForm extends React.Component {
 
   handleSubmit = () => {
     const { dispatch, id, } = this.props;
-    const { date, location, title, } = this.state;
-    dispatch(updateCv({cv_date: date, location, title}, id));
-    this.props.toggleEdit();
+
+    axios.put(`api/cv/${id}`, { cv: this.state, })
+      .then( res => {
+        dispatch(setHeaders(res.headers));
+        dispatch(setFlash('Cv Updated!', 'green'));
+        this.props.update(res.data);
+        this.props.toggleEdit();
+      })
+      .catch( err => {
+        dispatch(setHeaders(err.headers));
+        dispatch(setFlash(err.response, 'red')); 
+      })
   };
 
   renderButtons = () => (

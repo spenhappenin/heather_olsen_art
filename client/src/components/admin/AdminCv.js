@@ -4,8 +4,8 @@ import CvEditForm from './CvEditForm';
 import moment from 'moment';
 import styled from 'styled-components';
 import { connect, } from 'react-redux';
-import { setHeaders, } from '../../actions/headers';
 import { setFlash, } from '../../actions/flash';
+import { setHeaders, } from '../../actions/headers';
 
 class AdminCv extends React.Component {
   state = { editing: false, };
@@ -20,17 +20,20 @@ class AdminCv extends React.Component {
   );
 
   handleDelete = (id) => {
+    const { dispatch, } = this.props;
+
     if (window.confirm("Are you sure you want to delete?"))
       axios.delete(`/api/cvs/${id}`)
         .then( res => {
-          const { dispatch, } = this.props;
-          dispatch(setHeaders(res.headers));
-          dispatch(setFlash('CV Deleted!', 'green'));
+          const { headers, } = res;
+          dispatch(setHeaders(headers));
+          dispatch(setFlash('Cv Record Successfully Deleted!', 'green'));
           this.props.delete(id);
-        })
+        }) 
         .catch( err => {
-          this.props.dispatch(setHeaders(err.headers));
-          this.props.dispatch(setFlash(err.response, 'red'));
+          const { response: { headers, }, } = err;
+          dispatch(setHeaders(headers));
+          dispatch(setFlash('Failed to delete CV record at this time. Please try again later.', 'red'));
         })
   };
 
@@ -42,7 +45,13 @@ class AdminCv extends React.Component {
     switch (cv_type) {
       case 'current_rep':
         return this.state.editing ?
-          <CvEditForm type='one' id={id} title={title} toggleEdit={this.toggleEdit}/>
+          <CvEditForm 
+            id={id} 
+            title={title} 
+            toggleEdit={this.toggleEdit} 
+            type='one' 
+            update={this.props.update} 
+          />
         :
           <CvContainer>
             <div>{title}</div>
@@ -50,7 +59,14 @@ class AdminCv extends React.Component {
           </CvContainer>
       case 'education':
         return this.state.editing ? 
-          <CvEditForm type='two' id={id} title={title} date={cv_date} toggleEdit={this.toggleEdit} />
+          <CvEditForm 
+            date={cv_date} 
+            id={id} 
+            title={title} 
+            toggleEdit={this.toggleEdit} 
+            type='two' 
+            update={this.props.update} 
+          />
         :
           <CvContainer>
             <div>{title}, {justYear}</div>
@@ -58,7 +74,15 @@ class AdminCv extends React.Component {
           </CvContainer>
       default:
         return this.state.editing ? 
-          <CvEditForm type='three' id={id} title={title} date={cv_date} location={location} toggleEdit={this.toggleEdit} />
+          <CvEditForm 
+            date={cv_date} 
+            id={id} 
+            location={location} 
+            title={title} 
+            toggleEdit={this.toggleEdit} 
+            type='three' 
+            update={this.props.update} 
+          />
         : 
           <CvContainer>
             <div>{formattedDate} - {title} - {location}</div>

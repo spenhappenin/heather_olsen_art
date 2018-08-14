@@ -1,59 +1,24 @@
 import React from 'react';
 import AdminCv from './AdminCv';
-import axios from 'axios';
 import Copyright from '../shared/Copyright';
 import { connect, } from 'react-redux';
 import { CvHeader, } from '../../styles/cv';
 import { Header, } from '../../styles/shared';
 import { Link, } from 'react-router-dom';
 import { Segment, } from 'semantic-ui-react';
-import { setHeaders, } from '../../actions/headers';
-import { setFlash, } from '../../actions/flash';
 import { Button, StyledContainer, } from '../../styles/shared';
 
 class AdminCvs extends React.Component {
-  state = { cvs: [], };
-
-  componentDidMount() {
-    const { dispatch, } = this.props;
-
-    axios.get('api/cvs')
-      .then( res => {
-        const { data: cvs, headers, } = res;
-        this.props.dispatch(setHeaders(headers));
-        this.setState({ cvs, });
-      })
-      .catch( err => {
-        this.props.dispatch(setHeaders(err.headers));
-        this.props.dispatch(setFlash('Failed to retrieve CV records at this time. Please try again later.', 'red'));
-      })
-  };
 
   displayCvType = (type) => {
-    const { cvs, } = this.state;
+    const { cvs, } = this.props;
     return cvs.map( cv => {
       if (cv.cv_type === type) {
-        return <AdminCv key={cv.id} cv={cv} delete={this.deleteCv} />
+        return <AdminCv key={cv.id} cv={cv} delete={this.props.delete} update={this.props.update} />
       } else {
         return null;
       };
     });
-  };
-
-  createCv = (cv) => this.setState({ cvs: [...this.state.cvs, cv], });
-
-  updateCv = (cv) => {
-    let cvs = this.state.cvs.map( c => {
-      if (c.id === cv.id)
-        return c = cv
-      return c;
-    })
-    this.setState({ cvs, });
-  };
-
-  deleteCv = (id) => {
-    const cvs = this.state.cvs.filter( c => c.id !== id)
-    this.setState({ cvs, });
   };
 
   render() {

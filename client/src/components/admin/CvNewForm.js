@@ -1,45 +1,55 @@
 import React from 'react';
+import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { connect, } from 'react-redux';
-import { createCv, } from '../../actions/cvs';
+import { setHeaders, } from '../../actions/headers';
+import { setFlash, } from '../../actions/flash';
 import { StyledContainer, } from '../../styles/shared';
 import { Button, Header, } from '../../styles/shared';
 import { Link, Redirect, } from 'react-router-dom';
 import { Form, Icon, Segment, } from 'semantic-ui-react';
 
 class CvNewForm extends React.Component {
-  state = { date: '', fireRedirect: false, location: '', startDate: moment(), title: '', type: '', };
+  state = { date: '', fireRedirect: false, location: '', cv_date: moment(), title: '', cv_type: '', };
 
-  handleChange = (e, { name, value }) => {
-    this.setState({ [name]: value });
-  }
+  handleChange = (e, { name, value }) => this.setState({ [name]: value, });
 
-  handleDateChange = (date) => {
-    this.setState({ startDate: date, date });
-  }
+  handleDateChange = (date) => this.setState({ cv_date: date, date, });
 
   handleSubmit = () => {
-    const { dispatch } = this.props;
-    const { type, title, location, date } = this.state;
-    dispatch(createCv({ cv_type: type, title, location, cv_date: date } ));
-    this.setState({ fireRedirect: true });
+    const { dispatch, } = this.props;
+    const { cv_cv_type, title, location, date, } = this.state;
+
+    axios.post('/api/cvs', { cv: this.state, })
+      .then( res => {
+        const { data: cv, headers } = res;
+        dispatch(setFlash('Cv Record Successfully Created.', 'green'));
+        this.props.create(res.data);
+        this.setState({ fireRedirect: true, });
+      })
+      .catch( err => {
+        const { response: { headers } } = err;
+        dispatch(setHeaders(headers));
+        dispatch(setFlash('Failed to create CV record at this time. Please try again later.', 'red'));
+      })
   }
 
   render() {
-    const { from } = this.props.location.state || '/'
-    const { type, title, location, fireRedirect } = this.state
+    const { from, } = this.props.location || '/'
+    const { cv_type, title, location, fireRedirect, } = this.state;
+
     return(
       <Segment as={StyledContainer} basic>
         <Header primary>New Cv Form</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths='equal'>
             <Form.Select 
-              name='type' 
+              name='cv_type' 
               label='Type' 
               placeholder='Awards and Certificates' 
               options={typeOptions} 
-              value={type}
+              value={cv_type}
               onChange={this.handleChange} 
             />
             <Form.Input 
@@ -60,7 +70,7 @@ class CvNewForm extends React.Component {
           </Form.Group>
           <h5>Date</h5>
           <DatePicker
-            selected={this.state.startDate}
+            selected={this.state.cv_date}
             onChange={this.handleDateChange}
           />
           <br />
@@ -87,6 +97,6 @@ const typeOptions = [
   { key: 'education', text: 'Education', value: 'education' },
   { key: 'festival', text: 'Festivals and Events', value: 'festival' },
   { key: 'exhibition', text: 'Juried Exhibitions', value: 'exhibition' },
-]
+];
 
 export default connect()(CvNewForm);
