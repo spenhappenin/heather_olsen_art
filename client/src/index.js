@@ -4,6 +4,7 @@ import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 import ScrollToTop from './components/shared/ScrollToTop';
 import store from './store';
+import FetchUser from './components/shared/FetchUser'
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import 'semantic-ui-css/semantic.min.css';
@@ -12,11 +13,13 @@ import 'react-quill/dist/quill.snow.css';
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
-        <ScrollToTop>
-          <App />
-        </ScrollToTop>
-    </BrowserRouter>
+    <FetchUser>
+      <BrowserRouter>
+          <ScrollToTop>
+            <App />
+          </ScrollToTop>
+      </BrowserRouter>
+    </FetchUser>
   </Provider>,
   document.getElementById('root')
 );

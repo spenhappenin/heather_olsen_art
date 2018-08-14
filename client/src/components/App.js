@@ -18,6 +18,7 @@ import NavBar from './shared/NavBar';
 import NoMatch from './NoMatch';
 import ProtectedRoute from './ProtectedRoute';
 import styled from 'styled-components';
+import AuthRoute from './AuthRoute';
 import { connect, } from 'react-redux';
 import { handleLogout, } from '../actions/auth';
 import { Link, } from 'react-router-dom';
@@ -87,7 +88,7 @@ class App extends React.Component {
       { name: 'ARTWORK', path: '/work', adminPath: '/work' },
       { name: 'CV', path: '/cv', adminPath: '/admin-cv' },
       { name: 'MEDIA', path: '/media', adminPath: '/media' },
-      { name: 'CONTACT', path: '/contact', adminPath: '/contact' },
+      { name: 'CONTACT', path: '/contact', adminPath: '/contact' }
     ];
 
     // If user id then add the logout link
@@ -146,7 +147,6 @@ class App extends React.Component {
           </Sidebar>
           <Sidebar.Pusher dimmed={this.state.dimmed}>
             <Flash />
-            <FetchUser>
               <Switch>
                 <Route 
                   exact 
@@ -193,10 +193,10 @@ class App extends React.Component {
                 <Route exact path='/contact' component={Contact} />
                 <Route exact path='/' component={Home} />
                 <Route exact path='/about' component={About} />
-                <Route exact path='/login' component={Login} />
+                <AuthRoute exact path='/login' component={Login} />
                 <Route component={NoMatch} />
               </Switch>
-            </FetchUser>
+            
           </Sidebar.Pusher>
         </Sidebar.Pushable>
       </div>

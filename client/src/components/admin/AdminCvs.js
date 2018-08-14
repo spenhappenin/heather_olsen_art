@@ -20,13 +20,12 @@ class AdminCvs extends React.Component {
     axios.get('api/cvs')
       .then( res => {
         const { data: cvs, headers, } = res;
-        dispatch(setHeaders(headers));
+        this.props.dispatch(setHeaders(headers));
         this.setState({ cvs, });
       })
       .catch( err => {
-        debugger
-        dispatch(setHeaders(err.headers));
-        dispatch(setFlash('Failed to retrieve CV records at this time. Please try again later.', 'red'));
+        this.props.dispatch(setHeaders(err.headers));
+        this.props.dispatch(setFlash('Failed to retrieve CV records at this time. Please try again later.', 'red'));
       })
   };
 
@@ -34,14 +33,28 @@ class AdminCvs extends React.Component {
     const { cvs, } = this.state;
     return cvs.map( cv => {
       if (cv.cv_type === type) {
-        // return <AdminCv key={cv.id} cv={cv} />
-        return <p>{cv.title}</p>
+        return <AdminCv key={cv.id} cv={cv} delete={this.deleteCv} />
       } else {
         return null;
-        // return <p>Nope</p>
-      }
+      };
+    });
+  };
+
+  createCv = (cv) => this.setState({ cvs: [...this.state.cvs, cv], });
+
+  updateCv = (cv) => {
+    let cvs = this.state.cvs.map( c => {
+      if (c.id === cv.id)
+        return c = cv
+      return c;
     })
-  }
+    this.setState({ cvs, });
+  };
+
+  deleteCv = (id) => {
+    const cvs = this.state.cvs.filter( c => c.id !== id)
+    this.setState({ cvs, });
+  };
 
   render() {
     return (

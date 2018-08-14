@@ -57,7 +57,7 @@ class Categories extends React.Component {
           this.props.dispatch(setHeaders(err.headers));
           this.props.dispatch(setFlash(err.response, 'red'));
         })
-  }
+  };
 
   render() {
     return(

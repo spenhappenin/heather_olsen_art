@@ -1,30 +1,41 @@
 import React from 'react';
+import axios from 'axios';
 import CvEditForm from './CvEditForm';
-import DeleteCvModal from './DeleteCvModal';
 import moment from 'moment';
 import styled from 'styled-components';
 import { connect, } from 'react-redux';
+import { setHeaders, } from '../../actions/headers';
+import { setFlash, } from '../../actions/flash';
 
 class AdminCv extends React.Component {
-  state = { editing: false, open: false, };
-
-  close = () => this.setState({ open: false });
-
-  show = () => () => this.setState({ open: true });
+  state = { editing: false, };
 
   toggleEdit = () => this.setState({ editing: !this.state.editing });
 
-  displayButtons = (title, id, open, close) => (
+  displayButtons = (id) => (
     <ButtonContainer>
       <CvButton onClick={this.toggleEdit}>Edit</CvButton>
-      <CvButton onClick={this.show()}>Delete</CvButton>
-      <DeleteCvModal cv_title={title} cv_id={id} open={open} onClose={this.close} />
+      <CvButton onClick={() => this.handleDelete(id)}>Delete</CvButton>
     </ButtonContainer>
   );
 
+  handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete?"))
+      axios.delete(`/api/cvs/${id}`)
+        .then( res => {
+          const { dispatch, } = this.props;
+          dispatch(setHeaders(res.headers));
+          dispatch(setFlash('CV Deleted!', 'green'));
+          this.props.delete(id);
+        })
+        .catch( err => {
+          this.props.dispatch(setHeaders(err.headers));
+          this.props.dispatch(setFlash(err.response, 'red'));
+        })
+  };
+
   displayCv = () => {
     const { cv_date, cv_type, location, id, title, } = this.props.cv;
-    const { open, } = this.state;
     const formattedDate = moment(cv_date).format('YYYY MMM');
     const justYear = moment(cv_date).format('YYYY');
 
@@ -35,7 +46,7 @@ class AdminCv extends React.Component {
         :
           <CvContainer>
             <div>{title}</div>
-            { this.displayButtons(title, id, open, this.close) }
+            { this.displayButtons(id) }
           </CvContainer>
       case 'education':
         return this.state.editing ? 
@@ -43,7 +54,7 @@ class AdminCv extends React.Component {
         :
           <CvContainer>
             <div>{title}, {justYear}</div>
-            { this.displayButtons(title, id, open, this.close) }
+            { this.displayButtons(id) }
           </CvContainer>
       default:
         return this.state.editing ? 
@@ -51,7 +62,7 @@ class AdminCv extends React.Component {
         : 
           <CvContainer>
             <div>{formattedDate} - {title} - {location}</div>
-            { this.displayButtons(title, id, open, this.close) }
+            { this.displayButtons(id) }
           </CvContainer>
     };
   };

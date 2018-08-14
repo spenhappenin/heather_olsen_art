@@ -6,7 +6,7 @@ class FetchUser extends React.Component {
   state = { loaded: false };
 
   componentDidMount() {
-    let { isAuthenticated, dispatch } = this.props;
+    const { isAuthenticated, dispatch } = this.props;
     if(isAuthenticated)
       this.loaded();
     else {
@@ -14,7 +14,8 @@ class FetchUser extends React.Component {
     }
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
     if (!this.state.loaded)
       this.loaded()
   }
