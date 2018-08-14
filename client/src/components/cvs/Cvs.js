@@ -1,17 +1,10 @@
 import React from 'react';
 import Copyright from '../shared/Copyright';
 import Cv from './Cv';
-import { connect, } from 'react-redux';
 import { CvHeader, } from '../../styles/cv';
-import { fetchCvs, } from '../../actions/cvs';
 import { Header, StyledContainer, SocialLink, } from '../../styles/shared';
 
 class Cvs extends React.Component {
-
-  componentDidMount() {
-    const { dispatch, } = this.props;
-    dispatch(fetchCvs());
-  };
 
   displayCvs = (type) => {
     const { cvs, } = this.props;
@@ -65,8 +58,4 @@ class Cvs extends React.Component {
   };
 };
 
-const mapStateToProps = (state) => {
-  return { cvs: state.cvs, };
-};
-
-export default connect(mapStateToProps)(Cvs);
+export default Cvs;

@@ -1,12 +1,7 @@
-import { combineReducers } from 'redux'
-import cvs from './cvs';
+import { combineReducers, } from 'redux';
 import flash from './flash';
 import user from './user';
 
-const rootReducer = combineReducers({
-  cvs,
-  flash,
-  user,
-})
+const rootReducer = combineReducers({ flash, user, });
 
-export default rootReducer
+export default rootReducer;

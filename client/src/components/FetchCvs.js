@@ -54,7 +54,7 @@ class FetchCvs extends React.Component {
             />
         }
         {
-          this.props.user.id && 
+          this.props.user.id ?
             <Route 
               exact 
               path='/admin-cv' 
@@ -66,8 +66,9 @@ class FetchCvs extends React.Component {
                 />
               )} 
             />
+          :
+            <Route exact path='/cv' render={ props => <Cvs cvs={this.state.cvs} /> } />
         }
-        <Route exact path='/cv' component={Cvs} />
       </Switch>
     );
   };
