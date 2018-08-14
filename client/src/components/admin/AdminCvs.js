@@ -1,7 +1,6 @@
 import React from 'react';
 import AdminCv from './AdminCv';
 import Copyright from '../shared/Copyright';
-import { connect, } from 'react-redux';
 import { CvHeader, } from '../../styles/cv';
 import { Header, } from '../../styles/shared';
 import { Link, } from 'react-router-dom';
@@ -58,4 +57,4 @@ class AdminCvs extends React.Component {
   };
 };
 
-export default connect()(AdminCvs);
+export default AdminCvs;

@@ -7,11 +7,11 @@ import { setHeaders, } from '../../actions/headers';
 import { setFlash, } from '../../actions/flash';
 import { StyledContainer, } from '../../styles/shared';
 import { Button, Header, } from '../../styles/shared';
-import { Link, Redirect, } from 'react-router-dom';
+import { Link, Redirect, withRouter, } from 'react-router-dom';
 import { Form, Icon, Segment, } from 'semantic-ui-react';
 
 class CvNewForm extends React.Component {
-  state = { date: '', fireRedirect: false, location: '', cv_date: moment(), title: '', cv_type: '', };
+  state = { date: '', location: '', cv_date: moment(), title: '', cv_type: '', };
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value, });
 
@@ -19,14 +19,13 @@ class CvNewForm extends React.Component {
 
   handleSubmit = () => {
     const { dispatch, } = this.props;
-    const { cv_cv_type, title, location, date, } = this.state;
 
     axios.post('/api/cvs', { cv: this.state, })
       .then( res => {
         const { data: cv, headers } = res;
         dispatch(setFlash('Cv Record Successfully Created.', 'green'));
         this.props.create(res.data);
-        this.setState({ fireRedirect: true, });
+        this.props.history.push('/admin-cv');
       })
       .catch( err => {
         const { response: { headers } } = err;
@@ -36,7 +35,6 @@ class CvNewForm extends React.Component {
   }
 
   render() {
-    const { from, } = this.props.location || '/'
     const { cv_type, title, location, fireRedirect, } = this.state;
 
     return(
@@ -81,11 +79,6 @@ class CvNewForm extends React.Component {
             <Button type='submit'>Submit</Button>
           </Form.Group>
         </Form>
-        {
-          fireRedirect && (
-            <Redirect to={from || '/admin-cv'} />
-          )
-        }
       </Segment>
     )
   }
@@ -99,4 +92,4 @@ const typeOptions = [
   { key: 'exhibition', text: 'Juried Exhibitions', value: 'exhibition' },
 ];
 
-export default connect()(CvNewForm);
+export default withRouter(connect()(CvNewForm));

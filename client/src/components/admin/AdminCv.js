@@ -10,7 +10,7 @@ import { setHeaders, } from '../../actions/headers';
 class AdminCv extends React.Component {
   state = { editing: false, };
 
-  toggleEdit = () => this.setState({ editing: !this.state.editing });
+  toggleEdit = () => this.setState({ editing: !this.state.editing, });
 
   displayButtons = (id) => (
     <ButtonContainer>
