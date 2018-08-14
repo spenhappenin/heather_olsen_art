@@ -117,10 +117,10 @@ class ArtworkEdit extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Group>
-            <Label>Categories</Label>
-            <CheckboxContainer>
-              { this.categoryCheckboxes() }
-            </CheckboxContainer>
+          <Label>Categories</Label>
+          <CheckboxContainer>
+            { this.categoryCheckboxes() }
+          </CheckboxContainer>
           <Form.Group widths='equal'>
             <Input
               required
@@ -223,6 +223,7 @@ const Label = styled.p`
 const CheckboxContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 10px;
 `;
 
 const CheckboxInput = styled(Form.Checkbox)`

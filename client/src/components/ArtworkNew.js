@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 import { connect, } from 'react-redux';
 import { Form, } from 'semantic-ui-react';
 import { setFlash, } from '../actions/flash';
@@ -74,7 +75,7 @@ class ArtworkNew extends React.Component {
 
   categoryCheckboxes = () => {
     return this.state.categories.map( c => (
-      <Form.Checkbox 
+      <CheckboxInput 
         key={c.id} 
         id={c.id}
         name={c.title} 
@@ -113,7 +114,7 @@ class ArtworkNew extends React.Component {
           </StyledDropzone>
           <br />
           <Form.Group widths='equal'>
-            <Form.Input
+            <Input
               required
               name='title'
               label='Title'
@@ -122,13 +123,12 @@ class ArtworkNew extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Group>
-          <label style={{ marginBottom: '4px', }}>Categories</label>
-          <br />
-          <Form.Group>
+          <Label>Categories</Label>
+          <CheckboxContainer>
             { this.categoryCheckboxes() }
-          </Form.Group>
+          </CheckboxContainer>
           <Form.Group widths='equal'>
-            <Form.Input
+            <Input
               required
               name='surface'
               label='Surface'
@@ -136,7 +136,7 @@ class ArtworkNew extends React.Component {
               value={this.state.surface}
               onChange={this.handleChange}
             />
-            <Form.Input
+            <Input
               name='medium'
               label='Medium'
               placeholder='Oil'
@@ -145,7 +145,7 @@ class ArtworkNew extends React.Component {
             />
           </Form.Group>
           <Form.Group widths='equal'>
-            <Form.Input
+            <Input
               required
               name='dimensions'
               label='Dimensions'
@@ -153,7 +153,7 @@ class ArtworkNew extends React.Component {
               value={this.state.dimensions}
               onChange={this.handleChange}
             />
-            <Form.Input
+            <Input
               name='price'
               type='number'
               label='Price'
@@ -163,7 +163,7 @@ class ArtworkNew extends React.Component {
             />
           </Form.Group>
            <Form.Group widths='equal'>
-            <Form.Select
+            <SelectInput
               required
               name='status'
               label='Status'
@@ -172,7 +172,7 @@ class ArtworkNew extends React.Component {
               value={this.state.status}
               onChange={this.handleChange}
             />
-            <Form.Input
+            <Input
               required
               type='date'
               name='dateComplete'
@@ -195,5 +195,35 @@ const statusOptions = [
   { key: 'nfs', text: 'NFS', value: 'nfs' },
   { key: 'sold', text: 'Sold', value: 'sold' }
 ];
+
+const Input = styled(Form.Input)`
+  font-family: 'Julius Sans One', sans-serif;
+  font-weight: bolder;
+  font-size: 16px;
+`;
+
+const SelectInput = styled(Form.Select)`
+  font-family: 'Julius Sans One', sans-serif;
+  font-weight: bolder;
+  font-size: 16px;
+`;
+
+const Label = styled.p`
+  font-family: 'Julius Sans One', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 4px !important;
+`;
+
+const CheckboxContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+`;
+
+const CheckboxInput = styled(Form.Checkbox)`
+  font-family: 'Julius Sans One', sans-serif;
+  margin-right: 15px !important;
+`;
 
 export default connect()(ArtworkNew);
