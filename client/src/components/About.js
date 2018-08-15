@@ -81,7 +81,7 @@ class About extends React.Component {
                       <h4 textAlign='center'>Drag photo here or click to select a file.</h4>;
                   }}
                 </StyledDropzone>
-                <Image src={generateImageUrl(this.state.image, 750)} />
+                <Image src={this.state.image === null ? '' : generateImageUrl(this.state.image, 750)} />
               </div>
               <br />
               <Form.Field>
