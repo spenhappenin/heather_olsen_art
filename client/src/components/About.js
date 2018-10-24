@@ -17,7 +17,6 @@ class About extends React.Component {
     axios.get('/api/fetch_about')
       .then( res => {
         const { data: { artist_statement, bio, image, }, headers, } = res;
-
         this.props.dispatch(setHeaders(headers));
         this.setState({ artist_statement, bio, image, });
       })
@@ -41,8 +40,8 @@ class About extends React.Component {
       .then( res => {
         const { data: { artist_statement, bio, image, }, headers, } = res;
         this.props.dispatch(setHeaders(headers));
+        window.scrollTo(0, 0);
         this.props.dispatch(setFlash('About Content Updated!', 'green'));
-        this.setState({ artist_statement, bio, image, });
       })
       .catch( err => {
         this.props.dispatch(setFlash(err.response, 'red'));
