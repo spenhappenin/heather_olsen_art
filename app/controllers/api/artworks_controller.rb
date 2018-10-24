@@ -9,7 +9,7 @@ class Api::ArtworksController < ApplicationController
   # TODO: Move to other controller
   def user_bio_statement
     if params.keys.first === "undefined" 
-      current_user.update(
+      User.all.first.update(
         artist_statement: params[:artist_statement],
         bio: params[:bio], 
       )
