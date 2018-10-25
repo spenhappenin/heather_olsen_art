@@ -64,8 +64,10 @@ class ArtworkNew extends React.Component {
     data.append('artwork_categories', JSON.stringify(this.state.artworkCategories));
     axios.post('/api/artworks', data)
       .then( res => {
-        this.props.dispatch(setHeaders(res.headers));
-        this.props.dispatch(setFlash('Artwork Added!', 'green'));
+        const { dispatch, history, } = this.props;
+        dispatch(setHeaders(res.headers));
+        dispatch(setFlash('Artwork Added!', 'green'));
+        history.goBack();
       })
       .catch( err => {
         this.props.dispatch(setHeaders(err.headers));

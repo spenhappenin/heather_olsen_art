@@ -52,10 +52,13 @@ class Api::ArtworksController < ApplicationController
   end
 
   def create
-    uploaded_image_name = params.keys.first
-    uploaded_file = params[uploaded_image_name]
+    Tinify.key = ENV["TINY_PNG"]
+    image_name = params.keys.first
+    uploaded_file = params[image_name]
+    source = Tinify.from_file(uploaded_file.tempfile)
+    source.to_file(image_name)
     begin
-      cloud_image = Cloudinary::Uploader.upload(uploaded_file, public_id: params[:title], secure: true)
+      cloud_image = Cloudinary::Uploader.upload(image_name, public_id: params[:title], secure: true)
       artwork = Artwork.create(
         url: cloud_image['secure_url'], 
         title: params['title'], 
@@ -67,6 +70,7 @@ class Api::ArtworksController < ApplicationController
         date_complete: params['date_complete']
       )
       Artwork.update_categories(artwork, JSON.parse(params[:artwork_categories]))
+      File.delete(image_name) if File.exists?(image_name)
       render json: artwork
     rescue
       render_error(artwork)
