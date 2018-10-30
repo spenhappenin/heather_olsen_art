@@ -22,13 +22,13 @@ class Cvs extends React.Component {
         <div>
           { this.displayCvs('exhibition') }
         </div>
-        <CvHeader>Festivals and Events</CvHeader>
-        <div>
-          { this.displayCvs('festival') }
-        </div>
         <CvHeader>Awards and Certificates</CvHeader>
         <div>
           { this.displayCvs('award') }
+        </div>
+        <CvHeader>Festivals and Events</CvHeader>
+        <div>
+          { this.displayCvs('festival') }
         </div>
         <CvHeader>Current Representation</CvHeader>
         <div>

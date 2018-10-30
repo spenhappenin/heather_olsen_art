@@ -29,10 +29,10 @@ class AdminCvs extends React.Component {
         </Link>
         <CvHeader>Juried Exhibitions</CvHeader>
         { this.displayCvType('exhibition') }
-        <CvHeader>Festivals and Events</CvHeader>
-        { this.displayCvType('festival') }
         <CvHeader>Awards and Certificates</CvHeader>
         { this.displayCvType('award') }
+        <CvHeader>Festivals and Events</CvHeader>
+        { this.displayCvType('festival') }
         <CvHeader>Current Representation</CvHeader>
         { this.displayCvType('current_rep') }
         <CvHeader>Education</CvHeader>
