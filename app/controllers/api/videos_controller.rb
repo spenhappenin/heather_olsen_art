@@ -1,9 +1,13 @@
 class Api::VideosController < ApplicationController
-  before_action :set_video, only: [:update, :destroy]
+  before_action :set_video, only: [:show, :update, :destroy]
 
   def index 
-    videos = Video.all
+    videos = Video.all.order("created_at ASC")
     render json: videos
+  end
+
+  def show
+    render json: @video
   end
 
   def create 
