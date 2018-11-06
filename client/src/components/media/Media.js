@@ -1,28 +1,67 @@
 import React from 'react';
+import axios from "axios";
 import Copyright from '../shared/Copyright';
 import ReactPlayer from 'react-player';
+import styled from "styled-components";
 import { Header, } from '../../styles/shared';
 import { Segment, } from 'semantic-ui-react';
 import { StyledContainer, } from '../../styles/shared';
+import { connect, } from "react-redux";
+import { Link, } from "react-router-dom";
+import { Button, } from "../../styles/shared";
+import { setFlash, } from '../../actions/flash';
+import { setHeaders, } from '../../actions/headers';
 
 class Media extends React.Component {
+  state = { videos: [], };
+
+  componentDidMount() {
+    axios.get("/api/videos")
+      .then( res => {
+        this.setState({ videos: res.data, });
+        this.props.dispatch(setHeaders(res.headers));
+      })
+      .catch( err => {
+        this.props.dispatch(setHeaders(err.headers));
+        this.props.dispatch(setFlash(err.response, 'red'));
+      })
+  };
+
+  renderVideos = () => {
+    return this.state.videos.map( video => {
+      return (
+        <VideoContainer>
+          <ReactPlayer url={video.url} controls width="100%" />
+          <h3>{ video.title }</h3>
+          <p>{video.body}</p>
+        </VideoContainer>
+      );
+    });
+  };
+
   render() {
     return(
       <Segment as={StyledContainer} basic>
         <Header primary>Media</Header>
+        { 
+          this.props.user.id &&
+            <Link to="/media/new"><Button>New</Button></Link>
+        }
         <br />
         <br />
-        <ReactPlayer url='https://www.youtube.com/watch?v=uXMq45odbps' controls width='100%' />
-        <h3>Time Lapse Drawing #1</h3>
-        <br />
-        <br />
-        <ReactPlayer url='https://www.youtube.com/watch?v=CbdRGKlnxX0' controls width='100%' />
-        <h3>Life of Art by Ryan Meeks</h3>
-        <p>From where she started to what continues to drive her work, this short documentary reveals a glimpse into the artist's vision.</p>
+        { this.renderVideos() }
         <Copyright />
       </Segment>
-    )
-  }
+    );
+  };
+};
+
+const mapStateToProps = (state) => {
+  return { user: state.user, };
 }
 
-export default Media;
+const VideoContainer = styled.div`
+  margin-bottom: 50px;
+`;
+
+export default connect(mapStateToProps)(Media);

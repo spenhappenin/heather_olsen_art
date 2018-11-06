@@ -11,6 +11,7 @@ import FetchCvs from './FetchCvs';
 import Flash from './shared/Flash';
 import Login from './login/Login';
 import Media from './media/Media';
+import MediaForm from './media/MediaForm';
 import NavBar from './shared/NavBar';
 import NoMatch from './NoMatch';
 import ProtectedRoute from './ProtectedRoute';
@@ -186,6 +187,7 @@ class App extends React.Component {
                 <Route path='/cv' component={FetchCvs} />
                 <ProtectedRoute path='/admin-cv' component={FetchCvs} />
                 <Route exact path='/media' component={Media} />
+                <ProtectedRoute path="/media/new" component={MediaForm} />
                 <Route exact path='/contact' component={Contact} />
                 <Route exact path='/' component={Home} />
                 <Route exact path='/about' component={About} />

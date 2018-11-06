@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :cvs, only: [:create, :destroy]
     resources :artworks, only: [:create, :update, :destroy]
     resources :categories, only: [:create, :update, :destroy]
+    resources :videos, only: [:index, :create, :update, :destroy]
   end
 
   #Do not place any routes below this one
