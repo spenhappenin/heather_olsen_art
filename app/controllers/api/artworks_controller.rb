@@ -1,12 +1,12 @@
 class Api::ArtworksController < ApplicationController
   before_action :set_artwork, only: [:update, :destroy]
 
-  # TODO: Move to other controller
+  # TODO: Move to Users controller
   def fetch_user
     render json: User.first
   end
 
-  # TODO: Move to other controller
+  # TODO: Move to Users controller
   def user_bio_statement
     user = User.find(1)
     if params.keys.first === "undefined" 
