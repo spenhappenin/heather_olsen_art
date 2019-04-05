@@ -83,6 +83,7 @@ const ArtworkCard = styled.div`
   display: flex;
   align-items: center;
   border: 1px solid #131313;
+  border-left: none;
   height: 60px;
 `;
 
@@ -91,6 +92,7 @@ const CardImage = styled.div`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  border: 1px solid black;
   height: 60px;
   width: 60px;
 `;

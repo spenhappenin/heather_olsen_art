@@ -41,6 +41,9 @@ class Categories extends React.Component {
       <Link to='/work/all'>
         <Button>All Art</Button>
       </Link>
+      <Link to='/work/sort'>
+        <Button>Sort Categories</Button>
+      </Link>
     </AdminMenu>
   );
 

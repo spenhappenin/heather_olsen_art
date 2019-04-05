@@ -16,6 +16,7 @@ import NavBar from './shared/NavBar';
 import NoMatch from './NoMatch';
 import ProtectedRoute from './ProtectedRoute';
 import styled from 'styled-components';
+import SortArtwork from "./SortArtwork";
 import AuthRoute from './AuthRoute';
 import { connect, } from 'react-redux';
 import { handleLogout, } from '../actions/auth';
@@ -155,6 +156,7 @@ class App extends React.Component {
                   )} 
                 />
                 <ProtectedRoute exact path='/work/all' component={AllArtwork} />
+                <ProtectedRoute exact path='/work/sort' component={SortArtwork} />
                 {
                   this.props.user.id && 
                   <Route 
@@ -188,6 +190,7 @@ class App extends React.Component {
                 <Route path='/cv' component={FetchCvs} />
                 <ProtectedRoute path='/admin-cv' component={FetchCvs} />
                 <Route exact path='/media' component={Media} />
+                <ProtectedRoute path="/media/:id/edit" component={MediaForm} />
                 <ProtectedRoute path="/media/new" component={MediaForm} />
                 <Route exact path='/contact' component={Contact} />
                 <Route exact path='/' component={Home} />
