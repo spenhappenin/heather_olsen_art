@@ -59,7 +59,6 @@ class Api::ArtworksController < ApplicationController
     source = Tinify.from_file(uploaded_file.tempfile)
     source.to_file(image_name)
     begin
-      binding.pry
       cloud_image = Cloudinary::Uploader.upload(image_name, public_id: params[:title], secure: true)
       artwork = Artwork.create(
         url: cloud_image['secure_url'], 
