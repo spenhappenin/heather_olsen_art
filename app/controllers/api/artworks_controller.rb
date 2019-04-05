@@ -3,7 +3,7 @@ class Api::ArtworksController < ApplicationController
 
   # TODO: Move to other controller
   def fetch_user
-    render json: User.all.first
+    render json: User.first
   end
 
   # TODO: Move to other controller

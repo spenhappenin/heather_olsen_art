@@ -86,6 +86,7 @@ class App extends React.Component {
       { name: 'ARTWORK', path: '/work', adminPath: '/work' },
       { name: 'CV', path: '/cv', adminPath: '/admin-cv' },
       { name: 'MEDIA', path: '/media', adminPath: '/media' },
+      { name: 'ABOUT', path: '/about', adminPath: '/about' },
       { name: 'CONTACT', path: '/contact', adminPath: '/contact' }
     ];
 
