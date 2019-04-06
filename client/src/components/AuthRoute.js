@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import { Redirect, Route, } from 'react-router-dom';
 
 const AuthRoute = ({ isAuthenticated, component: Component, ...rest }) => (
@@ -19,8 +19,8 @@ const AuthRoute = ({ isAuthenticated, component: Component, ...rest }) => (
   />
 );
 
-const mapStateToProps = state => {
-  return { isAuthenticated: state.user.id };
-};
+// const mapStateToProps = state => {
+//   return { isAuthenticated: state.user.id };
+// };
 
-export default connect(mapStateToProps)(AuthRoute);
+export default AuthRoute;

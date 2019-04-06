@@ -2,11 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import ReactQuill from 'react-quill';
 import styled from 'styled-components';
-import { connect, } from 'react-redux';
+// import { connect, } from 'react-redux';
 import { Form, Responsive, } from 'semantic-ui-react';
 import { generateImageUrl, } from '../helpers/artwork';
-import { setFlash, } from '../actions/flash';
-import { setHeaders, } from '../actions/headers';
 import { StyledDropzone, } from '../styles/artWork';
 import { Button, Header, StyledContainer, } from '../styles/shared';
 
@@ -17,17 +15,14 @@ class About extends React.Component {
     axios.get('/api/fetch_about')
       .then( res => {
         const { data: { artist_statement, bio, image, }, headers, } = res;
-        this.props.dispatch(setHeaders(headers));
         this.setState({ artist_statement, bio, image, });
       })
       .catch( err => {
-        this.props.dispatch(setFlash(err.response, 'red'));
+        console.log(err.response);
       })
   };
 
-  handleChange = (value, name) => {
-    this.setState({ [name]: value, });
-  };
+  handleChange = (value, name) => this.setState({ [name]: value, });
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -38,13 +33,11 @@ class About extends React.Component {
     data.append('artist_statement', this.state.artist_statement);
     axios.put('/api/user_bio_statement', data)
       .then( res => {
-        const { data: { artist_statement, bio, image, }, headers, } = res;
-        this.props.dispatch(setHeaders(headers));
+        const { data: { artist_statement, bio, image, }, } = res;
         window.scrollTo(0, 0);
-        this.props.dispatch(setFlash('About Content Updated!', 'green'));
       })
       .catch( err => {
-        this.props.dispatch(setFlash(err.response, 'red'));
+        console.log(err.response);
       })
   };
 
@@ -165,8 +158,4 @@ const BioContainer = styled.div`
   };
 `;
 
-const mapStateToProps = (state) => {
-  return { user: state.user, };
-};
-
-export default connect(mapStateToProps)(About);
+export default About;

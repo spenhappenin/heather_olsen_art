@@ -1,9 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import Modal from 'react-responsive-modal';
-import { connect, } from 'react-redux';
-import { setFlash, } from '../../actions/flash';
-import { setHeaders, } from '../../actions/headers';
 import { Button, Icon, } from 'semantic-ui-react';
 
 class DeleteArtWorkModal extends React.Component {
@@ -13,14 +10,11 @@ class DeleteArtWorkModal extends React.Component {
       .then( res => {
         this.props.onClose();
         this.props.goBack();
-        this.props.dispatch(setHeaders(res.headers));
-        this.props.dispatch(setFlash('Comission successfully deleted.', 'green'));
+        // AUTH: Add Flash
       })
       .catch( err => {
-        const { response: { headers, }, } = err;
-
-        this.props.dispatch({ type: 'SET_HEADERS', headers });
-        this.props.dispatch(setFlash('Failed to update comission at this time. Please try again later.', 'red'));
+        // AUTH: Add Flash
+        console.log(err.response);
       })
   };
 
@@ -51,4 +45,4 @@ class DeleteArtWorkModal extends React.Component {
   };
 };
 
-export default connect()(DeleteArtWorkModal);
+export default DeleteArtWorkModal;

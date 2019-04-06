@@ -2,11 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import Lightbox from 'react-images';
 import styled from 'styled-components';
-import { connect, } from 'react-redux';
 import { formatArt, } from '../helpers/artwork';
 import { getCategoryTitle, } from '../helpers/artwork';
-import { setFlash, } from '../actions/flash';
-import { setHeaders, } from '../actions/headers';
 import { Header, StyledContainer, } from '../styles/shared';
 
 class Artworks extends React.Component {
@@ -27,12 +24,11 @@ class Artworks extends React.Component {
       .then( res => {
         const art = [];
         res.data.map( a => art.push(formatArt(a)));
-        this.props.dispatch(setHeaders(res.headers));
         this.setState({ artworks: art, categoryTitle: getCategoryTitle(work_title), });
       })
       .catch( err => {
-        this.props.dispatch(setHeaders(err.headers));
-        this.props.dispatch(setFlash(err.response, 'red'))
+        // AUTH: Add Flash
+        console.log(err.response);
       })
   };
   
@@ -120,4 +116,4 @@ const Image = styled.img`
   width: 100%;
 `;
 
-export default connect()(Artworks);
+export default Artworks;

@@ -6,11 +6,8 @@ import styled from "styled-components";
 import { Header, } from '../../styles/shared';
 import { Segment, } from 'semantic-ui-react';
 import { StyledContainer, } from '../../styles/shared';
-import { connect, } from "react-redux";
 import { Link, } from "react-router-dom";
 import { Button, } from "../../styles/shared";
-import { setFlash, } from '../../actions/flash';
-import { setHeaders, } from '../../actions/headers';
 
 class Media extends React.Component {
   state = { videos: [], };
@@ -19,11 +16,10 @@ class Media extends React.Component {
     axios.get("/api/videos")
       .then( res => {
         this.setState({ videos: res.data, });
-        this.props.dispatch(setHeaders(res.headers));
       })
       .catch( err => {
-        this.props.dispatch(setHeaders(err.headers));
-        this.props.dispatch(setFlash(err.response, 'red'));
+        // AUTH: Add Flash
+        console.log(err.response);
       })
   };
 
@@ -71,9 +67,9 @@ class Media extends React.Component {
   };
 };
 
-const mapStateToProps = (state) => {
-  return { user: state.user, };
-}
+// const mapStateToProps = (state) => {
+//   return { user: state.user, };
+// }
 
 const VideoContainer = styled.div`
   margin-bottom: 50px;
@@ -85,4 +81,4 @@ const TitleContainer = styled.div`
   justify-content: space-between;
 `;
 
-export default connect(mapStateToProps)(Media);
+export default Media;

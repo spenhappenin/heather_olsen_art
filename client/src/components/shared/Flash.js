@@ -1,13 +1,12 @@
 import React from 'react';
 import '../../styles/flash.css';
-import { clearFlash, } from '../../actions/flash';
-import { connect, } from 'react-redux';
+// import { connect, } from 'react-redux';
 import { FlashMessage, } from '../../styles/flash';
 import { Container, Header, Message, } from 'semantic-ui-react';
 
 const fadeFlash = (dispatch) => {
   setTimeout( () => {
-    dispatch(clearFlash());
+    // dispatch(clearFlash());
   }, 3000)
 }
 
@@ -16,12 +15,12 @@ const Flash = ({ flash, dispatch }) => {
     return(
       <Container as={FlashMessage}>
         <Message
-          onDismiss={() => dispatch(clearFlash())}
+          // onDismiss={() => dispatch(clearFlash())}
           color={flash.msgType}
         >
           {/* Remove semantic header */}
           <Header as='h5' textAlign='center'>{ flash.message }</Header>
-          { fadeFlash(dispatch) }
+          {/* { fadeFlash(dispatch) } */}
         </Message>
       </Container>
     )
@@ -30,8 +29,4 @@ const Flash = ({ flash, dispatch }) => {
   }
 }
 
-const mapStateToProps = (state) => {
-  return { flash: state.flash };
-}
-
-export default connect(mapStateToProps)(Flash);
+export default Flash;

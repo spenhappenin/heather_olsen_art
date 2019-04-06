@@ -3,9 +3,6 @@ import axios from 'axios';
 import Cvs from './cvs/Cvs';
 import AdminCvs from './admin/AdminCvs';
 import CvNewForm from './admin/CvNewForm';
-import { connect, } from 'react-redux';
-import { setHeaders, } from '../actions/headers';
-import { setFlash, } from '../actions/flash';
 import { Route, Switch, } from 'react-router-dom';
 
 class FetchCvs extends React.Component {
@@ -17,12 +14,11 @@ class FetchCvs extends React.Component {
     axios.get('/api/cvs')
       .then( res => {
         const { data: cvs, headers, } = res;
-        dispatch(setHeaders(headers));
         this.setState({ cvs, });
       })
       .catch( err => {
-        dispatch(setHeaders(err.headers));
-        dispatch(setFlash('Failed to retrieve CV records at this time. Please try again later.', 'red'));
+        // AUTH: Add Flash
+        console.log(err.response);
       })
   };
 
@@ -74,8 +70,8 @@ class FetchCvs extends React.Component {
   };
 };
 
-const mapStateToProps = (state) => {
-  return { user: state.user, }
-}
+// const mapStateToProps = (state) => {
+//   return { user: state.user, }
+// }
 
-export default connect(mapStateToProps)(FetchCvs);
+export default FetchCvs;

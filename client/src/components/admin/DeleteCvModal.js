@@ -1,13 +1,11 @@
 import React from 'react';
-import { connect, } from 'react-redux';
-import { deleteCv, } from '../../actions/cvs';
+// import { deleteCv, } from '../../actions/cvs';
 import { Button, Icon, Modal, } from 'semantic-ui-react';
 
 class DeleteModal extends React.Component {
 
   handleClick = () => {
-    const { dispatch } = this.props;
-    dispatch(deleteCv(this.props.cv_id));
+    // dispatch(deleteCv(this.props.cv_id));
   }
 
   render() {
@@ -35,4 +33,4 @@ class DeleteModal extends React.Component {
   }
 }
 
-export default connect()(DeleteModal);
+export default DeleteModal;

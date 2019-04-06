@@ -1,23 +1,21 @@
-import React from 'react';
-import axios from 'axios';
-import DeleteArtWorkModal from './admin/DeleteArtWorkModal';
-import styled from 'styled-components';
-import { connect, } from 'react-redux';
-import { setFlash, } from '../actions/flash';
-import { setHeaders, } from '../actions/headers';
-import { Button, Header, StyledContainer, } from '../styles/shared';
-import { Form, Icon, Image, } from 'semantic-ui-react';
+import React from "react";
+import axios from "axios";
+import DeleteArtWorkModal from "./admin/DeleteArtWorkModal";
+import styled from "styled-components";
+// import { connect, } from "react-redux";
+import { Button, Header, StyledContainer, } from "../styles/shared";
+import { Form, Icon, Image, } from "semantic-ui-react";
 
 class ArtworkEdit extends React.Component {
   state = { 
-    title: '', 
-    surface: '', 
-    medium: '', 
-    dimensions: '', 
-    price: '', 
-    status: '', 
-    dateComplete: '', 
-    url: '',
+    title: "", 
+    surface: "", 
+    medium: "", 
+    dimensions: "", 
+    price: "", 
+    status: "", 
+    dateComplete: "", 
+    url: "",
     open: false,
     categories: [], 
     artworkCategories: [],
@@ -26,9 +24,7 @@ class ArtworkEdit extends React.Component {
   componentDidMount() {
     axios.get(`/api/single_artwork/${this.props.match.params.id}`)
       .then( res => {
-        const { headers, data, } = res;
-
-        this.props.dispatch(setHeaders(headers));
+        const { data, } = res;
         this.setState({ 
           artWork: data.artwork,
           title: data.artwork.title, 
@@ -44,8 +40,8 @@ class ArtworkEdit extends React.Component {
         });
       })
       .catch( err => {
-        this.props.dispatch(setHeaders(err.headers));
-        this.props.dispatch(setFlash(err.response, 'red'))
+        // AUTH: Add Flash
+        console.log(err.response);
       })
   };
 
@@ -68,13 +64,12 @@ class ArtworkEdit extends React.Component {
     e.preventDefault();
     axios.put(`/api/artworks/${id}`, { ...this.state, })
       .then( res => {
-        this.props.dispatch(setHeaders(res.headers));
-        this.props.dispatch(setFlash('Artwork Updated!', 'green'));
+        // AUTH: Add Flash    
         this.props.history.goBack();
       })
       .catch( err => {
-        this.props.dispatch(setHeaders(err.headers));
-        this.props.dispatch(setFlash(err.response, 'red'))
+        // AUTH: Add Flash
+        console.log(err.response);
       })
   };
 
@@ -231,4 +226,4 @@ const CheckboxInput = styled(Form.Checkbox)`
   margin-right: 15px !important;
 `;
 
-export default connect()(ArtworkEdit);
+export default ArtworkEdit;

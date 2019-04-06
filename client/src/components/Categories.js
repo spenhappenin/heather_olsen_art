@@ -1,10 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { connect, } from 'react-redux';
 import { Grid, } from 'semantic-ui-react';
-import { setFlash, } from '../actions/flash';
-import { setHeaders, } from '../actions/headers';
 import { Button, Link, } from '../styles/shared';
 
 class Categories extends React.Component {
@@ -52,13 +49,12 @@ class Categories extends React.Component {
       axios.delete(`/api/categories/${id}`)
         .then( res => {
           const { dispatch, } = this.props;
-          dispatch(setHeaders(res.headers));
-          dispatch(setFlash('Category Deleted!', 'green'));
+          // AUTH: Add Flash
           this.props.delete(id);
         })
         .catch( err => {
-          this.props.dispatch(setHeaders(err.headers));
-          this.props.dispatch(setFlash(err.response, 'red'));
+          // AUTH: Add Flash
+          console.log(err.response);
         })
   };
 
@@ -74,9 +70,9 @@ class Categories extends React.Component {
   };
 };
 
-const mapStateToProps = (state) => {
-  return { user: state.user };
-};
+// const mapStateToProps = (state) => {
+//   return { user: state.user };
+// };
 
 const AdminMenu = styled.div`
   margin-bottom: 25px;
@@ -128,4 +124,4 @@ const CategoryImage = styled.div`
   }
 `;
 
-export default connect(mapStateToProps)(Categories);
+export default Categories;

@@ -1,9 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { connect, } from 'react-redux';
-import { setHeaders, } from '../../actions/headers';
-import { setFlash, } from '../../actions/flash';
 
 class CvEditForm extends React.Component {
   state = { date: '', location: '', title: '', };
@@ -15,22 +12,21 @@ class CvEditForm extends React.Component {
 
   handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value, });
   };
 
   handleSubmit = () => {
-    const { dispatch, id, } = this.props;
+    const { id, } = this.props;
 
     axios.put(`api/cv/${id}`, { cv: this.state, })
       .then( res => {
-        dispatch(setHeaders(res.headers));
-        dispatch(setFlash('Cv Updated!', 'green'));
+        // AUTH: Add Flash
         this.props.update(res.data);
         this.props.toggleEdit();
       })
       .catch( err => {
-        dispatch(setHeaders(err.headers));
-        dispatch(setFlash(err.response, 'red')); 
+        // AUTH: Add Flash
+        console.log(err.response);
       })
   };
 
@@ -144,4 +140,4 @@ const Input = styled.input`
   width: ${ props => props.smaller ? '161px' : '225px' };
 `;
 
-export default connect()(CvEditForm);
+export default CvEditForm;

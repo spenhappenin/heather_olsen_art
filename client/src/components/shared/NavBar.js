@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect, } from 'react-redux';
-import { handleLogout, } from '../../actions/auth';
+// import { handleLogout, } from '../../actions/auth';
 import { Icon, } from 'semantic-ui-react';
 import { withRouter, } from 'react-router-dom';
 import { NavItems, NavLogo, StyledLink, StyledMockLink, StyledNavbar, } from '../../styles/navbar';
@@ -24,7 +23,7 @@ class NavBar extends React.Component {
     if(user.id)
       return(
         <StyledMockLink 
-          onClick={ () => dispatch(handleLogout(history)) } 
+          // onClick={ () => dispatch(handleLogout(history)) } 
           className='nav-link' 
           rel="noopener noreferrer"
         >
@@ -99,8 +98,8 @@ class NavBar extends React.Component {
   };
 };
 
-const mapStateToProps = (state) => {
-  return { user: state.user, };
-};
+// const mapStateToProps = (state) => {
+//   return { user: state.user, };
+// };
 
-export default withRouter(connect(mapStateToProps)(NavBar));
+export default withRouter(NavBar);

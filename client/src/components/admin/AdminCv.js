@@ -3,9 +3,6 @@ import axios from 'axios';
 import CvEditForm from './CvEditForm';
 import moment from 'moment';
 import styled from 'styled-components';
-import { connect, } from 'react-redux';
-import { setFlash, } from '../../actions/flash';
-import { setHeaders, } from '../../actions/headers';
 
 class AdminCv extends React.Component {
   state = { editing: false, };
@@ -25,15 +22,12 @@ class AdminCv extends React.Component {
     if (window.confirm("Are you sure you want to delete?"))
       axios.delete(`/api/cvs/${id}`)
         .then( res => {
-          const { headers, } = res;
-          dispatch(setHeaders(headers));
-          dispatch(setFlash('Cv Record Successfully Deleted!', 'green'));
+          // AUTH: Add Flash
           this.props.delete(id);
         }) 
         .catch( err => {
-          const { response: { headers, }, } = err;
-          dispatch(setHeaders(headers));
-          dispatch(setFlash('Failed to delete CV record at this time. Please try again later.', 'red'));
+          // AUTH: Add Flash
+          console.log(err.response);
         })
   };
 
@@ -132,8 +126,8 @@ const CvButton = styled.button`
   }
 `;
 
-const mapStateToProps = (state) => {
-  return { user: state.user, };
-};
+// const mapStateToProps = (state) => {
+//   return { user: state.user, };
+// };
 
-export default connect(mapStateToProps)(AdminCv);
+export default AdminCv;

@@ -1,10 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { connect, } from 'react-redux';
+// import { connect, } from 'react-redux';
 import { Form, } from 'semantic-ui-react';
-import { setFlash, } from '../actions/flash';
-import { setHeaders, } from '../actions/headers';
 import { StyledDropzone, } from '../styles/artWork';
 import { Button, Header, StyledContainer, } from '../styles/shared';
 
@@ -27,12 +25,11 @@ class ArtworkNew extends React.Component {
   componentDidMount() {
     axios.get('/api/works')
       .then( res => {
-        this.props.dispatch(setHeaders(res.headers));
         this.setState({ categories: res.data, });
       })
       .catch( err => {
-        this.props.dispatch(setHeaders(err.headers));
-        this.props.dispatch(setFlash(err.response, 'red'));
+        // AUTH: Add Flash
+        console.log(err.response);
       })
   };
 
@@ -64,14 +61,13 @@ class ArtworkNew extends React.Component {
     data.append('artwork_categories', JSON.stringify(this.state.artworkCategories));
     axios.post('/api/artworks', data)
       .then( res => {
-        const { dispatch, history, } = this.props;
-        dispatch(setHeaders(res.headers));
-        dispatch(setFlash('Artwork Added!', 'green'));
+        const { history, } = this.props;
+        // AUTH: Add Flash
         history.goBack();
       })
       .catch( err => {
-        this.props.dispatch(setHeaders(err.headers));
-        this.props.dispatch(setFlash(err.response, 'red'));
+        // AUTH: Add Flash
+        console.log(err.response);
       })
   };
 
@@ -228,4 +224,4 @@ const CheckboxInput = styled(Form.Checkbox)`
   margin-right: 15px !important;
 `;
 
-export default connect()(ArtworkNew);
+export default ArtworkNew;

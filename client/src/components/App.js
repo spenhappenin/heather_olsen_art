@@ -18,11 +18,8 @@ import ProtectedRoute from './ProtectedRoute';
 import styled from 'styled-components';
 import SortArtwork from "./SortArtwork";
 import AuthRoute from './AuthRoute';
-import { connect, } from 'react-redux';
-import { handleLogout, } from '../actions/auth';
+// import { connect, } from 'react-redux';
 import { Link, } from 'react-router-dom';
-import { setFlash, } from '../actions/flash';
-import { setHeaders, } from '../actions/headers';
 import { Menu, Sidebar, } from 'semantic-ui-react';
 import { Route, Switch, withRouter, } from 'react-router-dom';
 
@@ -45,12 +42,10 @@ class App extends React.Component {
   componentDidMount() {
     axios.get('/api/works')
       .then( res => {
-        this.props.dispatch(setHeaders(res.headers));
         this.setState({ categories: res.data, loaded: true, });
       })
       .catch( err => {
-        this.props.dispatch(setHeaders(err.headers));
-        this.props.dispatch(setFlash(err.response, 'red'));
+        console.log(err.response);
       })
   };
 
@@ -102,7 +97,7 @@ class App extends React.Component {
             key={nav.adminName}
             name={this.props.user.id ? nav.adminName : nav.name}
             onClick={(e) => {
-              this.props.dispatch(handleLogout(this.props.history));
+              // AUTH: handleLogout
               if (this.state.sideNav)
                  this.setState({ sideNav: false, dimmed: false });
             }}
@@ -197,8 +192,7 @@ class App extends React.Component {
                 <Route exact path='/about' component={About} />
                 <AuthRoute exact path='/login' component={Login} />
                 <Route component={NoMatch} />
-              </Switch>
-            
+              </Switch>          
           </Sidebar.Pusher>
         </Sidebar.Pushable>
       </div>
@@ -213,9 +207,5 @@ const SidebarItem = styled(Menu.Item)`
   padding-bottom: 16px !important;
 `;
 
-const mapStateToProps = (state) => {
-  return { user: state.user, };
-};
-
 // TODO: Find the more optimal solution instead of withRouter (see article)
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(App);

@@ -2,9 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Link, } from 'react-router-dom';
-import { connect, } from 'react-redux';
-import { setFlash, } from '../actions/flash';
-import { setHeaders, } from '../actions/headers';
 import { Transition, } from 'semantic-ui-react';
 import { generateImageUrl, getCategoryTitle, } from '../helpers/artwork';
 import { Button, Header, StyledContainer, } from '../styles/shared';
@@ -19,12 +16,11 @@ class AdminArtworks extends React.Component {
     axios.get(`/api/artworks?category=${work_title}`)
       .then( res => {
         const { dispatch, } = this.props;
-        dispatch(setHeaders(res.headers));
         this.setState({ artWorks: res.data, categoryTitle: getCategoryTitle(work_title), });
       })
       .catch( err => {
-        this.props.dispatch(setHeaders(err.headers));
-        this.props.dispatch(setFlash(err.response, 'red'))
+        // AUTH: Add Flash
+        console.log(err.response);
       })
   };
 
@@ -98,4 +94,4 @@ const Image = styled.img`
   width: 100%;
 `;
 
-export default connect()(AdminArtworks);
+export default AdminArtworks;

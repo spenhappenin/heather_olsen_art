@@ -1,12 +1,9 @@
-import React, { Component, } from "react";
+import React from "react";
 import axios from "axios";
-import { connect, } from "react-redux";
 import { Form, } from 'semantic-ui-react';
 import { Button, Header, StyledContainer, } from '../../styles/shared';
-import { setFlash, } from '../../actions/flash';
-import { setHeaders, } from '../../actions/headers';
 
-class MediaForm extends Component {
+class MediaForm extends React.Component {
   state = { title: "", body: "", url: "", };
 
   componentDidMount() {
@@ -15,12 +12,11 @@ class MediaForm extends Component {
       axios.get(`/api/videos/${params.id}`)
         .then( res => {
           const { title, body, url, } = res.data;
-          this.props.dispatch(setHeaders(res.headers));
           this.setState({ title, body, url, });
         })
         .catch( err => {
-          this.props.dispatch(setHeaders(err.headers));
-          this.props.dispatch(setFlash(err.response, 'red'));
+          // AUTH: Add Flash
+          console.log(err.response);
         })
   };
 
@@ -29,25 +25,23 @@ class MediaForm extends Component {
     e.preventDefault();
     if (params.id) {
       axios.put(`/api/videos/${params.id}`, { video: { ...this.state }, })
-        .then(res => {
-          this.props.dispatch(setHeaders(res.headers));
-          this.props.dispatch(setFlash("Video Upated!", 'green'));
+        .then( res => {
+          // AUTH: Add Flash
           this.props.history.goBack();
         })
-        .catch(err => {
-          this.props.dispatch(setHeaders(err.headers));
-          this.props.dispatch(setFlash(err.response, 'red'));
+        .catch( err => {
+          // AUTH: Add Flash
+          console.log(err.response);
         })
     } else {
       axios.post("/api/videos/", { video: { ...this.state }, })
-        .then(res => {
-          this.props.dispatch(setHeaders(res.headers));
-          this.props.dispatch(setFlash("Video Uploaded!", 'green'));
+        .then( res => {
+          // AUTH: Add Flash
           this.props.history.goBack();
         })
         .catch(err => {
-          this.props.dispatch(setHeaders(err.headers));
-          this.props.dispatch(setFlash(err.response, 'red'));
+          // AUTH: Add Flash
+          console.log(err.response);
         })
     }
   };
@@ -95,4 +89,4 @@ class MediaForm extends Component {
   };
 };
 
-export default connect()(MediaForm);
+export default MediaForm;

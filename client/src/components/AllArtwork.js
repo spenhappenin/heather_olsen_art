@@ -2,10 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroller';
 import styled from 'styled-components';
-import { connect, } from 'react-redux';
+// import { connect, } from 'react-redux';
 import { Link, } from 'react-router-dom';
-import { setHeaders, } from '../actions/headers';
-import { setFlash, } from '../actions/flash';
 import { generateImageUrl, } from '../helpers/artwork';
 import { Button, Header, StyledContainer, } from '../styles/shared';
 
@@ -15,12 +13,11 @@ class AllArtwork extends React.Component {
   componentDidMount() {
     axios.get('/api/all_artworks')
       .then( res => {
-        this.props.dispatch(setHeaders(res.headers));
         this.setState({ artwork: res.data.artwork, total_pages: res.data.total_pages });
       })
       .catch( err => {
-        this.props.dispatch(setHeaders(err.headers));
-        this.props.dispatch(setFlash(err.response, 'red'));
+        // AUTH: Add flash message
+        console.log(err.response);
       })
   };
 
@@ -40,7 +37,6 @@ class AllArtwork extends React.Component {
     axios.get(`/api/all_artworks?page=${page}`)
       .then( res => {
         this.setState( state => { 
-          this.props.dispatch(setHeaders(res.headers));
           return {
             artwork: [...state.artwork, ...res.data.artwork], 
             total_pages: res.data.total_pages, 
@@ -49,8 +45,8 @@ class AllArtwork extends React.Component {
         });
       })
       .catch( err => {
-        this.props.dispatch(setHeaders(err.headers));
-        this.props.dispatch(setFlash(err.response, 'red'));
+        // AUTH: Add Flash Messages
+        console.log(err.response);
       })
   };
 
@@ -112,4 +108,4 @@ const Grid = styled.div`
   grid-template-columns: repeat(3, 1fr);
 `;
 
-export default connect()(AllArtwork);
+export default AllArtwork;

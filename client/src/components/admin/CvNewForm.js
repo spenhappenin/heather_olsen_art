@@ -2,12 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import { connect, } from 'react-redux';
-import { setHeaders, } from '../../actions/headers';
-import { setFlash, } from '../../actions/flash';
 import { StyledContainer, } from '../../styles/shared';
 import { Button, Header, } from '../../styles/shared';
-import { Link, Redirect, withRouter, } from 'react-router-dom';
+import { Link, withRouter, } from 'react-router-dom';
 import { Form, Icon, Segment, } from 'semantic-ui-react';
 
 class CvNewForm extends React.Component {
@@ -22,20 +19,19 @@ class CvNewForm extends React.Component {
 
     axios.post('/api/cvs', { cv: this.state, })
       .then( res => {
-        const { data: cv, headers } = res;
-        dispatch(setFlash('Cv Record Successfully Created.', 'green'));
+        const { data: cv, } = res;
+        // AUTH: Add Flash
         this.props.create(res.data);
         this.props.history.push('/admin-cv');
       })
       .catch( err => {
-        const { response: { headers } } = err;
-        dispatch(setHeaders(headers));
-        dispatch(setFlash('Failed to create CV record at this time. Please try again later.', 'red'));
+        // AUTH: Add Flash
+        console.log(err.response);
       })
   }
 
   render() {
-    const { cv_type, title, location, fireRedirect, } = this.state;
+    const { cv_type, title, location, } = this.state;
 
     return(
       <Segment as={StyledContainer} basic>
@@ -92,4 +88,4 @@ const typeOptions = [
   { key: 'exhibition', text: 'Juried Exhibitions', value: 'exhibition' },
 ];
 
-export default withRouter(connect()(CvNewForm));
+export default withRouter(CvNewForm);

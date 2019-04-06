@@ -1,9 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { connect, } from 'react-redux';
 import { Form, } from 'semantic-ui-react';
-import { setFlash, } from '../actions/flash';
-import { setHeaders, } from '../actions/headers';
 import { withRouter, } from 'react-router-dom';
 import { Button, Header, StyledContainer, } from '../styles/shared';
 
@@ -14,12 +11,11 @@ class CategoryForm extends React.Component {
     if (this.props.match.params.id) 
     axios.get(`/api/single_category/${this.props.match.params.id}`)
       .then( res => {
-        this.props.dispatch(setHeaders(res.headers));
         this.setState({ title: res.data.title, display_image: res.data.display_image, });
       })
       .catch( err => {
-        this.props.dispatch(setHeaders(err.headers));
-        this.props.dispatch(setFlash(err.response, 'red'));
+        // AUTH: Add Flash
+        console.log(err.response);
       })
   };
 
@@ -32,26 +28,24 @@ class CategoryForm extends React.Component {
     params.id ? 
       axios.put(`/api/categories/${params.id}`, { ...this.state, })
         .then( res => {
-          this.props.dispatch(setHeaders(res.headers));
           this.props.update(res.data);
-          this.props.dispatch(setFlash('Category Updated!', 'green'));
+          // AUTH: Add Flash
           this.props.history.push('/work');
         })
         .catch( err => {
-          this.props.dispatch(setHeaders(err.headers));
-          this.props.dispatch(setFlash(err.response, 'red'));
+          // AUTH: Add Flash
+          console.log(err.response);
         })
     : 
       axios.post('/api/categories', { ...this.state, })
         .then( res => {
-          this.props.dispatch(setHeaders(res.headers));
           this.props.create(res.data);
-          this.props.dispatch(setFlash('Category Created!', 'green'));
+          // AUTH: Add Flash
           this.props.history.push('/work');
         })
         .catch( err => {
-          this.props.dispatch(setHeaders(err.headers));
-          this.props.dispatch(setFlash(err.response, 'red'));
+          // AUTH: Add Flash
+          console.log(err.response);
         })
   };
 
@@ -88,4 +82,4 @@ class CategoryForm extends React.Component {
 };
 
 // TODO: Why am I needing to do this? Without it, the component did mount doesn't have  `props.match...`
-export default withRouter(connect()(CategoryForm));
+export default withRouter(CategoryForm);

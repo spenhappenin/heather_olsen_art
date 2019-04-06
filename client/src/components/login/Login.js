@@ -1,28 +1,26 @@
-import React from 'react';
-import { connect, } from 'react-redux';
-import { handleLogin, } from '../../actions/auth';
-import { Header, } from '../../styles/shared';
-import { Button, StyledContainer, } from '../../styles/shared';
-import { Form, Segment, } from 'semantic-ui-react';
+import React from "react";
+import { AuthConsumer, } from "../../providers/AuthProvider";
+import { Header, } from "../../styles/shared";
+import { Button, StyledContainer, } from "../../styles/shared";
+import { Form, Segment, } from "semantic-ui-react";
 
 class Login extends React.Component {
-  state = { email: '', password: '' };
+  state = { email: "", password: "", };
 
   handleChange = (e) => {
-    const { id , value } = e.target;
-    this.setState({ [id]: value });
+    const { id , value, } = e.target;
+    this.setState({ [id]: value, });
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { dispatch, history } = this.props;
-    const { email, password } = this.state;
-
-    dispatch(handleLogin(email, password, history));
+    const { history, } = this.props;
+    const { email, password, } = this.state;
+    this.props.auth.handleLogin({ email, password, }, history);
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, } = this.state;
 
     return(
       <Segment as={StyledContainer} basic>
@@ -33,9 +31,9 @@ class Login extends React.Component {
             <input
               autoFocus
               required
-              id='email'
+              id="email"
               value={email}
-              placeholder='Email'
+              placeholder="Email"
               onChange={this.handleChange}
             />
           </Form.Field>
@@ -43,15 +41,15 @@ class Login extends React.Component {
             <label>Password</label>
             <input
               required
-              id='password'
+              id="password"
               value={password}
-              placeholder='Password'
-              type='password'
+              placeholder="Password"
+              type="password"
               onChange={this.handleChange}
             />
           </Form.Field>
-          <Segment textAlign='center' basic>
-            <Button type='submit'>Submit</Button>
+          <Segment textAlign="center" basic>
+            <Button type="submit">Submit</Button>
           </Segment>
         </Form>
       </Segment>
@@ -59,4 +57,10 @@ class Login extends React.Component {
   }
 }
 
-export default connect()(Login);
+const ConnectedLogin = (props) => (
+  <AuthConsumer>
+    { auth => <Login { ...props } auth={auth} /> }
+  </AuthConsumer>
+)
+
+export default ConnectedLogin;

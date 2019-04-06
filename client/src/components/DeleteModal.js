@@ -1,9 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import Modal from 'react-responsive-modal';
-import { connect, } from 'react-redux';
-import { setFlash, } from '../actions/flash';
-import { setHeaders, } from '../actions/headers';
 import { Button, Icon, } from 'semantic-ui-react';
 
 class DeleteModal extends React.Component {
@@ -11,14 +8,13 @@ class DeleteModal extends React.Component {
   handleClick = () => {
     axios.delete(`/api/artworks/${this.props.artWorkId}`)
       .then( res => {
-        this.props.dispatch(setHeaders(res.headers));
         this.props.onClose();
         this.props.goBack();
-        this.props.dispatch(setFlash('Successfully Deleted.', 'green'));
+        // AUTH: Add Flash
       })
       .catch( err => {
-        this.props.dispatch(setHeaders(err.headers));
-        this.props.dispatch(setFlash(err.response, 'red'));
+        // AUTH: Add Flash
+        console.log(err.response);
       })
   };
 
@@ -49,4 +45,4 @@ class DeleteModal extends React.Component {
   };
 };
 
-export default connect()(DeleteModal);
+export default DeleteModal;
