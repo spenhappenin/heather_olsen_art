@@ -1,30 +1,28 @@
-import React from 'react';
-// import { handleLogout, } from '../../actions/auth';
-import { Icon, } from 'semantic-ui-react';
-import { withRouter, } from 'react-router-dom';
-import { NavItems, NavLogo, StyledLink, StyledMockLink, StyledNavbar, } from '../../styles/navbar';
+import React, { useState, useEffect, useContext, } from "react";
+import { AuthContext, } from "../../providers/AuthProvider";
+import { Icon, } from "semantic-ui-react";
+import { withRouter, } from "react-router-dom";
+import { NavItems, NavLogo, StyledLink, StyledMockLink, StyledNavbar, } from "../../styles/navbar";
 
-class NavBar extends React.Component {
-  state = { windowWidth: window.innerWidth, };
+const Navbar = (props) => {
+  const auth = useContext(AuthContext);
 
-  componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
-  };
-  
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
-  };
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  useEffect( () => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  })
 
-  handleResize = (e) => this.setState({ windowWidth: window.innerWidth, });
-
-  showLogout = () => {
-    const { dispatch, history, user, } = this.props;
-
-    if(user.id)
-      return(
-        <StyledMockLink 
-          // onClick={ () => dispatch(handleLogout(history)) } 
-          className='nav-link' 
+  const showLogout = () => {
+    if (auth.user)
+      return (
+        <StyledMockLink
+          onClick={() => auth.handleLogout(props.history)}
+          className="nav-link"
           rel="noopener noreferrer"
         >
           LOGOUT
@@ -32,24 +30,22 @@ class NavBar extends React.Component {
       )
   };
 
-  displayRoutes = () => {
-    const { id, } = this.props.user;
-
+  const displayRoutes = () => {
     const links = [
-      { route: '/work', adminRoute: '/work', text: 'ARTWORK', },
-      { route: '/cv', adminRoute: '/admin-cv', text: 'CV', },
-      { route: '/media', adminRoute: '/media', text: 'MEDIA', },
-      { route: '/about', adminRoute: '/about', text: 'ABOUT', },
-      { route: '/contact', adminRoute: '/contact', text: 'CONTACT', }
+      { route: "/work", adminRoute: "/work", text: "ARTWORK", },
+      { route: "/cv", adminRoute: "/admin-cv", text: "CV", },
+      { route: "/media", adminRoute: "/media", text: "MEDIA", },
+      { route: "/about", adminRoute: "/about", text: "ABOUT", },
+      { route: "/contact", adminRoute: "/contact", text: "CONTACT", }
     ];
 
     return links.map( link => {
       return (
         <StyledLink
           key={link.route}
-          to={id ? link.adminRoute : link.route}
-          activeStyle={{ color: '#525252' }}
-          className='nav-link'
+          to={auth.user ? link.adminRoute : link.route}
+          activeStyle={{ color: "#525252" }}
+          className="nav-link"
           rel="noopener noreferrer"
         >
           { link.text }
@@ -58,48 +54,40 @@ class NavBar extends React.Component {
     });
   };
 
-  render() {
-    const { windowWidth, } = this.state;
-
-    if(windowWidth <= 767) {
-      return(
-        <StyledNavbar mobile>
-          <Icon
-            name='sidebar'
-            size='large'
-            onClick={this.props.toggleSideNav}
-            inverted
-            color='grey'
-          />
+  if (windowWidth <= 767) {
+    return (
+      <StyledNavbar mobile>
+        <Icon
+          name="sidebar"
+          size="large"
+          onClick={props.toggleSideNav}
+          inverted
+          color="grey"
+        />
+        <NavLogo>
+          <StyledLink to="/" title rel="noopener noreferrer">
+            HEATHER OLSEN ART
+          </StyledLink>
+        </NavLogo>
+      </StyledNavbar>
+    )
+  } else {
+    return (
+      <div>
+        <StyledNavbar>
           <NavLogo>
-            <StyledLink to='/' title rel="noopener noreferrer">
+            <StyledLink to="/" title rel="noopener noreferrer">
               HEATHER OLSEN ART
             </StyledLink>
           </NavLogo>
+          <NavItems>
+            { displayRoutes() }
+            { showLogout() }
+          </NavItems>
         </StyledNavbar>
-      )
-    } else {
-      return (
-        <div>
-          <StyledNavbar>
-            <NavLogo>
-              <StyledLink to='/' title rel="noopener noreferrer">
-                HEATHER OLSEN ART
-              </StyledLink>
-            </NavLogo>
-            <NavItems>
-              { this.displayRoutes() }
-              { this.showLogout() }
-            </NavItems>
-          </StyledNavbar>
-        </div>
-      )
-    };
+      </div>
+    )
   };
-};
+}
 
-// const mapStateToProps = (state) => {
-//   return { user: state.user, };
-// };
-
-export default withRouter(NavBar);
+export default withRouter(Navbar);

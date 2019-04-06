@@ -11,22 +11,23 @@ const fadeFlash = (dispatch) => {
 }
 
 const Flash = ({ flash, dispatch }) => {
-  if(flash.message) {
-    return(
-      <Container as={FlashMessage}>
-        <Message
-          // onDismiss={() => dispatch(clearFlash())}
-          color={flash.msgType}
-        >
-          {/* Remove semantic header */}
-          <Header as='h5' textAlign='center'>{ flash.message }</Header>
-          {/* { fadeFlash(dispatch) } */}
-        </Message>
-      </Container>
-    )
-  } else {
-    return null;
-  }
+  return <div></div>
+  // if(flash.message) {
+  //   return(
+  //     <Container as={FlashMessage}>
+  //       <Message
+  //         // onDismiss={() => dispatch(clearFlash())}
+  //         color={flash.msgType}
+  //       >
+  //         {/* Remove semantic header */}
+  //         <Header as='h5' textAlign='center'>{ flash.message }</Header>
+  //         {/* { fadeFlash(dispatch) } */}
+  //       </Message>
+  //     </Container>
+  //   )
+  // } else {
+  //   return null;
+  // }
 }
 
 export default Flash;

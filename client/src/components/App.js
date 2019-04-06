@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect, useContext, } from 'react';
 import About from './About';
 import AllArtwork from './AllArtwork';
 import ArtworkEdit from './ArtworkEdit';
 import ArtworkNew from './ArtworkNew';
-import asyncComponent from './asyncComponent';
 import axios from 'axios';
 import CategoryForm from './CategoryForm';
 import Contact from './contact/Contact';
@@ -18,67 +17,65 @@ import ProtectedRoute from './ProtectedRoute';
 import styled from 'styled-components';
 import SortArtwork from "./SortArtwork";
 import AuthRoute from './AuthRoute';
-// import { connect, } from 'react-redux';
+import AdminArtworks from "./AdminArtworks";
+import Artworks from "./Artworks";
+import Categories from "./Categories";
+import Home from "./root/Home";
+import { AuthConsumer, } from "../providers/AuthProvider";
 import { Link, } from 'react-router-dom';
 import { Menu, Sidebar, } from 'semantic-ui-react';
 import { Route, Switch, withRouter, } from 'react-router-dom';
 
-const AdminArtworks = asyncComponent( () => 
-  import('./AdminArtworks').then( module => module.default)
-);
-const Artworks = asyncComponent( () => 
-  import('./Artworks').then( module => module.default)
-);
-const Categories = asyncComponent( () => 
-  import('./Categories').then( module => module.default)
-);
-const Home = asyncComponent( () => 
-  import('./root/Home').then( module => module.default)
-);
+const App = (props) => {
+  const { user, handleLogout, } = useContext(AuthConsumer);
+  const [dimmed, setDimmed] = useState(false);
+  const [sideNav, setSideNav] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
-class App extends React.Component {
-  state = { dimmed: false, logout: false, sideNav: false, categories: [], loaded: false, };
-
-  componentDidMount() {
+  useEffect( () => {
     axios.get('/api/works')
       .then( res => {
-        this.setState({ categories: res.data, loaded: true, });
+        setCategories(res.data);
+        setLoaded(true);
       })
       .catch( err => {
         console.log(err.response);
       })
-  };
+  }, []);
 
-  toggleSideNav = () => {
-    const { dimmed, sideNav, } = this.state;
-    
+  const toggleSideNav = () => {
     window.scrollTo(0, 0);
-    this.setState({ sideNav: !sideNav, dimmed: !dimmed, });
+    setSideNav(!sideNav);
+    setDimmed(!dimmed);
   };
 
-  closeSideNav = () => this.setState({ sideNav: false, dimmed: false, });
+  const closeSideNav = () => {
+    setSideNav(false);
+    setDimmed(false);
+  }
 
-  createCategory = (category) => {
-    this.setState({ categories: [...this.state.categories, category] });
+  const createCategory = (category) => {
+    setCategories([...categories, category]);
   };
 
-  updateCategory = (category) => {
-    let categories = this.state.categories.map( c => {
+  const updateCategory = (category) => {
+    const newCategories = categories.map( c => {
       if (c.id === category.id)
-        return c = category
+        return c = category;
       return c;
     })
-    this.setState({ categories, });
+    setCategories(newCategories);
+  };
+  
+  const deleteCategory = (id) => {
+    const newCategories = categories.filter( c => c.id !== id);
+    setCategories(newCategories);
   };
 
-  deleteCategory = (id) => {
-    const categories = this.state.categories.filter( c => c.id !== id)
-    this.setState({ categories, });
-  };
-
-  rightNavs = () => {
+  const rightNavs = () => {
     const navs = [
-      { name: 'HOME', path: '/', adminPath: '/'},
+      { name: 'HOME', path: '/', adminPath: '/' },
       { name: 'ARTWORK', path: '/work', adminPath: '/work' },
       { name: 'CV', path: '/cv', adminPath: '/admin-cv' },
       { name: 'MEDIA', path: '/media', adminPath: '/media' },
@@ -86,35 +83,38 @@ class App extends React.Component {
       { name: 'CONTACT', path: '/contact', adminPath: '/contact' }
     ];
 
-    // If user id then add the logout link
-    if(this.props.user.id) 
+    if (user)
       navs.push({ adminName: 'LOGOUT', logout: true });
 
     return navs.map( nav => {
-      if(nav.logout) {
-        return(
+      if (nav.logout) {
+        return (
           <SidebarItem
             key={nav.adminName}
-            name={this.props.user.id ? nav.adminName : nav.name}
-            onClick={(e) => {
-              // AUTH: handleLogout
-              if (this.state.sideNav)
-                 this.setState({ sideNav: false, dimmed: false });
+            name={user ? nav.adminName : nav.name}
+            onClick={ e => {
+              handleLogout
+              if (sideNav) {
+                setSideNav(false);
+                setDimmed(false);
+              }
             }}
           />
         )
       }
-      return(
+      return (
         <SidebarItem
           as={Link}
           key={nav.name}
-          to={this.props.user.id ? nav.adminPath : nav.path}
+          to={user ? nav.adminPath : nav.path}
           rel="noopener noreferrer"
           position='right'
           name={nav.name}
           onClick={() => {
-            if (this.state.sideNav)
-              this.setState({ sideNav: false, dimmed: false });
+            if (sideNav) {
+              setSideNav(false);
+              setDimmed(false);
+            }
           }}
         />
       )
@@ -122,83 +122,81 @@ class App extends React.Component {
     )
   };
 
-  render() {
-    return (
-      <div>
-        <NavBar toggleSideNav={this.toggleSideNav} closeSideNav={this.closeSideNav} />
-        <Sidebar.Pushable onClick={this.handleSidebar}>
-          <Sidebar 
-            as={Menu} 
-            animation='overlay' 
-            width='thin' 
-            visible={this.state.sideNav} 
-            icon='labeled' 
-            direction='top' 
-            vertical 
-            inverted
-            style={{ paddingLeft: '30px !important' }}
-          >
-            { this.rightNavs() }
-          </Sidebar>
-          <Sidebar.Pusher dimmed={this.state.dimmed}>
-            <Flash />
-              <Switch>
-                <Route 
-                  exact 
-                  path='/work' 
+  return (
+    <div>
+      <NavBar toggleSideNav={toggleSideNav} closeSideNav={closeSideNav} />
+      <Sidebar.Pushable>
+        <Sidebar
+          as={Menu}
+          animation='overlay'
+          width='thin'
+          visible={sideNav}
+          icon='labeled'
+          direction='top'
+          vertical
+          inverted
+          style={{ paddingLeft: '30px !important' }}
+        >
+          { rightNavs() }
+        </Sidebar>
+        <Sidebar.Pusher dimmed={dimmed}>
+          {/* <Flash /> */}
+          <Switch>
+            <Route
+              exact
+              path='/work'
+              render={ props => (
+                <Categories categories={categories} delete={deleteCategory} />
+              )}
+            />
+            <ProtectedRoute exact path='/work/all' component={AllArtwork} />
+            <ProtectedRoute exact path='/work/sort' component={SortArtwork} />
+            {
+              user &&
+              <Route
+                exact
+                path='/work/new-category'
+                render={ props => <CategoryForm create={createCategory} /> }
+              />
+            }
+            {
+              user &&
+                <Route
+                  exact
+                  path='/work/edit-category/:id'
                   render={ props => (
-                    <Categories categories={this.state.categories} delete={this.deleteCategory} />
-                  )} 
+                    <CategoryForm
+                      create={createCategory}
+                      update={updateCategory}
+                      delete={deleteCategory}
+                    />
+                  )}
                 />
-                <ProtectedRoute exact path='/work/all' component={AllArtwork} />
-                <ProtectedRoute exact path='/work/sort' component={SortArtwork} />
-                {
-                  this.props.user.id && 
-                  <Route 
-                    exact 
-                    path='/work/new-category' 
-                    render={ props => <CategoryForm create={this.createCategory} /> } 
-                  />
-                }
-                {
-                  this.props.user.id && 
-                  <Route 
-                    exact 
-                    path='/work/edit-category/:id'
-                    render={ props => (
-                      <CategoryForm 
-                        create={this.createCategory}
-                        update={this.updateCategory} 
-                        delete={this.deleteCategory}
-                      />
-                    )} 
-                  />
-                }
-                {
-                  this.props.user.id ?
-                    <ProtectedRoute exact path='/work/:work_title' component={AdminArtworks} />
-                  :
-                    <Route exact path='/work/:work_title' component={Artworks} />
-                }
-                <ProtectedRoute exact path='/work/:work_title/new' component={ArtworkNew} />
-                <ProtectedRoute exact path='/work/edit/:id' component={ArtworkEdit} />
-                <Route path='/cv' component={FetchCvs} />
-                <ProtectedRoute path='/admin-cv' component={FetchCvs} />
-                <Route exact path='/media' component={Media} />
-                <ProtectedRoute path="/media/:id/edit" component={MediaForm} />
-                <ProtectedRoute path="/media/new" component={MediaForm} />
-                <Route exact path='/contact' component={Contact} />
-                <Route exact path='/' component={Home} />
-                <Route exact path='/about' component={About} />
-                <AuthRoute exact path='/login' component={Login} />
-                <Route component={NoMatch} />
-              </Switch>          
-          </Sidebar.Pusher>
-        </Sidebar.Pushable>
-      </div>
-    );
-  };
-};
+            }
+            {
+              user ?
+                <ProtectedRoute exact path='/work/:work_title' component={AdminArtworks} />
+              :
+                <Route exact path='/work/:work_title' component={Artworks} />
+            }
+            <ProtectedRoute exact path='/work/:work_title/new' component={ArtworkNew} />
+            <ProtectedRoute exact path='/work/edit/:id' component={ArtworkEdit} />
+            <Route path='/cv' component={FetchCvs} />
+            <ProtectedRoute path='/admin-cv' component={FetchCvs} />
+            <Route exact path='/media' component={Media} />
+            <ProtectedRoute path="/media/:id/edit" component={MediaForm} />
+            <ProtectedRoute path="/media/new" component={MediaForm} />
+            <Route exact path='/contact' component={Contact} />
+            <Route exact path='/' component={Home} />
+            <Route exact path='/about' component={About} />
+            <AuthRoute exact path='/login' component={Login} />
+            <Route component={NoMatch} />
+          </Switch>
+        </Sidebar.Pusher>
+      </Sidebar.Pushable>
+    </div>
+  );
+}
 
 const SidebarItem = styled(Menu.Item)`
   color: #b7b7b7 !important;
@@ -207,5 +205,4 @@ const SidebarItem = styled(Menu.Item)`
   padding-bottom: 16px !important;
 `;
 
-// TODO: Find the more optimal solution instead of withRouter (see article)
 export default withRouter(App);
