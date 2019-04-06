@@ -192,7 +192,6 @@ PLATFORMS
 
 DEPENDENCIES
   cloudinary
-  devise
   devise_token_auth
   dotenv-rails
   faker
@@ -214,4 +213,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.16.3
+   2.0.1
