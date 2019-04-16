@@ -1,22 +1,26 @@
-import React from 'react';
+import React, { useContext, } from 'react';
+import { AuthContext, } from "../providers/AuthProvider";
 import { renderMergedProps, } from '../helpers/routes';
 import { Redirect, Route, } from 'react-router-dom';
 
-const ProtectedRoute = ({ isAuthenticated, component: Component, ...rest }) => (
-    <Route {...rest} render={props => (
-      isAuthenticated ? (
-        renderMergedProps(Component, props, rest)
-      ) : (
-          <Redirect to={{
-            pathname: '/login',
-            state: { from: props.location }
-          }} />
-        )
-    )} />
-)
-
-// const mapStateToProps = (state) => {
-//   return { isAuthenticated: state.user.id }
-// }
+const ProtectedRoute = ({ component: Component, ...rest }) => {
+  const { authenticated, } = useContext(AuthContext);
+  return (
+    <Route
+      { ...rest }
+      render={ props => (
+        authenticated ?
+          <Component {...props} />
+          :
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: props.location, },
+            }}
+          />
+      )}
+    />
+  )
+}
 
 export default ProtectedRoute;

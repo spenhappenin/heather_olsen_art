@@ -1,30 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect, useContext, } from 'react';
 import axios from "axios";
 import Copyright from '../shared/Copyright';
 import ReactPlayer from 'react-player';
 import styled from "styled-components";
-import { Header, } from '../../styles/shared';
+import { AuthContext, } from "../../providers/AuthProvider";
 import { Segment, } from 'semantic-ui-react';
-import { StyledContainer, } from '../../styles/shared';
 import { Link, } from "react-router-dom";
-import { Button, } from "../../styles/shared";
+import { Header, Button, StyledContainer, } from '../../styles/shared';
 
-class Media extends React.Component {
-  state = { videos: [], };
+const Media = (props) => {
+  const [videos, setVideos] = useState([]);
+  const { user, } = useContext(AuthContext);
 
-  componentDidMount() {
+  useEffect( () => {
     axios.get("/api/videos")
       .then( res => {
-        this.setState({ videos: res.data, });
+        setVideos(res.data);
       })
       .catch( err => {
         // AUTH: Add Flash
         console.log(err.response);
       })
-  };
+  }, [])
 
-  renderButtons = (id) => {
-    if (this.props.user.id) 
+  const renderButtons = (id) => {
+    if (user)
       return (
         <div>
           <Link to={`/media/${id}/edit`}>
@@ -35,14 +35,14 @@ class Media extends React.Component {
       );
   };
 
-  renderVideos = () => {
-    return this.state.videos.map( video => {
+  const renderVideos = () => {
+    return videos.map( video => {
       return (
         <VideoContainer>
           <ReactPlayer url={video.url} controls width="100%" />
           <TitleContainer>
             <h3>{ video.title }</h3>
-            { this.renderButtons(video.id) }
+            { renderButtons(video.id) }
           </TitleContainer>
           <p>{ video.body }</p>
         </VideoContainer>
@@ -50,26 +50,20 @@ class Media extends React.Component {
     });
   };
 
-  render() {
-    return(
-      <Segment as={StyledContainer} basic>
-        <Header primary>Media</Header>
-        { 
-          this.props.user.id &&
-            <Link to="/media/new"><Button>New</Button></Link>
-        }
-        <br />
-        <br />
-        { this.renderVideos() }
-        <Copyright />
-      </Segment>
-    );
-  };
-};
-
-// const mapStateToProps = (state) => {
-//   return { user: state.user, };
-// }
+  return (
+    <Segment as={StyledContainer} basic>
+      <Header primary>Media</Header>
+      {
+        user &&
+        <Link to="/media/new"><Button>New</Button></Link>
+      }
+      <br />
+      <br />
+      { renderVideos() }
+      <Copyright />
+    </Segment>
+  );
+}
 
 const VideoContainer = styled.div`
   margin-bottom: 50px;

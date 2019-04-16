@@ -1,36 +1,36 @@
-import React from 'react';
+import React, { useContext, } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { AuthContext, } from "../providers/AuthProvider";
 import { Grid, } from 'semantic-ui-react';
 import { Button, Link, } from '../styles/shared';
 
-class Categories extends React.Component {
+const Categories = (props) => {
+  const { user, } = useContext(AuthContext);
 
-  displayCategories = () => {
-    const { user, } = this.props;
-    
-    return this.props.categories.map( c => (
+  const displayCategories = () => {
+    return props.categories.map( c => (
       <Grid.Column key={c.id} mobile={8} tablet={4} computer={5}>
         <CategoryContainer>
-          <Link to={user.id ? `/work/admin-${c.route}` : `/work/${c.route}`}>
-            <CategoryImage url={ c.display_image } />
-            <CategoryTitle>{ c.title }</CategoryTitle>
+          <Link to={user ? `/work/admin-${c.route}` : `/work/${c.route}`}>
+            <CategoryImage url={c.display_image} />
+            <CategoryTitle>{c.title}</CategoryTitle>
           </Link>
           {
-            user.id &&
-              <ButtonContainer>
-                <Link to={`/work/edit-category/${c.id}`}>
-                  <Button>Edit</Button>
-                </Link>
-                <Button onClick={() => this.handleDelete(c.id)}>Delete</Button>
-              </ButtonContainer>
+            user &&
+            <ButtonContainer>
+              <Link to={`/work/edit-category/${c.id}`}>
+                <Button>Edit</Button>
+              </Link>
+              <Button onClick={() => this.handleDelete(c.id)}>Delete</Button>
+            </ButtonContainer>
           }
         </CategoryContainer>
       </Grid.Column>
     ));
   };
 
-  displayAdminMenu = () => (
+  const displayAdminMenu = () => (
     <AdminMenu>
       <Link to='work/new-category'>
         <Button group>New Category</Button>
@@ -44,35 +44,30 @@ class Categories extends React.Component {
     </AdminMenu>
   );
 
-  handleDelete = (id) => {
+  const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete?"))
       axios.delete(`/api/categories/${id}`)
-        .then( res => {
+        .then(res => {
           const { dispatch, } = this.props;
           // AUTH: Add Flash
           this.props.delete(id);
         })
-        .catch( err => {
+        .catch(err => {
           // AUTH: Add Flash
           console.log(err.response);
         })
   };
 
-  render() {
-    return(
-      <CategoriesContainer>
-        { this.props.user.id && this.displayAdminMenu() }
-        <Grid columns='equal' centered>
-          { this.displayCategories() }
-        </Grid>
-      </CategoriesContainer>
-    );
-  };
-};
+  return (
+    <CategoriesContainer>
+      { user && displayAdminMenu() }
+      <Grid columns='equal' centered>
+        { displayCategories() }
+      </Grid>
+    </CategoriesContainer>
+  );
 
-// const mapStateToProps = (state) => {
-//   return { user: state.user };
-// };
+}
 
 const AdminMenu = styled.div`
   margin-bottom: 25px;

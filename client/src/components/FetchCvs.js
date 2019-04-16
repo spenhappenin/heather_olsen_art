@@ -1,77 +1,68 @@
-import React from 'react';
+import React, { useState, useEffect, useContext, } from 'react';
+import { AuthContext, } from "../providers/AuthProvider";
 import axios from 'axios';
 import Cvs from './cvs/Cvs';
 import AdminCvs from './admin/AdminCvs';
 import CvNewForm from './admin/CvNewForm';
 import { Route, Switch, } from 'react-router-dom';
 
-class FetchCvs extends React.Component {
-  state = { cvs: [], };
-  
-  componentDidMount() {
-    const { dispatch, } = this.props;
+const FetchCvs = (props) => {
+  const [cvs, setCvs] = useState([]);
+  const { user, } = useContext(AuthContext);
 
+  useEffect( () => {
     axios.get('/api/cvs')
-      .then( res => {
-        const { data: cvs, headers, } = res;
-        this.setState({ cvs, });
-      })
+      .then( res => setCvs(res.data))
       .catch( err => {
         // AUTH: Add Flash
         console.log(err.response);
       })
-  };
+  }, []);
 
-  createCv = (cvs) => this.setState({ cvs, });
+  const createCv = (cvs) => setCvs({ cvs, });
 
-  updateCv = (cv) => {
-    let cvs = this.state.cvs.map( c => {
+  const updateCv = (cv) => {
+    const updatedCvs = cvs.map( c => {
       if (c.id === cv.id)
         return c = cv
       return c;
     });
-    this.setState({ cvs, });
+    setCvs(updatedCvs);
   };
 
-  deleteCv = (id) => {
-    const cvs = this.state.cvs.filter( c => c.id !== id)
-    this.setState({ cvs, });
+  const deleteCv = (id) => {
+    const updatedCvs = cvs.filter( c => c.id !== id)
+    setCvs(updatedCvs);
   };
 
-  render() {
-    return(
-      <Switch>
-        {
-          this.props.user.id && 
-            <Route 
-              exact 
-              path='/admin-cv/new'
-              render={ props => <CvNewForm create={this.createCv} /> } 
-            />
-        }
-        {
-          this.props.user.id ?
-            <Route 
-              exact 
-              path='/admin-cv' 
-              render={ props => (
-                <AdminCvs
-                  cvs={this.state.cvs}
-                  update={this.updateCv} 
-                  delete={this.deleteCv} 
-                />
-              )} 
-            />
-          :
-            <Route exact path='/cv' render={ props => <Cvs cvs={this.state.cvs} /> } />
-        }
-      </Switch>
-    );
-  };
-};
-
-// const mapStateToProps = (state) => {
-//   return { user: state.user, }
-// }
+  return (
+    <Switch>
+      {
+        user &&
+        <Route
+          exact
+          path='/admin-cv/new'
+          render={props => <CvNewForm create={createCv} />}
+        />
+      }
+      {
+        user ?
+          <Route
+            exact
+            path='/admin-cv'
+            render={ props => (
+              <AdminCvs
+                cvs={cvs}
+                update={updateCv}
+                delete={deleteCv}
+              />
+            )}
+          />
+        :
+          <Route exact path='/cv' render={props => <Cvs cvs={cvs} />} />
+      }
+    </Switch>
+  );
+}
 
 export default FetchCvs;

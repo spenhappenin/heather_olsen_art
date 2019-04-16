@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext, } from "react";
+import React, { useContext, } from "react";
+import { useWindowWidth, } from "../hooks/WindowWidth";
 import { AuthContext, } from "../../providers/AuthProvider";
 import { Icon, } from "semantic-ui-react";
 import { withRouter, } from "react-router-dom";
@@ -6,22 +7,13 @@ import { NavItems, NavLogo, StyledLink, StyledMockLink, StyledNavbar, } from "..
 
 const Navbar = (props) => {
   const auth = useContext(AuthContext);
-
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  useEffect( () => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  })
+  const windowWidth = useWindowWidth();
 
   const showLogout = () => {
     if (auth.user)
       return (
         <StyledMockLink
-          onClick={() => auth.handleLogout(props.history)}
+          onClick={ () => auth.handleLogout(props.history) }
           className="nav-link"
           rel="noopener noreferrer"
         >

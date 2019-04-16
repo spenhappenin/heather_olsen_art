@@ -21,13 +21,13 @@ import AdminArtworks from "./AdminArtworks";
 import Artworks from "./Artworks";
 import Categories from "./Categories";
 import Home from "./root/Home";
-import { AuthConsumer, } from "../providers/AuthProvider";
+import { AuthContext, } from "../providers/AuthProvider";
 import { Link, } from 'react-router-dom';
 import { Menu, Sidebar, } from 'semantic-ui-react';
 import { Route, Switch, withRouter, } from 'react-router-dom';
 
 const App = (props) => {
-  const { user, handleLogout, } = useContext(AuthConsumer);
+  const { user, handleLogout, } = useContext(AuthContext);
   const [dimmed, setDimmed] = useState(false);
   const [sideNav, setSideNav] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -110,7 +110,7 @@ const App = (props) => {
           rel="noopener noreferrer"
           position='right'
           name={nav.name}
-          onClick={() => {
+          onClick={ () => {
             if (sideNav) {
               setSideNav(false);
               setDimmed(false);

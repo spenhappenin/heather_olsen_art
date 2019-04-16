@@ -1,48 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect, } from 'react';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroller';
 import styled from 'styled-components';
-// import { connect, } from 'react-redux';
 import { Link, } from 'react-router-dom';
 import { generateImageUrl, } from '../helpers/artwork';
 import { Button, Header, StyledContainer, } from '../styles/shared';
 
-class AllArtwork extends React.Component {
-  state = { artwork: [], currentPage: 1, thumbnailSize: 100, total_pages: 0, };
+const AllArtwork = (props) => {
+  const [artwork, setArtwork] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [thumbnailSize, setThumbnailSize] = useState(100);
+  const [totalPages, setTotalPages] = useState(0);
 
-  componentDidMount() {
+  useEffect( () => {
     axios.get('/api/all_artworks')
       .then( res => {
-        this.setState({ artwork: res.data.artwork, total_pages: res.data.total_pages });
+        setArtwork(res.data.artwork);
+        setTotalPages(res.data.total_pages);
       })
       .catch( err => {
         // AUTH: Add flash message
         console.log(err.response);
       })
-  };
+  })
 
-  renderArtwork = () => {
-    return this.state.artwork.map( (a, i) => (
-      <Link key={i} to={`edit/${a.id}`}>
+  const renderArtwork = () => {
+    return artwork.map( a => (
+      <Link key={a.id} to={`edit/${a.id}`}>
         <ArtworkCard>
-          <CardImage src={generateImageUrl(a.url, this.state.thumbnailSize)} />
-          <CardTitle>{a.title}</CardTitle>
+          <CardImage src={generateImageUrl(a.url, thumbnailSize)} />
+          <CardTitle>{ a.title }</CardTitle>
         </ArtworkCard>
       </Link>
     ));
   };
 
-  loadMore = () => {
-    const page = this.state.currentPage + 1;
+  const loadMore = () => {
+    const page = currentPage + 1;
+
     axios.get(`/api/all_artworks?page=${page}`)
       .then( res => {
-        this.setState( state => { 
-          return {
-            artwork: [...state.artwork, ...res.data.artwork], 
-            total_pages: res.data.total_pages, 
-            currentPage: this.state.currentPage + 1 
-          }
-        });
+        setArtwork([...artwork, ...res.data.artwork]);
+        setTotalPages(res.data.total_pages);
+        setCurrentPage(currentPage + 1);
       })
       .catch( err => {
         // AUTH: Add Flash Messages
@@ -50,29 +50,27 @@ class AllArtwork extends React.Component {
       })
   };
 
-  render() {
-    return(
-      <StyledContainer>
-        <Header primary>All Artwork</Header>
-        <Link to={`${this.props.path}/new`} rel="noopener noreferrer">
-          <Button>New</Button>
-        </Link>
-        <br />
-        <br />
-          <InfiniteScroll
-            pageStart={1}
-            loadMore={this.loadMore}
-            hasMore={this.state.currentPage < this.state.total_pages}
-            loader={<div className="loader" key={0}>Loading ...</div>}
-            initialLoad={false}
-          >
+  return (
+    <StyledContainer>
+      <Header primary>All Artwork</Header>
+      <Link to={`${props.path}/new`} rel="noopener noreferrer">
+        <Button>New</Button>
+      </Link>
+      <br />
+      <br />
+      <InfiniteScroll
+        pageStart={1}
+        loadMore={loadMore}
+        hasMore={currentPage < totalPages}
+        loader={<div className="loader" key={0}>Loading ...</div>}
+        initialLoad={false}
+      >
         <Grid>
-            { this.renderArtwork() }
+          { renderArtwork() }
         </Grid>
-          </InfiniteScroll>
-      </StyledContainer>
-    );
-  };
+      </InfiniteScroll>
+    </StyledContainer>
+  );
 };
 
 const ArtworkCard = styled.div`
