@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, } from "react";
+import React from "react";
 import { AuthConsumer, } from "../providers/AuthProvider"; 
 import axios from "axios";
 import ReactQuill from "react-quill";
@@ -9,12 +9,18 @@ import { StyledDropzone, } from "../styles/artWork";
 import { Button, Header, StyledContainer, } from "../styles/shared";
 
 class About extends React.Component {
-  state = { artist_statement: "", bio: "", fileData: "", fileUploading: false, image: "", };
+  state = { 
+    artist_statement: "", 
+    bio: "", 
+    fileData: "", 
+    fileUploading: false, 
+    image: "", 
+  };
 
   componentDidMount() {
     axios.get("/api/fetch_about")
       .then( res => {
-        const { data: { artist_statement, bio, image, }, headers, } = res;
+        const { data: { artist_statement, bio, image, }, } = res;
         this.setState({ artist_statement, bio, image, });
       })
       .catch( err => {
@@ -141,7 +147,7 @@ const Image = styled.div`
   background-size: cover;
   width: 350px;
   height: 350px; 
-  margin-left: ${ props => props.client ? "50px" : "100px"};
+  margin-left: ${ props => props.client ? "50px" : "100px" };
 
   @media (max-width: 749px) {
     height: 500px;

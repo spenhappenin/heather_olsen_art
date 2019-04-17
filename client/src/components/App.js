@@ -1,30 +1,30 @@
-import React, { useState, useEffect, useContext, } from 'react';
-import About from './About';
-import AllArtwork from './AllArtwork';
-import ArtworkEdit from './ArtworkEdit';
-import ArtworkNew from './ArtworkNew';
-import axios from 'axios';
-import CategoryForm from './CategoryForm';
-import Contact from './contact/Contact';
-import FetchCvs from './FetchCvs';
-import Flash from './shared/Flash';
-import Login from './login/Login';
-import Media from './media/Media';
-import MediaForm from './media/MediaForm';
-import NavBar from './shared/NavBar';
-import NoMatch from './NoMatch';
-import ProtectedRoute from './ProtectedRoute';
-import styled from 'styled-components';
-import SortArtwork from "./SortArtwork";
-import AuthRoute from './AuthRoute';
+import React, { useState, useEffect, useContext, } from "react";
+import About from "./About";
+import AllArtwork from "./AllArtwork";
+import ArtworkEdit from "./ArtworkEdit";
+import ArtworkNew from "./ArtworkNew";
+import axios from "axios";
+import CategoryForm from "./CategoryForm";
+import Contact from "./contact/Contact";
+import FetchCvs from "./FetchCvs";
+import Flash from "./shared/Flash";
+import Login from "./login/Login";
+import Media from "./media/Media";
+import MediaForm from "./media/MediaForm";
+import NavBar from "./shared/NavBar";
+import NoMatch from "./NoMatch";
+import ProtectedRoute from "./ProtectedRoute";
+import styled from "styled-components";
+import SortCategory from "./SortCategory";
+import AuthRoute from "./AuthRoute";
 import AdminArtworks from "./AdminArtworks";
 import Artworks from "./Artworks";
 import Categories from "./Categories";
 import Home from "./root/Home";
 import { AuthContext, } from "../providers/AuthProvider";
-import { Link, } from 'react-router-dom';
-import { Menu, Sidebar, } from 'semantic-ui-react';
-import { Route, Switch, withRouter, } from 'react-router-dom';
+import { Link, } from "react-router-dom";
+import { Menu, Sidebar, } from "semantic-ui-react";
+import { Route, Switch, withRouter, } from "react-router-dom";
 
 const App = (props) => {
   const { user, handleLogout, } = useContext(AuthContext);
@@ -34,7 +34,7 @@ const App = (props) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect( () => {
-    axios.get('/api/works')
+    axios.get("/api/works")
       .then( res => {
         setCategories(res.data);
         setLoaded(true);
@@ -75,16 +75,16 @@ const App = (props) => {
 
   const rightNavs = () => {
     const navs = [
-      { name: 'HOME', path: '/', adminPath: '/' },
-      { name: 'ARTWORK', path: '/work', adminPath: '/work' },
-      { name: 'CV', path: '/cv', adminPath: '/admin-cv' },
-      { name: 'MEDIA', path: '/media', adminPath: '/media' },
-      { name: 'ABOUT', path: '/about', adminPath: '/about' },
-      { name: 'CONTACT', path: '/contact', adminPath: '/contact' }
+      { name: "HOME", path: "/", adminPath: "/" },
+      { name: "ARTWORK", path: "/work", adminPath: "/work" },
+      { name: "CV", path: "/cv", adminPath: "/admin-cv" },
+      { name: "MEDIA", path: "/media", adminPath: "/media" },
+      { name: "ABOUT", path: "/about", adminPath: "/about" },
+      { name: "CONTACT", path: "/contact", adminPath: "/contact" }
     ];
 
     if (user)
-      navs.push({ adminName: 'LOGOUT', logout: true });
+      navs.push({ adminName: "LOGOUT", logout: true });
 
     return navs.map( nav => {
       if (nav.logout) {
@@ -108,7 +108,7 @@ const App = (props) => {
           key={nav.name}
           to={user ? nav.adminPath : nav.path}
           rel="noopener noreferrer"
-          position='right'
+          position="right"
           name={nav.name}
           onClick={ () => {
             if (sideNav) {
@@ -128,14 +128,14 @@ const App = (props) => {
       <Sidebar.Pushable>
         <Sidebar
           as={Menu}
-          animation='overlay'
-          width='thin'
+          animation="overlay"
+          width="thin"
           visible={sideNav}
-          icon='labeled'
-          direction='top'
+          icon="labeled"
+          direction="top"
           vertical
           inverted
-          style={{ paddingLeft: '30px !important' }}
+          style={{ paddingLeft: "30px !important", }}
         >
           { rightNavs() }
         </Sidebar>
@@ -144,18 +144,18 @@ const App = (props) => {
           <Switch>
             <Route
               exact
-              path='/work'
+              path="/work"
               render={ props => (
                 <Categories categories={categories} delete={deleteCategory} />
               )}
             />
-            <ProtectedRoute exact path='/work/all' component={AllArtwork} />
-            <ProtectedRoute exact path='/work/sort' component={SortArtwork} />
+            <ProtectedRoute exact path="/work/all" component={AllArtwork} />
+            <ProtectedRoute exact path="/work/sort" component={SortCategory} />
             {
               user &&
               <Route
                 exact
-                path='/work/new-category'
+                path="/work/new-category"
                 render={ props => <CategoryForm create={createCategory} /> }
               />
             }
@@ -163,7 +163,7 @@ const App = (props) => {
               user &&
                 <Route
                   exact
-                  path='/work/edit-category/:id'
+                  path="/work/edit-category/:id"
                   render={ props => (
                     <CategoryForm
                       create={createCategory}
@@ -175,21 +175,21 @@ const App = (props) => {
             }
             {
               user ?
-                <ProtectedRoute exact path='/work/:work_title' component={AdminArtworks} />
+                <ProtectedRoute exact path="/work/:work_title" component={AdminArtworks} />
               :
-                <Route exact path='/work/:work_title' component={Artworks} />
+                <Route exact path="/work/:work_title" component={Artworks} />
             }
-            <ProtectedRoute exact path='/work/:work_title/new' component={ArtworkNew} />
-            <ProtectedRoute exact path='/work/edit/:id' component={ArtworkEdit} />
-            <Route path='/cv' component={FetchCvs} />
-            <ProtectedRoute path='/admin-cv' component={FetchCvs} />
-            <Route exact path='/media' component={Media} />
+            <ProtectedRoute exact path="/work/:work_title/new" component={ArtworkNew} />
+            <ProtectedRoute exact path="/work/edit/:id" component={ArtworkEdit} />
+            <Route path="/cv" component={FetchCvs} />
+            <ProtectedRoute path="/admin-cv" component={FetchCvs} />
+            <Route exact path="/media" component={Media} />
             <ProtectedRoute path="/media/:id/edit" component={MediaForm} />
             <ProtectedRoute path="/media/new" component={MediaForm} />
-            <Route exact path='/contact' component={Contact} />
-            <Route exact path='/' component={Home} />
-            <Route exact path='/about' component={About} />
-            <AuthRoute exact path='/login' component={Login} />
+            <Route exact path="/contact" component={Contact} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/about" component={About} />
+            <AuthRoute exact path="/login" component={Login} />
             <Route component={NoMatch} />
           </Switch>
         </Sidebar.Pusher>
@@ -200,7 +200,7 @@ const App = (props) => {
 
 const SidebarItem = styled(Menu.Item)`
   color: #b7b7b7 !important;
-  font-family: 'Julius Sans One', sans-serif !important;
+  font-family: "Julius Sans One", sans-serif !important;
   padding-top: 16px !important;
   padding-bottom: 16px !important;
 `;

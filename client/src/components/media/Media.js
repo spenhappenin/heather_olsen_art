@@ -23,6 +23,18 @@ const Media = (props) => {
       })
   }, [])
 
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this video?"))
+      axios.delete(`/api/videos/${id}`)
+        .then( res => {
+          setVideos( videos => videos.filter( video => video.id !== id ));
+        })
+        .catch( err => {
+          // AUTH: Add Flash
+          console.log(err.response)
+        })
+  }
+
   const renderButtons = (id) => {
     if (user)
       return (
@@ -30,7 +42,7 @@ const Media = (props) => {
           <Link to={`/media/${id}/edit`}>
             <Button>Edit</Button>
           </Link>
-          <Button>Delete</Button>
+          <Button onClick={() => handleDelete(id)}>Delete</Button>
         </div>
       );
   };
