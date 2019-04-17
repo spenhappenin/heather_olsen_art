@@ -126,8 +126,4 @@ const CvButton = styled.button`
   }
 `;
 
-// const mapStateToProps = (state) => {
-//   return { user: state.user, };
-// };
-
 export default AdminCv;

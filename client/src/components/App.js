@@ -7,7 +7,7 @@ import axios from "axios";
 import CategoryForm from "./CategoryForm";
 import Contact from "./contact/Contact";
 import FetchCvs from "./FetchCvs";
-import Flash from "./shared/Flash";
+// import Flash from "./shared/Flash";
 import Login from "./login/Login";
 import Media from "./media/Media";
 import MediaForm from "./media/MediaForm";
@@ -31,13 +31,11 @@ const App = (props) => {
   const [dimmed, setDimmed] = useState(false);
   const [sideNav, setSideNav] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [loaded, setLoaded] = useState(false);
 
   useEffect( () => {
     axios.get("/api/works")
       .then( res => {
         setCategories(res.data);
-        setLoaded(true);
       })
       .catch( err => {
         console.log(err.response);
