@@ -28,7 +28,8 @@ const Navbar = (props) => {
       { route: "/cv", adminRoute: "/admin-cv", text: "CV", },
       { route: "/media", adminRoute: "/media", text: "MEDIA", },
       { route: "/about", adminRoute: "/about", text: "ABOUT", },
-      { route: "/contact", adminRoute: "/contact", text: "CONTACT", }
+      { route: "/contact", adminRoute: "/contact", text: "CONTACT", },
+      { route: "/store", adminRoute: "/store", text: "SHOP", },
     ];
 
     return links.map( link => {

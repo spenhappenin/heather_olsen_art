@@ -31,6 +31,10 @@ class Api::ArtworksController < ApplicationController
     end
   end
 
+  def available_artwork
+    render json: Artwork.available_artwork
+  end
+
   def all_artworks
     artwork = Artwork.all.order(date_complete: :desc).page(params[:page]).per(25)
     render json: { artwork: artwork, total_pages: artwork.total_pages }

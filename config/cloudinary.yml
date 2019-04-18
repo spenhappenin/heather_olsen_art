@@ -1,12 +1,12 @@
 development:
-  cloud_name: <%= ENV['CLOUD_NAME'] %>
-  api_key: <%= ENV['API_KEY'] %>
-  api_secret: <%= ENV['API_SECRET'] %>
+  cloud_name: <%= ENV['DEV_CLOUD_NAME'] %>
+  api_key: <%= ENV['DEV_API_KEY'] %>
+  api_secret: <%= ENV['DEV_API_SECRET'] %>
 production:
   cloud_name: <%= ENV['CLOUD_NAME'] %>
   api_key: <%= ENV['API_KEY'] %>
   api_secret: <%= ENV['API_SECRET'] %>
 test:
-  cloud_name: <%= ENV['CLOUD_NAME'] %>
-  api_key: <%= ENV['API_KEY'] %>
-  api_secret: <%= ENV['API_SECRET'] %>
+  cloud_name: <%= ENV['DEV_CLOUD_NAME'] %>
+  api_key: <%= ENV['DEV_API_KEY'] %>
+  api_secret: <%= ENV['DEV_API_SECRET'] %>

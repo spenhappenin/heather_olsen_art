@@ -21,6 +21,7 @@ import AdminArtworks from "./AdminArtworks";
 import Artworks from "./Artworks";
 import Categories from "./Categories";
 import Home from "./root/Home";
+import Store from "./Store";
 import { AuthContext, } from "../providers/AuthProvider";
 import { Link, } from "react-router-dom";
 import { Menu, Sidebar, } from "semantic-ui-react";
@@ -78,7 +79,8 @@ const App = (props) => {
       { name: "CV", path: "/cv", adminPath: "/admin-cv" },
       { name: "MEDIA", path: "/media", adminPath: "/media" },
       { name: "ABOUT", path: "/about", adminPath: "/about" },
-      { name: "CONTACT", path: "/contact", adminPath: "/contact" }
+      { name: "CONTACT", path: "/contact", adminPath: "/contact" },
+      { name: "STORE", path: "/store", adminPath: "/store" },
     ];
 
     if (user)
@@ -187,6 +189,7 @@ const App = (props) => {
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/" component={Home} />
             <Route exact path="/about" component={About} />
+            <Route exact path="/store" component={Store} />
             <AuthRoute exact path="/login" component={Login} />
             <Route component={NoMatch} />
           </Switch>

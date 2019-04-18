@@ -11,6 +11,14 @@ class Artwork < ApplicationRecord
     new_title = new_title.join('-')
   end
 
+  def self.available_artwork
+    find_by_sql(["
+      SELECT a.* 
+      FROM artworks as a
+      WHERE a.status = 'for sale'
+    "])
+  end
+
   def self.update_categories(artwork, categories)
     artwork_categories = artwork.artwork_categories
     categories.each do |c|
