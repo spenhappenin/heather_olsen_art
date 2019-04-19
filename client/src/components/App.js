@@ -22,6 +22,7 @@ import Artworks from "./Artworks";
 import Categories from "./Categories";
 import Home from "./root/Home";
 import Store from "./Store";
+import AddToCart from "./AddToCart";
 import { AuthContext, } from "../providers/AuthProvider";
 import { Link, } from "react-router-dom";
 import { Menu, Sidebar, } from "semantic-ui-react";
@@ -81,6 +82,7 @@ const App = (props) => {
       { name: "ABOUT", path: "/about", adminPath: "/about" },
       { name: "CONTACT", path: "/contact", adminPath: "/contact" },
       { name: "STORE", path: "/store", adminPath: "/store" },
+      { name: "CART", path: "/cart", adminPath: "/cart" },
     ];
 
     if (user)
@@ -189,7 +191,8 @@ const App = (props) => {
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/" component={Home} />
             <Route exact path="/about" component={About} />
-            <Route exact path="/store" component={Store} />
+            <Route exact path="/available-work" component={Store} />
+            <Route exact path="/available-work/:id" component={AddToCart} />
             <AuthRoute exact path="/login" component={Login} />
             <Route component={NoMatch} />
           </Switch>
