@@ -192,9 +192,9 @@ const App = (props) => {
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/" component={Home} />
             <Route exact path="/about" component={About} />
-            <ProtectedRoute exact path="/available-work" component={Store} />
-            <ProtectedRoute exact path="/available-work/:id" component={AddToCart} />
-            <ProtectedRoute exact path="/cart" component={Cart} />
+            <Route exact path="/available-work" component={Store} />
+            <Route exact path="/available-work/:id" component={AddToCart} />
+            <Route exact path="/cart" component={Cart} />
             <AuthRoute exact path="/login" component={Login} />
             <Route component={NoMatch} />
           </Switch>
