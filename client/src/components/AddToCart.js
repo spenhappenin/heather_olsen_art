@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { CartContext, } from "../providers/CartProvider";
+import { formatPrice, } from "../helpers/cart";
 import { Link, } from "react-router-dom";
 import { useWindowWidth, } from "./hooks/WindowWidth";
 import { StyledContainer, Header, Button, } from "../styles/shared";
 
 const AddToCart = (props) => {
   const [artwork, setArtwork] = useState({});
+  const { addToCart, cart, } = useContext(CartContext);
   const width = useWindowWidth();
 
   useEffect( () => {
@@ -16,9 +19,15 @@ const AddToCart = (props) => {
       })
   }, []);
 
-  const formatPrice = (p) => {
-    let price = Number.parseFloat(p).toFixed(2);
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const displayButtonText = () => {
+    const cartItem = cart.find( c => c.id === artwork.id );
+    if (cartItem) {
+      if (cartItem.id === artwork.id)
+        return "Added To Cart";
+      else 
+        return "Add To Cart";
+    }
+    return "Add To Cart";
   }
 
   return (
@@ -30,7 +39,12 @@ const AddToCart = (props) => {
         <SubContainer>
           <Header primary>{artwork.title}</Header>
           <h3>${ formatPrice(artwork.price) }</h3>
-          <Button style={{ width: "100%", }}>Add To Cart</Button>
+          <Button
+            style={{ width: "100%", }}
+            onClick={() => addToCart(artwork)}
+          >
+            { displayButtonText() }          
+          </Button>
           <h5>Details</h5>
           <div>
             <p>{artwork.dimensions}</p>

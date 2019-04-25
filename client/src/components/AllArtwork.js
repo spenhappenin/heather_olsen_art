@@ -22,7 +22,7 @@ const AllArtwork = (props) => {
         // AUTH: Add flash message
         console.log(err.response);
       })
-  })
+  }, [])
 
   const renderArtwork = () => {
     return artwork.map( a => (

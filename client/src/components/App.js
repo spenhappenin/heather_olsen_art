@@ -23,6 +23,7 @@ import Categories from "./Categories";
 import Home from "./root/Home";
 import Store from "./Store";
 import AddToCart from "./AddToCart";
+import Cart from "./Cart";
 import { AuthContext, } from "../providers/AuthProvider";
 import { Link, } from "react-router-dom";
 import { Menu, Sidebar, } from "semantic-ui-react";
@@ -193,6 +194,7 @@ const App = (props) => {
             <Route exact path="/about" component={About} />
             <Route exact path="/available-work" component={Store} />
             <Route exact path="/available-work/:id" component={AddToCart} />
+            <Route exact path="/cart" component={Cart} />
             <AuthRoute exact path="/login" component={Login} />
             <Route component={NoMatch} />
           </Switch>

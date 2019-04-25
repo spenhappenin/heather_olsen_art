@@ -1,6 +1,7 @@
 import React, { useState, useEffect, } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { formatPrice, } from "../helpers/cart";
 import { useWindowWidth, } from "./hooks/WindowWidth";
 import { StyledContainer, Header, Link, } from "../styles/shared";
 
@@ -17,11 +18,6 @@ const Store = (props) => {
         console.log(err.catch);
       })
   }, []);
-
-  const formatPrice = (p) => {
-    let price = Number.parseFloat(p).toFixed(2);
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
 
   const displayArtworks = () => {
     if (!artworks) return;
