@@ -15,11 +15,8 @@ class CvNewForm extends React.Component {
   handleDateChange = (date) => this.setState({ cv_date: date, date, });
 
   handleSubmit = () => {
-    const { dispatch, } = this.props;
-
     axios.post('/api/cvs', { cv: this.state, })
       .then( res => {
-        const { data: cv, } = res;
         // AUTH: Add Flash
         this.props.create(res.data);
         this.props.history.push('/admin-cv');

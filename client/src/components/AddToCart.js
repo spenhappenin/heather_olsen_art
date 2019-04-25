@@ -3,8 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { CartContext, } from "../providers/CartProvider";
 import { formatPrice, } from "../helpers/cart";
-import { Link, } from "react-router-dom";
-import { useWindowWidth, } from "./hooks/WindowWidth";
+import { useWindowWidth, } from "./hooks/useWindowWidth";
 import { StyledContainer, Header, Button, } from "../styles/shared";
 
 const AddToCart = (props) => {

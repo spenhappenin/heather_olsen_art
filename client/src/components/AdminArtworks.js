@@ -1,21 +1,20 @@
-import React from 'react';
-import axios from 'axios';
-import styled from 'styled-components';
-import { Link, } from 'react-router-dom';
-import { Transition, } from 'semantic-ui-react';
-import { generateImageUrl, getCategoryTitle, } from '../helpers/artwork';
-import { Button, Header, StyledContainer, } from '../styles/shared';
+import React from "react";
+import axios from "axios";
+import styled from "styled-components";
+import { Link, } from "react-router-dom";
+import { Transition, } from "semantic-ui-react";
+import { generateImageUrl, getCategoryTitle, } from "../helpers/artwork";
+import { Button, Header, StyledContainer, } from "../styles/shared";
 
 class AdminArtworks extends React.Component {
-  state = { artWorks: [], categoryTitle: '', erroredImages: [], windowWidth: window.innerWidth, };
+  state = { artWorks: [], categoryTitle: "", erroredImages: [], windowWidth: window.innerWidth, };
 
   componentDidMount() {
     const { match: { params: { work_title, }, }, } = this.props;
     
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener("resize", this.handleResize);
     axios.get(`/api/artworks?category=${work_title}`)
       .then( res => {
-        const { dispatch, } = this.props;
         this.setState({ artWorks: res.data, categoryTitle: getCategoryTitle(work_title), });
       })
       .catch( err => {
@@ -25,7 +24,7 @@ class AdminArtworks extends React.Component {
   };
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener("resize", this.handleResize);
   };
 
   displayArtWorks = () => {
@@ -38,7 +37,7 @@ class AdminArtworks extends React.Component {
         null
       :
         <Column key={i}>
-          <Transition visible={visible} animation='fade' duration={2000}>
+          <Transition visible={visible} animation="fade" duration={2000}>
             <Link to={`edit/${a.id}`} rel="noopener noreferrer">
               <Image
                 alt={a.title}

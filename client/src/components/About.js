@@ -39,7 +39,6 @@ class About extends React.Component {
     data.append("artist_statement", this.state.artist_statement);
     axios.put("/api/user_bio_statement", data)
       .then( res => {
-        const { data: { artist_statement, bio, image, }, } = res;
         window.scrollTo(0, 0);
       })
       .catch( err => {

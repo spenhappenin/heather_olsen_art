@@ -2,7 +2,7 @@ import React, { useState, useEffect, } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { formatPrice, } from "../helpers/cart";
-import { useWindowWidth, } from "./hooks/WindowWidth";
+import { useWindowWidth, } from "./hooks/useWindowWidth";
 import { StyledContainer, Header, Link, } from "../styles/shared";
 
 const Store = (props) => {

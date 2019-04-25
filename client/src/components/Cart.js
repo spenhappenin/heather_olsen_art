@@ -1,4 +1,4 @@
-import React, { useContext, useState, } from "react";
+import React, { useContext, } from "react";
 import styled from "styled-components";
 import { formatPrice, } from "../helpers/cart";
 import { Table, } from "semantic-ui-react";
@@ -8,7 +8,6 @@ import clear from "../images/clear.svg";
 
 const Cart = (props) => {
   const { cart, removeFromCart, } = useContext(CartContext);
-  // const [total, setTotal] = useState(0);
 
   const getTotal = () => {
     let total = 0;

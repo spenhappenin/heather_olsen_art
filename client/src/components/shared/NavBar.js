@@ -1,7 +1,7 @@
 import React, { useContext, } from "react";
 import { AuthContext, } from "../../providers/AuthProvider";
 import { CartContext, } from "../../providers/CartProvider";
-import { useWindowWidth, } from "../hooks/WindowWidth";
+import { useWindowWidth, } from "../hooks/useWindowWidth";
 import { Icon, } from "semantic-ui-react";
 import { withRouter, } from "react-router-dom";
 import { NavItems, NavLogo, StyledLink, StyledMockLink, StyledNavbar, } from "../../styles/navbar";

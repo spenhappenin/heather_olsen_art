@@ -22,7 +22,7 @@ const Categories = (props) => {
               <Link to={`/work/edit-category/${c.id}`}>
                 <Button>Edit</Button>
               </Link>
-              <Button onClick={() => this.handleDelete(c.id)}>Delete</Button>
+              <Button onClick={() => handleDelete(c.id)}>Delete</Button>
             </ButtonContainer>
           }
         </CategoryContainer>
@@ -47,12 +47,11 @@ const Categories = (props) => {
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete?"))
       axios.delete(`/api/categories/${id}`)
-        .then(res => {
-          const { dispatch, } = this.props;
+        .then( res => {
           // AUTH: Add Flash
           this.props.delete(id);
         })
-        .catch(err => {
+        .catch( err => {
           // AUTH: Add Flash
           console.log(err.response);
         })
