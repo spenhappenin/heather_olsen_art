@@ -2,12 +2,14 @@ import React, { useState, useEffect, useContext, } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { CartContext, } from "../providers/CartProvider";
+import { FlashContext, } from "../providers/FlashProvider";
 import { formatPrice, } from "../helpers/cart";
 import { useWindowWidth, } from "./hooks/useWindowWidth";
 import { StyledContainer, Header, Button, } from "../styles/shared";
 
 const AddToCart = (props) => {
   const [artwork, setArtwork] = useState({});
+  const { setFlashMessage, } = useContext(FlashContext);
   const { addToCart, cart, } = useContext(CartContext);
   const width = useWindowWidth();
 
@@ -40,7 +42,8 @@ const AddToCart = (props) => {
           <h3>${ formatPrice(artwork.price) }</h3>
           <Button
             style={{ width: "100%", }}
-            onClick={() => addToCart(artwork)}
+            onClick={() => setFlashMessage(`${artwork.title} Added To Cart`, "blue")}
+            // onClick={() => addToCart(artwork)}
           >
             { displayButtonText() }          
           </Button>

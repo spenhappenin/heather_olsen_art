@@ -6,6 +6,7 @@ import FetchUser from './components/shared/FetchUser'
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider, } from "./providers/AuthProvider";
 import { CartProvider, } from "./providers/CartProvider";
+import { FlashProvider, } from "./providers/FlashProvider";
 import 'semantic-ui-css/semantic.min.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-quill/dist/quill.snow.css';
@@ -17,15 +18,17 @@ initMiddleware();
 
 ReactDOM.render(
   <AuthProvider>
-    <CartProvider>
-      <FetchUser>
-        <BrowserRouter>
-            <ScrollToTop>
-              <App />
-            </ScrollToTop>
-        </BrowserRouter>
-      </FetchUser>
-    </CartProvider>
+    <FlashProvider>
+      <CartProvider>
+        <FetchUser>
+          <BrowserRouter>
+              <ScrollToTop>
+                <App />
+              </ScrollToTop>
+          </BrowserRouter>
+        </FetchUser>
+      </CartProvider>
+    </FlashProvider>
   </AuthProvider>,
   document.getElementById('root')
 );

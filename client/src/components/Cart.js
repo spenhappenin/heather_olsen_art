@@ -4,10 +4,12 @@ import { formatPrice, } from "../helpers/cart";
 import { Table, } from "semantic-ui-react";
 import { StyledContainer, Header, Button, } from "../styles/shared";
 import { CartContext, } from "../providers/CartProvider";
+import { FlashContext, } from "../providers/FlashProvider";
 import clear from "../images/clear.svg";
 
 const Cart = (props) => {
   const { cart, removeFromCart, } = useContext(CartContext);
+  const { setFlashMessage, } = useContext(FlashContext);
 
   const getTotal = () => {
     let total = 0;
@@ -60,7 +62,7 @@ const Cart = (props) => {
           <Header style={{ margin: "0 25px 10px 0", }}>Subtotal</Header>
           <Header style={{ margin: "0 0 10px 0", }}>${getTotal()}</Header>
         </div>
-        <Button style={{ width: "200px", }}>Checkout</Button>
+        <Button style={{ width: "200px", }} onClick={() => setFlashMessage("Checkout Message", "black")}>Checkout</Button>
       </CheckoutContainer>
     </StyledContainer>
   )

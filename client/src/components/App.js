@@ -7,7 +7,7 @@ import axios from "axios";
 import CategoryForm from "./CategoryForm";
 import Contact from "./contact/Contact";
 import FetchCvs from "./FetchCvs";
-// import Flash from "./shared/Flash";
+import FlashMessage from "./FlashMessage";
 import Login from "./login/Login";
 import Media from "./media/Media";
 import MediaForm from "./media/MediaForm";
@@ -128,6 +128,7 @@ const App = (props) => {
   return (
     <div>
       <NavBar toggleSideNav={toggleSideNav} closeSideNav={closeSideNav} />
+      <FlashMessage />
       <Sidebar.Pushable>
         <Sidebar
           as={Menu}
