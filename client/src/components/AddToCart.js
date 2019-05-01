@@ -5,23 +5,34 @@ import { CartContext, } from "../providers/CartProvider";
 import { FlashContext, } from "../providers/FlashProvider";
 import { formatPrice, } from "../helpers/cart";
 import { useWindowWidth, } from "./hooks/useWindowWidth";
-import { StyledContainer, Header, Button, } from "../styles/shared";
+import { StyledContainer, Header, } from "../styles/shared";
 
 const AddToCart = (props) => {
-  const [artwork, setArtwork] = useState({});
   const { setFlashMessage, } = useContext(FlashContext);
   const { addToCart, cart, } = useContext(CartContext);
+  const [artwork, setArtwork] = useState({});
+  const [disabled, setDisabled] = useState(false);
   const width = useWindowWidth();
-
+  
   useEffect( () => {
     axios.get(`/api/single_artwork/${props.match.params.id}`)
-      .then( res => {
-        setArtwork(res.data.artwork);
-      })
+    .then( res => {
+      setArtwork(res.data.artwork);
+    })
   }, []);
+  
+  useEffect( () => {
+    const cartItem = cart.find(c => c.id === artwork.id);
+    if (cartItem) {
+      if (cartItem.id === artwork.id)
+        setDisabled(true);
+      else
+        setDisabled(false);
+    }
+  })
 
   const handleClick = () => {
-    setFlashMessage(`"${artwork.title}" Added To Cart`, "blue");
+    setFlashMessage(`"${artwork.title}" Added To Cart`, "green");
     addToCart(artwork);
   }
 
@@ -34,7 +45,7 @@ const AddToCart = (props) => {
         return "Add To Cart";
     }
     return "Add To Cart";
-  }
+  };
 
   return (
     <StyledContainer>
@@ -46,8 +57,7 @@ const AddToCart = (props) => {
           <Header primary>{artwork.title}</Header>
           <h3>${ formatPrice(artwork.price) }</h3>
           <Button
-            // TODO disable if already in cart
-            // disabled={true}
+            disabled={disabled}
             style={{ width: "100%", }}
             onClick={handleClick}
           >
@@ -85,6 +95,28 @@ const AddToCart = (props) => {
     </StyledContainer>
   )
 }
+
+const Button = styled.button`
+  color: #fff;
+  transition: background-color 0.3s ease;
+  background-color: ${ props => props.modal ? "#557c8c" : "#272727"};
+  background: ${ props => props.disabled ? "#595959" : "#272727" };
+  padding: 15px 40px 15px 40px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 11px;
+  cursor: ${ props => !props.disabled && "pointer"};
+  margin-right: ${ props => props.group ? "15px" : null};
+
+  &:focus {
+    outline: 0;
+  }
+  &:hover {
+    transition: ${ props => props.disabled && "background-color 0.3s ease" };
+    background: ${ props => props.disabled ? "#595959" : "#595959"};
+  }
+`;
 
 const MainContainer = styled.div`
   display: flex;

@@ -19,10 +19,16 @@ const Cart = (props) => {
 
   const displayCartItems = () => {
     if (cart.length === 0)
-      return <div><Header>No Items In Cart</Header></div>
+      return (
+        <Table.Row style={{ height: "100px", }}>
+          <Table.Cell>
+            <Header>No Items In Cart</Header>
+          </Table.Cell>
+        </Table.Row>
+      );
     else
       return cart.map( c => (
-        <Table.Row style={{ borderTop: "1px solid black", borderBottom: "1px solid black" }}>
+        <Table.Row key={c.id}>
           <Item>
             <ItemImage src={c.url} />
             <ItemDescription>
@@ -43,7 +49,7 @@ const Cart = (props) => {
   return (
     <StyledContainer>
       <Header primary>Cart</Header>
-      <Table style={{ width: "100%" }} striped>
+      <Table style={{ width: "100%", }} striped>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell></Table.HeaderCell>
@@ -62,7 +68,12 @@ const Cart = (props) => {
           <Header style={{ margin: "0 25px 10px 0", }}>Subtotal</Header>
           <Header style={{ margin: "0 0 10px 0", }}>${getTotal()}</Header>
         </div>
-        <Button style={{ width: "200px", }} onClick={() => setFlashMessage("Checkout Message", "black")}>Checkout</Button>
+        <Button 
+          style={{ width: "200px", }} 
+          onClick={() => setFlashMessage("Checkout Message", "black")}
+        >
+          Checkout
+        </Button>
       </CheckoutContainer>
     </StyledContainer>
   )
