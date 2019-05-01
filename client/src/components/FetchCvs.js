@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, } from 'react';
 import { AuthContext, } from "../providers/AuthProvider";
+import { FlashContext, } from "../providers/FlashProvider";
 import axios from 'axios';
 import Cvs from './cvs/Cvs';
 import AdminCvs from './admin/AdminCvs';
@@ -9,13 +10,13 @@ import { Route, Switch, } from 'react-router-dom';
 const FetchCvs = (props) => {
   const [cvs, setCvs] = useState([]);
   const { user, } = useContext(AuthContext);
+  const { setFlashMessage, } = useContext(FlashContext);
 
   useEffect( () => {
     axios.get('/api/cvs')
       .then( res => setCvs(res.data))
       .catch( err => {
-        // AUTH: Add Flash
-        console.log(err.response);
+        setFlashMessage(err.response, "red");
       })
   }, []);
 

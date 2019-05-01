@@ -20,11 +20,16 @@ const AddToCart = (props) => {
       })
   }, []);
 
+  const handleClick = () => {
+    setFlashMessage(`"${artwork.title}" Added To Cart`, "blue");
+    addToCart(artwork);
+  }
+
   const displayButtonText = () => {
     const cartItem = cart.find( c => c.id === artwork.id );
     if (cartItem) {
       if (cartItem.id === artwork.id)
-        return "Added To Cart";
+        return "In Cart";
       else 
         return "Add To Cart";
     }
@@ -41,9 +46,10 @@ const AddToCart = (props) => {
           <Header primary>{artwork.title}</Header>
           <h3>${ formatPrice(artwork.price) }</h3>
           <Button
+            // TODO disable if already in cart
+            // disabled={true}
             style={{ width: "100%", }}
-            onClick={() => setFlashMessage(`${artwork.title} Added To Cart`, "blue")}
-            // onClick={() => addToCart(artwork)}
+            onClick={handleClick}
           >
             { displayButtonText() }          
           </Button>
