@@ -70,7 +70,7 @@ const App = (props) => {
   };
   
   const deleteCategory = (id) => {
-    const newCategories = categories.filter( c => c.id !== id);
+    const newCategories = categories.filter( c => c.id !== id );
     setCategories(newCategories);
   };
 
@@ -83,7 +83,7 @@ const App = (props) => {
       { name: "ABOUT", path: "/about", adminPath: "/about" },
       { name: "CONTACT", path: "/contact", adminPath: "/contact" },
       { name: "STORE", path: "/store", adminPath: "/store" },
-      { name: "CART", path: "/cart", adminPath: "/cart" },
+      // { name: "CART", path: "/cart", adminPath: "/cart" },
     ];
 
     if (user)

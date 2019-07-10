@@ -49,7 +49,7 @@ const Categories = (props) => {
       axios.delete(`/api/categories/${id}`)
         .then( res => {
           // AUTH: Add Flash
-          this.props.delete(id);
+          props.delete(id);
         })
         .catch( err => {
           // AUTH: Add Flash

@@ -19,7 +19,7 @@ initMiddleware();
 ReactDOM.render(
   <AuthProvider>
     <FlashProvider>
-      <CartProvider>
+      {/* <CartProvider> */}
         <FetchUser>
           <BrowserRouter>
               <ScrollToTop>
@@ -27,7 +27,7 @@ ReactDOM.render(
               </ScrollToTop>
           </BrowserRouter>
         </FetchUser>
-      </CartProvider>
+      {/* </CartProvider> */}
     </FlashProvider>
   </AuthProvider>,
   document.getElementById('root')
