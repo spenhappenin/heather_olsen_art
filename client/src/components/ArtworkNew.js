@@ -1,5 +1,6 @@
 import React, { useState, useEffect, } from "react";
 import axios from "axios";
+import Loader from "./Loader";
 import styled from "styled-components";
 import { useForm, } from "./hooks/useForm";
 import { Form, } from "semantic-ui-react";
@@ -19,6 +20,7 @@ const ArtworkNew = ({ history, }) => {
   const [categories, setCategories] = useState([]);
   const [artworkCategories, setArtworkCategories] = useState([]);
   const [fileUploading, setFileUploading] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   useEffect( () => {
     axios.get("/api/works")
@@ -43,6 +45,7 @@ const ArtworkNew = ({ history, }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoader(true);
     let data = new FormData();
     let photo = fileData;
     data.append(photo.name, photo);
@@ -58,6 +61,7 @@ const ArtworkNew = ({ history, }) => {
     axios.post("/api/artworks", data)
       .then( res => {
         // AUTH: Add Flash
+        setLoader(false);
         history.goBack();
       })
       .catch( err => {
@@ -90,6 +94,7 @@ const ArtworkNew = ({ history, }) => {
 
   return (
     <StyledContainer>
+      { loader && <Loader /> }
       <Header primary>New Art Work</Header>
       <Form onSubmit={handleSubmit}>
         <StyledDropzone onDrop={onDrop}>
