@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import DeleteArtWorkModal from "./admin/DeleteArtWorkModal";
 import styled from "styled-components";
-// import { connect, } from "react-redux";
 import { Button, Header, StyledContainer, } from "../styles/shared";
 import { Form, Icon, Image, } from "semantic-ui-react";
 

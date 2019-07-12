@@ -2,7 +2,6 @@ import Dropzone from 'react-dropzone';
 import styled from 'styled-components';
 
 export const StyledDropzone = styled(Dropzone)`
-  width: 200px;
   height: 200px;
   border-width: 2px;
   border-color: rgb(102, 102, 102);
@@ -11,4 +10,5 @@ export const StyledDropzone = styled(Dropzone)`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+  cursor: pointer;
+`;
