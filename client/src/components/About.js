@@ -19,7 +19,7 @@ const About = (props) => {
   const [image, setImage] = useState("");
   const [loader, setLoader] = useState(false);
 
-  const { user, } = useContext(AuthContext);
+  const { setUser, user, } = useContext(AuthContext);
   const { setFlashMessage, } = useContext(FlashContext);
 
   useEffect( () => {
@@ -44,7 +44,8 @@ const About = (props) => {
     data.append("bio", bio);
     data.append("artist_statement", artist_statement);
     axios.put("/api/user_bio_statement", data)
-      .then( () => {
+      .then( res => {
+        setUser(res.data);
         setLoader(false);
         setFlashMessage("Profile Updated!", "green");
         window.scrollTo(0, 0);
@@ -80,7 +81,7 @@ const About = (props) => {
                     <span textAlign="center">Drag photo here or click to select a file.</span>
                 }
               </StyledDropzone>
-              <Image src={image === null ? "" : generateImageUrl(image, 750)} />
+              <Image src={image === null ? "" : generateImageUrl(user.image, 750)} />
             </div>
             <br />
             <Form.Field>
