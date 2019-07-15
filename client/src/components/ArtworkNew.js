@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useContext, } from "react";
+import React, { useState, useEffect, useContext, useCallback, } from "react";
 import axios from "axios";
 import Loader from "./Loader";
 import styled from "styled-components";
 import { FlashContext, } from "../providers/FlashProvider";
 import { Form, } from "semantic-ui-react";
 import { StyledDropzone, } from "../styles/artWork";
+import { useDropzone, } from "react-dropzone";
 import { Button, Header, StyledContainer, } from "../styles/shared";
 
 const ArtworkNew = ({ history, }) => {
@@ -19,7 +20,7 @@ const ArtworkNew = ({ history, }) => {
   const [categories, setCategories] = useState([]);
   const [artworkCategories, setArtworkCategories] = useState([]);
   const [fileUploading, setFileUploading] = useState(false);
-  const [loader, setLoader] = useState(true);
+  const [loader, setLoader] = useState(false);
 
   const { setFlashMessage, } = useContext(FlashContext);
 
@@ -82,12 +83,11 @@ const ArtworkNew = ({ history, }) => {
     ));
   };
 
-  const onDrop = (photos) => {
-    toggleUploading();
-    setFileData(photos[0]);
-  };
-
-  const toggleUploading = () => setFileUploading(!fileUploading);
+  const onDrop = useCallback( acceptedFiles => {
+    setFileUploading(!fileUploading);
+    setFileData(acceptedFiles[0]);
+  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, });
 
   const handleDropdown = (e) => setStatus(e.target.innerText.toLowerCase());
 
@@ -96,19 +96,14 @@ const ArtworkNew = ({ history, }) => {
       { loader && <Loader /> }
       <Header primary>New Art Work</Header>
       <Form onSubmit={handleSubmit}>
-        <StyledDropzone onDrop={onDrop}>
-          {({ isDragActive, isDragReject, acceptedFiles, rejectedFiles }) => {
-            if (isDragActive) {
-              return "This file is authorized";
-            }
-            if (isDragReject) {
-              return "This file is not authorized";
-            }
-            return acceptedFiles.length || rejectedFiles.length ?
-              <h4 textAlign="center">{`Accepted ${acceptedFiles.length}, rejected ${rejectedFiles.length} files`}</h4>
-              :
-              <h4 textAlign="center">Drag photo here or click to select a file.</h4>;
-          }}
+        <StyledDropzone {...getRootProps()}>
+          <input {...getInputProps()} />
+          {
+            isDragActive ?
+              <p>Drop the files here ...</p> 
+            :
+              <span textAlign="center">Drag photo here or click to select a file.</span>
+          }
         </StyledDropzone>
         <br />
         <Form.Group widths="equal">

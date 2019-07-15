@@ -1,7 +1,7 @@
-import Dropzone from 'react-dropzone';
+// import Dropzone from 'react-dropzone';
 import styled from 'styled-components';
 
-export const StyledDropzone = styled(Dropzone)`
+export const StyledDropzone = styled.div`
   height: 200px;
   border-width: 2px;
   border-color: rgb(102, 102, 102);

@@ -1,126 +1,127 @@
-import React from "react";
-import { AuthConsumer, } from "../providers/AuthProvider"; 
+import React, { useState, useEffect, useCallback, useContext, } from "react";
 import axios from "axios";
+import Loader from "./Loader";
 import ReactQuill from "react-quill";
 import styled from "styled-components";
-import { Form, Responsive, } from "semantic-ui-react";
+import { AuthContext, } from "../providers/AuthProvider"; 
+import { FlashContext, } from "../providers/FlashProvider";
 import { generateImageUrl, } from "../helpers/artwork";
 import { StyledDropzone, } from "../styles/artWork";
+import { useDropzone, } from "react-dropzone";
+import { Form, Responsive, } from "semantic-ui-react";
 import { Button, Header, StyledContainer, } from "../styles/shared";
 
-class About extends React.Component {
-  state = { 
-    artist_statement: "", 
-    bio: "", 
-    fileData: "", 
-    fileUploading: false, 
-    image: "", 
-  };
+const About = (props) => {
+  const [artist_statement, setArtistStatement] = useState("");
+  const [bio, setBio] = useState("");
+  const [fileData, setFileData] = useState("");
+  const [fileUploading, setFileUploading] = useState(false);
+  const [image, setImage] = useState("");
+  const [loader, setLoader] = useState(false);
 
-  componentDidMount() {
+  const { user, } = useContext(AuthContext);
+  const { setFlashMessage, } = useContext(FlashContext);
+
+  useEffect( () => {
     axios.get("/api/fetch_about")
       .then( res => {
         const { data: { artist_statement, bio, image, }, } = res;
-        this.setState({ artist_statement, bio, image, });
+        setArtistStatement(artist_statement);
+        setBio(bio);
+        setImage(image);
       })
       .catch( err => {
-        console.log(err.response);
+        setFlashMessage(err.response, "red");
       })
-  };
+  }, []);
 
-  handleChange = (value, name) => this.setState({ [name]: value, });
-
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    setLoader(true);
     let data = new FormData();
-    let photo = this.state.fileData;
+    let photo = fileData;
     data.append(photo.name, photo);
-    data.append("bio", this.state.bio);
-    data.append("artist_statement", this.state.artist_statement);
+    data.append("bio", bio);
+    data.append("artist_statement", artist_statement);
     axios.put("/api/user_bio_statement", data)
-      .then( res => {
+      .then( () => {
+        setLoader(false);
+        setFlashMessage("Profile Updated!", "green");
         window.scrollTo(0, 0);
       })
       .catch( err => {
-        console.log(err.response);
+        setFlashMessage(err.response, "red");
       })
   };
 
-  onDrop = (photos) => {
-    this.toggleUploading();
-    this.setState({ fileData: photos[0], });
-  };
+  const onDrop = useCallback(acceptedFiles => {
+    setFileUploading(!fileUploading);
+    setFileData(acceptedFiles[0]);
+  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, });
 
-  toggleUploading = () => this.setState({ fileUploading: !this.state.fileUploading, });
-
-  render() {
-    return(
-      <StyledContainer>
-        <Header primary>About</Header>
-        <br />
-        <br />
-        {
-          this.props.auth.user ? 
-            <Form onSubmit={this.handleSubmit}>
-              <Header>Image</Header>
-              <div style={{ display: "flex", }}>
-                <StyledDropzone onDrop={this.onDrop}>
-                  {({ isDragActive, isDragReject, acceptedFiles, rejectedFiles }) => {
-                    if (isDragActive) {
-                      return "This file is authorized";
-                    }
-                    if (isDragReject) {
-                      return "This file is not authorized";
-                    }
-                    return acceptedFiles.length || rejectedFiles.length ? 
-                      <h4 textAlign="center">{`Accepted ${acceptedFiles.length}, rejected ${rejectedFiles.length} files`}</h4>
-                    : 
-                      <h4 textAlign="center">Drag photo here or click to select a file.</h4>;
-                  }}
-                </StyledDropzone>
-                <Image src={this.state.image === null ? "" : generateImageUrl(this.state.image, 750)} />
-              </div>
-              <br />
-              <Form.Field>
-                <Header>Bio</Header>
-                <ReactQuill
-                  modules={{ toolbar, }}
-                  value={this.state.bio}
-                  onChange={(value) => this.handleChange(value, "bio")} 
-                />
-              </Form.Field>
-              <Form.Field>
-                <Header>Artist Statement</Header>
-                <ReactQuill
-                  modules={{ toolbar, }}
-                  value={this.state.artist_statement}
-                  onChange={(value) => this.handleChange(value, "artist_statement")} 
-                />
-              </Form.Field>
-              <Button type="submit">Submit</Button>
-            </Form>
-          :
-            <div>
-              <BioContainer>
-                <Responsive maxWidth={749}>
-                  <Image src={generateImageUrl(this.state.image, 750)} client />
-                </Responsive>
-                <p dangerouslySetInnerHTML={createMarkup(this.state.bio)} />
-                <Responsive minWidth={750}>
-                  <Image src={generateImageUrl(this.state.image, 750)} client />
-                </Responsive>
-              </BioContainer>
-              <br />
-              <br />
-              <br />
-              <br />
-              <Header style={{ fontSize: "22px", }}>Artist Statement</Header>
-              <p dangerouslySetInnerHTML={createMarkup(this.state.artist_statement)} />
+  return (
+    <StyledContainer>
+      <Header primary>About</Header>
+      { loader && <Loader /> }
+      <br />
+      <br />
+      {
+        user ?
+          <Form onSubmit={handleSubmit}>
+            <Header>Image</Header>
+            <div style={{ display: "flex", }}>
+              <StyledDropzone {...getRootProps()}>
+                <input {...getInputProps()} />
+                {
+                  isDragActive ?
+                    <p>Drop the files here ...</p>
+                  :
+                    <span textAlign="center">Drag photo here or click to select a file.</span>
+                }
+              </StyledDropzone>
+              <Image src={image === null ? "" : generateImageUrl(image, 750)} />
             </div>
-        }
-      </StyledContainer>
-    );
-  };
+            <br />
+            <Form.Field>
+              <Header>Bio</Header>
+              <ReactQuill
+                modules={{ toolbar, }}
+                value={bio}
+                onChange={ value => setBio(value) }
+              />
+            </Form.Field>
+            <Form.Field>
+              <Header>Artist Statement</Header>
+              <ReactQuill
+                modules={{ toolbar, }}
+                value={artist_statement}
+                onChange={ value => setArtistStatement(value) }
+              />
+            </Form.Field>
+            <Button type="submit">Submit</Button>
+          </Form>
+          :
+          <div>
+            <BioContainer>
+              <Responsive maxWidth={749}>
+                <Image src={generateImageUrl(image, 750)} client />
+              </Responsive>
+              <p dangerouslySetInnerHTML={createMarkup(bio)} />
+              <Responsive minWidth={750}>
+                <Image src={generateImageUrl(image, 750)} client />
+              </Responsive>
+            </BioContainer>
+            <br />
+            <br />
+            <br />
+            <br />
+            <Header style={{ fontSize: "22px", }}>Artist Statement</Header>
+            <p dangerouslySetInnerHTML={createMarkup(artist_statement)} />
+          </div>
+      }
+    </StyledContainer>
+  );
 };
 
 const createMarkup = (html) => {
@@ -144,14 +145,14 @@ const Image = styled.div`
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 350px;
   height: 350px; 
   margin-left: ${ props => props.client ? "50px" : "100px" };
+  width: 350px;
 
   @media (max-width: 749px) {
     height: 500px;
-    width: 100%;
     margin-left: 0;
+    width: 100%;
   };
 `;
 
@@ -163,12 +164,4 @@ const BioContainer = styled.div`
   };
 `;
 
-const ConnectedAbout = (props) => (
-  <AuthConsumer>
-    { auth => (
-      <About { ...props } auth={auth} />
-    )}
-  </AuthConsumer>
-)
-
-export default ConnectedAbout;
+export default About;
