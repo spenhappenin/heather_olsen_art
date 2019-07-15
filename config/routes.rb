@@ -9,8 +9,8 @@ Rails.application.routes.draw do
     get "single_category/:id", to: "categories#single_category"
     get "/cvs", to: "cvs#fetch_cvs"
     put "/cv/:id", to: "cvs#update_cv"
-    get "/fetch_about", to: "artworks#fetch_user"
-    put "/user_bio_statement", to: "artworks#user_bio_statement"
+    get "/fetch_about", to: "users#fetch_user"
+    put "/user_bio_statement", to: "users#user_bio_statement"
     resources :cvs, only: [:create, :destroy]
     resources :artworks, only: [:create, :update, :destroy]
     resources :categories, only: [:create, :update, :destroy]
