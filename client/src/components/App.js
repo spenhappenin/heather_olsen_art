@@ -82,7 +82,7 @@ const App = (props) => {
       { name: "MEDIA", path: "/media", adminPath: "/media" },
       { name: "ABOUT", path: "/about", adminPath: "/about" },
       { name: "CONTACT", path: "/contact", adminPath: "/contact" },
-      { name: "STORE", path: "/store", adminPath: "/store" },
+      // { name: "STORE", path: "/store", adminPath: "/store" },
       // { name: "CART", path: "/cart", adminPath: "/cart" },
     ];
 
