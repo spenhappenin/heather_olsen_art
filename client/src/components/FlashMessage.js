@@ -39,42 +39,60 @@ const FlashContainer = styled.div`
 `;
 
 const backgroundColors = (color) => {
+  let c;
   switch (color) {
     case "blue":
-      return "#dcedf5";
+      c = "#dcedf5";
+      break;
     case "green":
-      return "#e4f5dc";
+      c = "#e4f5dc";
+      break;
     case "red":
-      return "#f5dcdc";
+      c = "#f5dcdc";
+      break;
     default:
-      return "#dcedf5";
+      c = "#dcedf5";
+      break;
   };
+  return c;
 };
 
 const textColors = (color) => {
+  let c;
   switch (color) {
     case "blue":
-      return "#4d687d";
+      c = "#4d687d";
+      break;
     case "green":
-      return "#5d7d4d";
+      c = "#5d7d4d";
+      break;
     case "red":
-      return "#7d4d4d";
+      c = "#7d4d4d";
+      break;
     default:
-      return "#4d687d";
+      c = "#4d687d";
+      break;
   };
+  return c;
 };
 
 const borderColors = (color) => {
+  let c;
   switch (color) {
     case "blue":
-      return "#5f8db1";
+      c = "#5f8db1";
+      break;
     case "green":
-      return "#70b15f";
+      c = "#70b15f";
+      break;
     case "red":
-      return "#b15f5f";
+      c = "#b15f5f";
+      break;
     default:
-      return "#5f8db1";
+      c = "#5f8db1";
+      break;
   };
+  return c;
 };
 
 export default FlashMessage;

@@ -1,11 +1,13 @@
-import React, { useState, } from "react";
+import React, { useContext, useState, } from "react";
+import { FlashContext, } from "./FlashProvider";
 import axios from "axios";
 
 export const AuthContext = React.createContext();
 export const AuthConsumer = AuthContext.Consumer;
 
-export const AuthProvider = (props) => {
+export const AuthProvider = ({ children, }) => {
   const [user, setUser] = useState(null);
+  const { setFlashMessage, } = useContext(FlashContext);
 
   const handleRegister = (userData, history) => {
     axios.post("/api/auth", userData)
@@ -14,31 +16,32 @@ export const AuthProvider = (props) => {
         history.push("/");
       })
       .catch( err => {
-        console.log(err.response);
+        setFlashMessage(err.response.data.errors[0], "red");
       })
-  }
+  };
 
   const handleLogin = (userData, history) => {
     axios.post("/api/auth/sign_in", userData) 
-      .then( res => {
-        setUser(res.data.data);
-        history.push("/");
-      })
-      .catch( err => {
-        console.log(err.response);
-      })
-  }
+    .then( res => {
+      setUser(res.data.data);
+      history.push("/");
+    })
+    .catch( err => {
+      setFlashMessage(err.response.data.errors[0], "red");
+    })
+  };
 
   const handleLogout = (history) => {
     axios.delete("/api/auth/sign_out")
-      .then( res => {
+      .then( () => {
         setUser(null);
         history.push("/login");
+        setFlashMessage("Successfully Logged Out", "green");
       })
       .catch( err => {
-        console.log(err.response);
+        setFlashMessage(err.response.data.errors[0], "red");
       })
-  }
+  };
 
   return (
     <AuthContext.Provider value={{
@@ -49,7 +52,7 @@ export const AuthProvider = (props) => {
       handleLogout,
       setUser: (user) => setUser(user),
     }}>
-      { props.children }
+      { children }
     </AuthContext.Provider>
-  )
-}
+  );
+};

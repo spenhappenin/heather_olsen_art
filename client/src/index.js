@@ -17,8 +17,8 @@ import registerServiceWorker from './registerServiceWorker';
 initMiddleware();
 
 ReactDOM.render(
-  <AuthProvider>
-    <FlashProvider>
+  <FlashProvider>
+    <AuthProvider>
       {/* <CartProvider> */}
         <FetchUser>
           <BrowserRouter>
@@ -28,8 +28,8 @@ ReactDOM.render(
           </BrowserRouter>
         </FetchUser>
       {/* </CartProvider> */}
-    </FlashProvider>
-  </AuthProvider>,
+      </AuthProvider>
+    </FlashProvider>,
   document.getElementById('root')
 );
 

@@ -3,12 +3,12 @@ import React, { useState, } from "react";
 export const FlashContext = React.createContext();
 export const FlashConsumer = FlashContext.Consumer;
 
-export const FlashProvider = (props) => {
+export const FlashProvider = ({ children, }) => {
   const [flash, setFlash] = useState({});
 
   const setFlashMessage = (message, color) => {
     setFlash({ message, color, });
-  }
+  };
 
   const fadeFlash = () => {
     setTimeout( () => {
@@ -23,8 +23,7 @@ export const FlashProvider = (props) => {
       setFlashMessage,
       setFlash: () => setFlash({}),
     }}>
-      { props.children }
+      { children }
     </FlashContext.Provider>
-  )
-
-}
+  );
+};

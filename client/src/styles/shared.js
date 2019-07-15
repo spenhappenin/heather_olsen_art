@@ -19,7 +19,7 @@ export const media = Object.keys(sizes).reduce((accumulator, label) => {
     }
   `
   return accumulator
-}, {})
+}, {});
 
 export const StyledContainer = styled.div`
   ${ media.giant`margin: 50px 280px 125px 280px !important;`};
@@ -36,71 +36,72 @@ export const DimmerContainer = styled.div`
 // --- Text ---
 
 export const Header = styled.p`
-  font-size: ${ props => props.primary ? '34px' : '20px'};
   border: none;
-  margin: calc(2rem - .14285714em) 0 1rem;
-  padding: 0 0;
+  color: rgba(0,0,0,.87);
   font-family: 'Julius Sans One', sans-serif;
+  font-size: ${ props => props.primary ? '34px' : '20px'};
   font-weight: 700;
   line-height: 1.28571429em;
-  color: rgba(0,0,0,.87);
+  margin: calc(2rem - .14285714em) 0 1rem;
+  padding: 0 0;
   text-transform: ${ props => props.primary ? 'uppercase' : 'none'};
 `;
 
 export const Link = styled(ReactRouterLink)`
   color: inherit;
+
   &:hover {
     color: inherit;
   }
 `;
 
 export const SocialLink = styled(ReactRouterLink)`
-  margin-bottom: 14px;
-  font-weight: 100;
   color: #4f4f4f;
+  font-weight: 100;
+  margin-bottom: 14px;
 `;
 
 // --- Buttons ---
 
 export const Button = styled.button`
-  color: #fff;
-  transition: background-color 0.3s ease;
   background-color: ${ props => props.modal ? '#557c8c' : '#272727'};
   border-color: #272727;
-  padding: 15px 40px 15px 40px;
-  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 1px;
-  font-size: 11px;
-  cursor: pointer;
   margin-right: ${ props => props.group ? '15px' : null };
+  padding: 15px 40px 15px 40px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
 
   &:focus {
     outline: 0;
   }
   &:hover {
-    transition: background-color 0.3s ease;
     background-color: ${ props => props.modal ? '#6e92a1' : '#595959'};
+    transition: background-color 0.3s ease;
   }
 `;
 
 export const CvButton = styled.button`
   color: #fff;
-  transition: background-color 0.3s ease;
+  cursor: pointer;
   background-color: ${ props => props.edit ? '#84764d' : '#784747'};
   border-color: #272727;
-  padding: 5px 10px 5px 10px;
-  text-transform: uppercase;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 1px;
-  font-size: 11px;
-  cursor: pointer;
+  padding: 5px 10px 5px 10px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
 
   &:focus {
     outline: 0;
   }
   &:hover {
-    transition: background-color 0.3s ease;
     background-color: ${ props => props.modal ? '#6e92a1' : '#595959'};
+    transition: background-color 0.3s ease;
   }
 `;

@@ -1,97 +1,93 @@
-import React from 'react';
+import React, { useContext, useState, } from 'react';
 import axios from 'axios';
 import CvEditForm from './CvEditForm';
 import moment from 'moment';
 import styled from 'styled-components';
+import { FlashContext, } from "../../providers/FlashProvider";
 
-class AdminCv extends React.Component {
-  state = { editing: false, };
+const AdminCv = (props) => {
+  const [editing, setEditing] = useState(false);
+  
+  const { setFlashMessage, } = useContext(FlashContext);
 
-  toggleEdit = () => this.setState({ editing: !this.state.editing, });
-
-  displayButtons = (id) => (
+  const displayButtons = (id) => (
     <ButtonContainer>
-      <CvButton onClick={this.toggleEdit}>Edit</CvButton>
-      <CvButton onClick={() => this.handleDelete(id)}>Delete</CvButton>
+      <CvButton onClick={() => setEditing(!editing)}>Edit</CvButton>
+      <CvButton onClick={() => handleDelete(id)}>Delete</CvButton>
     </ButtonContainer>
   );
 
-  handleDelete = (id) => {
-    const { dispatch, } = this.props;
-
+  const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete?"))
       axios.delete(`/api/cvs/${id}`)
-        .then( res => {
-          // AUTH: Add Flash
-          this.props.delete(id);
-        }) 
+        .then( () => {
+          setFlashMessage("CV Deleted", "green");
+          props.delete(id);
+        })
         .catch( err => {
-          // AUTH: Add Flash
-          console.log(err.response);
+          setFlashMessage(err.response, "red");
         })
   };
 
-  displayCv = () => {
-    const { cv_date, cv_type, location, id, title, } = this.props.cv;
+  const displayCv = () => {
+    const { cv_date, cv_type, location, id, title, } = props.cv;
     const formattedDate = moment(cv_date).format('YYYY MMM');
     const justYear = moment(cv_date).format('YYYY');
 
     switch (cv_type) {
       case 'current_rep':
-        return this.state.editing ?
-          <CvEditForm 
-            id={id} 
-            title={title} 
-            toggleEdit={this.toggleEdit} 
-            type='one' 
-            update={this.props.update} 
+        return editing ?
+          <CvEditForm
+            id={id}
+            title={title}
+            toggleEdit={() => setEditing(!editing)}
+            type='one'
+            update={props.update}
           />
         :
           <CvContainer>
-            <div>{title}</div>
-            { this.displayButtons(id) }
+            <div>{ title }</div>
+            { displayButtons(id) }
           </CvContainer>
       case 'education':
-        return this.state.editing ? 
-          <CvEditForm 
-            date={cv_date} 
-            id={id} 
-            title={title} 
-            toggleEdit={this.toggleEdit} 
-            type='two' 
-            update={this.props.update} 
+        return editing ?
+          <CvEditForm
+            date={cv_date}
+            id={id}
+            title={title}
+            toggleEdit={() => setEditing(!editing)}
+            type='two'
+            update={props.update}
           />
         :
           <CvContainer>
             <div>{title}, {justYear}</div>
-            { this.displayButtons(id) }
+            { displayButtons(id) }
           </CvContainer>
       default:
-        return this.state.editing ? 
-          <CvEditForm 
-            date={cv_date} 
-            id={id} 
-            location={location} 
-            title={title} 
-            toggleEdit={this.toggleEdit} 
-            type='three' 
-            update={this.props.update} 
+        return editing ?
+          <CvEditForm
+            date={cv_date}
+            id={id}
+            location={location}
+            title={title}
+            toggleEdit={() => setEditing(!editing)}
+            type='three'
+            update={props.update}
           />
-        : 
+          :
           <CvContainer>
             <div>{formattedDate} - {title} - {location}</div>
-            { this.displayButtons(id) }
+            { displayButtons(id) }
           </CvContainer>
     };
   };
 
-  render() {
-    return (
-      <div>
-        { this.displayCv() }
-      </div>
-    );
-  };
+  return (
+    <div>
+      { displayCv() }
+    </div>
+  );
 };
 
 const CvContainer = styled.div`
@@ -105,24 +101,24 @@ const ButtonContainer = styled.div`
 `;
 
 const CvButton = styled.button`
-  color: #fff;
-  transition: background-color 0.3s ease;
   background-color: #272727;
   border-color: #272727;
-  padding: 10px 15px 10px 15px;
-  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+  font-size: 8px;
   font-weight: 600;
   letter-spacing: 1px;
-  font-size: 8px;
-  cursor: pointer;
   margin-right: 15px;
+  padding: 10px 15px 10px 15px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
 
   &:focus {
     outline: 0;
   }
   &:hover {
-    transition: background-color 0.3s ease;
     background-color: #595959;
+    transition: background-color 0.3s ease;
   }
 `;
 

@@ -1,6 +1,6 @@
 import React, { useContext, } from 'react';
 import { AuthContext, } from "../providers/AuthProvider";
-import { renderMergedProps, } from '../helpers/routes';
+// import { renderMergedProps, } from '../helpers/routes';
 import { Redirect, Route, } from 'react-router-dom';
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
@@ -11,7 +11,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
       render={ props => (
         authenticated ?
           <Component {...props} />
-          :
+        :
           <Redirect
             to={{
               pathname: "/login",
@@ -20,7 +20,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
           />
       )}
     />
-  )
-}
+  );
+};
 
 export default ProtectedRoute;

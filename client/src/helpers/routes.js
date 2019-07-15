@@ -9,4 +9,4 @@ export const renderMergedProps = (component, ...rest) => {
     // create a new React element with the component and final props
     React.createElement(component, finalProps)
   );
-}
+};

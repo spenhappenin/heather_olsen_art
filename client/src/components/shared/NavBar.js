@@ -81,8 +81,8 @@ const Navbar = (props) => {
           </NavItems>
         </StyledNavbar>
       </div>
-    )
+    );
   };
-}
+};
 
 export default withRouter(Navbar);
