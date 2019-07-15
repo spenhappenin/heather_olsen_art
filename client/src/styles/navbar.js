@@ -9,34 +9,34 @@ const mobile = 767;
 
 //  --  Navbar  --
 export const StyledNavbar = styled.div`
+  align-items: center;
   background-color: #131313;
   border-top: 1px solid #dedede;
-  position: fixed;
   bottom: 0;
-  width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  z-index: 1;
-  padding-top: 30px;
   padding-bottom: 30px;
+  padding-top: 30px;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 
   @media (max-width: ${desktop}px) {
-    flex-direction: column;
     align-items: flex-start;
+    flex-direction: column;
     padding-left: 20px;
   };
   @media (max-width: ${mobile}px) {
-    flex-direction: row;
     align-items: center;
+    flex-direction: row;
     height: 52px;
   };
 `;
 
 export const NavLogo = styled.div`
-  width: 20%;
   display: flex;
   justify-content: center;
+  width: 20%;
   
   @media (max-width: ${desktop}px) {
     justify-content: flex-start;
@@ -54,37 +54,38 @@ export const NavItems = styled.div`
   width: 80%;
   
   @media (max-width: ${desktop}px) {
-    width: 100%;
     margin-top: 7px;
+    width: 100%;
   };
 `;
 
 export const StyledLink = styled(NavLink)`
+  color: ${ props => props.title ? '#787878' : '#b7b7b7'};
   display: flex;
   flex-direction: column;
+  font-family: ${ props => props.title ? "'Merriweather Sans', sans-serif !important" : "'Julius Sans One', sans-serif !important" };
+  font-size: ${ props => props.title ? '20px' : '13px'};
   justify-content: center;
+  letter-spacing: 1px; 
   padding-left: 10px;
   padding-right: 10px;
-  color: ${ props => props.title ? '#787878' : '#b7b7b7'};
-  font-size: ${ props => props.title ? '20px' : '13px'};
-  font-family: ${ props => props.title ? "'Merriweather Sans', sans-serif !important" : "'Julius Sans One', sans-serif !important" };
-  letter-spacing: 1px;
 
   &:hover {
-    transition: background-color 1s ease;
-    color: #5f5f5f;
+    color: #5f5f5f;    
+    transition: color 0.3s ease;
   } 
 `;
 
 export const StyledMockLink = styled.span`
+  color: #b7b7b7;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
+  font-family: 'Julius Sans One', sans-serif !important;
+  font-size: 13px;
   justify-content: center;
   padding-left: 10px;
   padding-right: 10px;
-  color: #b7b7b7;
-  font-size: 13px;
-  font-family: 'Julius Sans One', sans-serif !important;
 
   @media (max-width: ${mobile}px) {
     padding-left: 15px;
@@ -92,7 +93,7 @@ export const StyledMockLink = styled.span`
   };
 
   &:hover {
-    transition: background-color 1s ease;
     color: #5f5f5f;
+    transition: color 0.3s ease;
   } 
 `;

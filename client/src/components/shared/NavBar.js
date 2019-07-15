@@ -16,7 +16,6 @@ const Navbar = (props) => {
       return (
         <StyledMockLink
           onClick={ () => auth.handleLogout(props.history) }
-          className="nav-link"
           rel="noopener noreferrer"
         >
           LOGOUT
@@ -42,7 +41,6 @@ const Navbar = (props) => {
           key={link.route}
           to={auth.user ? link.adminRoute : link.route}
           activeStyle={{ color: "#525252" }}
-          className="nav-link"
           rel="noopener noreferrer"
         >
           { link.text }

@@ -1,8 +1,8 @@
-import React, { useState, useEffect, } from "react";
+import React, { useState, useEffect, useContext, } from "react";
 import axios from "axios";
 import Loader from "./Loader";
 import styled from "styled-components";
-import { useForm, } from "./hooks/useForm";
+import { FlashContext, } from "../providers/FlashProvider";
 import { Form, } from "semantic-ui-react";
 import { StyledDropzone, } from "../styles/artWork";
 import { Button, Header, StyledContainer, } from "../styles/shared";
@@ -16,20 +16,20 @@ const ArtworkNew = ({ history, }) => {
   const [price, setPrice] = useState("");
   const [status, setStatus] = useState("");
   const [dateComplete, setDateComplete] = useState("");
-  const [open, setOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [artworkCategories, setArtworkCategories] = useState([]);
   const [fileUploading, setFileUploading] = useState(false);
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
 
-  useEffect( () => {
+  const { setFlashMessage, } = useContext(FlashContext);
+
+  useEffect( () => {    
     axios.get("/api/works")
       .then( res => {
         setCategories(res.data);
       })
       .catch( err => {
-        // AUTH: Add Flash
-        console.log(err.response);
+        setFlashMessage(err.response, "red");
       })
   }, []);
 
@@ -59,14 +59,13 @@ const ArtworkNew = ({ history, }) => {
     data.append("artwork_categories", JSON.stringify(artworkCategories));
 
     axios.post("/api/artworks", data)
-      .then( res => {
-        // AUTH: Add Flash
+      .then( () => {        
+        setFlashMessage("Artwork Created!", "green");
         setLoader(false);
         history.goBack();
       })
       .catch( err => {
-        // AUTH: Add Flash
-        console.log(err.response);
+        setFlashMessage(err.response, "red");
       })
   };
 
