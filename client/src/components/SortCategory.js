@@ -3,8 +3,8 @@ import axios from "axios";
 import styled from "styled-components";
 // import { generateImageUrl, } from '../helpers/artwork';
 import { Header, StyledContainer, } from "../styles/shared";
-import { sortableContainer, sortableElement, } from 'react-sortable-hoc';
-import arrayMove from 'array-move';
+import { sortableContainer, sortableElement, arrayMove } from 'react-sortable-hoc';
+// import arrayMove from 'array-move';
 
 const SortableItem = sortableElement( ({ value, }) => {
   return (

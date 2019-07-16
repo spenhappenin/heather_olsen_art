@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@emarketeross/simple-react-intersection-observer": "^0.1.11",
-    "array-move": "^2.1.0",
     "axios": "^0.16.2",
     "devise-axios": "^1.0.24",
     "lodash": "^4.17.4",
