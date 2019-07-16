@@ -11,9 +11,10 @@ gem "nokogiri", "~> 1.8.1"
 gem "kaminari"
 gem "json"
 gem "tinify"
+gem 'acts_as_list'
 
 group :development, :test do
-  gem "pry"
+  gem "pry-rails"
   gem "dotenv-rails"
   gem "faker"
 end

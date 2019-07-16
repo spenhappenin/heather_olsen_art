@@ -2,7 +2,7 @@ class Api::CategoriesController < ApplicationController
   before_action :set_category, only: [:single_category, :update, :destroy]
 
   def fetch_works
-    render json: Category.all
+    render json: Category.order(position: :asc)
   end
 
   def single_category
@@ -38,6 +38,12 @@ class Api::CategoriesController < ApplicationController
     unless @category.destroy
       render_error(@category)
     end
+  end
+
+  def change_order
+    category = Category.find_by(position: params[:old_index])
+    category.insert_at(params[:new_index])
+    render json: category
   end
 
   private

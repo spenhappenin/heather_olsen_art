@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     get "/artworks", to: "artworks#fetch_artworks"
     get "/single_artwork/:id", to: "artworks#single_artwork"
     get "single_category/:id", to: "categories#single_category"
+    put "categories/change_order", to: "categories#change_order"
     get "/cvs", to: "cvs#fetch_cvs"
     put "/cv/:id", to: "cvs#update_cv"
     get "/fetch_about", to: "users#fetch_user"
