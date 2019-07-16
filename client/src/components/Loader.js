@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useEffect, } from "react";
 import Loader from "react-loader-spinner";
 import styled from "styled-components";
 
-const MyLoader = () => (
-  <LoaderContainer>
-    <StyledLoader
-      type="TailSpin"
-      color="#00BFFF"
-      height="100"
-      width="100"
-    />   
-  </LoaderContainer>
-);
+const MyLoader = () => {
+
+  useEffect( () => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <LoaderContainer>
+      <StyledLoader
+        type="TailSpin"
+        color="#00BFFF"
+        height="100"
+        width="100"
+        />   
+    </LoaderContainer>
+  )
+}
 
 const LoaderContainer = styled.div`
   display: flex;
