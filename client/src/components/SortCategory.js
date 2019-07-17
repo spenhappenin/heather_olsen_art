@@ -3,8 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 // import { generateImageUrl, } from '../helpers/artwork';
 import { Header, StyledContainer, } from "../styles/shared";
-import { sortableContainer, sortableElement, arrayMove } from 'react-sortable-hoc';
-// import arrayMove from 'array-move';
+import { sortableContainer, sortableElement, arrayMove, } from 'react-sortable-hoc';
 
 const SortableItem = sortableElement( ({ value, }) => {
   return (
@@ -16,7 +15,7 @@ const SortableItem = sortableElement( ({ value, }) => {
   );
 });
 
-const SortableContainer = sortableContainer( ({ children }) => {
+const SortableContainer = sortableContainer( ({ children, }) => {
   return <div>{ children }</div>
 });
 
@@ -29,10 +28,9 @@ class SortCategory extends React.Component {
   };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    console.log(oldIndex + 1)
-    console.log(newIndex + 1)
     axios.put("/api/categories/change_order", { new_index: newIndex + 1, old_index: oldIndex + 1, })
       .then( res => {
+        this.props.onSort(res.data);
         this.setState(({ categories }) => ({
           categories: arrayMove(categories, oldIndex, newIndex),
         }));

@@ -15,22 +15,25 @@ import NavBar from "./shared/NavBar";
 import NoMatch from "./NoMatch";
 import ProtectedRoute from "./ProtectedRoute";
 import styled from "styled-components";
-import SortCategory from "./SortCategory";
 import AuthRoute from "./AuthRoute";
 import AdminArtworks from "./AdminArtworks";
 import Artworks from "./Artworks";
 import Categories from "./Categories";
+import SortCategory from "./SortCategory";
 import Home from "./root/Home";
 import Store from "./Store";
 import AddToCart from "./AddToCart";
 import Cart from "./Cart";
 import { AuthContext, } from "../providers/AuthProvider";
+import { FlashContext, } from "../providers/FlashProvider";
 import { Link, } from "react-router-dom";
 import { Menu, Sidebar, } from "semantic-ui-react";
 import { Route, Switch, withRouter, } from "react-router-dom";
 
 const App = (props) => {
   const { user, handleLogout, } = useContext(AuthContext);
+  const { setFlashMessage, } = useContext(FlashContext);
+
   const [dimmed, setDimmed] = useState(false);
   const [sideNav, setSideNav] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -41,9 +44,27 @@ const App = (props) => {
         setCategories(res.data);
       })
       .catch( err => {
-        console.log(err.response);
+        setFlashMessage(err.response, "red");
       })
   }, []);
+  
+  const createCategory = (category) => {
+    setCategories([...categories, category]);
+  };
+
+  const updateCategory = (category) => {
+    const newCategories = categories.map( c => {
+      if (c.id === category.id)
+        return c = category;
+      return c;
+    });
+    setCategories(newCategories);
+  };
+  
+  const deleteCategory = (id) => {
+    const newCategories = categories.filter( c => c.id !== id );
+    setCategories(newCategories);
+  };
 
   const toggleSideNav = () => {
     window.scrollTo(0, 0);
@@ -54,24 +75,6 @@ const App = (props) => {
   const closeSideNav = () => {
     setSideNav(false);
     setDimmed(false);
-  }
-
-  const createCategory = (category) => {
-    setCategories([...categories, category]);
-  };
-
-  const updateCategory = (category) => {
-    const newCategories = categories.map( c => {
-      if (c.id === category.id)
-        return c = category;
-      return c;
-    })
-    setCategories(newCategories);
-  };
-  
-  const deleteCategory = (id) => {
-    const newCategories = categories.filter( c => c.id !== id );
-    setCategories(newCategories);
   };
 
   const rightNavs = () => {
@@ -144,23 +147,29 @@ const App = (props) => {
           { rightNavs() }
         </Sidebar>
         <Sidebar.Pusher dimmed={dimmed}>
-          {/* <Flash /> */}
           <Switch>
             <Route
               exact
               path="/work"
-              render={ props => (
+              render={ () => (
                 <Categories categories={categories} delete={deleteCategory} />
               )}
             />
             <ProtectedRoute exact path="/work/all" component={AllArtwork} />
-            <ProtectedRoute exact path="/work/sort" component={SortCategory} />
+            {
+              user &&
+              <Route
+                exact
+                path="/work/sort"
+                render={ () => <SortCategory onSort={categories => setCategories(categories)} /> }
+              />
+            }
             {
               user &&
               <Route
                 exact
                 path="/work/new-category"
-                render={ props => <CategoryForm create={createCategory} /> }
+                render={ () => <CategoryForm create={createCategory} /> }
               />
             }
             {
@@ -168,7 +177,7 @@ const App = (props) => {
                 <Route
                   exact
                   path="/work/edit-category/:id"
-                  render={ props => (
+                  render={ () => (
                     <CategoryForm
                       create={createCategory}
                       update={updateCategory}

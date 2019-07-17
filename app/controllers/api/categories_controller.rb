@@ -43,7 +43,7 @@ class Api::CategoriesController < ApplicationController
   def change_order
     category = Category.find_by(position: params[:old_index])
     category.insert_at(params[:new_index])
-    render json: category
+    render json: Category.order(position: :asc)
   end
 
   private
