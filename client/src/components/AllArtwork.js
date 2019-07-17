@@ -1,7 +1,8 @@
-import React, { useState, useEffect, } from 'react';
+import React, { useContext, useEffect, useState, } from 'react';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroller';
 import styled from 'styled-components';
+import { FlashContext, } from "../providers/FlashProvider";
 import { Link, } from 'react-router-dom';
 import { generateImageUrl, } from '../helpers/artwork';
 import { Button, Header, StyledContainer, } from '../styles/shared';
@@ -12,6 +13,8 @@ const AllArtwork = (props) => {
   const [thumbnailSize, setThumbnailSize] = useState(100);
   const [totalPages, setTotalPages] = useState(0);
 
+  const { setFlashMessage, } = useContext(FlashContext);
+
   useEffect( () => {
     axios.get('/api/all_artworks')
       .then( res => {
@@ -19,8 +22,7 @@ const AllArtwork = (props) => {
         setTotalPages(res.data.total_pages);
       })
       .catch( err => {
-        // AUTH: Add flash message
-        console.log(err.response);
+        setFlashMessage(err.response, "red");
       })
   }, [])
 
@@ -45,8 +47,7 @@ const AllArtwork = (props) => {
         setCurrentPage(currentPage + 1);
       })
       .catch( err => {
-        // AUTH: Add Flash Messages
-        console.log(err.response);
+        setFlashMessage(err.response, "red");
       })
   };
 

@@ -2,11 +2,13 @@ import React, { useContext, } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { AuthContext, } from "../providers/AuthProvider";
+import { FlashContext, } from "../providers/FlashProvider";
 import { Grid, } from 'semantic-ui-react';
 import { Button, Link, } from '../styles/shared';
 
 const Categories = (props) => {
   const { user, } = useContext(AuthContext);
+  const { setFlashMessage, } = useContext(FlashContext);
 
   const displayCategories = () => {
     return props.categories.map( c => (
@@ -48,12 +50,11 @@ const Categories = (props) => {
     if (window.confirm("Are you sure you want to delete?"))
       axios.delete(`/api/categories/${id}`)
         .then( res => {
-          // AUTH: Add Flash
+          setFlashMessage("Category Deleted", "green");
           props.delete(id);
         })
         .catch( err => {
-          // AUTH: Add Flash
-          console.log(err.response);
+          setFlashMessage(err.response, "red");
         })
   };
 
