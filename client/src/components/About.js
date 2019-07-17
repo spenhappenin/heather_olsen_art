@@ -20,7 +20,7 @@ const About = (props) => {
   const [loader, setLoader] = useState(false);
 
   const { setUser, user, } = useContext(AuthContext);
-  const { setFlashMessage, } = useContext(FlashContext);
+  const { setFlash, } = useContext(FlashContext);
 
   useEffect( () => {
     axios.get("/api/fetch_about")
@@ -31,7 +31,7 @@ const About = (props) => {
         setImage(image);
       })
       .catch( err => {
-        setFlashMessage(err.response, "red");
+        setFlash(err.response, "red");
       })
   }, []);
 
@@ -47,11 +47,11 @@ const About = (props) => {
       .then( res => {
         setUser(res.data);
         setLoader(false);
-        setFlashMessage("Profile Updated!", "green");
+        setFlash("Profile Updated!", "green");
         window.scrollTo(0, 0);
       })
       .catch( err => {
-        setFlashMessage(err.response, "red");
+        setFlash(err.response, "red");
       })
   };
 

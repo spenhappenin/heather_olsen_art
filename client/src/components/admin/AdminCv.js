@@ -8,7 +8,7 @@ import { FlashContext, } from "../../providers/FlashProvider";
 const AdminCv = (props) => {
   const [editing, setEditing] = useState(false);
   
-  const { setFlashMessage, } = useContext(FlashContext);
+  const { setFlash, } = useContext(FlashContext);
 
   const displayButtons = (id) => (
     <ButtonContainer>
@@ -21,11 +21,11 @@ const AdminCv = (props) => {
     if (window.confirm("Are you sure you want to delete?"))
       axios.delete(`/api/cvs/${id}`)
         .then( () => {
-          setFlashMessage("CV Deleted", "green");
+          setFlash("CV Deleted", "green");
           props.delete(id);
         })
         .catch( err => {
-          setFlashMessage(err.response, "red");
+          setFlash(err.response, "red");
         })
   };
 

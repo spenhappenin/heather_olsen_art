@@ -9,7 +9,7 @@ import clear from "../images/clear.svg";
 
 const Cart = (props) => {
   const { cart, removeFromCart, } = useContext(CartContext);
-  const { setFlashMessage, } = useContext(FlashContext);
+  const { setFlash, } = useContext(FlashContext);
 
   const getTotal = () => {
     let total = 0;
@@ -70,7 +70,7 @@ const Cart = (props) => {
         </div>
         <Button 
           style={{ width: "200px", }} 
-          onClick={() => setFlashMessage("Checkout Message", "black")}
+          onClick={() => setFlash("Checkout Message", "black")}
         >
           Checkout
         </Button>

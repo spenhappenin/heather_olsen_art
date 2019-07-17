@@ -8,7 +8,7 @@ import { useWindowWidth, } from "./hooks/useWindowWidth";
 import { StyledContainer, Header, } from "../styles/shared";
 
 const AddToCart = (props) => {
-  const { setFlashMessage, } = useContext(FlashContext);
+  const { setFlash, } = useContext(FlashContext);
   const { addToCart, cart, } = useContext(CartContext);
   const [artwork, setArtwork] = useState({});
   const [disabled, setDisabled] = useState(false);
@@ -32,7 +32,7 @@ const AddToCart = (props) => {
   })
 
   const handleClick = () => {
-    setFlashMessage(`"${artwork.title}" Added To Cart`, "green");
+    setFlash(`"${artwork.title}" Added To Cart`, "green");
     addToCart(artwork);
   }
 

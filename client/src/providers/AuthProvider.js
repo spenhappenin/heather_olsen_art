@@ -7,7 +7,7 @@ export const AuthConsumer = AuthContext.Consumer;
 
 export const AuthProvider = ({ children, }) => {
   const [user, setUser] = useState(null);
-  const { setFlashMessage, } = useContext(FlashContext);
+  const { setFlash, } = useContext(FlashContext);
 
   const handleRegister = (userData, history) => {
     axios.post("/api/auth", userData)
@@ -16,7 +16,7 @@ export const AuthProvider = ({ children, }) => {
         history.push("/");
       })
       .catch( err => {
-        setFlashMessage(err.response.data.errors[0], "red");
+        setFlash(err.response.data.errors[0], "red");
       })
   };
 
@@ -27,7 +27,7 @@ export const AuthProvider = ({ children, }) => {
       history.push("/");
     })
     .catch( err => {
-      setFlashMessage(err.response.data.errors[0], "red");
+      setFlash(err.response.data.errors[0], "red");
     })
   };
 
@@ -36,10 +36,10 @@ export const AuthProvider = ({ children, }) => {
       .then( () => {
         setUser(null);
         history.push("/login");
-        setFlashMessage("Successfully Logged Out", "green");
+        setFlash("Successfully Logged Out", "green");
       })
       .catch( err => {
-        setFlashMessage(err.response.data.errors[0], "red");
+        setFlash(err.response.data.errors[0], "red");
       })
   };
 

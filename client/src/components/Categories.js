@@ -8,7 +8,7 @@ import { Button, Link, } from '../styles/shared';
 
 const Categories = (props) => {
   const { user, } = useContext(AuthContext);
-  const { setFlashMessage, } = useContext(FlashContext);
+  const { setFlash, } = useContext(FlashContext);
 
   const displayCategories = () => {
     return props.categories.map( c => (
@@ -50,11 +50,11 @@ const Categories = (props) => {
     if (window.confirm("Are you sure you want to delete?"))
       axios.delete(`/api/categories/${id}`)
         .then( res => {
-          setFlashMessage("Category Deleted", "green");
+          setFlash("Category Deleted", "green");
           props.delete(id);
         })
         .catch( err => {
-          setFlashMessage(err.response, "red");
+          setFlash(err.response, "red");
         })
   };
 

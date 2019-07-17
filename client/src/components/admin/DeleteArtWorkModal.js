@@ -1,48 +1,46 @@
-import React from 'react';
+import React, { useContext, } from 'react';
 import axios from 'axios';
 import Modal from 'react-responsive-modal';
+import { FlashContext, } from "../../providers/FlashProvider";
 import { Button, Icon, } from 'semantic-ui-react';
 
-class DeleteArtWorkModal extends React.Component {
+const DeleteArtworkModal = (props) => {
+  const { setFlash, } = useContext(FlashContext);
 
-  handleClick = () => {
-    axios.delete(`/api/artworks/${this.props.artWorkId}`)
-      .then( res => {
-        this.props.onClose();
-        this.props.goBack();
-        // AUTH: Add Flash
+  const handleClick = () => {
+    axios.delete(`/api/artworks/${props.artWorkId}`)
+      .then( () => {
+        props.onClose();
+        props.goBack();
+        setFlash("Artwork Deleted", "green");
       })
       .catch( err => {
-        // AUTH: Add Flash
-        console.log(err.response);
+        setFlash(err.response, "red");
       })
   };
 
-  render() {
-    // TODO: Edit design and convert to styled-components
-    return (
-      <Modal open={this.props.open} onClose={this.props.onClose}>
-        <br />
-        <h1>
-          <Icon name='warning sign' color='yellow' size='large' />
-          Delete { this.props.artWorkTitle }
-        </h1>
-        <div>
-          <p>Are you sure you want to delete {this.props.cv_title}?</p>
-        </div>
-        <div>
-          <Button onClick={this.props.onClose}>
-            <Icon name='remove' color='red' />
-            No
-          </Button>
-          <Button onClick={this.handleClick}>
-            <Icon name='checkmark' color='green' />
-            Yes
-          </Button>
-        </div>
-      </Modal>
-    );
-  };
+  return (
+    <Modal open={props.open} onClose={props.onClose}>
+      <br />
+      <h1>
+        <Icon name='warning sign' color='yellow' size='large' />
+        Delete {props.artWorkTitle}
+      </h1>
+      <div>
+        <p>Are you sure you want to delete {props.cv_title}?</p>
+      </div>
+      <div>
+        <Button onClick={props.onClose}>
+          <Icon name='remove' color='red' />
+          No
+        </Button>
+        <Button onClick={handleClick}>
+          <Icon name='checkmark' color='green' />
+          Yes
+        </Button>
+      </div>
+    </Modal>
+  );
 };
 
-export default DeleteArtWorkModal;
+export default DeleteArtworkModal;

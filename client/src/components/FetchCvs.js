@@ -10,13 +10,13 @@ import { Route, Switch, } from 'react-router-dom';
 const FetchCvs = (props) => {
   const [cvs, setCvs] = useState([]);
   const { user, } = useContext(AuthContext);
-  const { setFlashMessage, } = useContext(FlashContext);
+  const { setFlash, } = useContext(FlashContext);
 
   useEffect( () => {
     axios.get('/api/cvs')
       .then( res => setCvs(res.data))
       .catch( err => {
-        setFlashMessage(err.response, "red");
+        setFlash(err.response, "red");
       })
   }, []);
 

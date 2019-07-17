@@ -4,15 +4,15 @@ export const FlashContext = React.createContext();
 export const FlashConsumer = FlashContext.Consumer;
 
 export const FlashProvider = ({ children, }) => {
-  const [flash, setFlash] = useState({});
+  const [flash, setFlashMessage] = useState({});
 
-  const setFlashMessage = (message, color) => {
+  const setFlash = (message, color) => {
     setFlash({ message, color, });
   };
 
   const fadeFlash = () => {
     setTimeout( () => {
-      setFlash({});
+      setFlashMessage({});
     }, 3000);
   };
 
@@ -20,8 +20,8 @@ export const FlashProvider = ({ children, }) => {
     <FlashContext.Provider value={{
       flash,
       fadeFlash,
-      setFlashMessage,
-      setFlash: () => setFlash({}),
+      setFlash,
+      setFlashMessage: () => setFlashMessage({}),
     }}>
       { children }
     </FlashContext.Provider>

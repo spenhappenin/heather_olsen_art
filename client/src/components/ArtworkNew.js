@@ -22,7 +22,7 @@ const ArtworkNew = ({ history, }) => {
   const [fileUploading, setFileUploading] = useState(false);
   const [loader, setLoader] = useState(false);
 
-  const { setFlashMessage, } = useContext(FlashContext);
+  const { setFlash, } = useContext(FlashContext);
 
   useEffect( () => {    
     axios.get("/api/works")
@@ -30,7 +30,7 @@ const ArtworkNew = ({ history, }) => {
         setCategories(res.data);
       })
       .catch( err => {
-        setFlashMessage(err.response, "red");
+        setFlash(err.response, "red");
       })
   }, []);
 
@@ -61,12 +61,12 @@ const ArtworkNew = ({ history, }) => {
 
     axios.post("/api/artworks", data)
       .then( () => {        
-        setFlashMessage("Artwork Created!", "green");
+        setFlash("Artwork Created!", "green");
         setLoader(false);
         history.goBack();
       })
       .catch( err => {
-        setFlashMessage(err.response, "red");
+        setFlash(err.response, "red");
       })
   };
 

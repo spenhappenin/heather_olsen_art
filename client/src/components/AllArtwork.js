@@ -13,7 +13,7 @@ const AllArtwork = (props) => {
   const [thumbnailSize, setThumbnailSize] = useState(100);
   const [totalPages, setTotalPages] = useState(0);
 
-  const { setFlashMessage, } = useContext(FlashContext);
+  const { setFlash, } = useContext(FlashContext);
 
   useEffect( () => {
     axios.get('/api/all_artworks')
@@ -22,7 +22,7 @@ const AllArtwork = (props) => {
         setTotalPages(res.data.total_pages);
       })
       .catch( err => {
-        setFlashMessage(err.response, "red");
+        setFlash(err.response, "red");
       })
   }, [])
 
@@ -47,7 +47,7 @@ const AllArtwork = (props) => {
         setCurrentPage(currentPage + 1);
       })
       .catch( err => {
-        setFlashMessage(err.response, "red");
+        setFlash(err.response, "red");
       })
   };
 

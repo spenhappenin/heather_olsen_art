@@ -1,92 +1,83 @@
-import React from "react";
+import React, { useContext, useEffect, useState, } from "react";
 import axios from "axios";
 import { Form, } from 'semantic-ui-react';
+import { FlashContext, } from "../../providers/FlashProvider";
 import { Button, Header, StyledContainer, } from '../../styles/shared';
 
-class MediaForm extends React.Component {
-  state = { title: "", body: "", url: "", };
+const MediaForm =  ({ history, match, }) => {
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+  const [url, setUrl] = useState("");
 
-  componentDidMount() {
-    const { params, } = this.props.match;
-    if (params.id) 
-      axios.get(`/api/videos/${params.id}`)
-        .then( res => {
-          const { title, body, url, } = res.data;
-          this.setState({ title, body, url, });
+  const { setFlash, } = useContext(FlashContext);
+
+  useEffect( () => {
+    if (match.params.id)
+      axios.get(`/api/videos/${match.params.id}`)
+        .then( ({ data: { title, body, url } }) => {
+          setTitle(title);
+          setBody(body);
+          setUrl(url);
         })
         .catch( err => {
-          // AUTH: Add Flash
-          console.log(err.response);
+          setFlash(err.response);
         })
-  };
+  }, []);
 
-  handleSubmit = (e) => {
-    const { params, } = this.props.match;
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (params.id) {
-      axios.put(`/api/videos/${params.id}`, { video: { ...this.state }, })
+    if (match.params.id) {
+      axios.put(`/api/videos/${match.params.id}`, { video: { title, body, url }, })
         .then( res => {
-          // AUTH: Add Flash
-          this.props.history.goBack();
+          setFlash(`${res.data.title} Updated`, "green");
+          history.goBack();
         })
         .catch( err => {
-          // AUTH: Add Flash
-          console.log(err.response);
+          setFlash(err.response, "red");
         })
     } else {
-      axios.post("/api/videos/", { video: { ...this.state }, })
+      axios.post("/api/videos/", { video: { title, body, url }, })
         .then( res => {
-          // AUTH: Add Flash
-          this.props.history.goBack();
+          setFlash(`${res.data.title} Uploaded`, "green");
+          history.goBack();
         })
-        .catch(err => {
-          // AUTH: Add Flash
-          console.log(err.response);
+        .catch( err => {
+          setFlash(err.response, "red");
         })
-    }
+    };
   };
 
-  handleChange = (e) => {
-    const { name, value, } = e.target;
-    this.setState({ [name]: value, });
-  };
-
-  render() {
-    const { params, } = this.props.match;
-    const { title, body, url, } = this.state;
-
-    return (
-      <StyledContainer>
-        <Header primary>{params.id ? "Media Edit" : "Media New"}</Header>
-        <br />
-        <br />
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Input
-            name="title" 
-            placeholder="Title" 
-            label="Title" 
-            value={title}
-            onChange={this.handleChange} 
-          />
-          <Form.Input 
-            name="url" 
-            placeholder="YouTube URL" 
-            label="YouTube URL" 
-            value={url} 
-            onChange={this.handleChange}
-          />
-          <Form.TextArea 
-            name="body" 
-            placeholder="Body" 
-            label="Body" 
-            value={body} 
-            onChange={this.handleChange}
-          />
-          <Button type="submit">Submit</Button>
-        </Form>
-      </StyledContainer>
-    );
-  };
+  return (
+    <StyledContainer>
+      <Header primary>{match.params.id ? "Media Edit" : "Media New"}</Header>
+      <br />
+      <br />
+      <Form onSubmit={handleSubmit}>
+        <Form.Input
+          name="title"
+          placeholder="Title"
+          label="Title"
+          value={title}
+          onChange={ e => setTitle(e.target.value)}
+        />
+        <Form.Input
+          name="url"
+          placeholder="YouTube URL"
+          label="YouTube URL"
+          value={url}
+          onChange={ e => setUrl(e.target.value) }
+        />
+        <Form.TextArea
+          name="body"
+          placeholder="Body"
+          label="Body"
+          value={body}
+          onChange={ e => setBody(e.target.value) }
+        />
+        <Button type="submit">Submit</Button>
+      </Form>
+    </StyledContainer>
+  );
 };
 
 export default MediaForm;

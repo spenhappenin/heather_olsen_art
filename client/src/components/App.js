@@ -32,7 +32,7 @@ import { Route, Switch, withRouter, } from "react-router-dom";
 
 const App = (props) => {
   const { user, handleLogout, } = useContext(AuthContext);
-  const { setFlashMessage, } = useContext(FlashContext);
+  const { setFlash, } = useContext(FlashContext);
 
   const [dimmed, setDimmed] = useState(false);
   const [sideNav, setSideNav] = useState(false);
@@ -44,7 +44,7 @@ const App = (props) => {
         setCategories(res.data);
       })
       .catch( err => {
-        setFlashMessage(err.response, "red");
+        setFlash(err.response, "red");
       })
   }, []);
   

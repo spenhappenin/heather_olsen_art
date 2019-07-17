@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext, useEffect, useState, } from "react";
 import axios from "axios";
-import DeleteArtWorkModal from "./admin/DeleteArtWorkModal";
+import DeleteArtworkModal from "./admin/DeleteArtworkModal";
 import styled from "styled-components";
+import { FlashConsumer, } from "../providers/FlashProvider";
 import { Button, Header, StyledContainer, } from "../styles/shared";
 import { Form, Icon, Image, } from "semantic-ui-react";
 
@@ -39,8 +40,7 @@ class ArtworkEdit extends React.Component {
         });
       })
       .catch( err => {
-        // AUTH: Add Flash
-        console.log(err.response);
+        this.props.setFlash(err.response, "red");
       })
   };
 
@@ -62,13 +62,12 @@ class ArtworkEdit extends React.Component {
 
     e.preventDefault();
     axios.put(`/api/artworks/${id}`, { ...this.state, })
-      .then( res => {
-        // AUTH: Add Flash    
+      .then( res => {      
+        this.props.setFlash("Artwork Updated", "green");  
         this.props.history.goBack();
       })
       .catch( err => {
-        // AUTH: Add Flash
-        console.log(err.response);
+        this.props.setFlash(err.response, "red");        
       })
   };
 
@@ -95,7 +94,7 @@ class ArtworkEdit extends React.Component {
         <Header primary>{ this.state.title }</Header>
         <Button onClick={this.props.history.goBack}><Icon name='arrow left' />Back</Button>
         <Button onClick={this.show()}>Delete</Button>
-        <DeleteArtWorkModal artWorkTitle={this.state.title} artWorkId={this.props.match.params.id} open={this.state.open} onClose={this.close} type={this.props.type} goBack={this.props.history.goBack} />
+        <DeleteArtworkModal artWorkTitle={this.state.title} artWorkId={this.props.match.params.id} open={this.state.open} onClose={this.close} type={this.props.type} goBack={this.props.history.goBack} />
         <br />
         <br />
         <Image alt={this.state.title} src={this.state.url} size='small'/>
@@ -189,6 +188,14 @@ class ArtworkEdit extends React.Component {
   };
 };
 
+const ConnectedArtworkEdit = (props) => (
+  <FlashConsumer>
+    { value => 
+      <ArtworkEdit {...props} setFlash={value.setFlash} />
+    }
+  </FlashConsumer>
+);
+
 const statusOptions = [
   { key: 'for sale', text: 'For Sale', value: 'for sale' },
   { key: 'nfs', text: 'NFS', value: 'nfs' },
@@ -225,4 +232,4 @@ const CheckboxInput = styled(Form.Checkbox)`
   margin-right: 15px !important;
 `;
 
-export default ArtworkEdit;
+export default ConnectedArtworkEdit;
