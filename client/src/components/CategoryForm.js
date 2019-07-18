@@ -28,7 +28,7 @@ const CategoryForm = ({ create, match, update, history, }) => {
       axios.put(`/api/categories/${match.params.id}`, { ...values, })
         .then( res => {
           update(res.data);
-          setFlash(`${res.data} Updated`, "green");
+          setFlash(`${res.data.title} Updated`, "green");
           history.push('/work');
         })
         .catch( err => {
@@ -38,7 +38,7 @@ const CategoryForm = ({ create, match, update, history, }) => {
       axios.post('/api/categories', { ...values, })
         .then( res => {
           create(res.data);
-          setFlash(`${res.data} Created`, "green");
+          setFlash(`${res.data.title} Created`, "green");
           history.push('/work');
         })
         .catch( err => {

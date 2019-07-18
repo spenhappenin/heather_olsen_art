@@ -2,7 +2,7 @@ import React, { useContext, } from "react";
 import styled from "styled-components";
 import { FlashContext, } from "../providers/FlashProvider";
 
-const FlashMessage = (props) => {
+const FlashMessage = () => {
   const { flash, fadeFlash, setFlash, } = useContext(FlashContext);
   
   if (flash.message) {
@@ -10,7 +10,7 @@ const FlashMessage = (props) => {
     return (
       <FlashContainer 
         color={flash.color}
-        onClick={setFlash}
+        // onClick={ () => setFlash({}) }
       >
         { flash.message }
         { fadeFlash() }
