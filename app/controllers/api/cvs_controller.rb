@@ -8,7 +8,7 @@ class Api::CvsController < ApplicationController
   def create
     cv = Cv.new(cv_params)
     if cv.save
-      render json: Cv.order('cv_date DESC')
+      render json: cv
     else
       render_error(cv)
     end
@@ -23,7 +23,9 @@ class Api::CvsController < ApplicationController
   end
 
   def destroy
-    unless @cv.destroy
+    if @cv.destroy
+      render json: @cv
+    else
       render_error(@cv)
     end
   end

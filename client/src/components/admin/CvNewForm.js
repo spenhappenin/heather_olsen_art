@@ -5,7 +5,7 @@ import moment from "moment";
 import { FlashContext, } from "../../providers/FlashProvider";
 import { StyledContainer, } from "../../styles/shared";
 import { Button, Header, } from "../../styles/shared";
-import { Link, withRouter, } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import { Form, Icon, Segment, } from "semantic-ui-react";
 
 const  CvNewForm = (props) => {
@@ -28,7 +28,6 @@ const  CvNewForm = (props) => {
     axios.post("/api/cvs", { cv: { date, location, cv_date: cvDate, title, cv_type: cvType }, })
       .then( res => {
         setFlash(`${res.data.title} Added to CV`, "green");
-        props.create(res.data);
         props.history.push("/admin-cv");
       })
       .catch( err => {
@@ -90,4 +89,4 @@ const typeOptions = [
   { key: "exhibition", text: "Juried Exhibitions", value: "exhibition" },
 ];
 
-export default withRouter(CvNewForm);
+export default CvNewForm;

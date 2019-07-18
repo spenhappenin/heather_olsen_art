@@ -6,7 +6,9 @@ import ArtworkNew from "./ArtworkNew";
 import axios from "axios";
 import CategoryForm from "./CategoryForm";
 import Contact from "./contact/Contact";
-import FetchCvs from "./FetchCvs";
+import Cvs from "./cvs/Cvs";
+import AdminCvs from "./admin/AdminCvs";
+import CvNewForm from "./admin/CvNewForm";
 import FlashMessage from "./FlashMessage";
 import Login from "./login/Login";
 import Media from "./media/Media";
@@ -194,8 +196,9 @@ const App = (props) => {
             }
             <ProtectedRoute exact path="/work/:work_title/new" component={ArtworkNew} />
             <ProtectedRoute exact path="/work/edit/:id" component={ArtworkEdit} />
-            <Route path="/cv" component={FetchCvs} />
-            <ProtectedRoute path="/admin-cv" component={FetchCvs} />
+            <Route path="/cv" component={Cvs} />
+            <ProtectedRoute exact path='/admin-cv/new' component={CvNewForm} />
+            <ProtectedRoute path="/admin-cv" component={AdminCvs} />
             <Route exact path="/media" component={Media} />
             <ProtectedRoute path="/media/:id/edit" component={MediaForm} />
             <ProtectedRoute path="/media/new" component={MediaForm} />
