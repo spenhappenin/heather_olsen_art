@@ -9,7 +9,7 @@ export const FlashProvider = ({ children, }) => {
   const fadeFlash = () => {
     setTimeout( () => {
       setFlash({});
-    }, 3000);
+    }, 4000);
   };
 
   return (

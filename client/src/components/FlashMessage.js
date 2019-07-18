@@ -1,5 +1,6 @@
 import React, { useContext, } from "react";
 import styled from "styled-components";
+import Slide from "react-reveal/Slide";
 import { FlashContext, } from "../providers/FlashProvider";
 
 const FlashMessage = () => {
@@ -8,13 +9,15 @@ const FlashMessage = () => {
   if (flash.message) {
     window.scrollTo(0, 0);
     return (
-      <FlashContainer 
-        color={flash.color}
-        // onClick={ () => setFlash({}) }
-      >
-        { flash.message }
-        { fadeFlash() }
-      </FlashContainer>
+      <Slide right>
+        <FlashContainer 
+          color={flash.color}
+          // onClick={ () => setFlash({}) }
+        >
+          { flash.message }
+          { fadeFlash() }
+        </FlashContainer>
+      </Slide>
     );
   };
   return null;
