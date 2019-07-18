@@ -1,48 +1,48 @@
-import React, { useEffect, } from 'react';
+import React, { useContext, useEffect, } from 'react';
 import useForm from "./hooks/useForm";
 import axios from 'axios';
 import { Form, } from 'semantic-ui-react';
+import { FlashContext, } from "../providers/FlashProvider";
 import { withRouter, } from 'react-router-dom';
 import { Button, Header, StyledContainer, } from '../styles/shared';
 
-const CategoryForm = (props) => {
+const CategoryForm = ({ create, match, update, history, }) => {
   const { handleChange, handleSubmit, values, setValues, } = useForm(submit);
 
+  const { setFlash, } = useContext(FlashContext);
+
   useEffect( () => {
-    if (props.match.params.id)
-      axios.get(`/api/single_category/${props.match.params.id}`)
+    if (match.params.id)
+      axios.get(`/api/single_category/${match.params.id}`)
         .then( res => {         
           setValues(res.data);
         })
         .catch( err => {
-          // AUTH: Add Flash
-          console.log(err.response);
+          setFlash(err.response, "red");
         })
   }, [])
 
   function submit(e) {
     e.preventDefault();    
-    props.match.params.id ? 
-      axios.put(`/api/categories/${props.match.params.id}`, { ...values, })
+    match.params.id ? 
+      axios.put(`/api/categories/${match.params.id}`, { ...values, })
         .then( res => {
-          props.update(res.data);
-          // AUTH: Add Flash
-          props.history.push('/work');
+          update(res.data);
+          setFlash(`${res.data} Updated`, "green");
+          history.push('/work');
         })
         .catch( err => {
-          // AUTH: Add Flash
-          console.log(err.response);
+          setFlash(err.response, "red");          
         })
     : 
       axios.post('/api/categories', { ...values, })
         .then( res => {
-          props.create(res.data);
-          // AUTH: Add Flash
-          props.history.push('/work');
+          create(res.data);
+          setFlash(`${res.data} Created`, "green");
+          history.push('/work');
         })
         .catch( err => {
-          // AUTH: Add Flash
-          console.log(err.response);
+          setFlash(err.response, "red");
         })
   };
 

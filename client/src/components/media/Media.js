@@ -4,13 +4,16 @@ import Copyright from '../shared/Copyright';
 import ReactPlayer from 'react-player';
 import styled from "styled-components";
 import { AuthContext, } from "../../providers/AuthProvider";
+import { FlashContext, } from "../../providers/FlashProvider";
 import { Segment, } from 'semantic-ui-react';
 import { Link, } from "react-router-dom";
 import { Header, Button, StyledContainer, } from '../../styles/shared';
 
 const Media = (props) => {
   const [videos, setVideos] = useState([]);
+
   const { user, } = useContext(AuthContext);
+  const { setFlash, } = useContext(FlashContext);
 
   useEffect( () => {
     axios.get("/api/videos")
@@ -18,8 +21,7 @@ const Media = (props) => {
         setVideos(res.data);
       })
       .catch( err => {
-        // AUTH: Add Flash
-        console.log(err.response);
+        setFlash(err.response, "red");
       })
   }, [])
 
@@ -27,11 +29,11 @@ const Media = (props) => {
     if (window.confirm("Are you sure you want to delete this video?"))
       axios.delete(`/api/videos/${id}`)
         .then( res => {
+          setFlash(`${res.data.title} Deleted`, "green");
           setVideos( videos => videos.filter( video => video.id !== id ));
         })
         .catch( err => {
-          // AUTH: Add Flash
-          console.log(err.response)
+          setFlash(err.response, "red");
         })
   }
 

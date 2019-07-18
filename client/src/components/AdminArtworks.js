@@ -1,49 +1,49 @@
-import React from "react";
+import React, { useContext, useEffect, useState, } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { FlashContext, } from "../providers/FlashProvider";
+import { useWindowWidth, } from "./hooks/useWindowWidth";
 import { Link, } from "react-router-dom";
 import { Transition, } from "semantic-ui-react";
 import { generateImageUrl, getCategoryTitle, } from "../helpers/artwork";
 import { Button, Header, StyledContainer, } from "../styles/shared";
 
-class AdminArtworks extends React.Component {
-  state = { artWorks: [], categoryTitle: "", erroredImages: [], windowWidth: window.innerWidth, };
+const AdminArtworks = (props) => {
+  const [artworks, setArtworks] = useState([]);
+  const [categoryTitle, setCategoryTitle] = useState("");
+  const [erroredImages, setErroredImages] = useState([]);
+  const windowWidth = useWindowWidth();
 
-  componentDidMount() {
-    const { match: { params: { work_title, }, }, } = this.props;
-    
-    window.addEventListener("resize", this.handleResize);
+  const { setFlash, } = useContext(FlashContext);
+
+  useEffect(() => {
+    const { match: { params: { work_title, }, }, } = props;
+
     axios.get(`/api/artworks?category=${work_title}`)
       .then( res => {
-        this.setState({ artWorks: res.data, categoryTitle: getCategoryTitle(work_title), });
+        setArtworks(res.data);
+        setCategoryTitle(getCategoryTitle(work_title));
       })
       .catch( err => {
-        // AUTH: Add Flash
-        console.log(err.response);
+        setFlash(err.response, "red");
       })
-  };
+  }, []);
 
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.handleResize);
-  };
+  const displayArtWorks = () => {
+    if (!artworks) return;
 
-  displayArtWorks = () => {
-    const { artWorks, erroredImages, visible, } = this.state;
-
-    if (!artWorks) return;
-
-    return artWorks.map( (a, i) => {
+    return artworks.map( a => {
       return erroredImages.includes(a.id) ?
         null
       :
-        <Column key={i}>
-          <Transition visible={visible} animation="fade" duration={2000}>
+        <Column key={a.i}>
+          <Transition animation="fade" duration={2000}>
             <Link to={`edit/${a.id}`} rel="noopener noreferrer">
               <Image
                 alt={a.title}
-                onError={() => this.handleImageError(a.id)}
+                onError={() => handleImageError(a.id)}
                 srcSet={[
-                  `${generateImageUrl(a.url, 1100)} 1024w`, 
+                  `${generateImageUrl(a.url, 1100)} 1024w`,
                   `${generateImageUrl(a.url, 750)} 750w`
                 ]}
               />
@@ -53,34 +53,28 @@ class AdminArtworks extends React.Component {
     });
   };
 
-  handleImageError = (id) => this.setState({ erroredImages: [...this.state.erroredImages, id], });
+  const handleImageError = (id) => setErroredImages([...erroredImages, id]);
 
-  handleResize = () => this.setState({ windowWidth: window.innerWidth, });
-
-  render() {
-    const { categoryTitle, windowWidth, } = this.state;
-
-    return(
-      <StyledContainer>
-        <Header primary>{ categoryTitle }</Header>
-        <Link to={`${this.props.path}/new`} rel="noopener noreferrer">
-          <Button>New</Button>
-        </Link>
-        <br />
-        <br />
-        <Grid width={windowWidth}>
-          { this.displayArtWorks() }
-        </Grid>
-      </StyledContainer>
-    );
-  };
+  return (
+    <StyledContainer>
+      <Header primary>{categoryTitle}</Header>
+      <Link to={`${props.path}/new`} rel="noopener noreferrer">
+        <Button>New</Button>
+      </Link>
+      <br />
+      <br />
+      <Grid width={windowWidth}>
+        { displayArtWorks() }
+      </Grid>
+    </StyledContainer>
+  );
 };
 
 const Grid = styled.div`
   display: grid;
   grid-gap: 25px;
   /* TODO: Better way to break on mobile? */
-  grid-template-columns: ${ props => `repeat(${props.width <= 750 ? 2 : 4}, 1fr)` };
+  grid-template-columns: ${ props => `repeat(${props.width <= 750 ? 2 : 4}, 1fr)`};
 `;
 
 const Column = styled.div`

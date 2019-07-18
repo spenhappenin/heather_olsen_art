@@ -1,101 +1,99 @@
-import React from 'react';
+import React, { useContext, useEffect, useState, } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { FlashContext, } from "../../providers/FlashProvider";
 
-class CvEditForm extends React.Component {
-  state = { date: '', location: '', title: '', };
+const CvEditForm = (props) => {
+  const [date, setDate] = useState("");
+  const [location, setLocation] = useState("");
+  const [title, setTitle] = useState("");
 
-  componentDidMount() {
-    const { date, location, title, } = this.props;
-    this.setState({ title, date, location, });
-  };
+  const { setFlash, } = useContext(FlashContext);
 
-  handleChange = (e) => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value, });
-  };
+  useEffect( () => {
+    const { date, location, title, } = props;
+    setDate(date);
+    setLocation(location);
+    setTitle(title);
+  }, []);
 
-  handleSubmit = () => {
-    const { id, } = this.props;
-
-    axios.put(`api/cv/${id}`, { cv: this.state, })
+  const handleSubmit = () => {
+    const { id, } = props;
+    axios.put(`api/cv/${id}`, { cv: { title, date, location, }, })
       .then( res => {
-        // AUTH: Add Flash
-        this.props.update(res.data);
-        this.props.toggleEdit();
+        setFlash(`${ res.data } Created`, "green");
+        props.update(res.data);
+        props.toggleEdit();
       })
       .catch( err => {
-        // AUTH: Add Flash
-        console.log(err.response);
+        setFlash(err.response, "red");
       })
   };
 
-  renderButtons = () => (
+  const renderButtons = () => (
     <span>
-      <CvButton onClick={this.handleSubmit} type='button'>Accept</CvButton>
-      <CvButton onClick={this.props.toggleEdit} type='button'>Cancel</CvButton>
+      <CvButton onClick={handleSubmit} type='button'>Accept</CvButton>
+      <CvButton onClick={props.toggleEdit} type='button'>Cancel</CvButton>
     </span>
   );
- 
-  render() {
-    switch(this.props.type) {
-      case 'one':
-        return(
-          <Form onSubmit={this.handleSubmit}>
-            <Input 
-              name='title'
-              value={this.state.title} 
-              onChange={this.handleChange}
-            />
-            { this.renderButtons() }
-          </Form>
-        )
-      case 'two':
-        return(
-          <Form onSubmit={this.handleSubmit}>
-            <Input
-              name='title'
-              onChange={this.handleChange}
-              value={this.state.title}
-            />
-            <Input
-              name='date'
-              onChange={this.handleChange}
-              type='date'
-              value={this.state.date}
-            />
-            { this.renderButtons() }
-          </Form>
-        )
-      case 'three':
-        return(
-          <Form onSubmit={this.handleSubmit}>
-            <Input
-              name='date'
-              onChange={this.handleChange}
-              required
-              smaller
-              type='date'
-              value={this.state.date}
-            />
-            <Input
-              name='title'
-              onChange={this.handleChange}
-              required
-              value={this.state.title}
-            />
-            <Input
-              name='location'
-              onChange={this.handleChange}
-              required
-              value={this.state.location}
-            />
-            { this.renderButtons() }
-          </Form>
-        )
-      default: 
-        return null;
-    };
+
+  switch (props.type) {
+    case "one":
+      return (
+        <Form onSubmit={handleSubmit}>
+          <Input
+            name="title"
+            value={title}
+            onChange={ e => setTitle(e.target.value) }
+          />
+          { renderButtons() }
+        </Form>
+      )
+    case "two":
+      return (
+        <Form onSubmit={handleSubmit}>
+          <Input
+            name="title"
+            onChange={ e => setTitle(e.target.value) }
+            value={title}
+          />
+          <Input
+            name="date"
+            onChange={ e => setDate(e.target.value) }
+            type="date"
+            value={date}
+          />
+          { renderButtons() }
+        </Form>
+      )
+    case "three":
+      return (
+        <Form onSubmit={handleSubmit}>
+          <Input
+            name="date"
+            onChange={e => setDate(e.target.value)}
+            required
+            smaller
+            type="date"
+            value={date}
+          />
+          <Input
+            name="title"
+            onChange={ e => setTitle(e.target.value) }
+            required
+            value={title}
+          />
+          <Input
+            name="location"
+            onChange={ e => setLocation(e.target.value) }
+            required
+            value={location}
+          />
+          { renderButtons() }
+        </Form>
+      )
+    default:
+      return null;
   };
 };
 

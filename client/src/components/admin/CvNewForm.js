@@ -1,88 +1,93 @@
-import React from 'react';
-import axios from 'axios';
-import DatePicker from 'react-datepicker';
-import moment from 'moment';
-import { StyledContainer, } from '../../styles/shared';
-import { Button, Header, } from '../../styles/shared';
-import { Link, withRouter, } from 'react-router-dom';
-import { Form, Icon, Segment, } from 'semantic-ui-react';
+import React, { useContext, useState, } from "react";
+import axios from "axios";
+import DatePicker from "react-datepicker";
+import moment from "moment";
+import { FlashContext, } from "../../providers/FlashProvider";
+import { StyledContainer, } from "../../styles/shared";
+import { Button, Header, } from "../../styles/shared";
+import { Link, withRouter, } from "react-router-dom";
+import { Form, Icon, Segment, } from "semantic-ui-react";
 
-class CvNewForm extends React.Component {
-  state = { date: '', location: '', cv_date: moment(), title: '', cv_type: '', };
+const  CvNewForm = (props) => {
+  const [date, setDate] = useState("");
+  const [location, setLocation] = useState("");
+  const [cvDate, setCvDate] = useState(moment());
+  const [title, setTitle] = useState("");
+  const [cvType, setCvType] = useState("");
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value, });
+  const { setFlash, } = useContext(FlashContext);
 
-  handleDateChange = (date) => this.setState({ cv_date: date, date, });
+  const handleDateChange = (date) => {
+    setDate(date);
+    setCvDate(date);
+  };
 
-  handleSubmit = () => {
-    axios.post('/api/cvs', { cv: this.state, })
+  const handleDropdown = (e, { value, }) => setCvType(value);
+
+  const handleSubmit = () => {
+    axios.post("/api/cvs", { cv: { date, location, cv_date: cvDate, title, cv_type: cvType }, })
       .then( res => {
-        // AUTH: Add Flash
-        this.props.create(res.data);
-        this.props.history.push('/admin-cv');
+        setFlash(`${res.data.title} Added to CV`, "green");
+        props.create(res.data);
+        props.history.push("/admin-cv");
       })
       .catch( err => {
-        // AUTH: Add Flash
-        console.log(err.response);
+        setFlash(err.response, "red");
       })
-  }
+  };
 
-  render() {
-    const { cv_type, title, location, } = this.state;
-
-    return(
-      <Segment as={StyledContainer} basic>
-        <Header primary>New Cv Form</Header>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Group widths='equal'>
-            <Form.Select 
-              name='cv_type' 
-              label='Type' 
-              placeholder='Awards and Certificates' 
-              options={typeOptions} 
-              value={cv_type}
-              onChange={this.handleChange} 
-            />
-            <Form.Input 
-              required
-              name = 'title' 
-              label='Title' 
-              placeholder='Some Art Title'
-              value={title} 
-              onChange={this.handleChange} 
-            />
-            <Form.Input 
-              name='location' 
-              label='Location' 
-              placeholder='Some Location' 
-              value={location}
-              onChange={this.handleChange} 
-            />
-          </Form.Group>
-          <h5>Date</h5>
-          <DatePicker
-            selected={this.state.cv_date}
-            onChange={this.handleDateChange}
+  return (
+    <Segment as={StyledContainer} basic>
+      <Header primary>New Cv Form</Header>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group widths="equal">
+          <Form.Select
+            name="cvType"
+            label="Type"
+            placeholder="Awards and Certificates"
+            options={typeOptions}
+            value={cvType}
+            onChange={ handleDropdown }
           />
-          <br />
-          <Form.Group>
-            <Link to='/admin-cv' rel="noopener noreferrer">
-              <Button><Icon name='arrow left' />Back</Button>
-            </Link>
-            <Button type='submit'>Submit</Button>
-          </Form.Group>
-        </Form>
-      </Segment>
-    )
-  }
-}
+          <Form.Input
+            required
+            name="title"
+            label="Title"
+            placeholder="Some Art Title"
+            value={title}
+            onChange={ e => setTitle(e.target.value) }
+          />
+          <Form.Input
+            name="location"
+            label="Location"
+            placeholder="Some Location"
+            value={location}
+            onChange={ e => setLocation(e.target.value) }
+          />
+        </Form.Group>
+        <h5>Date</h5>
+        <DatePicker
+          selected={cvDate}
+          onChange={handleDateChange}
+        />
+        <br />
+        <Form.Group>
+          <Link to="/admin-cv" rel="noopener noreferrer">
+            <Button><Icon name="arrow left" />Back</Button>
+          </Link>
+          <Button type="submit">Submit</Button>
+        </Form.Group>
+      </Form>
+    </Segment>
+  );
+};
 
 const typeOptions = [
-  { key: 'award', text: 'Awards and Certificates', value: 'award' },
-  { key: 'current_rep', text: 'Current Representation', value: 'current_rep' },
-  { key: 'education', text: 'Education', value: 'education' },
-  { key: 'festival', text: 'Festivals and Events', value: 'festival' },
-  { key: 'exhibition', text: 'Juried Exhibitions', value: 'exhibition' },
+  { key: "award", text: "Awards and Certificates", value: "award" },
+  { key: "current_rep", text: "Current Representation", value: "current_rep" },
+  { key: "education", text: "Education", value: "education" },
+  { key: "festival", text: "Festivals and Events", value: "festival" },
+  { key: "exhibition", text: "Juried Exhibitions", value: "exhibition" },
 ];
 
 export default withRouter(CvNewForm);
