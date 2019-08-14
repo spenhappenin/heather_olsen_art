@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     put "/user_bio_statement", to: "users#user_bio_statement"
     resources :cvs, only: [:create, :destroy]
     resources :artworks, only: [:create, :update, :destroy]
+    resources :blogs
     resources :categories, only: [:create, :update, :destroy]
     resources :videos, only: [:index, :show, :create, :update, :destroy]
   end

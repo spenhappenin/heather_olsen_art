@@ -8,6 +8,6 @@ export const StyledDropzone = styled.div`
   border-width: 2px;
   cursor: pointer;
   display: flex;
-  height: 200px;
+  height: ${ props => props.small ? "100px" : "200px" };
   justify-content: center;
 `;
