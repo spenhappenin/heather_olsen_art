@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState, } from "react";
+import React, { useCallback, useContext, useEffect, useState, } from "react";
 import axios from "axios";
 import Loader from "../Loader";
 import ReactQuill from "react-quill";
@@ -8,7 +8,7 @@ import { StyledDropzone, } from "../../styles/artWork";
 import { useDropzone, } from "react-dropzone";
 import { Button, Header, StyledContainer, } from "../../styles/shared";
 
-const BlogForm = ({ history, }) => {
+const BlogForm = ({ history, match, }) => {
   const [ title, setTitle, ] = useState("");
   const [ body, setBody, ] = useState("");
   const [ image, setImage, ] = useState("");
@@ -16,6 +16,19 @@ const BlogForm = ({ history, }) => {
   const [loader, setLoader] = useState(false);
 
   const { setFlash, } = useContext(FlashContext);
+
+  useEffect( () => {
+    if (match.params.id) 
+      axios.get(`/api/blogs/${match.params.id}`)
+        .then( res => {
+          setTitle(res.data.title);
+          setBody(res.data.body);
+          setImage(res.data.image);
+        })
+        .catch( err => {
+          console.log(err);
+        })
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,15 +39,26 @@ const BlogForm = ({ history, }) => {
     data.append("title", title);
     data.append("body", body);
 
-    axios.post("/api/blogs", data)
-      .then( res => {
-        setFlash("Artwork Created!", "green");
-        setLoader(false);
-        history.goBack();
-      })
-      .catch( err => {
-        setFlash(err.response, "red");
-      })  
+    if (match.params.id)
+      axios.put(`/api/blogs/${match.params.id}`, { title, body, })
+        .then( res => {
+          setFlash("Artwork Updated!", "green");
+          setLoader(false);
+          history.goBack();
+        })
+        .catch( err => {
+          setFlash(err.response, "red");
+        }) 
+    else
+      axios.post("/api/blogs", data)
+        .then( res => {
+          setFlash("Artwork Created!", "green");
+          setLoader(false);
+          history.goBack();
+        })
+        .catch( err => {
+          setFlash(err.response, "red");
+        })  
   };
 
   const onDrop = useCallback(acceptedFiles => {
@@ -46,7 +70,9 @@ const BlogForm = ({ history, }) => {
   return (
     <StyledContainer>
       { loader && <Loader /> }
-      <Header primary>New Blog Post</Header>
+      <Header primary>
+        { match.params.id ? "Edit Blog Post" : "New Blog Post" }
+      </Header>
       <Form onSubmit={handleSubmit}>
         <Form.Input 
           placeholder="Title"

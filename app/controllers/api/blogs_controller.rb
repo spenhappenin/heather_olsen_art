@@ -2,7 +2,7 @@ class Api::BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :update, :destroy]
 
   def index
-    render json: Blog.all
+    render json: Blog.all_blogs
   end
 
   def show
@@ -10,34 +10,19 @@ class Api::BlogsController < ApplicationController
   end
 
   def create
-    Tinify.key = ENV["TINY_PNG"]
-    image_name = params.keys.first
-    uploaded_file = params[image_name]
-    source = Tinify.from_file(uploaded_file.tempfile)
-    source.to_file(image_name)
-    begin
-      cloud_image = Cloudinary::Uploader.upload(image_name, public_id: params[:title], secure: true)
-      blog = Blog.create(
-        title: params[:title],
-        body: params[:body],
-        image: cloud_image["secure_url"]
-      )
-      File.delete(image_name) if File.exists?(image_name)
+    if params.keys.first != "undefined"
+      render json: Blog.upload_image(params)
+    else
+      blog = Blog.create(title: params[:title], body: params[:body])
       render json: blog
-    rescue
-      render_error(blog)
     end
   end
 
   def update
-    if @blog.update(
-      title: params[:title], 
-      body: params[:body],
-      image: params[:image]
-    )
-      render json: @body
+    if @blog.update(blog_params)
+      render json: @blog
     else
-      render_error(@body)
+      render_error(@blog)
     end
   end
 

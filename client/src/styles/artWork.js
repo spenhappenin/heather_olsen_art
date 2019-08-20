@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const StyledDropzone = styled.div`
   align-items: center;
-  border-color: rgb(102, 102, 102);
+  border-color: #cccccc;
   border-radius: 5px;
   border-style: dashed;
   border-width: 2px;
