@@ -4,6 +4,9 @@ import AllArtwork from "./AllArtwork";
 import ArtworkEdit from "./ArtworkEdit";
 import ArtworkNew from "./ArtworkNew";
 import axios from "axios";
+import Blog from "./blog/Blog";
+import BlogForm from "./blog/BlogForm";
+import BlogView from "./blog/BlogView";
 import CategoryForm from "./CategoryForm";
 import Contact from "./contact/Contact";
 import Cvs from "./cvs/Cvs";
@@ -86,6 +89,7 @@ const App = (props) => {
       { name: "CV", path: "/cv", adminPath: "/admin-cv" },
       { name: "MEDIA", path: "/media", adminPath: "/media" },
       { name: "ABOUT", path: "/about", adminPath: "/about" },
+      { name: "BLOG", path: "/blog", adminPath: "/blog" },
       { name: "CONTACT", path: "/contact", adminPath: "/contact" },
       // { name: "STORE", path: "/store", adminPath: "/store" },
       // { name: "CART", path: "/cart", adminPath: "/cart" },
@@ -194,6 +198,10 @@ const App = (props) => {
               :
                 <Route exact path="/work/:work_title" component={Artworks} />
             }
+            <Route exact path="/blog" component={Blog} />
+            <ProtectedRoute exact path="/blog/new" component={BlogForm} />
+            <ProtectedRoute exact path="/blog/:id/edit" component={BlogForm} />
+            <Route exact path="/blog/:id" component={BlogView} />
             <ProtectedRoute exact path="/work/:work_title/new" component={ArtworkNew} />
             <ProtectedRoute exact path="/work/edit/:id" component={ArtworkEdit} />
             <Route path="/cv" component={Cvs} />

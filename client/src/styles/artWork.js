@@ -2,12 +2,12 @@ import styled from 'styled-components';
 
 export const StyledDropzone = styled.div`
   align-items: center;
-  border-color: rgb(102, 102, 102);
+  border-color: #cccccc;
   border-radius: 5px;
   border-style: dashed;
   border-width: 2px;
   cursor: pointer;
   display: flex;
-  height: 200px;
+  height: ${ props => props.small ? "100px" : "200px" };
   justify-content: center;
 `;

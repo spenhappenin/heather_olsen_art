@@ -30,6 +30,7 @@ const Navbar = (props) => {
       { route: "/cv", adminRoute: "/admin-cv", text: "CV", },
       { route: "/media", adminRoute: "/media", text: "MEDIA", },
       { route: "/about", adminRoute: "/about", text: "ABOUT", },
+      { route: "/blog", adminRoute: "/blog", text: "BLOG", },
       { route: "/contact", adminRoute: "/contact", text: "CONTACT", },
       // { route: "/available-work", adminRoute: "/available-work", text: "SHOP", },
       // { route: "/cart", adminRoute: "/cart", text: cartText, },
