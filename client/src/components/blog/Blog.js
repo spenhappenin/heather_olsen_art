@@ -25,6 +25,7 @@ const Blog = () => {
       { authenticated && <Link to="/blog/new"><Button>New Post</Button></Link> }
       <br />
       <br />
+      <Header>{blogs.length === 0 && "There are no blog posts at this time. Posts coming soon."}</Header>
       { blogs.map( blog => (
         <div>
           <BlogView key={blog.id} { ...blog } />
