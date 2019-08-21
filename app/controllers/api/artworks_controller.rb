@@ -1,22 +1,13 @@
 class Api::ArtworksController < ApplicationController
   before_action :set_artwork, only: [:update, :destroy]
 
-  def available_artwork
-    render json: Artwork.available_artwork
-  end
-
-  def all_artworks
-    artwork = Artwork.all.order(date_complete: :desc).page(params[:page]).per(25)
-    render json: { artwork: artwork, total_pages: artwork.total_pages }
-  end
-
-  def fetch_artworks
+  def index
     title = current_user ? Artwork.category_title(params[:category]) : params[:category]
-    category = Category.where(route: title).first
+    category = Category.find_by(route: title)
     render json: category.artworks.order(date_complete: :desc)
   end
 
-  def single_artwork
+  def show
     artwork = Artwork.find(params[:id])
     artworkCategories = Artwork.get_category_list(artwork)
     render json: { 
@@ -27,42 +18,16 @@ class Api::ArtworksController < ApplicationController
   end
 
   def create
-    Tinify.key = ENV["TINY_PNG"]
-    image_name = params.keys.first
-    uploaded_file = params[image_name]
-    source = Tinify.from_file(uploaded_file.tempfile)
-    source.to_file(image_name)
-    begin
-      cloud_image = Cloudinary::Uploader.upload(image_name, public_id: params[:title], secure: true)
-      artwork = Artwork.create(
-        url: cloud_image['secure_url'], 
-        title: params['title'], 
-        medium: params['medium'], 
-        surface: params['surface'], 
-        dimensions: params['dimensions'], 
-        price: params['price'], 
-        status: params['status'], 
-        date_complete: params['date_complete']
-      )
-      Artwork.update_categories(artwork, JSON.parse(params[:artwork_categories]))
-      File.delete(image_name) if File.exists?(image_name)
+    artwork = Artwork.upload_image(params)
+    if artwork
       render json: artwork
-    rescue
+    else
       render_error(artwork)
     end
   end
 
   def update 
-    if @artwork.update(
-      title: params[:title], 
-      medium: params[:medium], 
-      surface: params[:surface], 
-      dimensions: params[:dimensions], 
-      price: params[:price], 
-      status: params[:status], 
-      date_complete: params[:dateComplete], 
-      url: params[:url],
-    )
+    if @artwork.update(artwork_params)
       Artwork.update_categories(@artwork, params[:artworkCategories])
       render json: @artwork
     else
@@ -75,9 +40,30 @@ class Api::ArtworksController < ApplicationController
     @artwork.destroy
   end
 
+  def available_artwork
+    render json: Artwork.available_artwork
+  end
+
+  def all_artworks
+    artwork = Artwork.all.order(date_complete: :desc).page(params[:page]).per(25)
+    render json: { artwork: artwork, total_pages: artwork.total_pages }
+  end
+
   private 
     def artwork_params
-      params.require(:artworks).permit(:title, :url, :type_of, :medium, :surface, :dimensions, :price, :date_complete, :fileData)
+      params.require(:artworks).permit(
+        :date_complete, 
+        :dateComplete,
+        :dimensions, 
+        :fileData, 
+        :medium, 
+        :price, 
+        :status, 
+        :surface, 
+        :title, 
+        :type_of, 
+        :url
+      )
     end
 
     def set_artwork

@@ -44,7 +44,7 @@ const App = (props) => {
   const [categories, setCategories] = useState([]);
 
   useEffect( () => {
-    axios.get("/api/works")
+    axios.get("/api/categories")
       .then( res => {
         setCategories(res.data);
       })

@@ -19,7 +19,7 @@ const CvEditForm = (props) => {
 
   const handleSubmit = () => {
     const { id, } = props;
-    axios.put(`api/cv/${id}`, { cv: { title, date, location, }, })
+    axios.put(`api/cvs/${id}`, { cv: { title, cv_date: date, location, }, })
       .then( res => {
         setFlash(`${ res.data } Created`, "green");
         props.update(res.data);

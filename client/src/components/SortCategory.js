@@ -23,7 +23,7 @@ class SortCategory extends React.Component {
   state = { categories: [], };
 
   componentDidMount() {
-    axios.get("/api/works")
+    axios.get("/api/categories")
       .then( res => this.setState({ categories: res.data }))
   };
 

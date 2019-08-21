@@ -13,14 +13,14 @@ const CategoryForm = ({ create, match, update, history, }) => {
 
   useEffect( () => {
     if (match.params.id)
-      axios.get(`/api/single_category/${match.params.id}`)
+      axios.get(`/api/categories/${match.params.id}`)
         .then( res => {         
           setValues(res.data);
         })
         .catch( err => {
           setFlash(err.response, "red");
         })
-  }, [])
+  }, []);
 
   function submit(e) {
     e.preventDefault();    
@@ -72,6 +72,6 @@ const CategoryForm = ({ create, match, update, history, }) => {
       </Form>
     </StyledContainer>
   );
-}
+};
 
 export default withRouter(CategoryForm);

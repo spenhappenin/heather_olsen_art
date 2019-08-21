@@ -22,7 +22,7 @@ class ArtworkEdit extends React.Component {
   };
 
   componentDidMount() {
-    axios.get(`/api/single_artwork/${this.props.match.params.id}`)
+    axios.get(`/api/artworks/${this.props.match.params.id}`)
       .then( res => {
         const { data, } = res;
         this.setState({ 
