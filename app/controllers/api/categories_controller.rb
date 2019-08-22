@@ -1,5 +1,5 @@
 class Api::CategoriesController < ApplicationController
-  before_action :set_category, only: [:single_category, :update, :destroy]
+  before_action :set_category, only: [:show, :update, :destroy]
 
   def index
     render json: Category.order(position: :asc)

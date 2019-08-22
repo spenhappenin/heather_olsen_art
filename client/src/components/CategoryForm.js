@@ -14,7 +14,7 @@ const CategoryForm = ({ create, match, update, history, }) => {
   useEffect( () => {
     if (match.params.id)
       axios.get(`/api/categories/${match.params.id}`)
-        .then( res => {         
+        .then( res => {    
           setValues(res.data);
         })
         .catch( err => {

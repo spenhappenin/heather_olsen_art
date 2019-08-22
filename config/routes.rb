@@ -4,18 +4,12 @@ Rails.application.routes.draw do
     resources :artworks
     get "/available_artwork", to: "artworks#available_artwork"
     get "/all_artworks", to: "artworks#all_artworks"
-
     resources :blogs
-
     resources :categories
     put "categories/change_order", to: "categories#change_order"
-
     resources :cvs, except: :show
-
     resources :videos
-    
-    get "/fetch_about", to: "users#fetch_user"
-    put "/user_bio_statement", to: "users#user_bio_statement"
+    resources :users, only: [:show, :update]
   end
 
   #Do not place any routes below this one

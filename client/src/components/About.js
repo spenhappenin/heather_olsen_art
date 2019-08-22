@@ -23,7 +23,7 @@ const About = (props) => {
   const { setFlash, } = useContext(FlashContext);
 
   useEffect( () => {
-    axios.get("/api/fetch_about")
+    axios.get("/api/users/1")
       .then( res => {
         const { data: { artist_statement, bio, image, }, } = res;
         setArtistStatement(artist_statement);
@@ -43,7 +43,7 @@ const About = (props) => {
     data.append(photo.name, photo);
     data.append("bio", bio);
     data.append("artist_statement", artist_statement);
-    axios.put("/api/user_bio_statement", data)
+    axios.put("/api/users/1", data)
       .then( res => {
         setUser(res.data);
         setLoader(false);
