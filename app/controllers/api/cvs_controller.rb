@@ -1,8 +1,8 @@
 class Api::CvsController < ApplicationController
-  before_action :set_cv, only: [:update_cv, :destroy]
+  before_action :set_cv, only: [:update, :destroy]
 
-  def fetch_cvs
-    render json: Cv.order('cv_date DESC')
+  def index
+    render json: Cv.all_cvs
   end
 
   def create
@@ -14,7 +14,7 @@ class Api::CvsController < ApplicationController
     end
   end
 
-  def update_cv
+  def update
     if @cv.update(cv_params)
       render json: @cv
     else

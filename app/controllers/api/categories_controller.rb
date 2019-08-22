@@ -1,20 +1,17 @@
 class Api::CategoriesController < ApplicationController
-  before_action :set_category, only: [:single_category, :update, :destroy]
+  before_action :set_category, only: [:show, :update, :destroy]
 
-  def fetch_works
+  def index
     render json: Category.order(position: :asc)
   end
 
-  def single_category
+  def show
     render json: @category
   end
 
   def create
-    category = Category.new(
-      title: params[:title], 
-      display_image: params[:display_image], 
-      route: params[:title].parameterize
-    )
+    category = Category.new(category_params)
+    category.route = params[:title].parameterize
     if category.save
       render json: category
     else
@@ -23,11 +20,8 @@ class Api::CategoriesController < ApplicationController
   end
 
   def update
-    if @category.update(
-      title: params[:title], 
-      display_image: params[:display_image], 
-      route: params[:title].parameterize
-    )
+    @category.route = params[:title].parameterize
+    if @category.update(category_params)
       render json: @category
     else
       render_error(@category)
@@ -49,5 +43,9 @@ class Api::CategoriesController < ApplicationController
   private
     def set_category
       @category = Category.find(params[:id])
+    end
+
+    def category_params
+      params.require(:category).permit(:title, :display_image, :position)
     end
 end
