@@ -2,11 +2,13 @@ import React from 'react';
 import Copyright from '../shared/Copyright';
 import ContactForm from './ContactForm';
 import styled from "styled-components";
+import Subscribe from "../Subscribe";
 import { Header, } from '../../styles/shared';
 import { StyledContainer, } from '../../styles/shared';
 
 const Contact = () => (
   <StyledContainer>
+    <Subscribe />
     <Header primary>Contact</Header>
     <div>
       <Text>Heather Olsen</Text>
