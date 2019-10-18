@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, } from 'react';
 import useForm from "./hooks/useForm";
 import axios from 'axios';
-import { Form, } from 'semantic-ui-react';
 import { FlashContext, } from "../providers/FlashProvider";
 import { withRouter, } from 'react-router-dom';
+import { Form, TextField, } from "./shared/Form";
 import { Button, Header, StyledContainer, } from '../styles/shared';
 
 const CategoryForm = ({ create, match, update, history, }) => {
@@ -52,7 +52,7 @@ const CategoryForm = ({ create, match, update, history, }) => {
       <br />
       <br />
       <Form onSubmit={handleSubmit}>
-        <Form.Input
+        <TextField
           name='title'
           value={values.title}
           required
@@ -60,7 +60,7 @@ const CategoryForm = ({ create, match, update, history, }) => {
           placeholder='Title'
           onChange={handleChange}
         />
-        <Form.Input
+        <TextField
           name='display_image'
           value={values.display_image}
           required

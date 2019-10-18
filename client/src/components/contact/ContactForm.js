@@ -1,42 +1,24 @@
-import React from 'react';
-import styled from "styled-components";
-import { Button, } from '../../styles/shared';
-import { Form, } from 'semantic-ui-react';
+import React from "react";
+import { Button, } from "../../styles/shared";
+import { useWindowWidth, } from "../hooks/useWindowWidth";
+import { Form, FormGroup, TextField, TextArea, } from "../shared/Form";
 
-const ContactForm = () => (
-  <Form action='https://formspree.io/heatherolsenart@gmail.com' target="_blank" method='POST'>
-    <Form.Group widths='equal'>
-      <Form.Field required>
-        <label htmlFor='firstname'>First Name</label>
-        <Input type='text' name='firstname' id='firstname' />
-      </Form.Field>
-      <Form.Field required>
-        <label htmlFor='lastname'>Last Name</label>
-        <Input type='text' name='lastname' id='lastname' />
-      </Form.Field>
-    </Form.Group>
-    <Form.Group widths='equal'>
-      <Form.Field required>
-        <label htmlFor='email'>Email</label>
-        <Input type='email' name='email' id='email' />
-      </Form.Field>
-    </Form.Group>
-    <Form.Group widths='equal'>
-      <Form.Field required>
-        <label htmlFor='subject'>Subject</label>
-        <Input type='text' name='subject' id='subject' />
-      </Form.Field>
-    </Form.Group>
-    <Form.Field required>
-      <label htmlFor='message'>Message</label>
-      <Form.TextArea type='textareas' name='message' id='message' />
-    </Form.Field>
-    <Button type='submit'>Submit</Button>
-  </Form>
-);
+const ContactForm = () => {
+  const windowWidth = useWindowWidth();
 
-const Input = styled.input`
-  outline: none !important;
-`;
+  return (
+    <Form action="https://formspree.io/heatherolsenart@gmail.com" target="_blank" method="POST">
+      <FormGroup windowWidth={windowWidth}>
+        <TextField type="text" name="firstname" label="First Name" required />
+        <TextField type="text" name="lastname" label="Last Name" required />
+      </FormGroup>
+      <TextField type="email" name="email" label="Email" required />
+      <TextField type="text" name="subject" label="Subject" required />
+      <TextArea type="textarea" name="message" label="Message" required height={150} />
+      <br />
+      <Button type="submit">Submit</Button>
+    </Form>
+  );
+};
 
 export default ContactForm;

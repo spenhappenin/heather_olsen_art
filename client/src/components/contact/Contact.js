@@ -1,30 +1,30 @@
 import React from 'react';
 import Copyright from '../shared/Copyright';
 import ContactForm from './ContactForm';
+import styled from "styled-components";
 import { Header, } from '../../styles/shared';
-import { Segment, } from 'semantic-ui-react';
 import { StyledContainer, } from '../../styles/shared';
 
-class Contact extends React.Component {
-  render() {
-    return(
-      <Segment as={StyledContainer} basic>
-        <Header primary>Contact</Header>
-        <div>
-          <p>Heather Olsen</p>
-          <p>SLC, UT</p>
-          <p>801-300-5262</p>
-          <p>heatherolsenart@gmail.com</p>
-        </div>
-        <br />
-        <br />
-        <p>Thanks for visiting! For artwork/comission inquiries, or just to say hi, please fill out the form below. I'd love to hear from you!</p>
-        <br />
-        <ContactForm />
-        <Copyright />
-      </Segment>
-    )
-  }
-}
+const Contact = () => (
+  <StyledContainer>
+    <Header primary>Contact</Header>
+    <div>
+      <Text>Heather Olsen</Text>
+      <Text>SLC, UT</Text>
+      <Text>801-300-5262</Text>
+      <Text>heatherolsenart@gmail.com</Text>
+    </div>
+    <br />
+    <br />
+    <p>Thanks for visiting! For artwork/comission inquiries, or just to say hi, please fill out the form below. I'd love to hear from you!</p>
+    <br />
+    <ContactForm />
+    <Copyright />
+  </StyledContainer>
+);
+
+const Text = styled.p`
+  margin-bottom: 0;
+`;
 
 export default Contact;

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, } from "react";
 import axios from "axios";
-import { Form, } from 'semantic-ui-react';
+import { Form, TextField, TextArea, } from "../shared/Form";
 import { FlashContext, } from "../../providers/FlashProvider";
 import { Button, Header, StyledContainer, } from '../../styles/shared';
 
@@ -53,26 +53,27 @@ const MediaForm =  ({ history, match, }) => {
       <br />
       <br />
       <Form onSubmit={handleSubmit}>
-        <Form.Input
+        <TextField
           name="title"
           placeholder="Title"
           label="Title"
           value={title}
           onChange={ e => setTitle(e.target.value)}
         />
-        <Form.Input
+        <TextField
           name="url"
           placeholder="YouTube URL"
           label="YouTube URL"
           value={url}
           onChange={ e => setUrl(e.target.value) }
         />
-        <Form.TextArea
+        <TextArea
           name="body"
           placeholder="Body"
           label="Body"
           value={body}
           onChange={ e => setBody(e.target.value) }
+          height={250}
         />
         <Button type="submit">Submit</Button>
       </Form>

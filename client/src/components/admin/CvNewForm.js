@@ -2,6 +2,7 @@ import React, { useContext, useState, } from "react";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import moment from "moment";
+import { Dropdown, TextField, FormGroup, } from "../shared/Form";
 import { FlashContext, } from "../../providers/FlashProvider";
 import { StyledContainer, } from "../../styles/shared";
 import { Button, Header, } from "../../styles/shared";
@@ -22,7 +23,7 @@ const  CvNewForm = (props) => {
     setCvDate(date);
   };
 
-  const handleDropdown = (e, { value, }) => setCvType(value);
+  const handleDropdown = (value) => setCvType(value);
 
   const handleSubmit = () => {
     axios.post("/api/cvs", { cv: { date, location, cv_date: cvDate, title, cv_type: cvType }, })
@@ -40,15 +41,26 @@ const  CvNewForm = (props) => {
       <Header primary>New Cv Form</Header>
       <Form onSubmit={handleSubmit}>
         <Form.Group widths="equal">
-          <Form.Select
+          {/* <Form.Select
             name="cvType"
             label="Type"
             placeholder="Awards and Certificates"
             options={typeOptions}
             value={cvType}
             onChange={ handleDropdown }
+          /> */}
+          <Dropdown
+            type="Type"
+            label="Type"
+            name="type"
+            id="type"
+            required
+            placeholder="Awards and Certificates"
+            options={typeOptions}
+            value={cvType}
+            onChange={handleDropdown}
           />
-          <Form.Input
+          <TextField
             required
             name="title"
             label="Title"
@@ -56,7 +68,7 @@ const  CvNewForm = (props) => {
             value={title}
             onChange={ e => setTitle(e.target.value) }
           />
-          <Form.Input
+          <TextField
             name="location"
             label="Location"
             placeholder="Some Location"
