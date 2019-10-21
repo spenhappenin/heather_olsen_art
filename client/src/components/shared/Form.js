@@ -16,33 +16,63 @@ export const FormGroup = styled.div`
   flex-direction: ${ props => props.windowWidth >= 675 ? "row" : "column"};
 `;
 
-export const TextField = ({ type, name, label, required, placeholder, }) => (
+export const TextField = ({ type, name, label, required, placeholder, onChange: handleChange, value, }) => (
   <InputContainer>
     <MyLabel htmlFor={name}>{label}</MyLabel>
-    <InputField 
-      type={type} 
-      name={name}
-      id={name} 
-      required={required} 
-      placeholder={placeholder} 
-    />
+    {
+      handleChange ?
+        <InputField
+          type={type}
+          name={name}
+          id={name}
+          required={required}
+          placeholder={placeholder}
+          value={value}            
+          onChange={(e) => { handleChange(e.target.value) }}
+        /> 
+      :
+        <InputField
+          type={type}
+          name={name}
+          id={name}
+          required={required}
+          placeholder={placeholder}                        
+        /> 
+    }
   </InputContainer>
 );
 
-export const TextArea = ({ type, name, label, required, height, placeholder, }) => (
-  <InputContainer>
-    <MyLabel htmlFor={name}>{label}</MyLabel>
-    <TextAreaField 
-      type={type} 
-      name={name} 
-      id={name} 
-      required={required} 
-      height={height} 
-      placeholder={placeholder}
-    />
-  </InputContainer>
-);
+export const TextArea = ({ type, name, label, required, height, placeholder, onChange: handleChange, }) => {
+  const [value, setValue] = useState("");
 
+  return (
+    <InputContainer>
+      <MyLabel htmlFor={name}>{label}</MyLabel>
+      { 
+        handleChange ? 
+          <TextAreaField
+            type={type}
+            name={name}
+            id={name}
+            required={required}
+            height={height}
+            placeholder={placeholder}
+            value={value}
+            onChange={(e) => { setValue(e.target.value), handleChange(e.target.value) }}
+          />
+        :
+          <TextAreaField
+            type={type}
+            name={name}
+            id={name}
+            required={required}
+            height={height}
+            placeholder={placeholder}
+          />
+      }
+    </InputContainer>
+  );
+};
 
 // Styled Components
 

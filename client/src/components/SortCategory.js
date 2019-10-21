@@ -28,6 +28,7 @@ class SortCategory extends React.Component {
   };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
+    debugger
     axios.put("/api/categories/change_order", { new_index: newIndex + 1, old_index: oldIndex + 1, })
       .then( res => {
         this.props.onSort(res.data);

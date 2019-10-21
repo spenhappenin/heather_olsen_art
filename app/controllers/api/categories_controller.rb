@@ -39,7 +39,7 @@ class Api::CategoriesController < ApplicationController
     category.insert_at(params[:new_index])
     render json: Category.order(position: :asc)
   end
-
+  
   private
     def set_category
       @category = Category.find(params[:id])

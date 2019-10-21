@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, } from 'react';
-import useForm from "./hooks/useForm";
+import React, { useState, useContext, useEffect, } from 'react';
 import axios from 'axios';
 import { FlashContext, } from "../providers/FlashProvider";
 import { withRouter, } from 'react-router-dom';
@@ -7,7 +6,8 @@ import { Form, TextField, } from "./shared/Form";
 import { Button, Header, StyledContainer, } from '../styles/shared';
 
 const CategoryForm = ({ create, match, update, history, }) => {
-  const { handleChange, handleSubmit, values, setValues, } = useForm(submit);
+  const [title, setTitle] = useState("");
+  const [displayImage, setDisplayImage] = useState("");
 
   const { setFlash, } = useContext(FlashContext);
 
@@ -15,17 +15,18 @@ const CategoryForm = ({ create, match, update, history, }) => {
     if (match.params.id)
       axios.get(`/api/categories/${match.params.id}`)
         .then( res => {    
-          setValues(res.data);
+          setTitle(res.data.title);
+          setDisplayImage(res.data.display_image);
         })
         .catch( err => {
           setFlash(err.response, "red");
         })
   }, []);
 
-  function submit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();    
     match.params.id ? 
-      axios.put(`/api/categories/${match.params.id}`, { ...values, })
+      axios.put(`/api/categories/${match.params.id}`, { title, display_image: displayImage, })
         .then( res => {
           update(res.data);
           setFlash(`${res.data.title} Updated`, "green");
@@ -35,7 +36,7 @@ const CategoryForm = ({ create, match, update, history, }) => {
           setFlash(err.response, "red");          
         })
     : 
-      axios.post('/api/categories', { ...values, })
+      axios.post('/api/categories', { title, display_image: displayImage, })
         .then( res => {
           create(res.data);
           setFlash(`${res.data.title} Created`, "green");
@@ -48,25 +49,26 @@ const CategoryForm = ({ create, match, update, history, }) => {
 
   return (
     <StyledContainer>
-      <Header primary>New Category</Header>
+      <Header primary>{match.params.id ? title : "New Category"}</Header>
       <br />
       <br />
       <Form onSubmit={handleSubmit}>
         <TextField
           name='title'
-          value={values.title}
+          value={title}
           required
           label='Title'
-          placeholder='Title'
-          onChange={handleChange}
+          placeholder='Title'          
+          onChange={ value => setTitle(value) }
         />
         <TextField
           name='display_image'
-          value={values.display_image}
+          value={displayImage}
           required
           label='Display Image'
           placeholder='https://some-artwork-url'
-          onChange={handleChange}
+          value={displayImage}
+          onChange={ value => setDisplayImage(value) }
         />
         <Button>Submit</Button>
       </Form>
