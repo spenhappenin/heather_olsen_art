@@ -34,22 +34,14 @@ class Api::CategoriesController < ApplicationController
     end
   end
 
-  def change_order
-    binding.pry
+  def order_change
     category = Category.find_by(position: params[:old_index])
-    category.insert_at(params[:new_index])
+    category.insert_at(params[:new_index].to_i)
     render json: Category.order(position: :asc)
   end
-
-  # def poop
-  #   category = Category.find_by(position: params[:old_index])
-  #   category.insert_at(params[:new_index])
-  #   render json: Category.order(position: :asc)
-  # end
   
   private
     def set_category
-      binding.pry
       @category = Category.find(params[:id])
     end
 
