@@ -6,7 +6,8 @@ Rails.application.routes.draw do
     get "/all_artworks", to: "artworks#all_artworks"
     resources :blogs
     resources :categories
-    put "categories/change_order", to: "categories#change_order"
+    get "/categories/change_order", to: "categories#change_order"
+    # get "/poop", to: "categories#poop"
     resources :cvs, except: :show
     resources :videos
     resources :users, only: [:show, :update]
