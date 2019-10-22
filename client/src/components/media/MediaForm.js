@@ -27,7 +27,7 @@ const MediaForm =  ({ history, match, }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (match.params.id) {
-      axios.put(`/api/videos/${match.params.id}`, { video: { title, body, url }, })
+      axios.put(`/api/admin/videos/videos/${match.params.id}`, { video: { title, body, url }, })
         .then( res => {
           setFlash(`${res.data.title} Updated`, "green");
           history.goBack();
@@ -36,7 +36,7 @@ const MediaForm =  ({ history, match, }) => {
           setFlash(err.response, "red");
         })
     } else {
-      axios.post("/api/videos/", { video: { title, body, url }, })
+      axios.post("/api/admin/videos/videos", { video: { title, body, url }, })
         .then( res => {
           setFlash(`${res.data.title} Uploaded`, "green");
           history.goBack();

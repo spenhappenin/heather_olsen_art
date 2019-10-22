@@ -27,7 +27,7 @@ const Media = (props) => {
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this video?"))
-      axios.delete(`/api/videos/${id}`)
+      axios.delete(`/api/admin/videos/videos/${id}`)
         .then( res => {
           setFlash(`${res.data.title} Deleted`, "green");
           setVideos( videos => videos.filter( video => video.id !== id ));

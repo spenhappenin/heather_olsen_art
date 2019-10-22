@@ -7,6 +7,9 @@ Rails.application.routes.draw do
         resources :categories, only: [:index, :create, :update, :destroy]
         resources :category_order, only: :update
       end
+      namespace :videos do
+        resources :videos, only: [:create, :update, :destroy]
+      end
     end
 
     resources :artworks
@@ -15,7 +18,7 @@ Rails.application.routes.draw do
     resources :blogs
     resources :categories, only: [:index, :show]
     resources :cvs, except: :show
-    resources :videos
+    resources :videos, only: [:index, :show]
     resources :users, only: [:show, :update]
   end
 
