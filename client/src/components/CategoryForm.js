@@ -1,13 +1,16 @@
 import React, { useState, useContext, useEffect, } from 'react';
 import axios from 'axios';
+import { Checkbox, } from "semantic-ui-react";
 import { FlashContext, } from "../providers/FlashProvider";
 import { withRouter, } from 'react-router-dom';
 import { Form, TextField, } from "./shared/Form";
 import { Button, Header, StyledContainer, } from '../styles/shared';
 
-const CategoryForm = ({ create, match, update, history, }) => {
+const CategoryForm = ({ match, history, }) => {
+  const [oldTitle, setOldTitle] = useState("");
   const [title, setTitle] = useState("");
   const [displayImage, setDisplayImage] = useState("");
+  const [published, setPublished] = useState(false);
 
   const { setFlash, } = useContext(FlashContext);
 
@@ -16,7 +19,9 @@ const CategoryForm = ({ create, match, update, history, }) => {
       axios.get(`/api/categories/${match.params.id}`)
         .then( res => {    
           setTitle(res.data.title);
+          setOldTitle(res.data.title);
           setDisplayImage(res.data.display_image);
+          setPublished(res.data.published);
         })
         .catch( err => {
           setFlash(err.response, "red");
@@ -26,9 +31,8 @@ const CategoryForm = ({ create, match, update, history, }) => {
   const handleSubmit = (e) => {
     e.preventDefault();    
     match.params.id ? 
-      axios.put(`/api/categories/${match.params.id}`, { title, display_image: displayImage, })
+      axios.put(`/api/admin/categories/categories/${match.params.id}`, { title, display_image: displayImage, published, })
         .then( res => {
-          update(res.data);
           setFlash(`${res.data.title} Updated`, "green");
           history.push('/work');
         })
@@ -36,9 +40,8 @@ const CategoryForm = ({ create, match, update, history, }) => {
           setFlash(err.response, "red");          
         })
     : 
-      axios.post('/api/categories', { title, display_image: displayImage, })
+      axios.post("/api/admin/categories/categories", { title, display_image: displayImage, published, })
         .then( res => {
-          create(res.data);
           setFlash(`${res.data.title} Created`, "green");
           history.push('/work');
         })
@@ -49,7 +52,7 @@ const CategoryForm = ({ create, match, update, history, }) => {
 
   return (
     <StyledContainer>
-      <Header primary>{match.params.id ? title : "New Category"}</Header>
+      <Header primary>{match.params.id ? oldTitle : "New Category"}</Header>
       <br />
       <br />
       <Form onSubmit={handleSubmit}>
@@ -70,6 +73,14 @@ const CategoryForm = ({ create, match, update, history, }) => {
           value={displayImage}
           onChange={ value => setDisplayImage(value) }
         />
+        <Checkbox 
+          label="Published"
+          name="published"
+          checked={published}
+          onChange={(e, { checked, }) => setPublished(checked)}
+        />
+        <br />
+        <br />
         <Button>Submit</Button>
       </Form>
     </StyledContainer>

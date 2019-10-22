@@ -3,7 +3,6 @@ import About from "./About";
 import AllArtwork from "./AllArtwork";
 import ArtworkEdit from "./ArtworkEdit";
 import ArtworkNew from "./ArtworkNew";
-import axios from "axios";
 import Blog from "./blog/Blog";
 import BlogForm from "./blog/BlogForm";
 import BlogView from "./blog/BlogView";
@@ -41,35 +40,6 @@ const App = (props) => {
 
   const [dimmed, setDimmed] = useState(false);
   const [sideNav, setSideNav] = useState(false);
-  const [categories, setCategories] = useState([]);
-
-  useEffect( () => {
-    axios.get("/api/categories")
-      .then( res => {
-        setCategories(res.data);
-      })
-      .catch( err => {
-        setFlash(err.response, "red");
-      })
-  }, []);
-  
-  const createCategory = (category) => {
-    setCategories([...categories, category]);
-  };
-
-  const updateCategory = (category) => {
-    const newCategories = categories.map( c => {
-      if (c.id === category.id)
-        return c = category;
-      return c;
-    });
-    setCategories(newCategories);
-  };
-  
-  const deleteCategory = (id) => {
-    const newCategories = categories.filter( c => c.id !== id );
-    setCategories(newCategories);
-  };
 
   const toggleSideNav = () => {
     window.scrollTo(0, 0);
@@ -158,7 +128,7 @@ const App = (props) => {
               exact
               path="/work"
               render={ () => (
-                <Categories categories={categories} delete={deleteCategory} />
+                <Categories />
               )}
             />
             <ProtectedRoute exact path="/work/all" component={AllArtwork} />
@@ -167,7 +137,7 @@ const App = (props) => {
               <Route
                 exact
                 path="/work/sort"
-                render={ () => <SortCategory onSort={categories => setCategories(categories)} /> }
+                render={ () => <SortCategory /> }
               />
             }
             {
@@ -175,7 +145,7 @@ const App = (props) => {
               <Route
                 exact
                 path="/work/new-category"
-                render={ () => <CategoryForm create={createCategory} /> }
+                render={ () => <CategoryForm /> }
               />
             }
             {
@@ -183,13 +153,7 @@ const App = (props) => {
                 <Route
                   exact
                   path="/work/edit-category/:id"
-                  render={ () => (
-                    <CategoryForm
-                      create={createCategory}
-                      update={updateCategory}
-                      delete={deleteCategory}
-                    />
-                  )}
+                  render={ () => <CategoryForm /> }
                 />
             }
             {

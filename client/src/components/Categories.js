@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, } from 'react';
+import React, { useContext, useEffect, useState, } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { AuthContext, } from "../providers/AuthProvider";
@@ -6,12 +6,32 @@ import { FlashContext, } from "../providers/FlashProvider";
 import { Grid, } from 'semantic-ui-react';
 import { Button, Link, } from '../styles/shared';
 
-const Categories = (props) => {
+const Categories = (props) => {  
+  const [categories, setCategories] = useState([]);
   const { user, } = useContext(AuthContext);
   const { setFlash, } = useContext(FlashContext);
 
+  useEffect( () => {
+    user && user.admin ? 
+      axios.get("/api/admin/categories/categories")
+        .then( res => {
+          setCategories(res.data);
+        })
+        .catch( err => {
+          setFlash(err.response, "red");
+        })
+    :
+      axios.get("/api/categories")
+        .then( res => {
+          setCategories(res.data);
+        })
+        .catch( err => {
+          setFlash(err.response, "red");
+        })
+  }, []);
+
   const displayCategories = () => {
-    return props.categories.map( c => (
+    return categories.map( c => (
       <Grid.Column key={c.id} mobile={8} tablet={4} computer={5}>
         <CategoryContainer>
           <Link to={user ? `/work/admin-${c.route}` : `/work/${c.route}`}>
@@ -46,12 +66,17 @@ const Categories = (props) => {
     </AdminMenu>
   );
 
+  const deleteCategory = (id) => {
+    const newCategories = categories.filter(c => c.id !== id);
+    setCategories(newCategories);
+  };
+
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete?"))
-      axios.delete(`/api/categories/${id}`)
-        .then( res => {
+      axios.delete(`/api/admin/categories/categories/${id}`)
+        .then( () => {
           setFlash("Category Deleted", "green");
-          props.delete(id);
+          deleteCategory(id);
         })
         .catch( err => {
           setFlash(err.response, "red");

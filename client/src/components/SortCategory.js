@@ -23,14 +23,13 @@ class SortCategory extends React.Component {
   state = { categories: [], };
 
   componentDidMount() {
-    axios.get("/api/categories")
+    axios.get("/api/admin/categories/categories")
       .then( res => this.setState({ categories: res.data }))
   };
 
-  onSortEnd = ({ oldIndex, newIndex }) => {
-    axios.get(`/api/category_order_change?new_index=${newIndex + 1}&old_index=${oldIndex + 1}`)
-      .then( res => {
-        this.props.onSort(res.data);
+  onSortEnd = ({ oldIndex, newIndex, }) => {
+    axios.put(`/api/admin/categories/category_order/id?new_index=${newIndex + 1}&old_index=${oldIndex + 1}`)
+      .then( () => {
         this.setState(({ categories }) => ({
           categories: arrayMove(categories, oldIndex, newIndex),
         }));

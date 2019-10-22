@@ -1,4 +1,4 @@
-User.create(name: 'Heather Olsen', email: 'test@test.com', password: 'password', password_confirmation: 'password')
+User.create(name: 'Heather Olsen', email: 'test@test.com', password: 'password', password_confirmation: 'password', admin: true)
 p 'Test User Created - email: "test@test.com, password: "password"'
 
 status = ['for sale', 'nfs', 'sold']
