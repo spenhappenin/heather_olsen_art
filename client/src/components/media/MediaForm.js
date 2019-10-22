@@ -58,21 +58,21 @@ const MediaForm =  ({ history, match, }) => {
           placeholder="Title"
           label="Title"
           value={title}
-          onChange={ e => setTitle(e.target.value)}
+          onChange={ value => setTitle(value)}
         />
         <TextField
           name="url"
           placeholder="YouTube URL"
           label="YouTube URL"
           value={url}
-          onChange={ e => setUrl(e.target.value) }
+          onChange={ value => setUrl(value) }
         />
         <TextArea
           name="body"
           placeholder="Body"
           label="Body"
           value={body}
-          onChange={ e => setBody(e.target.value) }
+          onChange={ value => setBody(value) }
           height={250}
         />
         <Button type="submit">Submit</Button>

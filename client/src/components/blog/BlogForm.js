@@ -3,7 +3,7 @@ import axios from "axios";
 import Loader from "../Loader";
 import ReactQuill from "react-quill";
 import { FlashContext, } from "../../providers/FlashProvider";
-import { Form, } from "semantic-ui-react";
+import { Form, TextField, } from "../shared/Form";
 import { StyledDropzone, } from "../../styles/artWork";
 import { useDropzone, } from "react-dropzone";
 import { Button, Header, StyledContainer, } from "../../styles/shared";
@@ -25,8 +25,8 @@ const BlogForm = ({ history, match, }) => {
           setBody(res.data.body);
           setImage(res.data.image);
         })
-        .catch( err => {
-          console.log(err);
+        .catch( () => {
+          setFlash("Failed to load Post", "red");
         })
   }, []);
 
@@ -41,7 +41,7 @@ const BlogForm = ({ history, match, }) => {
 
     if (match.params.id)
       axios.put(`/api/blogs/${match.params.id}`, { title, body, })
-        .then( res => {
+        .then( () => {
           setFlash("Artwork Updated!", "green");
           setLoader(false);
           history.goBack();
@@ -51,7 +51,7 @@ const BlogForm = ({ history, match, }) => {
         }) 
     else
       axios.post("/api/blogs", data)
-        .then( res => {
+        .then( () => {
           setFlash("Artwork Created!", "green");
           setLoader(false);
           history.goBack();
@@ -74,11 +74,11 @@ const BlogForm = ({ history, match, }) => {
         { match.params.id ? "Edit Blog Post" : "New Blog Post" }
       </Header>
       <Form onSubmit={handleSubmit}>
-        <Form.Input 
+        <TextField 
           placeholder="Title"
           label="Title"
           value={title}
-          onChange={ e => setTitle(e.target.value) }
+          onChange={ value => setTitle(value) }
           required
         />
         <br />

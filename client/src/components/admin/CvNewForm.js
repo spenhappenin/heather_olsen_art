@@ -66,14 +66,14 @@ const  CvNewForm = (props) => {
             label="Title"
             placeholder="Some Art Title"
             value={title}
-            onChange={ e => setTitle(e.target.value) }
+            onChange={ value => setTitle(value) }
           />
           <TextField
             name="location"
             label="Location"
             placeholder="Some Location"
             value={location}
-            onChange={ e => setLocation(e.target.value) }
+            onChange={ value => setLocation(value) }
           />
         </Form.Group>
         <h5>Date</h5>
