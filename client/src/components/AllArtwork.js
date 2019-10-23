@@ -16,7 +16,7 @@ const AllArtwork = (props) => {
   const { setFlash, } = useContext(FlashContext);
 
   useEffect( () => {
-    axios.get('/api/all_artworks')
+    axios.get("/api/artworks/all_artworks")
       .then( res => {
         setArtwork(res.data.artwork);
         setTotalPages(res.data.total_pages);

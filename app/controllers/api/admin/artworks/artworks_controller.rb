@@ -1,22 +1,6 @@
-class Api::ArtworksController < ApplicationController
+class Api::Admin::Artworks::ArtworksController < ApplicationController
   before_action :set_artwork, only: [:update, :destroy]
-
-  def index
-    title = current_user ? Artwork.category_title(params[:category]) : params[:category]
-    category = Category.find_by(route: title)
-    render json: category.artworks.order(date_complete: :desc)
-  end
-
-  def show
-    artwork = Artwork.find(params[:id])
-    artworkCategories = Artwork.get_category_list(artwork)
-    render json: { 
-      artwork: artwork, 
-      artworkCategories: artworkCategories, 
-      categories: Category.all 
-    }
-  end
-
+  
   def create
     artwork = Artwork.upload_image(params)
     if artwork
@@ -38,15 +22,6 @@ class Api::ArtworksController < ApplicationController
   def destroy
     Cloudinary::Api.delete_resources([@artwork.title])
     @artwork.destroy
-  end
-
-  def available_artwork
-    render json: Artwork.available_artwork
-  end
-
-  def all_artworks
-    artwork = Artwork.all.order(date_complete: :desc).page(params[:page]).per(25)
-    render json: { artwork: artwork, total_pages: artwork.total_pages }
   end
 
   private 

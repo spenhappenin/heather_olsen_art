@@ -139,7 +139,7 @@ class Artworks extends React.Component {
     const { match: { params: { work_title, }, }, } = this.props;
 
     window.addEventListener('resize', this.handleResize);
-    axios.get(`/api/artworks?category=${work_title}`)
+    axios.get(`/api/artworks/artworks?category=${work_title}`)
       .then(res => {
         const art = [];
         res.data.map(a => art.push(formatArt(a)));

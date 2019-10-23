@@ -10,7 +10,7 @@ const Store = (props) => {
   const windowWidth = useWindowWidth();
 
   useEffect( () => {
-    axios.get("/api/available_artwork")
+    axios.get("/api/artworks/available_artworks")
       .then( res => {
         setArtwork(res.data);
       })

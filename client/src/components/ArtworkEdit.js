@@ -22,7 +22,7 @@ class ArtworkEdit extends React.Component {
   };
 
   componentDidMount() {
-    axios.get(`/api/artworks/${this.props.match.params.id}`)
+    axios.get(`/api/artworks/artworks/${this.props.match.params.id}`)
       .then( res => {
         const { data, } = res;
         this.setState({ 
@@ -61,8 +61,8 @@ class ArtworkEdit extends React.Component {
     const { match: { params: { id, }, }, } = this.props;
 
     e.preventDefault();
-    axios.put(`/api/artworks/${id}`, { ...this.state, })
-      .then( res => {      
+    axios.put(`/api/admin/artworks/artworks/${id}`, { ...this.state, })
+      .then( () => {      
         this.props.setFlash("Artwork Updated", "green");  
         this.props.history.goBack();
       })

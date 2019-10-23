@@ -59,7 +59,7 @@ const ArtworkNew = ({ history, }) => {
     data.append("status", status);
     data.append("artwork_categories", JSON.stringify(artworkCategories));
 
-    axios.post("/api/artworks", data)
+    axios.post("/api/admin/artworks/artworks", data)
       .then( () => {        
         setFlash("Artwork Created!", "green");
         setLoader(false);

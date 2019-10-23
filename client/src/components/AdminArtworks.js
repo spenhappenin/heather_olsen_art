@@ -19,7 +19,7 @@ const AdminArtworks = (props) => {
   useEffect(() => {
     const { match: { params: { work_title, }, }, } = props;
 
-    axios.get(`/api/artworks?category=${work_title}`)
+    axios.get(`/api/artworks/artworks?category=${work_title}`)
       .then( res => {
         setArtworks(res.data);
         setCategoryTitle(getCategoryTitle(work_title));

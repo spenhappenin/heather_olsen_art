@@ -13,11 +13,17 @@ Rails.application.routes.draw do
       namespace :blogs do
         resources :blogs, only: [:create, :update, :destroy]
       end
+      namespace :artworks do
+        resources :artworks, only: [:create, :update, :destroy]
+      end
     end
 
-    resources :artworks
-    get "/available_artwork", to: "artworks#available_artwork"
-    get "/all_artworks", to: "artworks#all_artworks"
+    namespace :artworks do
+      resources :artworks, only: [:index, :show]
+      resources :available_artworks, only: :index
+      resources :all_artworks, only: :index
+    end
+
     resources :blogs, only: [:index, :show]
     resources :categories, only: [:index, :show]
     resources :cvs, except: :show

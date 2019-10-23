@@ -8,7 +8,7 @@ const DeleteArtworkModal = (props) => {
   const { setFlash, } = useContext(FlashContext);
 
   const handleClick = () => {
-    axios.delete(`/api/artworks/${props.artWorkId}`)
+    axios.delete(`/api/admin/artworks/artworks/${props.artWorkId}`)
       .then( () => {
         props.onClose();
         props.goBack();
