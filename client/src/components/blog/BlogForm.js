@@ -23,7 +23,7 @@ const BlogForm = ({ history, match, }) => {
         .then( res => {
           setTitle(res.data.title);
           setBody(res.data.body);
-          setImage(res.data.image);
+          // setImage(res.data.image);
         })
         .catch( () => {
           setFlash("Failed to load Post", "red");
@@ -34,13 +34,15 @@ const BlogForm = ({ history, match, }) => {
     e.preventDefault();
     setLoader(true);
     let data = new FormData();
-    let photo = image;
-    data.append(photo.name, photo);
+    if (image) {
+      let photo = image;    
+      data.append(photo.name, photo);
+    };  
     data.append("title", title);
     data.append("body", body);
 
     if (match.params.id)
-      axios.put(`/api/blogs/${match.params.id}`, { title, body, })
+      axios.put(`/api/admin/blogs/blogs/${match.params.id}`, { title, body, })
         .then( () => {
           setFlash("Artwork Updated!", "green");
           setLoader(false);
@@ -50,7 +52,7 @@ const BlogForm = ({ history, match, }) => {
           setFlash(err.response, "red");
         }) 
     else
-      axios.post("/api/blogs", data)
+      axios.post("/api/admin/blogs/blogs", data)
         .then( () => {
           setFlash("Artwork Created!", "green");
           setLoader(false);

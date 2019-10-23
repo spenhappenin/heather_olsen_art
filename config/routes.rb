@@ -10,12 +10,15 @@ Rails.application.routes.draw do
       namespace :videos do
         resources :videos, only: [:create, :update, :destroy]
       end
+      namespace :blogs do
+        resources :blogs, only: [:create, :update, :destroy]
+      end
     end
 
     resources :artworks
     get "/available_artwork", to: "artworks#available_artwork"
     get "/all_artworks", to: "artworks#all_artworks"
-    resources :blogs
+    resources :blogs, only: [:index, :show]
     resources :categories, only: [:index, :show]
     resources :cvs, except: :show
     resources :videos, only: [:index, :show]

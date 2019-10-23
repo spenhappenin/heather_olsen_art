@@ -14,8 +14,8 @@ const BlogView = ({ history, title, image, body, id, updated_at, }) => {
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete?"))
       
-      axios.delete(`/api/blogs/${id}`)
-        .then( res => {
+      axios.delete(`/api/admin/blogs/blogs/${id}`)
+        .then( () => {
           setFlash("Blog Post Deleted!", "green");
           history.push("/blog")
         })
