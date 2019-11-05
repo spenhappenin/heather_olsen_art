@@ -19,7 +19,7 @@ const AdminCv = (props) => {
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete?"))
-      axios.delete(`/api/cvs/${id}`)
+      axios.delete(`/api/admin/cvs/cvs/${id}`)
         .then( res => {
           setFlash(`${res.data.title} Deleted`, "green");
           props.delete(id);

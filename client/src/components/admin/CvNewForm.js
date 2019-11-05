@@ -25,8 +25,8 @@ const  CvNewForm = (props) => {
 
   const handleDropdown = (value) => setCvType(value);
 
-  const handleSubmit = () => {
-    axios.post("/api/cvs", { cv: { date, location, cv_date: cvDate, title, cv_type: cvType }, })
+  const handleSubmit = () => {    
+    axios.post("/api/admin/cvs/cvs", { cv: { date, location, cv_date: cvDate, title, cv_type: cvType }, })
       .then( res => {
         setFlash(`${res.data.title} Added to CV`, "green");
         props.history.push("/admin-cv");

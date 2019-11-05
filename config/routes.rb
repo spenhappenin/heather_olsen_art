@@ -16,6 +16,9 @@ Rails.application.routes.draw do
       namespace :artworks do
         resources :artworks, only: [:create, :update, :destroy]
       end
+      namespace :cvs do
+        resources :cvs, only: [:create, :update, :destroy]
+      end
     end
 
     namespace :artworks do
@@ -26,7 +29,7 @@ Rails.application.routes.draw do
 
     resources :blogs, only: [:index, :show]
     resources :categories, only: [:index, :show]
-    resources :cvs, except: :show
+    resources :cvs, only: [:index, :show]
     resources :videos, only: [:index, :show]
     resources :users, only: [:show, :update]
   end
