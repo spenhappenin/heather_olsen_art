@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
           :omniauthable
   include DeviseTokenAuth::Concerns::User
 
-  def upload_image(params, user)
+  def self.upload_image(params, user)
     uploaded_image_name = params.keys.first
       uploaded_file = params[uploaded_image_name]
       begin

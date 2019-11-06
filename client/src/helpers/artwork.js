@@ -1,16 +1,16 @@
-import moment from 'moment';
+import moment from "moment";
 
 // TODO: Update this..
 const displayStatus = (status, price) => {
   switch(status) {
-    case 'for sale':
+    case "for sale":
       return `$${price}`;
-    case 'nfs':
-      return 'NFS';
-    case 'sold':
-      return 'Sold';
+    case "nfs":
+      return "NFS";
+    case "sold":
+      return "Sold";
     default: 
-      return '';
+      return "";
   }
 };
 
@@ -43,15 +43,15 @@ export const formatArt = (work) => {
 };
 
 export const generateImageUrl = (url, size) => {
-  let newUrl = url.split('/');
+  let newUrl = url.split("/");
   newUrl.splice(6, 0, `c_scale,w_${size}`);
-  return newUrl.join('/');
+  return newUrl.join("/");
 };
 
 // As an admin, gets the title of the category without the `admin-` attached on front
 export const getCategoryTitle = (category) => {
   // TODO: need to split `category` and cut off the `admin-` from the beginning.
-  // let c = category.split('-');
+  // let c = category.split("-");
   // let discard = c.shift();
-  return category.replace(new RegExp("\\-"), ' ');
+  return category.replace(new RegExp("\\-"), " ");
 };
