@@ -120,9 +120,11 @@ const TextAreaField = styled.textarea`
 export const Dropdown = ({ type, name, label, required, height, placeholder, options, onChange, }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+  const [viewValue, setViewValue] = useState("");
 
-  const handleClick = (e) => {
-    setValue(e.target.innerText);
+  const handleClick = (option) => {
+    setViewValue(option.text)
+    setValue(option.value);
     setOpen(!open);
   };
 
@@ -151,7 +153,7 @@ export const Dropdown = ({ type, name, label, required, height, placeholder, opt
         <DropdownMenu>
           {
             options.map( o => (
-              <MenuOption onClick={handleClick} onMatch={o.text === value}>
+              <MenuOption onClick={() => handleClick(o)} onMatch={o.text === value}>
                 { o.text }
               </MenuOption>
             ))

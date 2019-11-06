@@ -36,7 +36,7 @@ const AdminCvs = (props) => {
   };
 
   const displayCvType = (type) => {
-    return cvs.map(cv => {
+    return cvs.map( cv => {
       if (cv.cv_type === type) {
         return <AdminCv key={cv.id} cv={cv} delete={deleteCv} update={updateCv} />
       } else {
