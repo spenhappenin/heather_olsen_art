@@ -25,7 +25,7 @@ const ArtworkNew = ({ history, }) => {
   const { setFlash, } = useContext(FlashContext);
 
   useEffect( () => {    
-    axios.get("/api/categories")
+    axios.get("/api/admin/categories/categories")
       .then( res => {
         setCategories(res.data);
       })
