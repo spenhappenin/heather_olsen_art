@@ -59,7 +59,6 @@ class ArtworkEdit extends React.Component {
   
   handleSubmit = (e) => {
     const { match: { params: { id, }, }, } = this.props;
-
     e.preventDefault();
     axios.put(`/api/admin/artworks/artworks/${id}`, { ...this.state, })
       .then( () => {      

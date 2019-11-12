@@ -26,7 +26,7 @@ class Api::Admin::Artworks::ArtworksController < ApplicationController
 
   private 
     def artwork_params
-      params.require(:artworks).permit(
+      params.require(:artwork).permit(
         :date_complete, 
         :dateComplete,
         :dimensions, 
