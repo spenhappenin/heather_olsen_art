@@ -15,10 +15,10 @@ const AddToCart = (props) => {
   const width = useWindowWidth();
   
   useEffect( () => {
-    axios.get(`/api/artworks/${props.match.params.id}`)
-    .then( res => {
-      setArtwork(res.data.artwork);
-    })
+    axios.get(`/api/artworks/artworks/${props.match.params.id}`)
+      .then( res => { 
+        setArtwork(res.data.artwork);
+      })
   }, []);
   
   useEffect( () => {
