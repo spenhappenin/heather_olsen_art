@@ -9,8 +9,8 @@ class Api::StripeController < ApplicationController
         currency: "usd", 
         source: "tok_visa", 
         description: "Something about the customer..."
-    )
-    binding.pry
+      # )
+    # binding.pry
   end
 
 end

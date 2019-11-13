@@ -21,7 +21,7 @@ const CheckoutForm = (props) => {
   const [billing, setBilling] = useState(false);
   
   const handleSubmit = async (e) => {
-    const amount = total;
+    const amount = total();
     e.preventDefault();
     try {
       const { token, } = await props.stripe.createToken({ firstName, });
@@ -121,7 +121,7 @@ const CheckoutForm = (props) => {
         />
       </Form.Group>
       <h3>Payment Method</h3>
-      <h4>${total}</h4>
+      <h4>${total()}</h4>
       <br />
       <br />
       <CardElement {...createOptions()} />

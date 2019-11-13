@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     resources :cvs, only: [:index, :show]
     resources :videos, only: [:index, :show]
     resources :users, only: [:show, :update]
+    post "/process-payment", to: "stripe#process_payment"
   end
 
   #Do not place any routes below this one

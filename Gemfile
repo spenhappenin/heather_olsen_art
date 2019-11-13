@@ -11,6 +11,7 @@ gem "nokogiri", "~> 1.8.5"
 gem "kaminari"
 gem "json"
 gem "tinify"
+gem "stripe"
 gem 'acts_as_list'
 
 group :development, :test do
