@@ -1,5 +1,6 @@
 import React, { useContext, } from "react";
 import styled from "styled-components";
+import { Link, } from "react-router-dom";
 import { formatPrice, } from "../helpers/cart";
 import { Table, } from "semantic-ui-react";
 import { StyledContainer, Header, Button, } from "../styles/shared";
@@ -68,12 +69,14 @@ const Cart = (props) => {
           <Header style={{ margin: "0 25px 10px 0", }}>Subtotal</Header>
           <Header style={{ margin: "0 0 10px 0", }}>${getTotal()}</Header>
         </div>
-        <Button 
-          style={{ width: "200px", }} 
-          onClick={() => setFlash("Checkout Message", "black")}
-        >
-          Checkout
-        </Button>
+        <Link to="/checkout">
+          <Button
+            style={{ width: "200px", }}
+          // onClick={() => setFlash("Checkout Message", "black")}
+          >
+            Checkout
+          </Button>
+        </Link>
       </CheckoutContainer>
     </StyledContainer>
   )

@@ -28,6 +28,7 @@ import Home from "./root/Home";
 import Store from "./Store";
 import AddToCart from "./AddToCart";
 import Cart from "./Cart";
+import Checkout from "./Checkout";
 import { AuthContext, } from "../providers/AuthProvider";
 import { FlashContext, } from "../providers/FlashProvider";
 import { Link, } from "react-router-dom";
@@ -180,6 +181,7 @@ const App = (props) => {
             <Route exact path="/available-work" component={Store} />
             <Route exact path="/available-work/:id" component={AddToCart} />
             <Route exact path="/cart" component={Cart} />
+            <Route exact path="/checkout" component={Checkout} />
             <AuthRoute exact path="/login" component={Login} />
             <Route component={NoMatch} />
           </Switch>
