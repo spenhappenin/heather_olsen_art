@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     resources :cvs, only: [:index, :show]
     resources :videos, only: [:index, :show]
     resources :users, only: [:show, :update]
+    resources :cart, only: :index
     post "/process-payment", to: "stripe#process_payment"
   end
 

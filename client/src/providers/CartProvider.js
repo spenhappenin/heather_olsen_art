@@ -1,36 +1,46 @@
 import React, { useState, useEffect, } from "react";
+import axios from "axios";
 import { formatPrice, } from "../helpers/cart";
 export const CartContext = React.createContext();
 export const CartConsumer = CartContext.Consumer;
+
 export const CartProvider = (props) => {
   const [cart, setCart] = useState([]);
+
   useEffect(() => {
     fetchCart();
   }, []);
+
   const fetchCart = () => {
-    let items = [];
-    for (var i = 0, len = localStorage.length; i < len; ++i) {
-      items.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-    }
-    setCart(items);
+    let items = JSON.parse(localStorage.getItem("items"));
+    axios.get(`/api/cart?items=${items}`)
+      .then( res => {
+        setCart(res.data);
+      })
+      .catch( err => {
+        console.log(err);
+      })
   };
+
   const total = () => {
     let t = 0;
-    cart.map(i => t += i.price);
+    cart.map( i => t += i.price );
     return formatPrice(t);
   };
-  const addToCart = (item) => {
-    window.localStorage.setItem(item.title, JSON.stringify(item));
+
+  const addToCart = (item) => {  
+    let items = cart.map( c => c.id );
+    items = [...items, item.id];
+    window.localStorage.setItem("items", JSON.stringify(items));
     setCart([...cart, item]);
   };
+
   const removeFromCart = (item) => {
-    window.localStorage.removeItem(item.title);
-    const newCart = cart.filter(i => {
-      if (i.id !== item.id)
-        return i;
-    })
-    setCart(newCart);
+    const cartItems = JSON.parse(localStorage.getItem("items")).filter( i => i !== item.id );    
+    window.localStorage.setItem("items", JSON.stringify(cartItems));
+    setCart(cart.filter( c => c.id !== item.id ));
   };
+
   return (
     <CartContext.Provider value={{
       cart,
@@ -41,5 +51,5 @@ export const CartProvider = (props) => {
     }}>
       {props.children}
     </CartContext.Provider>
-  )
-}
+  );
+};

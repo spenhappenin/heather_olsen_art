@@ -67,4 +67,10 @@ class Artwork < ApplicationRecord
     end
   end
 
+  def self.artwork_in_cart(artwork_ids)
+    artwork_ids.split(",").map do |item|
+      Artwork.find(item)
+    end   
+  end
+
 end
