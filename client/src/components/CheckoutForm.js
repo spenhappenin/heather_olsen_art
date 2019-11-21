@@ -26,7 +26,21 @@ const CheckoutForm = (props) => {
     try {
       const { token, } = await props.stripe.createToken({ firstName, });
 
-      axios.post("/api/process-payment", { token, amount, email, })
+      axios.post("/api/charges", { 
+        token, 
+        user: { 
+          amount, 
+          email, 
+          address: { 
+            street, 
+            apartment, 
+            city, 
+            country, 
+            custState, 
+            zip 
+          } 
+        }, 
+      })
         .then(res => {
           // Redirect to a new page
           console.log(res.data);

@@ -18,6 +18,7 @@ group :development, :test do
   gem "pry-rails"
   gem "dotenv-rails"
   gem "faker"
+  gem "letter_opener"
 end
 
 group :development do

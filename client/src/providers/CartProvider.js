@@ -49,7 +49,7 @@ export const CartProvider = (props) => {
       removeFromCart,
       total,
     }}>
-      {props.children}
+      { props.children }
     </CartContext.Provider>
   );
 };

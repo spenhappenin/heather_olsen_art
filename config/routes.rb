@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     resources :videos, only: [:index, :show]
     resources :users, only: [:show, :update]
     resources :cart, only: :index
-    post "/process-payment", to: "stripe#process_payment"
+    resources :charges, only: :create
   end
 
   #Do not place any routes below this one
