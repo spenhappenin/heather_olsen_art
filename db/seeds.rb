@@ -14,7 +14,8 @@ available = Category.create(title: 'available', route: 'available', display_imag
     dimensions: '15 x 15', 
     price: 250.00, 
     date_complete: Time.now, 
-    status: status.sample
+    status: status.sample,
+    shipping_cost: rand(4...10) * 100
   )
   ArtworkCategory.create(category_id: available.id, artwork_id: artwork.id)
 end

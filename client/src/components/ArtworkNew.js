@@ -15,6 +15,7 @@ const ArtworkNew = ({ history, }) => {
   const [medium, setMedium] = useState("");
   const [dimensions, setDimensions] = useState("");
   const [price, setPrice] = useState("");
+  const [shippingCost, setShippingCost] = useState("");
   const [status, setStatus] = useState("");
   const [dateComplete, setDateComplete] = useState("");
   const [categories, setCategories] = useState([]);
@@ -55,6 +56,7 @@ const ArtworkNew = ({ history, }) => {
     data.append("surface", surface);
     data.append("dimensions", dimensions);
     data.append("price", price);
+    data.append("shipping_cost", shippingCost)
     data.append("date_complete", dateComplete);
     data.append("status", status);
     data.append("artwork_categories", JSON.stringify(artworkCategories));
@@ -150,9 +152,17 @@ const ArtworkNew = ({ history, }) => {
             name="price"
             type="number"
             label="Price"
-            placeholder="$450.00"
+            placeholder="45000"
             value={price}
             onChange={e => setPrice(e.target.value)}
+          />
+          <Input
+            name="shippingCost"
+            type="number"
+            label="Shipping Cost"
+            placeholder="$400"
+            value={shippingCost}
+            onChange={e => setShippingCost(e.target.value)}
           />
         </Form.Group>
         <Form.Group widths="equal">
