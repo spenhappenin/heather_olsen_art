@@ -24,7 +24,7 @@ const About = (props) => {
 
   useEffect( () => {
     axios.get("/api/users/1")
-      .then( res => {
+      .then( res => {        
         const { data: { artist_statement, bio, image, }, } = res;
         setArtistStatement(artist_statement);
         setBio(bio);
@@ -81,7 +81,7 @@ const About = (props) => {
                     <span textAlign="center">Drag photo here or click to select a file.</span>
                 }
               </StyledDropzone>
-              <Image src={image === null ? "" : generateImageUrl(user.image, 750)} />
+              <Image src={image === null ? "" : generateImageUrl(image, 750)} />
             </div>
             <br />
             <Form.Field>
@@ -113,10 +113,6 @@ const About = (props) => {
                 <Image src={image === null ? "" : generateImageUrl(image, 750)} client />
               </Responsive>
             </BioContainer>
-            <br />
-            <br />
-            <br />
-            <br />
             <Header style={{ fontSize: "22px", }}>Artist Statement</Header>
             <p dangerouslySetInnerHTML={createMarkup(artist_statement)} />
           </div>
