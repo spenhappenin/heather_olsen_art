@@ -34,7 +34,7 @@ status = ['for sale', 'nfs', 'sold']
 #####     AVAILABLE     #####
 #############################
 
-available = Category.create(title: 'available', route: 'available', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1529967241/Blonde%20with%20Glasses.jpg')
+available = Category.create(title: 'available', route: 'available', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1529967241/Blonde%20with%20Glasses.jpg', published: true)
 artworks_1.each do |artwork|  
   artwork[:status] = "for sale"
   a = Artwork.create_with(artwork).find_or_create_by(title: artwork[:title])
@@ -47,7 +47,7 @@ end
 #####     ANIMALS     #####
 ###########################
 
-animals = Category.create(title: 'animals', route: 'animals', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1529967631/Hare%20Study.jpg')
+animals = Category.create(title: 'animals', route: 'animals', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1529967631/Hare%20Study.jpg', published: true)
 artworks_2.each do |artwork|
   artwork[:status] = status.sample
   a = Artwork.create_with(artwork).find_or_create_by(title: artwork[:title])
@@ -60,7 +60,7 @@ end
 #####     COMISSIONS     #####
 ##############################
 
-comissions = Category.create(title: 'comissions', route: 'comissions', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1517895361/Midnight%20Smoke.jpg')
+comissions = Category.create(title: 'comissions', route: 'comissions', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1517895361/Midnight%20Smoke.jpg',  published: true)
 artworks_3.each do |artwork|
   artwork[:status] = status.sample
   a = Artwork.create_with(artwork).find_or_create_by(title: artwork[:title])

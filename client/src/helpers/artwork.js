@@ -45,7 +45,7 @@ export const formatArt = (work) => {
 export const generateImageUrl = (url, size) => {
   let newUrl = url.split("/");
   newUrl.splice(6, 0, `c_scale,w_${size}`);
-  return newUrl.join("/");
+  return newUrl.join("/");  
 };
 
 // As an admin, gets the title of the category without the `admin-` attached on front

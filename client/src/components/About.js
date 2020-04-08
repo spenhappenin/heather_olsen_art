@@ -16,7 +16,7 @@ const About = (props) => {
   const [bio, setBio] = useState("");
   const [fileData, setFileData] = useState("");
   const [fileUploading, setFileUploading] = useState(false);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [loader, setLoader] = useState(false);
 
   const { setUser, user, } = useContext(AuthContext);
@@ -44,7 +44,7 @@ const About = (props) => {
     data.append("bio", bio);
     data.append("artist_statement", artist_statement);
     axios.put("/api/users/1", data)
-      .then( res => {
+      .then( res => {        
         setUser(res.data);
         setLoader(false);
         setFlash("Profile Updated!", "green");
@@ -106,11 +106,11 @@ const About = (props) => {
           <div>
             <BioContainer>
               <Responsive maxWidth={749}>
-                <Image src={generateImageUrl(image, 750)} client />
+                <Image src={image === null ? "" : generateImageUrl(image, 750)} client />
               </Responsive>
               <p dangerouslySetInnerHTML={createMarkup(bio)} />
               <Responsive minWidth={750}>
-                <Image src={generateImageUrl(image, 750)} client />
+                <Image src={image === null ? "" : generateImageUrl(image, 750)} client />
               </Responsive>
             </BioContainer>
             <br />
