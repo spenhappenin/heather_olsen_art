@@ -108,6 +108,7 @@ const Grid = styled.div`
 `;
 
 const Column = styled.div`
+  position: relative;
   align-items: center;
   display: flex;
   justify-content: center;
@@ -123,8 +124,7 @@ const ImageContainer = styled.div`
 
 const Image = styled.img`
   display: block;
-  width: 100%;    
-  object-fit: none;
+  width: 100%;      
 
   /* @media (max-width: 800px) {
     max-height: 250px;
@@ -134,14 +134,13 @@ const Image = styled.img`
 const Overlay = styled.div`
   position: absolute;
   bottom: 0;
-  color: #f1f1f1;
 	background: red;
   width: 10px;
 	height: 10px;
 	border-radius: 50%;
   opacity: ${ props => props.sold ? 1 : 0};  
 	right: 12px;
-	bottom: 12px;  
+	bottom: 12px;
 `;
 
 export default Artworks;
