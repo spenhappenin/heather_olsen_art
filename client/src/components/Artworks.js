@@ -129,7 +129,7 @@ const Image = styled.img`
   z-index: 2;
 
   @media (max-width: 600px) {
-    max-height: 300px;
+    max-height: 250px;
   }
 `;
 
