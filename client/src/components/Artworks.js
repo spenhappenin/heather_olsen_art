@@ -117,12 +117,13 @@ const ImageContainer = styled.div`
 	position: relative;
 	display: flex;
 	justify-content: flex-end;
+  width: 100%;
 `;
 
 const Image = styled.img`
-  /* display: block; */
+  display: block;
   width: 100%;
-  /* height: auto; */
+  height: auto;
 `;
 
 const Overlay = styled.div`
