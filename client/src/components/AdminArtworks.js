@@ -39,7 +39,7 @@ const AdminArtworks = (props) => {
         <Column key={a.i}>
           <Transition animation="fade" duration={2000}>
             <Link to={`edit/${a.id}`} rel="noopener noreferrer">
-              {/* <ImageContainer>              */}
+              <ImageContainer>
                 <Image
                   alt={a.title}
                   onError={() => handleImageError(a.id)}
@@ -48,8 +48,8 @@ const AdminArtworks = (props) => {
                     `${generateImageUrl(a.url, 750)} 750w`
                   ]}
                 />
-                {/* <Overlay sold={a.status !== "for sale"}></Overlay>
-              </ImageContainer> */}
+                {/* <Overlay sold={a.status !== "for sale"}></Overlay> */}
+              </ImageContainer>
             </Link>
           </Transition>
         </Column>
@@ -87,9 +87,9 @@ const Column = styled.div`
 `;
 
 const ImageContainer = styled.div`
-	/* position: relative;
+	position: relative;
 	display: flex;
-	justify-content: flex-end; */
+	justify-content: flex-end;
 `;
 
 const Image = styled.img`

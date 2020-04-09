@@ -47,7 +47,7 @@ class Artworks extends React.Component {
         null
       :
         <Column key={i}>
-          {/* <ImageContainer> */}
+          <ImageContainer>
             <Image
               alt={artwork.title}
               srcSet={artwork.srcSet}
@@ -55,8 +55,8 @@ class Artworks extends React.Component {
               onClick={(e) => this.openLightbox(i, e)}
               onError={() => this.handleImageError(artwork.id)}              
             />
-            {/* <Overlay sold={artwork.status !== "for sale"}></Overlay>
-          </ImageContainer> */}
+            {/* <Overlay sold={artwork.status !== "for sale"}></Overlay> */}
+          </ImageContainer>
         </Column>
     });
   };
