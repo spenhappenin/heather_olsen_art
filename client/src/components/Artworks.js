@@ -104,8 +104,7 @@ class Artworks extends React.Component {
 const Grid = styled.div`
   display: grid;
   grid-gap: 25px;
-  grid-template-columns: ${ props => `repeat(${props.width <= 750 ? 2 : 4}, 1fr)`};
-  position: relative;
+  grid-template-columns: ${ props => `repeat(${props.width <= 750 ? 2 : 4}, 1fr)`};  
 `;
 
 const Column = styled.div`
@@ -124,9 +123,8 @@ const ImageContainer = styled.div`
 
 const Image = styled.img`
   display: block;
-  width: 100%;  
-  /* z-index: 2; */
-  object-fit: contain;
+  width: 100%;    
+  object-fit: none;
 
   /* @media (max-width: 800px) {
     max-height: 250px;
@@ -143,8 +141,7 @@ const Overlay = styled.div`
 	border-radius: 50%;
   opacity: ${ props => props.sold ? 1 : 0};  
 	right: 12px;
-	bottom: 12px;
-  /* z-index: 3; */
+	bottom: 12px;  
 `;
 
 export default Artworks;
