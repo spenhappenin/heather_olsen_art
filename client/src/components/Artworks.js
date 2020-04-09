@@ -47,7 +47,7 @@ class Artworks extends React.Component {
         null
       :
         <Column key={i}>
-          <ImageContainer>
+          {/* <ImageContainer> */}
             <Image
               alt={artwork.title}
               srcSet={artwork.srcSet}
@@ -56,7 +56,7 @@ class Artworks extends React.Component {
               onError={() => this.handleImageError(artwork.id)}              
             />
             {/* <Overlay sold={artwork.status !== "for sale"}></Overlay> */}
-          </ImageContainer>
+          {/* </ImageContainer> */}
         </Column>
     });
   };
@@ -114,7 +114,7 @@ const Column = styled.div`
 `;
 
 const ImageContainer = styled.div`
-	/* position: relative; */
+	position: relative;
 	display: flex;
 	justify-content: flex-end;
 `;
