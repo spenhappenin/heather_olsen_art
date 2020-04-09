@@ -118,14 +118,12 @@ const ImageContainer = styled.div`
 	position: relative;
 	display: flex;
 	justify-content: flex-end;
-  width: 100%;
-  height: 100%;
+  width: 100%;  
 `;
 
 const Image = styled.img`
   display: block;
-  width: 100%;
-  height: auto;
+  width: 100%;  
   z-index: 2;
 
   @media (max-width: 800px) {
