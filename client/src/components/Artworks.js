@@ -118,7 +118,8 @@ const ImageContainer = styled.div`
 	position: relative;
 	display: flex;
 	justify-content: flex-end;
-  width: 100%;  
+  width: 100%;
+  height: auto;
 `;
 
 const Image = styled.img`
