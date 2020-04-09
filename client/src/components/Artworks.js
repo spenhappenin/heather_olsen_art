@@ -124,11 +124,12 @@ const ImageContainer = styled.div`
 const Image = styled.img`
   display: block;
   width: 100%;  
-  z-index: 2;
+  /* z-index: 2; */
+  object-fit: contain;
 
-  @media (max-width: 800px) {
+  /* @media (max-width: 800px) {
     max-height: 250px;
-  }
+  } */
 `;
 
 const Overlay = styled.div`
@@ -142,7 +143,7 @@ const Overlay = styled.div`
   opacity: ${ props => props.sold ? 1 : 0};  
 	right: 12px;
 	bottom: 12px;
-  z-index: 3;
+  /* z-index: 3; */
 `;
 
 export default Artworks;
