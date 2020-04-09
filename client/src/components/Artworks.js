@@ -55,7 +55,7 @@ class Artworks extends React.Component {
               onClick={(e) => this.openLightbox(i, e)}
               onError={() => this.handleImageError(artwork.id)}              
             />
-            {/* <Overlay sold={artwork.status !== "for sale"}></Overlay> */}
+            <Overlay sold={artwork.status !== "for sale"}></Overlay>
           </ImageContainer>
         </Column>
     });
@@ -105,6 +105,7 @@ const Grid = styled.div`
   display: grid;
   grid-gap: 25px;
   grid-template-columns: ${ props => `repeat(${props.width <= 750 ? 2 : 4}, 1fr)`};
+  position: relative;
 `;
 
 const Column = styled.div`
@@ -114,9 +115,9 @@ const Column = styled.div`
 `;
 
 const ImageContainer = styled.div`
-	/* position: relative;
+	position: relative;
 	display: flex;
-	justify-content: flex-end; */
+	justify-content: flex-end;
   width: 100%;
 `;
 
@@ -124,6 +125,7 @@ const Image = styled.img`
   display: block;
   width: 100%;
   height: auto;
+  z-index: 2;
 `;
 
 const Overlay = styled.div`
@@ -134,10 +136,10 @@ const Overlay = styled.div`
   width: 10px;
 	height: 10px;
 	border-radius: 50%;
-  opacity: ${ props => props.sold ? 1 : 0};
-  text-align: center;
+  opacity: ${ props => props.sold ? 1 : 0};  
 	right: 12px;
 	bottom: 12px;
+  z-index: 3;
 `;
 
 export default Artworks;
