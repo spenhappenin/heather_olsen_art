@@ -39,14 +39,17 @@ const AdminArtworks = (props) => {
         <Column key={a.i}>
           <Transition animation="fade" duration={2000}>
             <Link to={`edit/${a.id}`} rel="noopener noreferrer">
-              <Image
-                alt={a.title}
-                onError={() => handleImageError(a.id)}
-                srcSet={[
-                  `${generateImageUrl(a.url, 1100)} 1024w`,
-                  `${generateImageUrl(a.url, 750)} 750w`
-                ]}
-              />
+              <ImageContainer>             
+                <Image
+                  alt={a.title}
+                  onError={() => handleImageError(a.id)}
+                  srcSet={[
+                    `${generateImageUrl(a.url, 1100)} 1024w`,
+                    `${generateImageUrl(a.url, 750)} 750w`
+                  ]}
+                />
+                <Overlay sold={a.status !== "for sale"}></Overlay>
+              </ImageContainer>
             </Link>
           </Transition>
         </Column>
@@ -83,8 +86,30 @@ const Column = styled.div`
   justify-content: center;
 `;
 
+const ImageContainer = styled.div`
+	position: relative;
+	display: flex;
+	justify-content: flex-end;
+`;
+
 const Image = styled.img`
+  display: block;
   width: 100%;
+  height: auto;
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  bottom: 0;
+  color: #f1f1f1;
+	background: red;
+  width: 10px;
+	height: 10px;
+	border-radius: 50%;
+  opacity: ${ props => props.sold ? 1 : 0};
+  text-align: center;
+	right: 12px;
+	bottom: 12px;
 `;
 
 export default AdminArtworks;
