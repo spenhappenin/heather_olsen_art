@@ -126,9 +126,9 @@ const Image = styled.img`
   display: block;
   width: 100%;      
 
-  /* @media (max-width: 800px) {
+  @media (max-width: 800px) {
     max-height: 250px;
-  } */
+  }
 `;
 
 const Overlay = styled.div`
