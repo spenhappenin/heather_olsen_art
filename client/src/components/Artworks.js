@@ -125,8 +125,12 @@ const ImageContainer = styled.div`
 const Image = styled.img`
   display: block;
   width: 100%;
-  height: auto;
+  /* height: 500px; */
   z-index: 2;
+
+  @media (max-width: 600px) {
+    max-height: 300px;
+  }
 `;
 
 const Overlay = styled.div`
