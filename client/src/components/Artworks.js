@@ -114,7 +114,7 @@ const Column = styled.div`
 `;
 
 const ImageContainer = styled.div`
-	position: relative;
+	/* position: relative; */
 	display: flex;
 	justify-content: flex-end;
 `;
