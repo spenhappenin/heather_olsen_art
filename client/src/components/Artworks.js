@@ -47,7 +47,7 @@ class Artworks extends React.Component {
         null
       :
         <Column key={i}>
-          <ImageContainer>
+          {/* <ImageContainer> */}
             <Image
               alt={artwork.title}
               srcSet={artwork.srcSet}
@@ -55,8 +55,8 @@ class Artworks extends React.Component {
               onClick={(e) => this.openLightbox(i, e)}
               onError={() => this.handleImageError(artwork.id)}              
             />            
-            <Overlay sold={artwork.status !== "available"}></Overlay>
-          </ImageContainer>
+            {/* <Overlay sold={artwork.status !== "available"}></Overlay> */}
+          {/* </ImageContainer> */}
         </Column>
     });
   };
@@ -126,9 +126,9 @@ const Image = styled.img`
   display: block;
   width: 100%;      
 
-  @media (max-width: 800px) {
+  /* @media (max-width: 800px) {
     max-height: 250px;
-  }
+  } */
 `;
 
 const Overlay = styled.div`

@@ -39,7 +39,7 @@ const AdminArtworks = (props) => {
         <Column key={a.i}>
           <Transition animation="fade" duration={2000}>
             <Link to={`edit/${a.id}`} rel="noopener noreferrer">
-              <ImageContainer>
+              {/* <ImageContainer> */}
                 <Image
                   alt={a.title}
                   onError={() => handleImageError(a.id)}
@@ -49,7 +49,7 @@ const AdminArtworks = (props) => {
                   ]}
                 />
                 {/* <Overlay sold={a.status !== "available"}></Overlay> */}
-              </ImageContainer>
+              {/* </ImageContainer> */}
             </Link>
           </Transition>
         </Column>
