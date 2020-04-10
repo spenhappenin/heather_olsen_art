@@ -48,7 +48,7 @@ const AdminArtworks = (props) => {
                     `${generateImageUrl(a.url, 750)} 750w`
                   ]}
                 />
-                {/* <Overlay sold={a.status !== "for sale"}></Overlay> */}
+                {/* <Overlay sold={a.status !== "available"}></Overlay> */}
               </ImageContainer>
             </Link>
           </Transition>

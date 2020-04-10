@@ -2,8 +2,8 @@ import moment from "moment";
 
 // TODO: Update this..
 const displayStatus = (status, price) => {
-  switch(status) {
-    case "for sale":
+  switch(status) {    
+    case "available":
       return `$${price}`;
     case "nfs":
       return "NFS";

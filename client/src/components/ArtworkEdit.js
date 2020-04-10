@@ -86,7 +86,7 @@ class ArtworkEdit extends React.Component {
       />
     ))
   }
-
+  
   render() {
     return(
       <StyledContainer>
@@ -152,8 +152,8 @@ class ArtworkEdit extends React.Component {
             <SelectInput
               required
               name='status'
-              label='Status'
-              placeholder='For Sale'
+              label='Status'              
+              placeholder='Available'
               options={statusOptions}
               value={this.state.status}
               onChange={this.handleChange}
@@ -196,7 +196,7 @@ const ConnectedArtworkEdit = (props) => (
 );
 
 const statusOptions = [
-  { key: 'for sale', text: 'For Sale', value: 'for sale' },
+  { key: 'available', text: 'Available', value: 'available' },
   { key: 'nfs', text: 'NFS', value: 'nfs' },
   { key: 'sold', text: 'Sold', value: 'sold' }
 ];

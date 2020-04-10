@@ -5,7 +5,7 @@ export const typeOptions = [
 ];
 
 export const statusOptions = [
-  { key: "for sale", text: "For Sale", value: "for sale" },
+  { key: "available", text: "Available", value: "available" },
   { key: "nfs", text: "NFS", value: "nfs" },
   { key: "sold", text: "Sold", value: "sold" },
 ];

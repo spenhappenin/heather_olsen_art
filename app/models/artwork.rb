@@ -1,7 +1,7 @@
 class Artwork < ApplicationRecord
   validates_presence_of :title
   validates_uniqueness_of :title
-  validates_inclusion_of :status, :in => ["for sale", "nfs", "sold"]
+  validates_inclusion_of :status, :in => ["for sale", "available", "nfs", "sold"]
 
   has_many :artwork_categories, dependent: :destroy
   has_many :categories, :through => :artwork_categories, dependent: :destroy
@@ -10,7 +10,7 @@ class Artwork < ApplicationRecord
     find_by_sql(["
       SELECT a.* 
       FROM artworks as a
-      WHERE a.status = 'for sale'
+      WHERE a.status = 'available'
     "])
   end
 

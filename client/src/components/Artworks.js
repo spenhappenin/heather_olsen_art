@@ -54,8 +54,8 @@ class Artworks extends React.Component {
               href={artwork.src}
               onClick={(e) => this.openLightbox(i, e)}
               onError={() => this.handleImageError(artwork.id)}              
-            />
-            <Overlay sold={artwork.status !== "for sale"}></Overlay>
+            />            
+            <Overlay sold={artwork.status !== "available"}></Overlay>
           </ImageContainer>
         </Column>
     });

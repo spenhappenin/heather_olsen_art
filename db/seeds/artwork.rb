@@ -27,7 +27,7 @@ artworks_3 = [
   { title: "Remembering Dad", url: "https://res.cloudinary.com/dkrn2wmhn/image/upload/v1517890082/Remembering%20Dad.jpg", medium: "oil", surface: "canvas", dimensions: "10 x 16", price: 800.00, date_complete: Time.now, status: "" }
 ]
 
-status = ['for sale', 'nfs', 'sold']
+status = ['available', 'nfs', 'sold']
 
 
 #############################
@@ -35,8 +35,8 @@ status = ['for sale', 'nfs', 'sold']
 #############################
 
 available = Category.create(title: 'available', route: 'available', display_image: 'https://res.cloudinary.com/dkrn2wmhn/image/upload/v1529967241/Blonde%20with%20Glasses.jpg', published: true)
-artworks_1.each do |artwork|  
-  artwork[:status] = "for sale"
+artworks_1.each do |artwork|
+  artwork[:status] = "available"
   a = Artwork.create_with(artwork).find_or_create_by(title: artwork[:title])
   a.save
   ArtworkCategory.create(category_id: available.id, artwork_id: a.id)

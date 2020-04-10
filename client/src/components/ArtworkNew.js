@@ -160,7 +160,7 @@ const ArtworkNew = ({ history, }) => {
             required
             name="status"
             label="Status"
-            placeholder="For Sale"
+            placeholder="Available"
             options={statusOptions}
             value={status}
             onChange={handleDropdown}
@@ -184,7 +184,7 @@ const ArtworkNew = ({ history, }) => {
 };
 
 const statusOptions = [
-  { key: "for sale", text: "For Sale", value: "for sale" },
+  { key: "available", text: "Available", value: "available" },
   { key: "nfs", text: "NFS", value: "nfs" },
   { key: "sold", text: "Sold", value: "sold" }
 ];
