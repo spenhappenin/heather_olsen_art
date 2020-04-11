@@ -50,14 +50,15 @@ class Artwork < ApplicationRecord
     begin
       cloud_image = Cloudinary::Uploader.upload(image_name, public_id: params[:title], secure: true)
       artwork = Artwork.create(
-        url: cloud_image['secure_url'], 
-        title: params['title'], 
-        medium: params['medium'], 
-        surface: params['surface'], 
-        dimensions: params['dimensions'], 
-        price: params['price'], 
-        status: params['status'], 
-        date_complete: params['date_complete']
+        url: cloud_image["secure_url"], 
+        title: params["title"], 
+        medium: params["medium"], 
+        surface: params["surface"], 
+        dimensions: params["dimensions"], 
+        price: params["price"], 
+        status: params["status"], 
+        date_complete: params["date_complete"],
+        shipping_cost: params["shipping_cost"]
       )
       Artwork.update_categories(artwork, JSON.parse(params[:artwork_categories]))
       File.delete(image_name) if File.exists?(image_name)
@@ -65,6 +66,12 @@ class Artwork < ApplicationRecord
     rescue
       artwork      
     end
+  end
+
+  def self.artwork_in_cart(artwork_ids)
+    artwork_ids.split(",").map do |item|
+      Artwork.find(item)
+    end   
   end
 
 end

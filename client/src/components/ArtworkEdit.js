@@ -13,6 +13,7 @@ class ArtworkEdit extends React.Component {
     medium: "", 
     dimensions: "", 
     price: "", 
+    shippingCost: 0,
     status: "", 
     dateComplete: "", 
     url: "",
@@ -32,7 +33,8 @@ class ArtworkEdit extends React.Component {
           medium: data.artwork.medium,
           surface: data.artwork.surface, 
           dimensions: data.artwork.dimensions, 
-          price: data.artwork.price, 
+          price: data.artwork.price,
+          shippingCost: data.artwork.shipping_cost,
           dateComplete: data.artwork.date_complete, 
           status: data.artwork.status,
           categories: data.categories,
@@ -60,7 +62,7 @@ class ArtworkEdit extends React.Component {
   handleSubmit = (e) => {
     const { match: { params: { id, }, }, } = this.props;
     e.preventDefault();
-    axios.put(`/api/admin/artworks/artworks/${id}`, { ...this.state, })
+    axios.put(`/api/admin/artworks/artworks/${id}`, { ...this.state, shipping_cost: this.state.shippingCost })
       .then( () => {      
         this.props.setFlash("Artwork Updated", "green");  
         this.props.history.goBack();
@@ -84,27 +86,34 @@ class ArtworkEdit extends React.Component {
         checked={this.state.artworkCategories.includes(c.id)} 
         onChange={this.handleCheckbox.bind(this)} 
       />
-    ))
-  }
-  
+    ));
+  };
+
   render() {
     return(
       <StyledContainer>
         <Header primary>{ this.state.title }</Header>
-        <Button onClick={this.props.history.goBack}><Icon name='arrow left' />Back</Button>
+        <Button onClick={this.props.history.goBack}><Icon name="arrow left" />Back</Button>
         <Button onClick={this.show()}>Delete</Button>
-        <DeleteArtworkModal artWorkTitle={this.state.title} artWorkId={this.props.match.params.id} open={this.state.open} onClose={this.close} type={this.props.type} goBack={this.props.history.goBack} />
+        <DeleteArtworkModal 
+          artWorkTitle={this.state.title} 
+          artWorkId={this.props.match.params.id} 
+          open={this.state.open} 
+          onClose={this.close} 
+          type={this.props.type} 
+          goBack={this.props.history.goBack} 
+        />
         <br />
         <br />
-        <Image alt={this.state.title} src={this.state.url} size='small'/>
+        <Image alt={this.state.title} src={this.state.url} size="small"/>
         <br />
         <Form onSubmit={this.handleSubmit}>
-          <Form.Group widths='equal'>
+          <Form.Group widths="equal">
             <Input
               required
-              name='title'
-              label='Title'
-              placeholder='Some Art Title'
+              name="title"
+              label="Title"
+              placeholder="Some Art Title"
               value={this.state.title}
               onChange={this.handleChange}
             />
@@ -113,42 +122,50 @@ class ArtworkEdit extends React.Component {
           <CheckboxContainer>
             { this.categoryCheckboxes() }
           </CheckboxContainer>
-          <Form.Group widths='equal'>
+          <Form.Group widths="equal">
             <Input
               required
-              name='surface'
-              label='Surface'
-              placeholder='Canvas...'
+              name="surface"
+              label="Surface"
+              placeholder="Canvas..."
               value={this.state.surface}
               onChange={this.handleChange}
             />
             <Input
-              name='medium'
-              label='Medium'
-              placeholder='Oil'
+              name="medium"
+              label="Medium"
+              placeholder="Oil"
               value={this.state.medium}
               onChange={this.handleChange}
             />
           </Form.Group>
-          <Form.Group widths='equal'>
+          <Form.Group widths="equal">
             <Input
               required
-              name='dimensions'
-              label='Dimensions'
-              placeholder='10 x 10'
+              name="dimensions"
+              label="Dimensions"
+              placeholder="10 x 10"
               value={this.state.dimensions}
               onChange={this.handleChange}
             />
             <Input
-              name='price'
-              type='number'
-              label='Price'
-              placeholder='$450.00'
+              name="price"
+              type="number"
+              label="Price"
+              placeholder="45000"
               value={this.state.price}
               onChange={this.handleChange}
             />
+            <Input
+              name="shippingCost"
+              type="number"
+              label="Shipping Cost"
+              placeholder="500"
+              value={this.state.shippingCost}
+              onChange={this.handleChange}
+            />
           </Form.Group>
-           <Form.Group widths='equal'>
+           <Form.Group widths="equal">
             <SelectInput
               required
               name='status'
@@ -160,27 +177,27 @@ class ArtworkEdit extends React.Component {
             />
             <Input
               required
-              type='date'
-              name='dateComplete'
-              label='Date Complete'
-              placeholder='Some date...'
+              type="date"
+              name="dateComplete"
+              label="Date Complete"
+              placeholder="Some date..."
               value={this.state.dateComplete}
               onChange={this.handleChange}
             />
           </Form.Group>
-          <Form.Group widths='equal'>
+          <Form.Group widths="equal">
             <Input
               required
-              type='url'
-              name='url'
-              label='Image URL'
-              placeholder='https://image-url.com'
+              type="url"
+              name="url"
+              label="Image URL"
+              placeholder="https://image-url.com"
               value={this.state.url}
               onChange={this.handleChange}
             />
           </Form.Group>
           <br />
-          <Button type='submit'>Submit</Button>
+          <Button type="submit">Submit</Button>
         </Form>
       </StyledContainer>
     );
@@ -202,19 +219,19 @@ const statusOptions = [
 ];
 
 const Input = styled(Form.Input)`
-  font-family: 'Julius Sans One', sans-serif;
+  font-family: "Julius Sans One", sans-serif;
   font-weight: bolder;
   font-size: 16px;
 `;
 
 const SelectInput = styled(Form.Select)`
-  font-family: 'Julius Sans One', sans-serif;
+  font-family: "Julius Sans One", sans-serif;
   font-weight: bolder;
   font-size: 16px;
 `;
 
 const Label = styled.p`
-  font-family: 'Julius Sans One', sans-serif;
+  font-family: "Julius Sans One", sans-serif;
   font-weight: 700;
   font-size: 16px;
   margin-bottom: 4px !important;
@@ -227,7 +244,7 @@ const CheckboxContainer = styled.div`
 `;
 
 const CheckboxInput = styled(Form.Checkbox)`
-  font-family: 'Julius Sans One', sans-serif;
+  font-family: "Julius Sans One", sans-serif;
   margin-right: 15px !important;
 `;
 

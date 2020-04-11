@@ -28,6 +28,7 @@ import Home from "./root/Home";
 import Store from "./Store";
 import AddToCart from "./AddToCart";
 import Cart from "./Cart";
+import Checkout from "./Checkout";
 import { AuthContext, } from "../providers/AuthProvider";
 import { FlashContext, } from "../providers/FlashProvider";
 import { Link, } from "react-router-dom";
@@ -60,9 +61,9 @@ const App = (props) => {
       { name: "MEDIA", path: "/media", adminPath: "/media" },
       { name: "ABOUT", path: "/about", adminPath: "/about" },
       { name: "BLOG", path: "/blog", adminPath: "/blog" },
-      { name: "CONTACT", path: "/contact", adminPath: "/contact" }
-      // { name: "STORE", path: "/store", adminPath: "/store" },
-      // { name: "CART", path: "/cart", adminPath: "/cart" },
+      { name: "CONTACT", path: "/contact", adminPath: "/contact" },
+      { name: "STORE", path: "/store", adminPath: "/store" },
+      { name: "CART", path: "/cart", adminPath: "/cart" },
     ];
 
     if (user)
@@ -180,6 +181,7 @@ const App = (props) => {
             <Route exact path="/available-work" component={Store} />
             <Route exact path="/available-work/:id" component={AddToCart} />
             <Route exact path="/cart" component={Cart} />
+            <Route exact path="/checkout" component={Checkout} />
             <AuthRoute exact path="/login" component={Login} />
             <Route component={NoMatch} />
           </Switch>

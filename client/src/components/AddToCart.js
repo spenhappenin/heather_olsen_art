@@ -15,10 +15,10 @@ const AddToCart = (props) => {
   const width = useWindowWidth();
   
   useEffect( () => {
-    axios.get(`/api/artworks/${props.match.params.id}`)
-    .then( res => {
-      setArtwork(res.data.artwork);
-    })
+    axios.get(`/api/artworks/artworks/${props.match.params.id}`)
+      .then( res => { 
+        setArtwork(res.data.artwork);
+      })
   }, []);
   
   useEffect( () => {
@@ -55,18 +55,10 @@ const AddToCart = (props) => {
         </SubContainer>
         <SubContainer>
           <Header primary>{artwork.title}</Header>
-          <h3>${ formatPrice(artwork.price) }</h3>
-          <Button
-            disabled={disabled}
-            style={{ width: "100%", }}
-            onClick={handleClick}
-          >
-            { displayButtonText() }          
-          </Button>
-          <h5>Details</h5>
-          <div>
-            <p>{artwork.dimensions}</p>
-            <p>{ artwork.medium } on { artwork.surface }</p>
+          <CartText>${ formatPrice(artwork.price) }</CartText>
+          <div style={{ display: "flex", }}>
+            <CartText style={{ marginRight: "5px", }}>{ artwork.dimensions }</CartText>
+            <CartText>{artwork.medium} on {artwork.surface}</CartText>
           </div>
           <br />
           <hr />
@@ -80,21 +72,28 @@ const AddToCart = (props) => {
           <br />
           <div>
             <h5>SHIPPING:</h5>
-            <p>Shipping costs vary according to weight, size, destination, and value. In order to best serve each individual client shipping costs will be sent in a separate invoice, calculating the best option for the buyer.</p>
+            <CartText>Ships within 2-3 business days.</CartText>            
+            <CartText>Sorry but no refunds or exchanges.</CartText>            
           </div>
           <br />
           <hr />
           <br />
-          <div>
-            <h5>CUSTOM ORDER REQUESTS:</h5>
-            <p>For custom horse or pet portrait oil painting inquiries click link below for info.</p>
-            <a href="https://google.com">https://test-link.com</a>
-          </div>
+          <Button
+            disabled={disabled}
+            style={{ width: "100%", }}
+            onClick={handleClick}
+          >
+            { displayButtonText() }
+          </Button>
         </SubContainer>
       </MainContainer>
     </StyledContainer>
-  )
-}
+  );
+};
+
+const CartText = styled.p`
+  color: #575757;
+`;
 
 const Button = styled.button`
   color: #fff;
