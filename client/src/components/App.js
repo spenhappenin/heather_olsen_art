@@ -65,7 +65,7 @@ const App = (props) => {
       { name: "ABOUT", path: "/about", adminPath: "/about" },
       { name: "BLOG", path: "/blog", adminPath: "/blog" },
       { name: "CONTACT", path: "/contact", adminPath: "/contact" },
-      { name: "STORE", path: "/store", adminPath: "/store" },
+      // { name: "STORE", path: "/store", adminPath: "/store" },
       { name: "BUTTERFLIES", path: "/butterflies", adminPath: "/butterflies" },
       { name: "CART", path: "/cart", adminPath: "/cart" },
     ];
@@ -183,11 +183,11 @@ const App = (props) => {
               <Route exact path="/contact" component={Contact} />
               <Route exact path="/" component={Home} />
               <Route exact path="/about" component={About} />
-              <Route exact path="/available-work/:id" component={AddToCart} />
               <Route exact path="/cart" component={Cart} />
               <Route exact path="/checkout" component={Checkout} />
               <AuthRoute exact path="/login" component={Login} />
-              <Route exact path="/available-work" render={() => <Store header="Available Work" path="available_artworks" />} />
+              {/* <Route exact path="/available-work" render={() => <Store header="Available Work" path="available_artworks" />} /> */}
+              <Route exact path="/available-work/:id" component={AddToCart} />              
               <Route exact path="/butterflies" render={() => <Store header="Butterflies" path="butterflies" />} />
               <Route component={NoMatch} />
             </Switch>

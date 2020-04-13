@@ -12,6 +12,7 @@
     "react-datepicker": "^0.61.0",
     "react-dom": "^16.8.0",
     "react-dropzone": "^10.1.5",
+    "react-icons": "^3.9.0",
     "react-images": "^0.5.13",
     "react-infinite-scroller": "^1.1.3",
     "react-lazy": "^1.0.3",

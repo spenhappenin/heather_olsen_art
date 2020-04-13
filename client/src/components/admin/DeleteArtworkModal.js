@@ -1,8 +1,8 @@
-import React, { useContext, } from 'react';
-import axios from 'axios';
-import Modal from 'react-responsive-modal';
+import React, { useContext, } from "react";
+import axios from "axios";
+import Modal from "react-responsive-modal";
 import { FlashContext, } from "../../providers/FlashProvider";
-import { Button, Icon, } from 'semantic-ui-react';
+import { Button, Icon, } from "semantic-ui-react";
 
 const DeleteArtworkModal = (props) => {
   const { setFlash, } = useContext(FlashContext);
@@ -23,7 +23,7 @@ const DeleteArtworkModal = (props) => {
     <Modal open={props.open} onClose={props.onClose}>
       <br />
       <h1>
-        <Icon name='warning sign' color='yellow' size='large' />
+        <Icon name="warning sign" color="yellow" size="large" />
         Delete {props.artWorkTitle}
       </h1>
       <div>
@@ -31,11 +31,11 @@ const DeleteArtworkModal = (props) => {
       </div>
       <div>
         <Button onClick={props.onClose}>
-          <Icon name='remove' color='red' />
+          <Icon name="remove" color="red" />
           No
         </Button>
         <Button onClick={handleClick}>
-          <Icon name='checkmark' color='green' />
+          <Icon name="checkmark" color="green" />
           Yes
         </Button>
       </div>

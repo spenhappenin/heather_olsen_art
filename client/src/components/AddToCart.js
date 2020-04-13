@@ -1,21 +1,27 @@
 import React, { useState, useEffect, useContext, } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import Modal from "react-responsive-modal";
+import { FiZoomIn, } from 'react-icons/fi';
+
 import { CartContext, } from "../providers/CartProvider";
 import { FlashContext, } from "../providers/FlashProvider";
 import { formatPrice, } from "../helpers/cart";
 import { useWindowWidth, } from "./hooks/useWindowWidth";
 import { StyledContainer, Header, } from "../styles/shared";
 
-const AddToCart = (props) => {
+const AddToCart = ({ match, }) => {
   const { setFlash, } = useContext(FlashContext);
   const { addToCart, cart, } = useContext(CartContext);
+  
   const [artwork, setArtwork] = useState({});
   const [disabled, setDisabled] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+
   const width = useWindowWidth();
   
   useEffect( () => {
-    axios.get(`/api/artworks/artworks/${props.match.params.id}`)
+    axios.get(`/api/artworks/artworks/${match.params.id}`)
       .then( res => { 
         setArtwork(res.data.artwork);
       })
@@ -50,8 +56,12 @@ const AddToCart = (props) => {
   return (
     <StyledContainer>
       <MainContainer width={width}>
-        <SubContainer>
-          <Image src={artwork.url} />
+        <SubContainer imageSub>
+          <Image src={artwork.url} />          
+          <ImageLink onClick={() => setModalOpen(true)}>
+            <FiZoomIn style={{ marginRight: "5px", }} />
+            Enlarge Image
+          </ImageLink>          
         </SubContainer>
         <SubContainer>
           <Header primary>{artwork.title}</Header>
@@ -87,6 +97,9 @@ const AddToCart = (props) => {
           </Button>
         </SubContainer>
       </MainContainer>
+      <Modal open={modalOpen} onClose={() => setModalOpen(false)} center>
+        <Image src={artwork.url} />
+      </Modal>
     </StyledContainer>
   );
 };
@@ -128,6 +141,17 @@ const Image = styled.img`
 
 const SubContainer = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: ${ props => props.imageSub ? "flex-end" : "flex-start"};
+  margin-right: ${ props => props.imageSub ? "3rem" : 0 };
+`;
+
+const ImageLink = styled.p`
+  padding: 1rem;
+  font-size: 16px;
+  color: black;
+  cursor: pointer;
 `;
 
 export default AddToCart;
