@@ -5,6 +5,11 @@ class Api::Artworks::ArtworksController < ApplicationController
     render json: category.artworks.order(date_complete: :desc)
   end
 
+  def get_butterflies
+    category = Category.find_by(title: "butterflies")
+    render json: category.artworks.order(date_complete: :desc)
+  end
+
   def show
     artwork = Artwork.find(params[:id])
     artworkCategories = Artwork.get_category_list(artwork)

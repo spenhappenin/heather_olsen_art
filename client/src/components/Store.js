@@ -5,19 +5,19 @@ import { formatPrice, } from "../helpers/cart";
 import { useWindowWidth, } from "./hooks/useWindowWidth";
 import { StyledContainer, Header, Link, } from "../styles/shared";
 
-const Store = (props) => {
+const Store = ({ header, path, }) => {
   const [artworks, setArtwork] = useState([]);
   const windowWidth = useWindowWidth();
 
   useEffect( () => {
-    axios.get("/api/artworks/available_artworks")
+    axios.get(`/api/artworks/${path}`)
       .then( res => {
         setArtwork(res.data);
       })
       .catch( err => {
         console.log(err.catch);
       })
-  }, []);
+  }, [path]);
 
   const displayArtworks = () => {
     if (!artworks) return;
@@ -51,7 +51,7 @@ const Store = (props) => {
 
   return (
     <StyledContainer>
-      <Header primary>Available Work</Header>
+      <Header primary>{header}</Header>
       <Grid width={windowWidth}>
         { displayArtworks() }
       </Grid>

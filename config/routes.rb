@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       resources :available_artworks, only: :index
       resources :all_artworks, only: :index
     end
+    get "/artworks/butterflies", to: "artworks/artworks#get_butterflies"
 
     resources :blogs, only: [:index, :show]
     resources :categories, only: [:index, :show]
