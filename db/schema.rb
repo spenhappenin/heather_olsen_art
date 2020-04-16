@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191121214054) do
+ActiveRecord::Schema.define(version: 20200414193416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20191121214054) do
     t.string "medium"
     t.string "surface"
     t.string "dimensions"
-    t.float "price"
+    t.integer "price"
     t.date "date_complete"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

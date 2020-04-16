@@ -22,10 +22,14 @@ export const CartProvider = (props) => {
       })
   };
 
+  // Returns 1) subtotal | 2) grand total | 3) shipping total
   const total = () => {
-    let t = 0;
-    cart.map( i => t += i.price );
-    return formatPrice(t);
+    // TODO: Make more dynamic for any purchase
+    let subTotal = 0;
+    const shippingTotal = cart.length >= 4 && 3000 || cart.length <= 3 && 1500;
+    cart.map( i => subTotal += i.price );
+    const grandTotal = subTotal + shippingTotal;
+    return { subTotal: formatPrice(subTotal), grandTotal: formatPrice(grandTotal), shippingTotal: formatPrice(shippingTotal), };
   };
 
   const addToCart = (item) => {  

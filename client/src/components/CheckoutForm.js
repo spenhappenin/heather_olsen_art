@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { CartContext, } from "../providers/CartProvider";
 import { Form, } from "semantic-ui-react";
 import { Button, } from "../styles/shared";
+import { Dropdown, } from "./shared/Form";
+import { countryOptions, stateOptions, } from "../helpers/shipping";
 import { CardElement, injectStripe, ReactStripeElements, } from "react-stripe-elements";
 
 const CheckoutForm = (props) => {
@@ -67,6 +69,7 @@ const CheckoutForm = (props) => {
     <Form onSubmit={handleSubmit}>
       <h3>Customer Information</h3>
       <Form.Input
+        required
         placeholder="Email"
         type="email"
         value={email}
@@ -76,6 +79,7 @@ const CheckoutForm = (props) => {
       <h3>Shipping address</h3>
       <Form.Group widths="equal">
         <Form.Input
+          required
           placeholder="First Name"
           type="text"
           value={firstName}
@@ -83,6 +87,7 @@ const CheckoutForm = (props) => {
           onChange={e => setFirstName(e.target.value)}
         />
         <Form.Input
+          required
           placeholder="Last Name"
           type="text"
           value={lastName}
@@ -91,6 +96,7 @@ const CheckoutForm = (props) => {
         />
       </Form.Group>
       <Form.Input
+        required
         placeholder="Address"
         type="text"
         value={street}
@@ -98,6 +104,7 @@ const CheckoutForm = (props) => {
         onChange={e => setStreet(e.target.value)}
       />
       <Form.Input
+        required
         placeholder="Apartment, suite, etc. (optional)"
         type="text"
         value={apartment}
@@ -105,6 +112,7 @@ const CheckoutForm = (props) => {
         onChange={e => setApartment(e.target.value)}
       />
       <Form.Input
+        required
         placeholder="City"
         type="text"
         value={city}
@@ -112,37 +120,59 @@ const CheckoutForm = (props) => {
         onChange={e => setCity(e.target.value)}
       />
       <Form.Group widths="equal">
-        <Form.Input
+        <Form.Select
+          required
           placeholder="Country"
           type="text"
+          options={countryOptions}
           value={country}
           name="country"
-          onChange={e => setCountry(e.target.value)}
+          onChange={(e, t) => setCountry(t.value)}
         />
-        <Form.Input
+        <Form.Select
+          required
           placeholder="State"
           type="text"
+          options={stateOptions}
           value={custState}
           name="custState"
-          onChange={e => setCustState(e.target.value)}
+          onChange={(e, t) => setCustState(t.value)}
         />
         <Form.Input
+          required
           placeholder="ZIP code"
-          type="text"
+          type="number"
           value={zip}
           name="zip"
           onChange={e => setZip(e.target.value)}
         />
-      </Form.Group>
+      </Form.Group>      
+      
+      <br />
+      <br />
+
+      <h3>Cart Totals</h3>
+      <TotalContainer>
+        <TotalHeader>Subtotal:</TotalHeader>
+        <TotalText>${ total().subTotal }</TotalText>
+      </TotalContainer>     
+      <TotalContainer>
+        <TotalHeader>Shipping:</TotalHeader>
+        <TotalText>Flat rate - ${ total().shippingTotal }</TotalText>
+      </TotalContainer>  
+      <hr />
+      <TotalContainer>
+        <TotalHeader>Total:</TotalHeader>
+        <TotalText total>${ total().grandTotal }</TotalText>
+      </TotalContainer>      
+      <br />
+      <br />      
       <h3>Payment Method</h3>
-      <h4>${total()}</h4>
       <br />
       <br />
       <CardElement {...createOptions()} />
       <br />
-      <br />
-      <br />
-      <h3>Billing Information</h3>
+      {/* <h3>Billing Information</h3>
       <BillingContainer>
         <BillingOption>
           <Form.Radio
@@ -162,7 +192,7 @@ const CheckoutForm = (props) => {
           />
           <p>Use a different billing address</p>
         </BillingOption>
-      </BillingContainer>
+      </BillingContainer> */}
       <br />
       <br />
       <Button>Submit Payment</Button>
@@ -189,6 +219,24 @@ const createOptions = () => (
     }
   }
 );
+
+const TotalContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+`;
+
+const TotalHeader = styled.p`  
+  margin: 0;
+  margin-right: 3rem;
+  font-weight: bold;
+`;
+
+const TotalText = styled.p`
+  margin: 0;
+  font-size: ${ props => props.total ? "1.5rem" : "14px" };
+  font-weight: ${ props => props.total ? "bold" : "none" };
+`;
 
 const BillingContainer = styled.div`
   border: 1px solid #e2e2e2;
