@@ -6,54 +6,82 @@ import { Form, } from "semantic-ui-react";
 import { Button, } from "../styles/shared";
 import { Dropdown, } from "./shared/Form";
 import { countryOptions, stateOptions, } from "../helpers/shipping";
-import { CardElement, injectStripe, ReactStripeElements, } from "react-stripe-elements";
+import { FaCcVisa, FaCcMastercard, FaCcDiscover, FaCcJcb, FaCcAmex, FaInfoCircle, } from 'react-icons/fa';
+
+
+import { CardElement, useStripe, useElements, } from "@stripe/react-stripe-js";
 
 const CheckoutForm = (props) => {
+  // Stripe Stuff
+  const stripe = useStripe();
+  const elements = useElements();
+
+  // Cart/Billing Stuff
   const { cart, total, } = useContext(CartContext);
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [street, setStreet] = useState("");
-  const [apartment, setApartment] = useState("");
-  const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
-  const [custState, setCustState] = useState("");
-  const [zip, setZip] = useState("");
+  const [email, setEmail] = useState("hughpeppercorn@gmail.com");
+  const [firstName, setFirstName] = useState("Hugh");
+  const [lastName, setLastName] = useState("Peppercorn");
+  const [line1, setLine1] = useState("1212 Cool Way");
+  const [line2, setLine2] = useState("");
+  const [city, setCity] = useState("Sandy");
+  const [country, setCountry] = useState("United States");
+  const [custState, setCustState] = useState("UT");
+  const [zip, setZip] = useState("84092");
   const [noBilling, setNoBilling] = useState(true);
   const [billing, setBilling] = useState(false);
+  const [pickup, setPickup] = useState(true);
   
   const handleSubmit = async (e) => {
-    const amount = total();
+    const amount = total(pickup);
     e.preventDefault();
-    try {
-      const { token, } = await props.stripe.createToken({ firstName, });
 
-      axios.post("/api/charges", { 
-        token, 
-        user: { 
-          amount, 
-          email, 
-          address: { 
-            street, 
-            apartment, 
-            city, 
-            country, 
-            custState, 
-            zip 
-          } 
-        }, 
+    const { error, paymentMethod, } = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement(CardElement),
+    });
+    
+    axios.post("/api/charges", {
+      pickup,
+      cart,
+      paymentMethod,
+      user: {
+        amount,
+        email,
+        billing_details: {
+          line1,
+          line2,
+          city,
+          country,
+          custState,
+          postal_code: zip,
+        },
+        shipping: {
+          line1,
+          line2,
+          city,
+          country,
+          custState,
+          postal_code: zip,
+        }
+      },
+    })
+      .then( res => {
+        // Redirect to a new page
+        console.log(res.data);
       })
-        .then(res => {
-          // Redirect to a new page
-          console.log(res.data);
-        })
-        .catch( err => {
-          debugger
-        })
-    } catch (e) {
-      throw e;
-    }
+      .catch( err => {
+        // TODO: Error handling
+        console.log(err.response);
+      })
+
   };
+
+  const handlePickupRadio = (e, { name, value, }) => {
+    if (name === "pickup")
+      setPickup(true);
+    else
+      setPickup(false);
+  }
 
   const handleRadio = (e, { name, value, }) => {
     if (name === "billing") {
@@ -76,6 +104,37 @@ const CheckoutForm = (props) => {
         name="email"
         onChange={e => setEmail(e.target.value)}
       />
+
+      <br />      
+
+      <h3>Shipping Options</h3>
+      <BillingContainer>      
+        <BillingOption top>
+          <Form.Radio
+            name="pickup"
+            value={pickup}
+            checked={pickup}
+            onChange={handlePickupRadio}
+          />
+          <p>Pickup - Free</p>
+          <FaInfoCircle style={{ marginLeft: "2rem", cursor: "pointer", }} />
+        </BillingOption>
+
+        <BillingOption>
+          <Form.Radio
+            name="shipping"
+            value={pickup}
+            checked={!pickup}
+            onChange={handlePickupRadio}
+          />
+          <p>Shipping - Flat Rate - ${ cart.length >= 4 ? "29.99" : "14.99" }</p>
+          <FaInfoCircle style={{ marginLeft: "2rem", cursor: "pointer", }} />
+        </BillingOption>
+      </BillingContainer>
+
+      <br />
+      <br />
+
       <h3>Shipping address</h3>
       <Form.Group widths="equal">
         <Form.Input
@@ -97,19 +156,18 @@ const CheckoutForm = (props) => {
       </Form.Group>
       <Form.Input
         required
-        placeholder="Address"
+        placeholder="Street"
         type="text"
-        value={street}
-        name="street"
-        onChange={e => setStreet(e.target.value)}
+        value={line1}
+        name="line1"
+        onChange={e => setLine1(e.target.value)}
       />
-      <Form.Input
-        required
+      <Form.Input        
         placeholder="Apartment, suite, etc. (optional)"
         type="text"
-        value={apartment}
-        name="apartment"
-        onChange={e => setApartment(e.target.value)}
+        value={line2}
+        name="line2"
+        onChange={e => setLine2(e.target.value)}
       />
       <Form.Input
         required
@@ -146,7 +204,7 @@ const CheckoutForm = (props) => {
           name="zip"
           onChange={e => setZip(e.target.value)}
         />
-      </Form.Group>      
+      </Form.Group>
       
       <br />
       <br />
@@ -158,19 +216,39 @@ const CheckoutForm = (props) => {
       </TotalContainer>     
       <TotalContainer>
         <TotalHeader>Shipping:</TotalHeader>
-        <TotalText>Flat rate - ${ total().shippingTotal }</TotalText>
+        <TotalText>
+          {
+            pickup ? 
+              "Pickup - "
+            :
+              "Flat rate - "
+          }
+          ${ total(pickup).shippingTotal }          
+        </TotalText>
       </TotalContainer>  
       <hr />
       <TotalContainer>
         <TotalHeader>Total:</TotalHeader>
-        <TotalText total>${ total().grandTotal }</TotalText>
+        <TotalText total>${ total(pickup).grandTotal }</TotalText>
       </TotalContainer>      
       <br />
-      <br />      
-      <h3>Payment Method</h3>
+      <br />
+      <div style={{ display: "flex", }}>
+        <h3>Payment Method</h3>
+        <div style={{ marginLeft: "1rem", }}>
+          <FaCcVisa style={{ width: "25px", height: "25px", marginleft: "10px", }} />
+          <FaCcMastercard style={{ width: "25px", height: "25px", marginleft: "10px", }} />
+          <FaCcDiscover style={{ width: "25px", height: "25px", marginleft: "10px", }} />
+          <FaCcAmex style={{ width: "25px", height: "25px", marginleft: "10px", }} />
+          <FaCcJcb style={{ width: "25px", height: "25px", marginleft: "10px", }} />
+        </div>
+      </div>  
       <br />
       <br />
-      <CardElement {...createOptions()} />
+
+      {/* Test Card - 4242 4242 4242 4242 */}
+      <CardElement /* {...createOptions()} */ />
+
       <br />
       {/* <h3>Billing Information</h3>
       <BillingContainer>
@@ -195,7 +273,8 @@ const CheckoutForm = (props) => {
       </BillingContainer> */}
       <br />
       <br />
-      <Button>Submit Payment</Button>
+      {/* TODO: disabled doesnt work here */}
+      <Button disabled={!stripe}>Submit Payment</Button>
     </Form>
   );
 };
@@ -211,7 +290,7 @@ const createOptions = () => (
         "::placeholder": {
           color: "#aab7c4",
         },
-        padding: "50px",
+        padding: "50px",        
       },
       invalid: {
         color: "#c23d4b",
@@ -250,4 +329,4 @@ const BillingOption = styled.div`
   border-top: ${ props => props.top ? "1px solid #e2e2e2" : 0};
 `;
 
-export default injectStripe(CheckoutForm);
+export default CheckoutForm;

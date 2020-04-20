@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@emarketeross/simple-react-intersection-observer": "^0.1.11",
+    "@stripe/react-stripe-js": "^1.1.2",
+    "@stripe/stripe-js": "^1.4.0",
     "axios": "^0.18.1",
     "devise-axios": "^1.0.24",
     "lodash": "^4.17.4",
