@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200414193416) do
+ActiveRecord::Schema.define(version: 20200421013948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,6 +113,18 @@ ActiveRecord::Schema.define(version: 20200414193416) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  create_table "variants", force: :cascade do |t|
+    t.string "title"
+    t.integer "price", default: 0
+    t.string "surface"
+    t.string "dimensions"
+    t.integer "quantity", default: 0
+    t.bigint "artwork_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artwork_id"], name: "index_variants_on_artwork_id"
+  end
+
   create_table "videos", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -125,4 +137,5 @@ ActiveRecord::Schema.define(version: 20200414193416) do
   add_foreign_key "artwork_categories", "categories"
   add_foreign_key "series_art_works", "artworks", column: "art_work_id"
   add_foreign_key "series_art_works", "series"
+  add_foreign_key "variants", "artworks"
 end

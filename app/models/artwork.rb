@@ -1,10 +1,11 @@
 class Artwork < ApplicationRecord
   validates_presence_of :title
   validates_uniqueness_of :title
-  validates_inclusion_of :status, :in => ["for sale", "available", "nfs", "sold"]
+  validates_inclusion_of :status, :in => ["available", "nfs", "sold"]
 
   has_many :artwork_categories, dependent: :destroy
   has_many :categories, :through => :artwork_categories, dependent: :destroy
+  has_many :variants
 
   def self.available_artwork
     find_by_sql(["
