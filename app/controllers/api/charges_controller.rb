@@ -9,6 +9,7 @@ class Api::ChargesController < ApplicationController
     # TODO: Make sure payment and shipping is accurate on the backend too
     proceed = verify_charge(params[:cart], params[:user][:amount], params[:pickup])
 
+    # Totals match - proceed to payment
     if proceed
       # TODO: This might not be the way to do this - it might have to come from react-stripe?
       billing_details = user[:billing_details]
@@ -29,13 +30,18 @@ class Api::ChargesController < ApplicationController
         # status: ""
       })
 
-      # 2) Email invoice to client
-      # ChargesMailer.with(charge: charge, email: params[:email]).invoice.deliver_now
+      # 2) Create invoice and change status of artwork
+      # Order.create()
 
-      # 3) Email Heather with client information
-      # ChargesMailer.order(charge)
+      # 3) Email invoice to client
+      ChargesMailer.with(charge: charge, email: params[:user][:email]).invoice.deliver_now
 
-      # 4) Redirect user to new page
+      # 4) Email Heather with client information
+      ChargesMailer.order(charge)
+
+      # 5) Redirect user to new page
+      
+    # Totals do not match - render error
     else
       # TODO: return error message
     end
