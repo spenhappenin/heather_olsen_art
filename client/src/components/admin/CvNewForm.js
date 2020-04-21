@@ -25,7 +25,7 @@ const  CvNewForm = (props) => {
 
   const handleDropdown = (value) => setCvType(value);
 
-  const handleSubmit = () => {    
+  const handleSubmit = () => {
     axios.post("/api/admin/cvs/cvs", { cv: { date, location, cv_date: cvDate, title, cv_type: cvType }, })
       .then( res => {
         setFlash(`${res.data.title} Added to CV`, "green");
@@ -55,7 +55,7 @@ const  CvNewForm = (props) => {
             name="type"
             id="type"
             required
-            placeholder="Awards and Certificates"
+            placeholder="Awards and Publications"
             options={typeOptions}
             value={cvType}
             onChange={handleDropdown}
@@ -94,7 +94,7 @@ const  CvNewForm = (props) => {
 };
 
 const typeOptions = [
-  { key: "award", text: "Awards and Certificates", value: "award" },
+  { key: "award", text: "Awards and Publications", value: "award" },
   { key: "current_rep", text: "Current Representation", value: "current_rep" },
   { key: "education", text: "Education", value: "education" },
   { key: "festival", text: "Festivals and Events", value: "festival" },

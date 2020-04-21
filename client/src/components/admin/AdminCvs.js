@@ -53,7 +53,7 @@ const AdminCvs = (props) => {
       </Link>
       <CvHeader>Juried Exhibitions</CvHeader>
       { displayCvType("exhibition") }
-      <CvHeader>Awards and Certificates</CvHeader>
+      <CvHeader>Awards and Publications</CvHeader>
       { displayCvType("award") }
       <CvHeader>Festivals and Events</CvHeader>
       { displayCvType("festival") }

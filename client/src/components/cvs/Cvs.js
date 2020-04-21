@@ -32,7 +32,7 @@ const Cvs = (props) => {
       <div>
         { displayCvs("exhibition") }
       </div>
-      <CvHeader>Awards and Certificates</CvHeader>
+      <CvHeader>Awards and Publications</CvHeader>
       <div>
         { displayCvs("award") }
       </div>
