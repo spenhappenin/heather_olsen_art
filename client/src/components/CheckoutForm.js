@@ -30,7 +30,7 @@ const CheckoutForm = (props) => {
   const [noBilling, setNoBilling] = useState(true);
   const [billing, setBilling] = useState(false);
   const [pickup, setPickup] = useState(true);
-  
+
   const handleSubmit = async (e) => {
     const amount = total(pickup);
     e.preventDefault();
@@ -39,7 +39,8 @@ const CheckoutForm = (props) => {
       type: "card",
       card: elements.getElement(CardElement),
     });
-    
+
+    // TODO: Loader while payment is processing
     axios.post("/api/charges", {
       pickup,
       cart,
@@ -47,6 +48,8 @@ const CheckoutForm = (props) => {
       user: {
         amount,
         email,
+        first_name: firstName,
+        last_name: lastName,
         billing_details: {
           line1,
           line2,
@@ -66,7 +69,8 @@ const CheckoutForm = (props) => {
       },
     })
       .then( res => {
-        // Redirect to a new page
+        // TODO: Clear cart from local storage
+        // TODO: Redirect to a new page
         console.log(res.data);
       })
       .catch( err => {
@@ -105,10 +109,10 @@ const CheckoutForm = (props) => {
         onChange={e => setEmail(e.target.value)}
       />
 
-      <br />      
+      <br />
 
       <h3>Shipping Options</h3>
-      <BillingContainer>      
+      <BillingContainer>
         <BillingOption top>
           <Form.Radio
             name="pickup"
@@ -162,7 +166,7 @@ const CheckoutForm = (props) => {
         name="line1"
         onChange={e => setLine1(e.target.value)}
       />
-      <Form.Input        
+      <Form.Input
         placeholder="Apartment, suite, etc. (optional)"
         type="text"
         value={line2}
@@ -205,7 +209,7 @@ const CheckoutForm = (props) => {
           onChange={e => setZip(e.target.value)}
         />
       </Form.Group>
-      
+
       <br />
       <br />
 
@@ -213,24 +217,24 @@ const CheckoutForm = (props) => {
       <TotalContainer>
         <TotalHeader>Subtotal:</TotalHeader>
         <TotalText>${ total().subTotal }</TotalText>
-      </TotalContainer>     
+      </TotalContainer>
       <TotalContainer>
         <TotalHeader>Shipping:</TotalHeader>
         <TotalText>
           {
-            pickup ? 
+            pickup ?
               "Pickup - "
             :
               "Flat rate - "
           }
-          ${ total(pickup).shippingTotal }          
+          ${ total(pickup).shippingTotal }
         </TotalText>
-      </TotalContainer>  
+      </TotalContainer>
       <hr />
       <TotalContainer>
         <TotalHeader>Total:</TotalHeader>
         <TotalText total>${ total(pickup).grandTotal }</TotalText>
-      </TotalContainer>      
+      </TotalContainer>
       <br />
       <br />
       <div style={{ display: "flex", }}>
@@ -242,7 +246,7 @@ const CheckoutForm = (props) => {
           <FaCcAmex style={{ width: "25px", height: "25px", marginleft: "10px", }} />
           <FaCcJcb style={{ width: "25px", height: "25px", marginleft: "10px", }} />
         </div>
-      </div>  
+      </div>
       <br />
       <br />
 
@@ -273,6 +277,7 @@ const CheckoutForm = (props) => {
       </BillingContainer> */}
       <br />
       <br />
+      {/* TODO: Modal pop up with shipping info that they confirm */}
       {/* TODO: disabled doesnt work here */}
       <Button disabled={!stripe}>Submit Payment</Button>
     </Form>
@@ -290,7 +295,7 @@ const createOptions = () => (
         "::placeholder": {
           color: "#aab7c4",
         },
-        padding: "50px",        
+        padding: "50px",
       },
       invalid: {
         color: "#c23d4b",
@@ -305,7 +310,7 @@ const TotalContainer = styled.div`
   margin: 1rem 0;
 `;
 
-const TotalHeader = styled.p`  
+const TotalHeader = styled.p`
   margin: 0;
   margin-right: 3rem;
   font-weight: bold;
@@ -323,7 +328,7 @@ const BillingContainer = styled.div`
 `;
 
 const BillingOption = styled.div`
-  display: flex;  
+  display: flex;
   align-items: center;
   padding: 20px;
   border-top: ${ props => props.top ? "1px solid #e2e2e2" : 0};

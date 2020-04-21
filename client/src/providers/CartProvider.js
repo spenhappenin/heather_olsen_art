@@ -32,7 +32,7 @@ export const CartProvider = (props) => {
     return { subTotal: formatPrice(subTotal), grandTotal: formatPrice(grandTotal), shippingTotal: formatPrice(shippingTotal), };
   };
 
-  const addToCart = (item) => {  
+  const addToCart = (item) => {
     let items = cart.map( c => c.id );
     items = [...items, item.id];
     window.localStorage.setItem("items", JSON.stringify(items));
@@ -40,7 +40,7 @@ export const CartProvider = (props) => {
   };
 
   const removeFromCart = (item) => {
-    const cartItems = JSON.parse(localStorage.getItem("items")).filter( i => i !== item.id );    
+    const cartItems = JSON.parse(localStorage.getItem("items")).filter( i => i !== item.id );
     window.localStorage.setItem("items", JSON.stringify(cartItems));
     setCart(cart.filter( c => c.id !== item.id ));
   };

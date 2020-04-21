@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200421013948) do
+ActiveRecord::Schema.define(version: 20200421021942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "art_orders", force: :cascade do |t|
+    t.bigint "artwork_id"
+    t.bigint "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artwork_id"], name: "index_art_orders_on_artwork_id"
+    t.index ["order_id"], name: "index_art_orders_on_order_id"
+  end
 
   create_table "artwork_categories", force: :cascade do |t|
     t.bigint "category_id"
@@ -63,6 +72,16 @@ ActiveRecord::Schema.define(version: 20200421013948) do
     t.datetime "updated_at", null: false
     t.date "cv_date"
     t.string "location"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.integer "sub_total"
+    t.integer "shipping_total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "series", force: :cascade do |t|
@@ -133,6 +152,8 @@ ActiveRecord::Schema.define(version: 20200421013948) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "art_orders", "artworks"
+  add_foreign_key "art_orders", "orders"
   add_foreign_key "artwork_categories", "artworks"
   add_foreign_key "artwork_categories", "categories"
   add_foreign_key "series_art_works", "artworks", column: "art_work_id"
