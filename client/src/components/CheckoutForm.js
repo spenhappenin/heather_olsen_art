@@ -1,6 +1,7 @@
-import React, { useState, useContext, } from "react";
+import React, { Fragment, useState, useContext, } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import Loader from "./Loader";
 import { CartContext, } from "../providers/CartProvider";
 import { Form, } from "semantic-ui-react";
 import { Button, } from "../styles/shared";
@@ -15,6 +16,8 @@ const CheckoutForm = (props) => {
   // Stripe Stuff
   const stripe = useStripe();
   const elements = useElements();
+
+  const [loader, setLoader] = useState(false);
 
   // Cart/Billing Stuff
   const { cart, total, } = useContext(CartContext);
@@ -32,8 +35,9 @@ const CheckoutForm = (props) => {
   const [pickup, setPickup] = useState(true);
 
   const handleSubmit = async (e) => {
-    const amount = total(pickup);
     e.preventDefault();
+    const amount = total(pickup);
+    setLoader(true);
 
     const { error, paymentMethod, } = await stripe.createPaymentMethod({
       type: "card",
@@ -69,12 +73,14 @@ const CheckoutForm = (props) => {
       },
     })
       .then( res => {
+        setLoader(false);
         // TODO: Clear cart from local storage
         // TODO: Redirect to a new page
         console.log(res.data);
       })
       .catch( err => {
         // TODO: Error handling
+        setLoader(false);
         console.log(err.response);
       })
 
@@ -98,189 +104,192 @@ const CheckoutForm = (props) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <h3>Customer Information</h3>
-      <Form.Input
-        required
-        placeholder="Email"
-        type="email"
-        value={email}
-        name="email"
-        onChange={e => setEmail(e.target.value)}
-      />
+    <Fragment>
+      { loader && <Loader /> }
+      <Form onSubmit={handleSubmit}>
+        <h3>Customer Information</h3>
+        <Form.Input
+          required
+          placeholder="Email"
+          type="email"
+          value={email}
+          name="email"
+          onChange={e => setEmail(e.target.value)}
+        />
 
-      <br />
+        <br />
 
-      <h3>Shipping Options</h3>
-      <BillingContainer>
-        <BillingOption top>
-          <Form.Radio
-            name="pickup"
-            value={pickup}
-            checked={pickup}
-            onChange={handlePickupRadio}
+        <h3>Shipping Options</h3>
+        <BillingContainer>
+          <BillingOption top>
+            <Form.Radio
+              name="pickup"
+              value={pickup}
+              checked={pickup}
+              onChange={handlePickupRadio}
+            />
+            <p>Pickup - Free</p>
+            <FaInfoCircle style={{ marginLeft: "2rem", cursor: "pointer", }} />
+          </BillingOption>
+
+          <BillingOption>
+            <Form.Radio
+              name="shipping"
+              value={pickup}
+              checked={!pickup}
+              onChange={handlePickupRadio}
+            />
+            <p>Shipping - Flat Rate - ${ cart.length >= 4 ? "29.99" : "14.99" }</p>
+            <FaInfoCircle style={{ marginLeft: "2rem", cursor: "pointer", }} />
+          </BillingOption>
+        </BillingContainer>
+
+        <br />
+        <br />
+
+        <h3>Shipping address</h3>
+        <Form.Group widths="equal">
+          <Form.Input
+            required
+            placeholder="First Name"
+            type="text"
+            value={firstName}
+            name="firstName"
+            onChange={e => setFirstName(e.target.value)}
           />
-          <p>Pickup - Free</p>
-          <FaInfoCircle style={{ marginLeft: "2rem", cursor: "pointer", }} />
-        </BillingOption>
-
-        <BillingOption>
-          <Form.Radio
-            name="shipping"
-            value={pickup}
-            checked={!pickup}
-            onChange={handlePickupRadio}
+          <Form.Input
+            required
+            placeholder="Last Name"
+            type="text"
+            value={lastName}
+            name="lastName"
+            onChange={e => setLastName(e.target.value)}
           />
-          <p>Shipping - Flat Rate - ${ cart.length >= 4 ? "29.99" : "14.99" }</p>
-          <FaInfoCircle style={{ marginLeft: "2rem", cursor: "pointer", }} />
-        </BillingOption>
-      </BillingContainer>
-
-      <br />
-      <br />
-
-      <h3>Shipping address</h3>
-      <Form.Group widths="equal">
+        </Form.Group>
         <Form.Input
           required
-          placeholder="First Name"
+          placeholder="Street"
           type="text"
-          value={firstName}
-          name="firstName"
-          onChange={e => setFirstName(e.target.value)}
+          value={line1}
+          name="line1"
+          onChange={e => setLine1(e.target.value)}
         />
         <Form.Input
-          required
-          placeholder="Last Name"
+          placeholder="Apartment, suite, etc. (optional)"
           type="text"
-          value={lastName}
-          name="lastName"
-          onChange={e => setLastName(e.target.value)}
-        />
-      </Form.Group>
-      <Form.Input
-        required
-        placeholder="Street"
-        type="text"
-        value={line1}
-        name="line1"
-        onChange={e => setLine1(e.target.value)}
-      />
-      <Form.Input
-        placeholder="Apartment, suite, etc. (optional)"
-        type="text"
-        value={line2}
-        name="line2"
-        onChange={e => setLine2(e.target.value)}
-      />
-      <Form.Input
-        required
-        placeholder="City"
-        type="text"
-        value={city}
-        name="city"
-        onChange={e => setCity(e.target.value)}
-      />
-      <Form.Group widths="equal">
-        <Form.Select
-          required
-          placeholder="Country"
-          type="text"
-          options={countryOptions}
-          value={country}
-          name="country"
-          onChange={(e, t) => setCountry(t.value)}
-        />
-        <Form.Select
-          required
-          placeholder="State"
-          type="text"
-          options={stateOptions}
-          value={custState}
-          name="custState"
-          onChange={(e, t) => setCustState(t.value)}
+          value={line2}
+          name="line2"
+          onChange={e => setLine2(e.target.value)}
         />
         <Form.Input
           required
-          placeholder="ZIP code"
-          type="number"
-          value={zip}
-          name="zip"
-          onChange={e => setZip(e.target.value)}
+          placeholder="City"
+          type="text"
+          value={city}
+          name="city"
+          onChange={e => setCity(e.target.value)}
         />
-      </Form.Group>
+        <Form.Group widths="equal">
+          <Form.Select
+            required
+            placeholder="Country"
+            type="text"
+            options={countryOptions}
+            value={country}
+            name="country"
+            onChange={(e, t) => setCountry(t.value)}
+          />
+          <Form.Select
+            required
+            placeholder="State"
+            type="text"
+            options={stateOptions}
+            value={custState}
+            name="custState"
+            onChange={(e, t) => setCustState(t.value)}
+          />
+          <Form.Input
+            required
+            placeholder="ZIP code"
+            type="number"
+            value={zip}
+            name="zip"
+            onChange={e => setZip(e.target.value)}
+          />
+        </Form.Group>
 
-      <br />
-      <br />
+        <br />
+        <br />
 
-      <h3>Cart Totals</h3>
-      <TotalContainer>
-        <TotalHeader>Subtotal:</TotalHeader>
-        <TotalText>${ total().subTotal }</TotalText>
-      </TotalContainer>
-      <TotalContainer>
-        <TotalHeader>Shipping:</TotalHeader>
-        <TotalText>
-          {
-            pickup ?
-              "Pickup - "
-            :
-              "Flat rate - "
-          }
-          ${ total(pickup).shippingTotal }
-        </TotalText>
-      </TotalContainer>
-      <hr />
-      <TotalContainer>
-        <TotalHeader>Total:</TotalHeader>
-        <TotalText total>${ total(pickup).grandTotal }</TotalText>
-      </TotalContainer>
-      <br />
-      <br />
-      <div style={{ display: "flex", }}>
-        <h3>Payment Method</h3>
-        <div style={{ marginLeft: "1rem", }}>
-          <FaCcVisa style={{ width: "25px", height: "25px", marginleft: "10px", }} />
-          <FaCcMastercard style={{ width: "25px", height: "25px", marginleft: "10px", }} />
-          <FaCcDiscover style={{ width: "25px", height: "25px", marginleft: "10px", }} />
-          <FaCcAmex style={{ width: "25px", height: "25px", marginleft: "10px", }} />
-          <FaCcJcb style={{ width: "25px", height: "25px", marginleft: "10px", }} />
+        <h3>Cart Totals</h3>
+        <TotalContainer>
+          <TotalHeader>Subtotal:</TotalHeader>
+          <TotalText>${ total().subTotal }</TotalText>
+        </TotalContainer>
+        <TotalContainer>
+          <TotalHeader>Shipping:</TotalHeader>
+          <TotalText>
+            {
+              pickup ?
+                "Pickup - "
+              :
+                "Flat rate - "
+            }
+            ${ total(pickup).shippingTotal }
+          </TotalText>
+        </TotalContainer>
+        <hr />
+        <TotalContainer>
+          <TotalHeader>Total:</TotalHeader>
+          <TotalText total>${ total(pickup).grandTotal }</TotalText>
+        </TotalContainer>
+        <br />
+        <br />
+        <div style={{ display: "flex", }}>
+          <h3>Payment Method</h3>
+          <div style={{ marginLeft: "1rem", }}>
+            <FaCcVisa style={{ width: "25px", height: "25px", marginleft: "10px", }} />
+            <FaCcMastercard style={{ width: "25px", height: "25px", marginleft: "10px", }} />
+            <FaCcDiscover style={{ width: "25px", height: "25px", marginleft: "10px", }} />
+            <FaCcAmex style={{ width: "25px", height: "25px", marginleft: "10px", }} />
+            <FaCcJcb style={{ width: "25px", height: "25px", marginleft: "10px", }} />
+          </div>
         </div>
-      </div>
-      <br />
-      <br />
+        <br />
+        <br />
 
-      {/* Test Card - 4242 4242 4242 4242 */}
-      <CardElement /* {...createOptions()} */ />
+        {/* Test Card - 4242 4242 4242 4242 */}
+        <CardElement /* {...createOptions()} */ />
 
-      <br />
-      {/* <h3>Billing Information</h3>
-      <BillingContainer>
-        <BillingOption>
-          <Form.Radio
-            name="noBilling"
-            value={noBilling}
-            checked={noBilling}
-            onChange={handleRadio}
-          />
-          <p>Same as shipping address</p>
-        </BillingOption>
-        <BillingOption top>
-          <Form.Radio
-            name="billing"
-            value={billing}
-            checked={billing}
-            onChange={handleRadio}
-          />
-          <p>Use a different billing address</p>
-        </BillingOption>
-      </BillingContainer> */}
-      <br />
-      <br />
-      {/* TODO: Modal pop up with shipping info that they confirm */}
-      {/* TODO: disabled doesnt work here */}
-      <Button disabled={!stripe}>Submit Payment</Button>
-    </Form>
+        <br />
+        {/* <h3>Billing Information</h3>
+        <BillingContainer>
+          <BillingOption>
+            <Form.Radio
+              name="noBilling"
+              value={noBilling}
+              checked={noBilling}
+              onChange={handleRadio}
+            />
+            <p>Same as shipping address</p>
+          </BillingOption>
+          <BillingOption top>
+            <Form.Radio
+              name="billing"
+              value={billing}
+              checked={billing}
+              onChange={handleRadio}
+            />
+            <p>Use a different billing address</p>
+          </BillingOption>
+        </BillingContainer> */}
+        <br />
+        <br />
+        {/* TODO: Modal pop up with shipping info that they confirm */}
+        {/* TODO: disabled doesnt work here */}
+        <Button disabled={!stripe}>Submit Payment</Button>
+      </Form>
+    </Fragment>
   );
 };
 
