@@ -2,16 +2,16 @@ import React, { Fragment, useState, useContext, useEffect, } from "react";
 
 import axios from "axios";
 import styled from "styled-components";
-import Modal from "react-responsive-modal";
+// import Modal from "react-responsive-modal";
 import { FaCcVisa, FaCcMastercard, FaCcDiscover, FaCcJcb, FaCcAmex, FaInfoCircle, } from 'react-icons/fa';
 
-import PaymentConfirm from "./PaymentConfirm";
+// import PaymentConfirm from "./PaymentConfirm";
 import Loader from "./Loader";
 import { CartContext, } from "../providers/CartProvider";
 import { FlashContext, } from "../providers/FlashProvider";
 import { Form, } from "semantic-ui-react";
 import { Button, } from "../styles/shared";
-import { Dropdown, } from "./shared/Form";
+// import { Dropdown, } from "./shared/Form";
 import { formatPrice, } from "../helpers/cart";
 import { countryOptions, stateOptions, } from "../helpers/shipping";
 

@@ -39,7 +39,12 @@ const Store = ({ header, path, }) => {
               style={{ width: "100%", }}
             />
             <ArtworkDescription>
-              <Text>{ artwork.title }</Text>
+              <div style={{ display: "flex", }}>
+                <Text>{ artwork.title }</Text>
+                { artwork.status === "sold" &&
+                  <SoldDot></SoldDot>
+                }
+              </div>
               <Text price>
                 ${ price }
               </Text>
@@ -59,6 +64,14 @@ const Store = ({ header, path, }) => {
   )
 }
 
+const SoldDot = styled.div`
+  height: 1rem;
+  width: 1rem;
+  background: red;
+  border-radius: 50%;
+  margin-left: 10px;
+`;
+
 const ArtworkDescription = styled.div`
   display: flex;
   flex-direction: column;
@@ -67,9 +80,11 @@ const ArtworkDescription = styled.div`
 `;
 
 const Text = styled.p`
+  font-size: 16px;
   font-family: ${ props => props.price ? '"Merriweather Sans", sans - serif' : '"Julius Sans One", sans-serif'};
   font-weight: ${ props => props.price && "bold" };
-  margin-top: -10px;
+  /* margin-top: -10px; */
+  margin-bottom: 0;
 `;
 
 const Grid = styled.div`
