@@ -84,7 +84,7 @@ class Api::ChargesController < ApplicationController
 
     def generate_message(unavailable)
       # TODO: Format message better
-      message = "Artwork is no longer available:"
+      message = "Error: Sorry, artwork is no longer available:"
       unavailable.map { |item| message << " #{item[:title]}" }
       message
     end
