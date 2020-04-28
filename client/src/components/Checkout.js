@@ -6,15 +6,15 @@ import { StyledContainer, Header, } from "../styles/shared";
 
 const stripePromise = loadStripe("pk_test_9zZeIruUDED1UP3vbPWL1AGC00Mgf9LvPc");
 
-const Checkout = (props) => {
-  return (    
+const Checkout = ({ history: { push, } }) => {
+  return (
     <StyledContainer>
       <Header primary>Checkout</Header>
       <br />
       <Elements stripe={stripePromise}>
-        <CheckoutForm />
+        <CheckoutForm push={push} />
       </Elements>
-    </StyledContainer>    
+    </StyledContainer>
   );
 };
 

@@ -37,6 +37,7 @@ const Store = lazy(() => import("./Store"));
 const AddToCart = lazy(() => import("./AddToCart"));
 const Cart = lazy(() => import("./Cart"));
 const Checkout = lazy(() => import("./Checkout"));
+const PaymentSuccess = lazy(() => import("./PaymentSuccess"));
 
 const App = (props) => {
   const { user, handleLogout, } = useContext(AuthContext);
@@ -187,8 +188,9 @@ const App = (props) => {
               <Route exact path="/checkout" component={Checkout} />
               <AuthRoute exact path="/login" component={Login} />
               {/* <Route exact path="/available-work" render={() => <Store header="Available Work" path="available_artworks" />} /> */}
-              <Route exact path="/available-work/:id" component={AddToCart} />              
+              <Route exact path="/available-work/:id" component={AddToCart} />
               <Route exact path="/butterflies" render={() => <Store header="Butterflies" path="butterflies" />} />
+              <Route exact path="/payment-success" component={PaymentSuccess} />
               <Route component={NoMatch} />
             </Switch>
           </Sidebar.Pusher>

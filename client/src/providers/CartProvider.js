@@ -1,6 +1,5 @@
 import React, { useState, useEffect, } from "react";
 import axios from "axios";
-import { formatPrice, } from "../helpers/cart";
 export const CartContext = React.createContext();
 export const CartConsumer = CartContext.Consumer;
 
@@ -29,7 +28,7 @@ export const CartProvider = (props) => {
     const shippingTotal = pickup ? 0 : (cart.length >= 4 && 2999 || cart.length <= 3 && 1499);
     cart.map( i => subTotal += i.price );
     const grandTotal = subTotal + shippingTotal;
-    return { subTotal: formatPrice(subTotal), grandTotal: formatPrice(grandTotal), shippingTotal: formatPrice(shippingTotal), };
+    return { subTotal, grandTotal, shippingTotal, };
   };
 
   const addToCart = (item) => {
@@ -45,13 +44,32 @@ export const CartProvider = (props) => {
     setCart(cart.filter( c => c.id !== item.id ));
   };
 
+  const removeManyFromCart = (items) => {
+    // TODO: Yikes, refactor this
+    items.map( item => {
+      let cartItems = JSON.parse(localStorage.getItem("items")).filter( i => i !== item.id );
+      window.localStorage.setItem("items", JSON.stringify(cartItems));
+    })
+
+    let newCart = [];
+    cart.map( cartItem => {
+      JSON.parse(localStorage.getItem("items")).map( i => {
+        if (cartItem.id === i)
+          newCart.push(cartItem);
+      })
+    })
+    setCart(newCart);
+  };
+
   return (
     <CartContext.Provider value={{
       cart,
       fetchCart,
       addToCart,
       removeFromCart,
+      removeManyFromCart,
       total,
+      clearCart: () => setCart([]),
     }}>
       { props.children }
     </CartContext.Provider>

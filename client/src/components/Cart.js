@@ -1,6 +1,5 @@
 import React, { useContext, } from "react";
 import styled from "styled-components";
-import { Link, } from "react-router-dom";
 import { formatPrice, } from "../helpers/cart";
 import { Table, } from "semantic-ui-react";
 import { StyledContainer, Header, Button, } from "../styles/shared";
@@ -8,7 +7,7 @@ import { CartContext, } from "../providers/CartProvider";
 import { FlashContext, } from "../providers/FlashProvider";
 import clear from "../images/clear.svg";
 
-const Cart = (props) => {
+const Cart = ({ history: { push, } }) => {
   const { cart, removeFromCart, } = useContext(CartContext);
   const { setFlash, } = useContext(FlashContext);
 
@@ -16,7 +15,14 @@ const Cart = (props) => {
     let total = 0;
     cart.map( i => total += i.price);
     return formatPrice(total);
-  }; 
+  };
+
+  const handleClick = () => {
+    (cart.length === 0) ?
+      setFlash("Your cart is empty", "red")
+    :
+      push("/checkout");
+  };
 
   const displayCartItems = () => {
     if (cart.length === 0)
@@ -35,9 +41,9 @@ const Cart = (props) => {
             <ItemDescription>
               <Header style={{ margin: "0 0 0 20px", }}>{c.title}</Header>
               <p> - {c.dimensions} - {c.medium} on {c.surface}</p>
-            </ItemDescription>        
+            </ItemDescription>
           </Item>
-          <Table.Cell textAlign="center">${formatPrice(c.price)}</Table.Cell>  
+          <Table.Cell textAlign="center">${formatPrice(c.price)}</Table.Cell>
           <Table.Cell textAlign="center">1</Table.Cell>
           <Table.Cell textAlign="center">${formatPrice(c.price)}</Table.Cell>
           <Table.Cell textAlign="center">
@@ -45,7 +51,7 @@ const Cart = (props) => {
           </Table.Cell>
         </Table.Row>
       ))
-  }
+  };
 
   return (
     <StyledContainer>
@@ -69,18 +75,16 @@ const Cart = (props) => {
           <Header style={{ margin: "0 25px 10px 0", }}>Subtotal</Header>
           <Header style={{ margin: "0 0 10px 0", }}>${getTotal()}</Header>
         </div>
-        <Link to="/checkout">
-          <Button
-            style={{ width: "200px", }}
-          // onClick={() => setFlash("Checkout Message", "black")}
-          >
-            Checkout
-          </Button>
-        </Link>
+        <Button
+          onClick={handleClick}
+          style={{ width: "200px", }}
+        >
+          Checkout
+        </Button>
       </CheckoutContainer>
     </StyledContainer>
-  )
-}
+  );
+};
 
 const Item = styled(Table.Cell)`
   display: flex;
@@ -118,8 +122,8 @@ const ClearImg = styled.img`
 const CheckoutContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-end; 
-  justify-content: flex-end; 
+  align-items: flex-end;
+  justify-content: flex-end;
   margin-top: 25px;
 `;
 

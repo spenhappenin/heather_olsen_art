@@ -13,20 +13,20 @@ import { StyledContainer, Header, } from "../styles/shared";
 const AddToCart = ({ match, }) => {
   const { setFlash, } = useContext(FlashContext);
   const { addToCart, cart, } = useContext(CartContext);
-  
+
   const [artwork, setArtwork] = useState({});
   const [disabled, setDisabled] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
   const width = useWindowWidth();
-  
+
   useEffect( () => {
     axios.get(`/api/artworks/artworks/${match.params.id}`)
-      .then( res => { 
+      .then( res => {
         setArtwork(res.data.artwork);
       })
   }, []);
-  
+
   useEffect( () => {
     const cartItem = cart.find(c => c.id === artwork.id);
     if (cartItem) {
@@ -47,7 +47,7 @@ const AddToCart = ({ match, }) => {
     if (cartItem) {
       if (cartItem.id === artwork.id)
         return "In Cart";
-      else 
+      else
         return "Add To Cart";
     }
     return "Add To Cart";
@@ -57,15 +57,21 @@ const AddToCart = ({ match, }) => {
     <StyledContainer>
       <MainContainer width={width}>
         <SubContainer imageSub>
-          <Image src={artwork.url} />          
+          <Image src={artwork.url} />
           <ImageLink onClick={() => setModalOpen(true)}>
             <FiZoomIn style={{ marginRight: "5px", }} />
             Enlarge Image
-          </ImageLink>          
+          </ImageLink>
         </SubContainer>
         <SubContainer>
           <Header primary>{artwork.title}</Header>
-          <CartText>${ formatPrice(artwork.price) }</CartText>
+          <CartText>
+            { artwork.status === "sold" ?
+              "SOLD"
+            :
+              `$${ formatPrice(artwork.price) }`
+            }
+          </CartText>
           <div style={{ display: "flex", }}>
             <CartText style={{ marginRight: "5px", }}>{ artwork.dimensions }</CartText>
             <CartText>{artwork.medium} on {artwork.surface}</CartText>
@@ -82,19 +88,22 @@ const AddToCart = ({ match, }) => {
           <br />
           <div>
             <h5>SHIPPING:</h5>
-            <CartText>Ships within 2-3 business days.</CartText>            
-            <CartText>Sorry but no refunds or exchanges.</CartText>            
+            <CartText>Ships within 2-3 business days.</CartText>
+            <CartText>Sorry but no refunds or exchanges.</CartText>
           </div>
           <br />
           <hr />
           <br />
-          <Button
-            disabled={disabled}
-            style={{ width: "100%", }}
-            onClick={handleClick}
-          >
-            { displayButtonText() }
-          </Button>
+          {/* {
+            artwork.status !== "sold" && */}
+              <Button
+                disabled={disabled}
+                style={{ width: "100%", }}
+                onClick={handleClick}
+              >
+                { displayButtonText() }
+              </Button>
+          {/* } */}
         </SubContainer>
       </MainContainer>
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} center>

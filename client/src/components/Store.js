@@ -26,9 +26,9 @@ const Store = ({ header, path, }) => {
       const price = formatPrice(artwork.price);
 
       return (
-        <Link 
-          to={`/available-work/${artwork.id}`} 
-          key={artwork.id} 
+        <Link
+          to={`/available-work/${artwork.id}`}
+          key={artwork.id}
           style={{ display: "flex", }}
         >
           <Column>
