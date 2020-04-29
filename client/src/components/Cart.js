@@ -75,7 +75,7 @@ const Cart = ({ history: { push, } }) => {
 
   const renderMobile = () => {
       return cart.map( c => (
-        <MobileContainer>
+        <MobileContainer key={c.id}>
           <div style={{ display: "flex", justifyContent: "center", }}>
             <ItemImage src={c.url} />
           </div>

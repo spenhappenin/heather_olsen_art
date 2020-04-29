@@ -13,10 +13,10 @@ class Api::Artworks::ArtworksController < ApplicationController
   def show
     artwork = Artwork.find(params[:id])
     artworkCategories = Artwork.get_category_list(artwork)
-    render json: { 
-      artwork: artwork, 
-      artworkCategories: artworkCategories, 
-      categories: Category.all 
+    render json: {
+      artwork: artwork,
+      artworkCategories: artworkCategories,
+      categories: Category.all
     }
   end
 end

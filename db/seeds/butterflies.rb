@@ -29,7 +29,7 @@ butterflies.each_with_index do |url, i|
     surface: "panel",
     dimensions: "8 x 8",
     price: 5000,
-    date_complete: Date.today,
+    date_complete: Date.today - (i + 1),
     status: "available",
     shipping_cost: 0.00
   )

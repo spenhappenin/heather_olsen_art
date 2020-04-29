@@ -101,8 +101,8 @@ const AddToCart = ({ match, history, }) => {
           <br />
           <hr />
           <br />
-          {
-            artwork.status !== "sold" &&
+          {/* {
+            artwork.status !== "sold" && */}
               <Button
                 disabled={disabled}
                 style={{ width: "100%", }}
@@ -110,7 +110,7 @@ const AddToCart = ({ match, history, }) => {
               >
                 { displayButtonText() }
               </Button>
-          }
+          {/* } */}
         </SubContainer>
       </MainContainer>
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} center>

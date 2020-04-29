@@ -28,6 +28,9 @@ Rails.application.routes.draw do
     end
     get "/artworks/butterflies", to: "artworks/artworks#get_butterflies"
 
+    # TODO: Own controller
+    get "/check-availability", to: "cart#check_availability"
+
     resources :blogs, only: [:index, :show]
     resources :categories, only: [:index, :show]
     resources :cvs, only: [:index, :show]
