@@ -3,14 +3,15 @@ import axios from "axios";
 import styled from "styled-components";
 import Modal from "react-responsive-modal";
 import { FiZoomIn, } from 'react-icons/fi';
+import { Link, } from "react-router-dom";
 
 import { CartContext, } from "../providers/CartProvider";
 import { FlashContext, } from "../providers/FlashProvider";
 import { formatPrice, } from "../helpers/cart";
 import { useWindowWidth, } from "./hooks/useWindowWidth";
-import { StyledContainer, Header, } from "../styles/shared";
+import { Header, StyledContainer, } from "../styles/shared";
 
-const AddToCart = ({ match, }) => {
+const AddToCart = ({ match, history, }) => {
   const { setFlash, } = useContext(FlashContext);
   const { addToCart, cart, } = useContext(CartContext);
 
@@ -55,6 +56,12 @@ const AddToCart = ({ match, }) => {
 
   return (
     <StyledContainer>
+      <Link to="/butterflies">
+        <Button>Back</Button>
+      </Link>
+      <br />
+      <br />
+      <br />
       <MainContainer width={width}>
         <SubContainer imageSub>
           <Image src={artwork.url} />

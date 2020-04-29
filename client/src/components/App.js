@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { AuthContext, } from "../providers/AuthProvider";
 import { FlashContext, } from "../providers/FlashProvider";
+import { CartContext, } from "../providers/CartProvider";
 import { Link, } from "react-router-dom";
 import { Menu, Sidebar, } from "semantic-ui-react";
 import { Route, Switch, withRouter, } from "react-router-dom";
@@ -42,6 +43,7 @@ const PaymentSuccess = lazy(() => import("./PaymentSuccess"));
 const App = (props) => {
   const { user, handleLogout, } = useContext(AuthContext);
   const { setFlash, } = useContext(FlashContext);
+  const { cart, } = useContext(CartContext);
 
   const [dimmed, setDimmed] = useState(false);
   const [sideNav, setSideNav] = useState(false);
@@ -58,6 +60,7 @@ const App = (props) => {
   };
 
   const rightNavs = () => {
+    const cartText = cart.length === 0 ? "CART" : `CART (${cart.length})`;
     const navs = [
       { name: "HOME", path: "/", adminPath: "/" },
       { name: "ARTWORK", path: "/work", adminPath: "/work" },
@@ -68,7 +71,7 @@ const App = (props) => {
       { name: "CONTACT", path: "/contact", adminPath: "/contact" },
       // { name: "STORE", path: "/store", adminPath: "/store" },
       { name: "BUTTERFLIES", path: "/butterflies", adminPath: "/butterflies" },
-      { name: "CART", path: "/cart", adminPath: "/cart" },
+      { name: cartText, path: "/cart", adminPath: "/cart" },
     ];
 
     if (user)
