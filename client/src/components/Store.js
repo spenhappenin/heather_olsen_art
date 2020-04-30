@@ -5,19 +5,19 @@ import { formatPrice, } from "../helpers/cart";
 import { useWindowWidth, } from "./hooks/useWindowWidth";
 import { StyledContainer, Header, Link, } from "../styles/shared";
 
-const Store = (props) => {
+const Store = ({ header, path, }) => {
   const [artworks, setArtwork] = useState([]);
   const windowWidth = useWindowWidth();
 
   useEffect( () => {
-    axios.get("/api/artworks/available_artworks")
+    axios.get(`/api/artworks/${path}`)
       .then( res => {
         setArtwork(res.data);
       })
       .catch( err => {
         console.log(err.catch);
       })
-  }, []);
+  }, [path]);
 
   const displayArtworks = () => {
     if (!artworks) return;
@@ -26,9 +26,9 @@ const Store = (props) => {
       const price = formatPrice(artwork.price);
 
       return (
-        <Link 
-          to={`/available-work/${artwork.id}`} 
-          key={artwork.id} 
+        <Link
+          to={`/available-work/${artwork.id}`}
+          key={artwork.id}
           style={{ display: "flex", }}
         >
           <Column>
@@ -39,7 +39,12 @@ const Store = (props) => {
               style={{ width: "100%", }}
             />
             <ArtworkDescription>
-              <Text>{ artwork.title }</Text>
+              <div style={{ display: "flex", }}>
+                <Text>{ artwork.title }</Text>
+                { artwork.status === "sold" &&
+                  <SoldDot></SoldDot>
+                }
+              </div>
               <Text price>
                 ${ price }
               </Text>
@@ -51,13 +56,21 @@ const Store = (props) => {
 
   return (
     <StyledContainer>
-      <Header primary>Available Work</Header>
+      <Header primary>{header}</Header>
       <Grid width={windowWidth}>
         { displayArtworks() }
       </Grid>
     </StyledContainer>
   )
 }
+
+const SoldDot = styled.div`
+  height: 1rem;
+  width: 1rem;
+  background: red;
+  border-radius: 50%;
+  margin-left: 10px;
+`;
 
 const ArtworkDescription = styled.div`
   display: flex;
@@ -67,9 +80,11 @@ const ArtworkDescription = styled.div`
 `;
 
 const Text = styled.p`
+  font-size: 16px;
   font-family: ${ props => props.price ? '"Merriweather Sans", sans - serif' : '"Julius Sans One", sans-serif'};
   font-weight: ${ props => props.price && "bold" };
-  margin-top: -10px;
+  /* margin-top: -10px; */
+  margin-bottom: 0;
 `;
 
 const Grid = styled.div`

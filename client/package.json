@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@emarketeross/simple-react-intersection-observer": "^0.1.11",
+    "@stripe/react-stripe-js": "^1.1.2",
+    "@stripe/stripe-js": "^1.4.0",
     "axios": "^0.18.1",
     "devise-axios": "^1.0.24",
     "lodash": "^4.17.4",
@@ -12,6 +14,7 @@
     "react-datepicker": "^0.61.0",
     "react-dom": "^16.8.0",
     "react-dropzone": "^10.1.5",
+    "react-icons": "^3.9.0",
     "react-images": "^0.5.13",
     "react-infinite-scroller": "^1.1.3",
     "react-lazy": "^1.0.3",
@@ -26,6 +29,7 @@
     "react-reveal": "^1.2.2",
     "react-router-dom": "^4.1.2",
     "react-sortable-hoc": "^1.9.1",
+    "react-stripe-elements": "^6.0.1",
     "semantic-ui-css": "^2.3.3",
     "semantic-ui-react": "^0.82.1",
     "styled-components": "^2.1.2"

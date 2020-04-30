@@ -26,12 +26,18 @@ Rails.application.routes.draw do
       resources :available_artworks, only: :index
       resources :all_artworks, only: :index
     end
+    get "/artworks/butterflies", to: "artworks/artworks#get_butterflies"
+
+    # TODO: Own controller
+    get "/check-availability", to: "cart#check_availability"
 
     resources :blogs, only: [:index, :show]
     resources :categories, only: [:index, :show]
     resources :cvs, only: [:index, :show]
     resources :videos, only: [:index, :show]
     resources :users, only: [:show, :update]
+    resources :cart, only: :index
+    resources :charges, only: :create
   end
 
   #Do not place any routes below this one

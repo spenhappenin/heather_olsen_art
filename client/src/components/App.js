@@ -1,42 +1,49 @@
-import React, { useState, useEffect, useContext, } from "react";
-import About from "./About";
-import AllArtwork from "./AllArtwork";
-import ArtworkEdit from "./ArtworkEdit";
-import ArtworkNew from "./ArtworkNew";
-import Blog from "./blog/Blog";
-import BlogForm from "./blog/BlogForm";
-import BlogView from "./blog/BlogView";
-import CategoryForm from "./CategoryForm";
-import Contact from "./contact/Contact";
-import Cvs from "./cvs/Cvs";
-import AdminCvs from "./admin/AdminCvs";
-import CvNewForm from "./admin/CvNewForm";
-import FlashMessage from "./FlashMessage";
-import Login from "./login/Login";
-import Media from "./media/Media";
-import MediaForm from "./media/MediaForm";
-import NavBar from "./shared/NavBar";
-import NoMatch from "./NoMatch";
-import ProtectedRoute from "./ProtectedRoute";
+import React, { lazy, Suspense, useContext, useState, } from "react";
+
 import styled from "styled-components";
-import AuthRoute from "./AuthRoute";
-import AdminArtworks from "./AdminArtworks";
-import Artworks from "./Artworks";
-import Categories from "./Categories";
-import SortCategory from "./SortCategory";
-import Home from "./root/Home";
-import Store from "./Store";
-import AddToCart from "./AddToCart";
-import Cart from "./Cart";
+
 import { AuthContext, } from "../providers/AuthProvider";
 import { FlashContext, } from "../providers/FlashProvider";
+import { CartContext, } from "../providers/CartProvider";
 import { Link, } from "react-router-dom";
 import { Menu, Sidebar, } from "semantic-ui-react";
 import { Route, Switch, withRouter, } from "react-router-dom";
 
+const About = lazy(() => import("./About"));
+const AllArtwork = lazy(() => import("./AllArtwork"));
+const ArtworkEdit = lazy(() => import("./ArtworkEdit"));
+const ArtworkNew = lazy(() => import("./ArtworkNew"));
+const Blog = lazy(() => import("./blog/Blog"));
+const BlogForm = lazy(() => import("./blog/BlogForm"));
+const BlogView = lazy(() => import("./blog/BlogView"));
+const CategoryForm = lazy(() => import("./CategoryForm"));
+const Contact = lazy(() => import("./contact/Contact"));
+const Cvs = lazy(() => import("./cvs/Cvs"));
+const AdminCvs = lazy(() => import("./admin/AdminCvs"));
+const CvNewForm = lazy(() => import("./admin/CvNewForm"));
+const FlashMessage = lazy(() => import("./FlashMessage"));
+const Login = lazy(() => import("./login/Login"));
+const Media = lazy(() => import("./media/Media"));
+const MediaForm = lazy(() => import("./media/MediaForm"));
+const NavBar = lazy(() => import("./shared/NavBar"));
+const NoMatch = lazy(() => import("./NoMatch"));
+const ProtectedRoute = lazy(() => import("./ProtectedRoute"));
+const AuthRoute = lazy(() => import("./AuthRoute"));
+const AdminArtworks = lazy(() => import("./AdminArtworks"));
+const Artworks = lazy(() => import("./Artworks"));
+const Categories = lazy(() => import("./Categories"));
+const SortCategory = lazy(() => import("./SortCategory"));
+const Home = lazy(() => import("./root/Home"));
+const Store = lazy(() => import("./Store"));
+const AddToCart = lazy(() => import("./AddToCart"));
+const Cart = lazy(() => import("./Cart"));
+const Checkout = lazy(() => import("./Checkout"));
+const PaymentSuccess = lazy(() => import("./PaymentSuccess"));
+
 const App = (props) => {
   const { user, handleLogout, } = useContext(AuthContext);
   const { setFlash, } = useContext(FlashContext);
+  const { cart, } = useContext(CartContext);
 
   const [dimmed, setDimmed] = useState(false);
   const [sideNav, setSideNav] = useState(false);
@@ -53,6 +60,7 @@ const App = (props) => {
   };
 
   const rightNavs = () => {
+    const cartText = cart.length === 0 ? "CART" : `CART (${cart.length})`;
     const navs = [
       { name: "HOME", path: "/", adminPath: "/" },
       { name: "ARTWORK", path: "/work", adminPath: "/work" },
@@ -60,9 +68,10 @@ const App = (props) => {
       { name: "MEDIA", path: "/media", adminPath: "/media" },
       { name: "ABOUT", path: "/about", adminPath: "/about" },
       { name: "BLOG", path: "/blog", adminPath: "/blog" },
-      { name: "CONTACT", path: "/contact", adminPath: "/contact" }
+      { name: "CONTACT", path: "/contact", adminPath: "/contact" },
       // { name: "STORE", path: "/store", adminPath: "/store" },
-      // { name: "CART", path: "/cart", adminPath: "/cart" },
+      { name: "BUTTERFLIES", path: "/butterflies", adminPath: "/butterflies" },
+      { name: cartText, path: "/cart", adminPath: "/cart" },
     ];
 
     if (user)
@@ -100,91 +109,95 @@ const App = (props) => {
           }}
         />
       )
-    }
-    )
+    })
   };
 
   return (
     <div>
-      <NavBar toggleSideNav={toggleSideNav} closeSideNav={closeSideNav} />
-      <FlashMessage />
-      <Sidebar.Pushable>
-        <Sidebar
-          as={Menu}
-          animation="overlay"
-          width="thin"
-          visible={sideNav}
-          icon="labeled"
-          direction="top"
-          vertical
-          inverted
-          style={{ paddingLeft: "30px !important", }}
-        >
-          { rightNavs() }
-        </Sidebar>
-        <Sidebar.Pusher dimmed={dimmed}>
-          <Switch>
-            <Route
-              exact
-              path="/work"
-              render={ () => (
-                <Categories />
-              )}
-            />
-            <ProtectedRoute exact path="/work/all" component={AllArtwork} />
-            {
-              user &&
+      <Suspense fallback={<div></div>}>
+        <NavBar toggleSideNav={toggleSideNav} closeSideNav={closeSideNav} />
+        <FlashMessage />
+        <Sidebar.Pushable>
+          <Sidebar
+            as={Menu}
+            animation="overlay"
+            width="thin"
+            visible={sideNav}
+            icon="labeled"
+            direction="top"
+            vertical
+            inverted
+            style={{ paddingLeft: "30px !important", }}
+          >
+            { rightNavs() }
+          </Sidebar>
+          <Sidebar.Pusher dimmed={dimmed}>
+            <Switch>
               <Route
                 exact
-                path="/work/sort"
-                render={ () => <SortCategory /> }
+                path="/work"
+                render={ () => (
+                  <Categories />
+                )}
               />
-            }
-            {
-              user &&
-              <Route
-                exact
-                path="/work/new-category"
-                render={ () => <CategoryForm /> }
-              />
-            }
-            {
-              user &&
+              <ProtectedRoute exact path="/work/all" component={AllArtwork} />
+              {
+                user &&
                 <Route
                   exact
-                  path="/work/edit-category/:id"
+                  path="/work/sort"
+                  render={ () => <SortCategory /> }
+                />
+              }
+              {
+                user &&
+                <Route
+                  exact
+                  path="/work/new-category"
                   render={ () => <CategoryForm /> }
                 />
-            }
-            {
-              user ?
-                <ProtectedRoute exact path="/work/:work_title" component={AdminArtworks} />
-              :
-                <Route exact path="/work/:work_title" component={Artworks} />
-            }
-            <Route exact path="/blog" component={Blog} />
-            <ProtectedRoute exact path="/blog/new" component={BlogForm} />
-            <ProtectedRoute exact path="/blog/:id/edit" component={BlogForm} />
-            <Route exact path="/blog/:id" component={BlogView} />
-            <ProtectedRoute exact path="/work/:work_title/new" component={ArtworkNew} />
-            <ProtectedRoute exact path="/work/edit/:id" component={ArtworkEdit} />
-            <Route path="/cv" component={Cvs} />
-            <ProtectedRoute exact path='/admin-cv/new' component={CvNewForm} />
-            <ProtectedRoute path="/admin-cv" component={AdminCvs} />
-            <Route exact path="/media" component={Media} />
-            <ProtectedRoute path="/media/:id/edit" component={MediaForm} />
-            <ProtectedRoute path="/media/new" component={MediaForm} />
-            <Route exact path="/contact" component={Contact} />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/about" component={About} />
-            <Route exact path="/available-work" component={Store} />
-            <Route exact path="/available-work/:id" component={AddToCart} />
-            <Route exact path="/cart" component={Cart} />
-            <AuthRoute exact path="/login" component={Login} />
-            <Route component={NoMatch} />
-          </Switch>
-        </Sidebar.Pusher>
-      </Sidebar.Pushable>
+              }
+              {
+                user &&
+                  <Route
+                    exact
+                    path="/work/edit-category/:id"
+                    render={ () => <CategoryForm /> }
+                  />
+              }
+              {
+                user ?
+                  <ProtectedRoute exact path="/work/:work_title" component={AdminArtworks} />
+                :
+                  <Route exact path="/work/:work_title" component={Artworks} />
+              }
+              <Route exact path="/blog" component={Blog} />
+              <ProtectedRoute exact path="/blog/new" component={BlogForm} />
+              <ProtectedRoute exact path="/blog/:id/edit" component={BlogForm} />
+              <Route exact path="/blog/:id" component={BlogView} />
+              <ProtectedRoute exact path="/work/:work_title/new" component={ArtworkNew} />
+              <ProtectedRoute exact path="/work/edit/:id" component={ArtworkEdit} />
+              <Route path="/cv" component={Cvs} />
+              <ProtectedRoute exact path='/admin-cv/new' component={CvNewForm} />
+              <ProtectedRoute path="/admin-cv" component={AdminCvs} />
+              <Route exact path="/media" component={Media} />
+              <ProtectedRoute path="/media/:id/edit" component={MediaForm} />
+              <ProtectedRoute path="/media/new" component={MediaForm} />
+              <Route exact path="/contact" component={Contact} />
+              <Route exact path="/" component={Home} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/cart" component={Cart} />
+              <Route exact path="/checkout" component={Checkout} />
+              <AuthRoute exact path="/login" component={Login} />
+              {/* <Route exact path="/available-work" render={() => <Store header="Available Work" path="available_artworks" />} /> */}
+              <Route exact path="/available-work/:id" component={AddToCart} />
+              <Route exact path="/butterflies" render={() => <Store header="Butterflies" path="butterflies" />} />
+              <Route exact path="/payment-success" component={PaymentSuccess} />
+              <Route component={NoMatch} />
+            </Switch>
+          </Sidebar.Pusher>
+        </Sidebar.Pushable>
+      </Suspense>
     </div>
   );
 }

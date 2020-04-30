@@ -1,33 +1,62 @@
 import React, { useState, useEffect, } from "react";
-
+import axios from "axios";
 export const CartContext = React.createContext();
 export const CartConsumer = CartContext.Consumer;
 
 export const CartProvider = (props) => {
-  const [cart, setCart] = useState([]);  
+  const [cart, setCart] = useState([]);
 
-  useEffect( () => {
+  useEffect(() => {
     fetchCart();
   }, []);
 
   const fetchCart = () => {
-    let items = [];
-    for (var i = 0, len = localStorage.length; i < len; ++i) {
-      items.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-    }
-    setCart(items);
+    let items = JSON.parse(localStorage.getItem("items"));
+    axios.get(`/api/cart?items=${items}`)
+      .then( res => {
+        setCart(res.data);
+      })
+      .catch( err => {
+        console.log(err);
+      })
+  };
+
+  // Returns 1) subtotal | 2) grand total | 3) shipping total
+  const total = (pickup = true) => {
+    // TODO: Make more dynamic for any purchase
+    let subTotal = 0;
+    const shippingTotal = pickup ? 0 : (cart.length >= 4 && 2999 || cart.length <= 3 && 1499);
+    cart.map( i => subTotal += i.price );
+    const grandTotal = subTotal + shippingTotal;
+    return { subTotal, grandTotal, shippingTotal, };
   };
 
   const addToCart = (item) => {
-    window.localStorage.setItem(item.title, JSON.stringify(item));
+    let items = cart.map( c => c.id );
+    items = [...items, item.id];
+    window.localStorage.setItem("items", JSON.stringify(items));
     setCart([...cart, item]);
   };
 
   const removeFromCart = (item) => {
-    window.localStorage.removeItem(item.title);
-    const newCart = cart.filter( i => {
-      if (i.id !== item.id)
-        return i;
+    const cartItems = JSON.parse(localStorage.getItem("items")).filter( i => i !== item.id );
+    window.localStorage.setItem("items", JSON.stringify(cartItems));
+    setCart(cart.filter( c => c.id !== item.id ));
+  };
+
+  const removeManyFromCart = (items) => {
+    // TODO: Yikes, refactor this
+    items.map( item => {
+      let cartItems = JSON.parse(localStorage.getItem("items")).filter( i => i !== item.id );
+      window.localStorage.setItem("items", JSON.stringify(cartItems));
+    })
+
+    let newCart = [];
+    cart.map( cartItem => {
+      JSON.parse(localStorage.getItem("items")).map( i => {
+        if (cartItem.id === i)
+          newCart.push(cartItem);
+      })
     })
     setCart(newCart);
   };
@@ -38,8 +67,11 @@ export const CartProvider = (props) => {
       fetchCart,
       addToCart,
       removeFromCart,
+      removeManyFromCart,
+      total,
+      clearCart: () => setCart([]),
     }}>
       { props.children }
     </CartContext.Provider>
-  )
-}
+  );
+};

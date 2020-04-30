@@ -1,4 +1,2 @@
-export const formatPrice = (p) => {
-  let price = Number.parseFloat(p).toFixed(2);
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-};
+// Converts cents to dollars and turns it into a string
+export const formatPrice = (p) => (p / 100).toFixed(2);

@@ -1,26 +1,33 @@
 import React, { useState, useEffect, useContext, } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import Modal from "react-responsive-modal";
+import { FiZoomIn, } from 'react-icons/fi';
+import { Link, } from "react-router-dom";
+
 import { CartContext, } from "../providers/CartProvider";
 import { FlashContext, } from "../providers/FlashProvider";
 import { formatPrice, } from "../helpers/cart";
 import { useWindowWidth, } from "./hooks/useWindowWidth";
-import { StyledContainer, Header, } from "../styles/shared";
+import { Header, StyledContainer, } from "../styles/shared";
 
-const AddToCart = (props) => {
+const AddToCart = ({ match, history, }) => {
   const { setFlash, } = useContext(FlashContext);
   const { addToCart, cart, } = useContext(CartContext);
+
   const [artwork, setArtwork] = useState({});
   const [disabled, setDisabled] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+
   const width = useWindowWidth();
-  
+
   useEffect( () => {
-    axios.get(`/api/artworks/${props.match.params.id}`)
-    .then( res => {
-      setArtwork(res.data.artwork);
-    })
+    axios.get(`/api/artworks/artworks/${match.params.id}`)
+      .then( res => {
+        setArtwork(res.data.artwork);
+      })
   }, []);
-  
+
   useEffect( () => {
     const cartItem = cart.find(c => c.id === artwork.id);
     if (cartItem) {
@@ -41,7 +48,7 @@ const AddToCart = (props) => {
     if (cartItem) {
       if (cartItem.id === artwork.id)
         return "In Cart";
-      else 
+      else
         return "Add To Cart";
     }
     return "Add To Cart";
@@ -49,24 +56,32 @@ const AddToCart = (props) => {
 
   return (
     <StyledContainer>
+      <Link to="/butterflies">
+        <Button>Back</Button>
+      </Link>
+      <br />
+      <br />
+      <br />
       <MainContainer width={width}>
-        <SubContainer>
+        <SubContainer imageSub>
           <Image src={artwork.url} />
+          <ImageLink onClick={() => setModalOpen(true)}>
+            <FiZoomIn style={{ marginRight: "5px", }} />
+            Enlarge Image
+          </ImageLink>
         </SubContainer>
         <SubContainer>
           <Header primary>{artwork.title}</Header>
-          <h3>${ formatPrice(artwork.price) }</h3>
-          <Button
-            disabled={disabled}
-            style={{ width: "100%", }}
-            onClick={handleClick}
-          >
-            { displayButtonText() }          
-          </Button>
-          <h5>Details</h5>
-          <div>
-            <p>{artwork.dimensions}</p>
-            <p>{ artwork.medium } on { artwork.surface }</p>
+          <CartText>
+            { artwork.status === "sold" ?
+              "SOLD"
+            :
+              `$${ formatPrice(artwork.price) }`
+            }
+          </CartText>
+          <div style={{ display: "flex", }}>
+            <CartText style={{ marginRight: "5px", }}>{ artwork.dimensions }</CartText>
+            <CartText>{artwork.medium} on {artwork.surface}</CartText>
           </div>
           <br />
           <hr />
@@ -80,21 +95,34 @@ const AddToCart = (props) => {
           <br />
           <div>
             <h5>SHIPPING:</h5>
-            <p>Shipping costs vary according to weight, size, destination, and value. In order to best serve each individual client shipping costs will be sent in a separate invoice, calculating the best option for the buyer.</p>
+            <CartText>Ships within 2-3 business days.</CartText>
+            <CartText>Sorry but no refunds or exchanges.</CartText>
           </div>
           <br />
           <hr />
           <br />
-          <div>
-            <h5>CUSTOM ORDER REQUESTS:</h5>
-            <p>For custom horse or pet portrait oil painting inquiries click link below for info.</p>
-            <a href="https://google.com">https://test-link.com</a>
-          </div>
+          {/* {
+            artwork.status !== "sold" && */}
+              <Button
+                disabled={disabled}
+                style={{ width: "100%", }}
+                onClick={handleClick}
+              >
+                { displayButtonText() }
+              </Button>
+          {/* } */}
         </SubContainer>
       </MainContainer>
+      <Modal open={modalOpen} onClose={() => setModalOpen(false)} center>
+        <Image src={artwork.url} />
+      </Modal>
     </StyledContainer>
-  )
-}
+  );
+};
+
+const CartText = styled.p`
+  color: #575757;
+`;
 
 const Button = styled.button`
   color: #fff;
@@ -129,6 +157,17 @@ const Image = styled.img`
 
 const SubContainer = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: ${ props => props.imageSub ? "flex-end" : "flex-start"};
+  margin-right: ${ props => props.imageSub ? "3rem" : 0 };
+`;
+
+const ImageLink = styled.p`
+  padding: 1rem;
+  font-size: 16px;
+  color: black;
+  cursor: pointer;
 `;
 
 export default AddToCart;

@@ -1,6 +1,6 @@
 import React, { useContext, } from "react";
 import { AuthContext, } from "../../providers/AuthProvider";
-// import { CartContext, } from "../../providers/CartProvider";
+import { CartContext, } from "../../providers/CartProvider";
 import { useWindowWidth, } from "../hooks/useWindowWidth";
 import { Icon, } from "semantic-ui-react";
 import { withRouter, } from "react-router-dom";
@@ -8,7 +8,7 @@ import { NavItems, NavLogo, StyledLink, StyledMockLink, StyledNavbar, } from "..
 
 const Navbar = (props) => {
   const auth = useContext(AuthContext);
-  // const { cart, } = useContext(CartContext);
+  const { cart, } = useContext(CartContext);
   const windowWidth = useWindowWidth();
 
   const showLogout = () => {
@@ -24,7 +24,7 @@ const Navbar = (props) => {
   };
 
   const displayRoutes = () => {
-    // const cartText = cart.length === 0 ? "CART" : `CART (${cart.length})`
+    const cartText = cart.length === 0 ? "CART" : `CART (${cart.length})`
     const links = [
       { route: "/work", adminRoute: "/work", text: "ARTWORK", },
       { route: "/cv", adminRoute: "/admin-cv", text: "CV", },
@@ -33,7 +33,8 @@ const Navbar = (props) => {
       { route: "/blog", adminRoute: "/blog", text: "BLOG", },
       { route: "/contact", adminRoute: "/contact", text: "CONTACT", },
       // { route: "/available-work", adminRoute: "/available-work", text: "SHOP", },
-      // { route: "/cart", adminRoute: "/cart", text: cartText, },
+      { route: "/butterflies", adminRoute: "/butterflies", text: "BUTTERFLIES", },    
+      { route: "/cart", adminRoute: "/cart", text: cartText, },    
     ];
 
     return links.map( link => {

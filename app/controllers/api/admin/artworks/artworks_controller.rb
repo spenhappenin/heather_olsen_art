@@ -37,7 +37,8 @@ class Api::Admin::Artworks::ArtworksController < ApplicationController
         :surface, 
         :title, 
         :type_of, 
-        :url
+        :url,
+        :shipping_cost
       )
     end
 
