@@ -137,7 +137,6 @@ const CheckoutForm = ({ push, }) => {
             const { message, unavailable, } = err.response.data;
             setLoader(false);
             setFlash(message, "red");
-            // TODO: Test this
             // If a piece is no loner available then remove that item from localStorage and cart.
             if (unavailable) { removeManyFromCart(unavailable); }
             push("/cart");

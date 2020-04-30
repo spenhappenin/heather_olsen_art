@@ -114,7 +114,6 @@ const App = (props) => {
 
   return (
     <div>
-      {/* TODO: Add loader */}
       <Suspense fallback={<div></div>}>
         <NavBar toggleSideNav={toggleSideNav} closeSideNav={closeSideNav} />
         <FlashMessage />

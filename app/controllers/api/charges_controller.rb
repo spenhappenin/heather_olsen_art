@@ -2,7 +2,6 @@ class Api::ChargesController < ApplicationController
   before_action :check_availability, only: :create
 
   def create
-    # TODO: Check if artworks are available
     Stripe.api_key = ENV["STRIPE_SECRET_KEY"]
     payment_method = params[:paymentMethod]
     cart = params[:cart]
