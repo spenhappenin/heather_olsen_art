@@ -75,7 +75,7 @@ class Artwork < ApplicationRecord
 
   def self.artwork_in_cart(artwork_ids)
     artwork_ids.split(",").map do |item|
-      Artwork.find_by(id: item)
+      Artwork.find(item)
     end
   end
 
