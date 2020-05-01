@@ -82,10 +82,7 @@ class Artwork < ApplicationRecord
   def self.update_status_to_sold(artworks)
     artworks.each do |a|
       a = Artwork.find_by(id: a[:id])
-      a.with_lock do
-
-        a.update(status: "sold")
-      end
+      a.update(status: "sold")
     end
   end
 

@@ -1,6 +1,11 @@
 class Api::ChargesController < ApplicationController
   before_action :check_availability, only: :create
 
+  # check if sold
+  # lock each item and mark them sold
+  # if charge is successful keep them sold
+  # if fails marke them available
+
   def create
     Stripe.api_key = ENV["STRIPE_SECRET_KEY"]
     payment_method = params[:paymentMethod]
@@ -47,6 +52,8 @@ class Api::ChargesController < ApplicationController
 
       cart.each { |artwork| ArtOrder.create(order_id: order.id, artwork_id: artwork[:id]) }
       Artwork.update_status_to_sold(cart)
+      # marked_sold = Artwork.update_status_to_sold(cart, user)
+
 
       # Email invoice
       # ChargesMailer.with(
@@ -104,19 +111,29 @@ class Api::ChargesController < ApplicationController
     end
 
     def check_availability
-      # cart = params[:cart]
       cart = params[:cart].map { |c| Artwork.find(c[:id]) }
 
-      unavailable = cart.select { |item| item if item.reload.status == "sold" }.map { |i| i }
-      # unavailable = []
-      # cart.each do |item|
-      #   item.with_lock do
-      #     break unless item.status == "sold"
-      #     if item.status == "sold"
-      #       unavailable << item
-      #     end
-      #   end
-      # end
+      available = []
+      unavailable = []
+      error_already_sold = false
+
+      cart.each do |item|
+        item.with_lock do
+          if item.reload.status == "available"
+            # Sort of like placing a hold on the item
+            item.update(status: "sold")
+            available << item
+          elsif item.reload.status == "sold"
+            error_already_sold = true
+            unavailable << item
+          end
+        end
+      end
+
+      if error_already_sold
+        available.each { |item| item.reload.update(status: "available") }
+      end
+
       message = generate_message(unavailable)
       render json: { status: "error", message: message, unavailable: unavailable }, status: 422 if unavailable.length > 0
     end
