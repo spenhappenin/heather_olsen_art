@@ -8,7 +8,7 @@ import { CartContext, } from "../providers/CartProvider";
 import { FlashContext, } from "../providers/FlashProvider";
 import { StyledContainer, Header, } from "../styles/shared";
 
-const stripePromise = loadStripe("pk_test_9zZeIruUDED1UP3vbPWL1AGC00Mgf9LvPc");
+const stripePromise = loadStripe("pk_live_IfdzSqamE3l4LDJSjsdeTAEo00kVuFs5SG");
 
 const Checkout = ({ history: { push, goBack, } }) => {
   const { cart, removeManyFromCart, } = useContext(CartContext);
