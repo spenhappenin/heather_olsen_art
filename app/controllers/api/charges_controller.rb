@@ -36,8 +36,12 @@ class Api::ChargesController < ApplicationController
           description: "Charge for #{ user[:email] }"
         })
       rescue Stripe::CardError => e
+        cart = params[:cart].map { |c| Artwork.find(c[:id]) }
+        cart.each { |item| item.reload.update(status: "available") }
         render json: { status: "error", message: e.error.message }, status: 422
       rescue => e
+        cart = params[:cart].map { |c| Artwork.find(c[:id]) }
+        cart.each { |item| item.reload.update(status: "available") }
         render json: { status: "error", message: "Sorry, something went wrong. If this issue persists contact the artists." }, status: 422
       end
 

@@ -70,8 +70,8 @@ const App = (props) => {
       { name: "BLOG", path: "/blog", adminPath: "/blog" },
       { name: "CONTACT", path: "/contact", adminPath: "/contact" },
       // { name: "STORE", path: "/store", adminPath: "/store" },
-      // { name: "BUTTERFLIES", path: "/butterflies", adminPath: "/butterflies" },
-      // { name: cartText, path: "/cart", adminPath: "/cart" },
+      { name: "BUTTERFLIES", path: "/butterflies", adminPath: "/butterflies" },
+      { name: cartText, path: "/cart", adminPath: "/cart" },
     ];
 
     if (user)
@@ -191,7 +191,7 @@ const App = (props) => {
               <AuthRoute exact path="/login" component={Login} />
               {/* <Route exact path="/available-work" render={() => <Store header="Available Work" path="available_artworks" />} /> */}
               <Route exact path="/available-work/:id" component={AddToCart} />
-              <Route exact path="/butterflies9999" render={() => <Store header="Butterflies" path="butterflies" />} />
+              <Route exact path="/butterflies" render={() => <Store header="Butterflies" path="butterflies" />} />
               <Route exact path="/payment-success" component={PaymentSuccess} />
               <Route component={NoMatch} />
             </Switch>

@@ -33,8 +33,8 @@ const Navbar = (props) => {
       { route: "/blog", adminRoute: "/blog", text: "BLOG", },
       { route: "/contact", adminRoute: "/contact", text: "CONTACT", },
       // { route: "/available-work", adminRoute: "/available-work", text: "SHOP", },
-      // { route: "/butterflies", adminRoute: "/butterflies", text: "BUTTERFLIES", },
-      // { route: "/cart", adminRoute: "/cart", text: cartText, },
+      { route: "/butterflies", adminRoute: "/butterflies", text: "BUTTERFLIES", },
+      { route: "/cart", adminRoute: "/cart", text: cartText, },
     ];
 
     return links.map( link => {

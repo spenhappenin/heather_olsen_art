@@ -127,7 +127,7 @@ const CheckoutForm = ({ push, }) => {
       })
       .catch( err => {
         // TODO: Error handling here?
-        debugger
+        // debugger
         console.log(err);
       })
   };
@@ -267,7 +267,6 @@ const CheckoutForm = ({ push, }) => {
               onChange={handlePickupRadio}
             />
             <p>Pickup - Free</p>
-            <FaInfoCircle style={{ marginLeft: "2rem", cursor: "pointer", }} />
           </BillingOption>
 
           <BillingOption>
@@ -278,13 +277,13 @@ const CheckoutForm = ({ push, }) => {
               onChange={handlePickupRadio}
             />
             <p>Shipping - Flat Rate - ${ cart.length >= 4 ? "29.99" : "14.99" }</p>
-            <FaInfoCircle style={{ marginLeft: "2rem", cursor: "pointer", }} />
           </BillingOption>
         </BillingContainer>
 
         <br />
         <br />
 
+        <p>* Please include shipping even for pick up orders. Thank you!</p>
         <h3>Shipping address</h3>
         <Form.Group widths="equal">
           <Form.Input
