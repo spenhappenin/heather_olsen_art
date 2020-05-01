@@ -92,7 +92,6 @@ const CheckoutForm = ({ push, }) => {
       }
     })
       .then( res => {
-        debugger
         // Once the source is created - api call to create stripe charge
         axios.post("/api/charges", {
           pickup,
