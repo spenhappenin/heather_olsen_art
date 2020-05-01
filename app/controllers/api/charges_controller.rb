@@ -27,6 +27,7 @@ class Api::ChargesController < ApplicationController
     proceed_to_payment = verify_charge(cart, amount_obj, pickup)
     # Totals match - proceed to payment
     if proceed_to_payment
+      binding.pry
       begin
         # Charge client
         charge = Stripe::Charge.create({
