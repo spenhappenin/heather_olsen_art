@@ -108,6 +108,15 @@ class Api::ChargesController < ApplicationController
       cart = params[:cart].map { |c| Artwork.find(c[:id]) }
 
       unavailable = cart.select { |item| item if item.reload.status == "sold" }.map { |i| i }
+      # unavailable = []
+      # cart.each do |item|
+      #   item.with_lock do
+      #     break unless item.status == "sold"
+      #     if item.status == "sold"
+      #       unavailable << item
+      #     end
+      #   end
+      # end
       message = generate_message(unavailable)
       render json: { status: "error", message: message, unavailable: unavailable }, status: 422 if unavailable.length > 0
     end
