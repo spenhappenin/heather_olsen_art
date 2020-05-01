@@ -104,8 +104,10 @@ class Api::ChargesController < ApplicationController
     end
 
     def check_availability
-      cart = params[:cart]
-      unavailable = cart.select { |item| item if item[:status] == "sold" }.map { |i| i }
+      # cart = params[:cart]
+      cart = params[:cart].map { |c| Artwork.find(c[:id]) }
+
+      unavailable = cart.select { |item| item if item.reload.status == "sold" }.map { |i| i }
       message = generate_message(unavailable)
       render json: { status: "error", message: message, unavailable: unavailable }, status: 422 if unavailable.length > 0
     end
@@ -113,7 +115,7 @@ class Api::ChargesController < ApplicationController
     def generate_message(unavailable)
       # TODO: Format message better
       message = "Error: Sorry, artwork is no longer available:"
-      unavailable.map { |item| message << " #{item[:title]}" }
+      unavailable.map { |item| message << " #{item.title}" }
       message
     end
 
