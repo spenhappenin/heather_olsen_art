@@ -133,9 +133,10 @@ const CheckoutForm = ({ push, }) => {
         })
           .then( res => {
             setLoader(false);
+            console.log("success")
+            push("/payment-success");
             window.localStorage.removeItem("items");
             clearCart();
-            push("/payment-success");
           })
           .catch( err => {
             const { message, unavailable, } = err.response.data;
