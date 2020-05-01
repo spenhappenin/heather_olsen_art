@@ -13,9 +13,7 @@ export const CartProvider = (props) => {
 
   const fetchCart = () => {
     let items = JSON.parse(localStorage.getItem("items"));
-    axios.get(`/api/cart`, {
-      params: { items }
-    })
+    axios.get(`/api/cart?items=${items}`)
       .then( res => {
         setCart(res.data);
       })
