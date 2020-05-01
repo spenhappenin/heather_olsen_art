@@ -64,8 +64,7 @@ const CheckoutForm = ({ push, }) => {
     },
   });
 
-
-  const { cart, clearCart, total, removeManyFromCart, } = useContext(CartContext);
+  const { cart, clearCart, total, formattedTotal, removeManyFromCart, formatCartPrices, } = useContext(CartContext);
   const [email, setEmail] = useState("hughpeppercorn@gmail.com");
   const [noBilling, setNoBilling] = useState(true);
   const [billing, setBilling] = useState(false);
@@ -73,7 +72,7 @@ const CheckoutForm = ({ push, }) => {
 
   // Update Billing Information anytime `billing` is updated
   useEffect( () => {
-    checkBillingInformation()
+    checkBillingInformation();
   }, [billing]);
 
   const handleSubmit = async (e) => {
@@ -87,6 +86,9 @@ const CheckoutForm = ({ push, }) => {
 
     const cardElement = elements.getElement(CardElement);
     const amount = total(pickup);
+    const formattedAmount = formattedTotal(pickup);
+    // TODO: Do this on the backend
+    const formattedCart = formatCartPrices();
 
     // Creates card
     const { error, paymentMethod, } = await stripe.createPaymentMethod({
@@ -116,10 +118,12 @@ const CheckoutForm = ({ push, }) => {
         axios.post("/api/charges", {
           pickup,
           cart,
+          formattedCart,
           paymentMethod,
           paymentSource: res.source,
           user: {
             amount,
+            formattedAmount,
             email,
             first_name: shippingInformation.firstName,
             last_name: shippingInformation.lastName,

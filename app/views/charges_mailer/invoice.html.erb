@@ -2,92 +2,167 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+
+    <style>
+
+      body {
+        margin: 10px 5rem;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      }
+
+      h1, h2, h3, h4, h5, h6, span, p {
+
+      }
+
+      .text-header {
+      }
+
+      .text-body {
+        font-size: 16px;
+        font-weight: normal;
+      }
+
+      #logo {
+        width: 300px;
+      }
+
+      .logo-container {
+        display: flex;
+
+        width: 100%;
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: center;
+      }
+
+      .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .img-thumbnail {
+        height: 80px;
+        width: 80px;
+      }
+
+      .total {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .address-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      table {
+        width: 100%;
+        background-color: #fff;
+      }
+
+      th, td {
+        font-weight: unset;
+        padding-right: 10px;
+      }
+    </style>
   </head>
-<body>
-  <%#####   Logo Segment   ####%>
-  <div class="logo-container">
-    <img id="logo" src="https://res.cloudinary.com/dtb6lx1s4/image/upload/v1587415416/red_logo_olyww3.png" alt="heather-olsen-art-logo" />
-  </div>
-	
-	<br />
-	<br />
-
-	<%#####   Receipt Segment   ####%>
-  <div class="header-container">
-    <div class="header">
-      <h3>Your Receipt</h3>
-      <h5>May 01, 2020, 12:00 PM</h5>
+  <body>
+    <div class="logo-container">
+      <img id="logo" src="https://res.cloudinary.com/dtb6lx1s4/image/upload/v1588284459/heather_olsen_logo_kqypt6.png" alt="heather-olsen-art-logo" />
     </div>
-  </div>
-	
-  <div class="header">
-    <p>Invoice Number: #234221</p>
-  </div>
 
-  <br />
-  <br />
-	
-<%#####   Table Segment   ####%>
-  <div>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>QTY</th>
-          <th>Item Price</th>
-          <th>Total</th>						
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <img src="https://res.cloudinary.com/dkrn2wmhn/image/upload/c_scale,w_1100/v1585776575/Charaxes%20Candiope.jpg" class="img-thumbnail" />
-            Butterfly 1
-          </td>
-          <td>1</td>
-          <td>$50.00</td>
-          <td>$50.00</td>
-        </tr>
+    <div class="header-container">
+			<div class="header">
+				<h3>Your Receipt</h3>
+				<h5><%= @order.created_at.strftime("%B %d, %Y") %></h5>
+			</div>
 
-        <tr>
-          <td>
-            <img src="https://res.cloudinary.com/dkrn2wmhn/image/upload/c_scale,w_1100/v1558072199/Yellow%20Swallowtail.jpg" class="img-thumbnail" />
-            Butterfly 2
-          </td>
-          <td>1</td>
-          <td>$50.00</td>
-          <td>$50.00</td>	
-        </tr>					
-      </tbody>
-    </table>
-    <div class="total">
-      <span>Total $15.00
-    <div>
-    <div class="total">
-      <span>Total $115.00
-    <div>
-  </div>
+    </div>
 
-  <div class="address-container">
+		<div class="header">
+			<p>Invoice Number: <%= @order.id %></p>
+		</div>
+
+		<br />
+		<br />
+
+
+		<div>
+			<table>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>QTY</th>
+						<th>Item Price</th>
+						<th>Total</th>
+					</tr>
+				</thead>
+				<tbody>
+          <% @formatted_cart.each do |item| %>
+            <tr>
+              <td>
+                <img src="<%= item[:url] %>" class="img-thumbnail" alt="<%= item[:title] %>-image" />
+                <%= item[:title] %>
+              </td>
+              <td>1</td>
+              <td>$<%= item[:price] %></td>
+              <td>$<%= item[:price] %></td>
+            </tr>
+          <% end %>
+				</tbody>
+			</table>
+			<div class="total">
+				<span>Sub Total $<%= @formatted_amount[:subTotal] %></span>
+			</div>
+			<div class="total">
+				<span>Shipping Total $<%= @formatted_amount[:shippingTotal] %></span>
+			</div>
+			<div class="total">
+				<span>Grand Total $<%= @formatted_amount[:grandTotal] %></span>
+			</div>
+		</div>
+
+		<br />
+		<br />
+
+		<div class="address-container">
 			<div>
 				<p>Billing Address</p>
-				<p>Hugh Peppercorn</p>
-				<p>1212 Cool Way</p>
-				<p>Riverton, UT 84065</p>				
+				<p><%= @full_name %></p>
+				<p><%= @billing_details.line1 %></p>
+        <%= @billing_details.line2 ? @billing_details.line2 : nil %>
+				<p><%= @billing_details.city %>, <%= @billing_details.state %> <%= @billing_details.postal_code %></p>
 			</div>
 			<div>
 				<p>Shipping Address</p>
-				<p>Hugh Peppercorn</p>
-				<p>1212 Cool Way</p>
-				<p>Riverton, UT 84065</p>				
-			</div>		
+				<p><%= @full_name %></p>
+				<p><%= @shipping_details[:line1] %></p>
+        <%= @shipping_details[:line2] ? @shipping_details[:line2] : nil %>
+				<p><%= @shipping_details[:city] %>, <%= @shipping_details[:state] %> <%= @shipping_details[:postal_code] %></p>
+			</div>
 		</div>
-					
+
 		<div class="intructions">
-			<span>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam egestas, purus sit amet mollis ultrices, leo ipsum facilisis sem, volutpat sagittis mi ligula id quam. Donec vitae mattis felis. Duis at quam interdum lectus pellentesque feugiat non ac dui. Vivamus sit amet eros ante. Nullam volutpat blandit velit ultricies tempor. Ut quis lacus quis nibh mattis pellentesque eget sit amet lorem. Donec vitae est quis ante egestas posuere. Phasellus quam mi, consequat in hendrerit non, vehicula sed libero. Interdum et malesuada fames ac ante ipsum primis in faucibus. In leo massa, sollicitudin nec dapibus at, pretium quis nibh. Sed magna urna, rutrum vel aliquam et, consectetur vitae lorem. Aenean mattis orci felis, eget pellentesque neque rhoncus et. In et erat turpis. Etiam eu sem sit amet metus suscipit viverra.</p>
-				<p>Cras blandit consectetur sapien, a pharetra orci tincidunt eget. Ut semper nisi dictum turpis gravida, et blandit orci ultrices. Phasellus ac nisl pharetra, iaculis elit non, placerat ligula. Maecenas laoreet erat sed dui condimentum facilisis. Integer finibus massa a odio vehicula, posuere rhoncus nulla commodo. Pellentesque eget tristique turpis. Praesent a vulputate dui. Nullam consectetur mi non sem eleifend varius. Curabitur mattis tincidunt sagittis. Aenean vestibulum eget mauris in posuere. Fusce vitae accumsan nisi. Maecenas vulputate elementum sollicitudin. Aliquam erat volutpat. Curabitur ut lectus at purus placerat bibendum. Vivamus luctus elementum mi, quis iaculis turpis rhoncus vitae. Nullam ligula neque, accumsan id posuere at, lacinia non justo.</p>
+      <h1>Thank you for your purchase!<h1>
+      <span class="text-body">
+        <%=
+          @pickup ?
+            "Your art piece will be available to take home this week. Pickup will be at the following address: 3334 W 12130 S, Riverton, UT 84065.
+              Please contact me by email, phone call or text message to set up a pickup time. Email: heatherolsenart@gmail.com - Phone: (801) 300-5262"
+          :
+            "Your beautiful butterfly art piece is on it's way! Please allow 4-5 business days for your painting to be shipped to you. (or longer if needed)
+              If you have any questions please reach out to heatherolsenart.com"
+        %>
+      </span>
 		</div>
+
+    <div class="footer">
+    </div>
 
 </body>
 </html>

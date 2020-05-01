@@ -1,5 +1,6 @@
 import React, { useState, useEffect, } from "react";
 import axios from "axios";
+import { formatPrice, } from "../helpers/cart";
 export const CartContext = React.createContext();
 export const CartConsumer = CartContext.Consumer;
 
@@ -21,6 +22,14 @@ export const CartProvider = (props) => {
       })
   };
 
+  // TODO: Do this on the backend
+  const formatCartPrices = () => {
+    const formattedCart = cart.map( item => {
+      return { ...item, price: formatPrice(item.price), };
+    })
+    return formattedCart;
+  };
+
   // Returns 1) subtotal | 2) grand total | 3) shipping total
   const total = (pickup = true) => {
     // TODO: Make more dynamic for any purchase
@@ -29,6 +38,15 @@ export const CartProvider = (props) => {
     cart.map( i => subTotal += i.price );
     const grandTotal = subTotal + shippingTotal;
     return { subTotal, grandTotal, shippingTotal, };
+  };
+
+  const formattedTotal = (pickup = true) => {
+    // TODO: Make more dynamic for any purchase
+    let subTotal = 0;
+    const shippingTotal = pickup ? 0 : (cart.length >= 4 && 2999 || cart.length <= 3 && 1499);
+    cart.map( i => subTotal += i.price );
+    const grandTotal = subTotal + shippingTotal;
+    return { subTotal: formatPrice(subTotal), grandTotal: formatPrice(grandTotal), shippingTotal: formatPrice(shippingTotal), };
   };
 
   const addToCart = (item) => {
@@ -69,6 +87,8 @@ export const CartProvider = (props) => {
       removeFromCart,
       removeManyFromCart,
       total,
+      formattedTotal,
+      formatCartPrices,
       clearCart: () => setCart([]),
     }}>
       { props.children }

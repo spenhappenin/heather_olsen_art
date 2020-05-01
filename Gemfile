@@ -11,13 +11,14 @@ gem "kaminari"
 gem "json"
 gem "tinify"
 gem "stripe"
-gem 'acts_as_list'
+gem "acts_as_list"
+gem "sendgrid-ruby"
 
 group :development, :test do
   gem "pry-rails"
   gem "dotenv-rails"
   gem "faker"
-  gem "letter_opener"
+  gem "annotate"
 end
 
 group :development do

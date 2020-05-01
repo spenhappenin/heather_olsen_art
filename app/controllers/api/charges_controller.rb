@@ -5,6 +5,7 @@ class Api::ChargesController < ApplicationController
     Stripe.api_key = ENV["STRIPE_SECRET_KEY"]
     payment_method = params[:paymentMethod]
     cart = params[:cart]
+    formattedCart = params[:formattedCart]
     user = params[:user]
     shipping_details = user[:shipping_details]
     billing_details = user[:billing_details]
@@ -13,6 +14,7 @@ class Api::ChargesController < ApplicationController
 
     # Totals
     amount_obj = params[:user][:amount]
+    formatted_amount_obj = params[:user][:formattedAmount]
     sub_total = params[:user][:amount][:subTotal]
     shipping_total = params[:user][:amount][:shippingTotal]
     grand_total = params[:user][:amount][:grandTotal]
@@ -47,8 +49,35 @@ class Api::ChargesController < ApplicationController
       Artwork.update_status_to_sold(cart)
 
       # Email invoice
-      ChargesMailer.with(charge: charge, email: user[:email]).invoice.deliver_now
-      ChargesMailer.with(charge: charge, email: "heatherolsenart@gmail.com").invoice.deliver_now
+      ChargesMailer.with(
+        data: {
+          charge: charge,
+          shipping_details: shipping_details,
+          amount: amount_obj,
+          formatted_amount: formatted_amount_obj,
+          cart: cart,
+          pickup: pickup,
+          order: order,
+        },
+        email: user[:email],
+        full_name: "#{user[:first_name]} #{user[:last_name]}",
+        formatted_cart: params[:formattedCart]
+      ).invoice.deliver_now
+
+      # ChargesMailer.with(
+      #   data: {
+      #     charge: charge,
+      #     shipping_details: shipping_details,
+      #     amount: amount_obj,
+      #     formatted_amount: formatted_amount_obj,
+      #     cart: cart,
+      #     pickup: pickup,
+      #     order: order,
+      #   },
+      #   email: "heatherolsenart@gmail.com",
+      #   full_name: "#{user[:first_name]} #{user[:last_name]}",
+      #   formatted_cart: params[:formattedCart]
+      # ).invoice.deliver_now
 
     # Totals do not match - render error
     else
