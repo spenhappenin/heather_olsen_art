@@ -49,20 +49,20 @@ class Api::ChargesController < ApplicationController
       Artwork.update_status_to_sold(cart)
 
       # Email invoice
-      ChargesMailer.with(
-        data: {
-          charge: charge,
-          shipping_details: shipping_details,
-          amount: amount_obj,
-          formatted_amount: formatted_amount_obj,
-          cart: cart,
-          pickup: pickup,
-          order: order,
-        },
-        email: user[:email],
-        full_name: "#{user[:first_name]} #{user[:last_name]}",
-        formatted_cart: params[:formattedCart]
-      ).invoice.deliver_now
+      # ChargesMailer.with(
+      #   data: {
+      #     charge: charge,
+      #     shipping_details: shipping_details,
+      #     amount: amount_obj,
+      #     formatted_amount: formatted_amount_obj,
+      #     cart: cart,
+      #     pickup: pickup,
+      #     order: order,
+      #   },
+      #   email: user[:email],
+      #   full_name: "#{user[:first_name]} #{user[:last_name]}",
+      #   formatted_cart: params[:formattedCart]
+      # ).invoice.deliver_now
 
       # ChargesMailer.with(
       #   data: {
