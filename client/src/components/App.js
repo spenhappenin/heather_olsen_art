@@ -186,12 +186,20 @@ const App = (props) => {
               <Route exact path="/contact" component={Contact} />
               <Route exact path="/" component={Home} />
               <Route exact path="/about" component={About} />
-              <Route exact path="/cart" component={Cart} />
-              <Route exact path="/checkout" component={Checkout} />
+              { user &&
+                <Route exact path="/cart" component={Cart} />
+              }
+              { user &&
+                <Route exact path="/checkout" component={Checkout} />
+              }
               <AuthRoute exact path="/login" component={Login} />
               {/* <Route exact path="/available-work" render={() => <Store header="Available Work" path="available_artworks" />} /> */}
-              <Route exact path="/available-work/:id" component={AddToCart} />
-              <Route exact path="/butterflies12128989" render={() => <Store header="Butterflies" path="butterflies" />} />
+              { user &&
+                <Route exact path="/available-work/:id" component={AddToCart} />
+              }
+              { user &&
+                <Route exact path="/butterflies" render={() => <Store header="Butterflies" path="butterflies" />} />
+              }
               <Route exact path="/payment-success" component={PaymentSuccess} />
               <Route component={NoMatch} />
             </Switch>
