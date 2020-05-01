@@ -83,14 +83,6 @@ const AddToCart = ({ match, history, }) => {
             <CartText style={{ marginRight: "5px", }}>{ artwork.dimensions }</CartText>
             <CartText>{artwork.medium} on {artwork.surface}</CartText>
           </div>
-          <br />
-          <hr />
-          <br />
-          <div>
-            <h5>CONTRACT:</h5>
-            <p>Signed Artist Contract required. Will be provided upon purchase or at request. A copy of the contract with the Certificate of Authenticity will accompany the painting. </p>
-          </div>
-          <br />
           <hr />
           <br />
           <div>

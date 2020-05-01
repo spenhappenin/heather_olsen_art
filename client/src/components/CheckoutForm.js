@@ -39,33 +39,11 @@ const CheckoutForm = ({ push, }) => {
       postal_code: "",
     },
   };
-  const [shippingInformation, setShippingInformation] = useState({
-    firstName: "Hugh",
-    lastName: "Peppercorn",
-    address: {
-      line1: "1234 Sacamano Way",
-      line2: "",
-      city: "Bluffdale",
-      country: "United States",
-      state: "UT",
-      postal_code: "84065",
-    },
-  });
-  const [billingInformation, setBillingInformation] = useState({
-    firstName: "",
-    lastName: "",
-    address: {
-      line1: "",
-      line2: "",
-      city: "",
-      country: "",
-      state: "",
-      postal_code: "",
-    },
-  });
+  const [shippingInformation, setShippingInformation] = useState({ ...defaultValues, });
+  const [billingInformation, setBillingInformation] = useState({ ...defaultValues, });
 
   const { cart, clearCart, total, formattedTotal, removeManyFromCart, formatCartPrices, } = useContext(CartContext);
-  const [email, setEmail] = useState("hughpeppercorn@gmail.com");
+  const [email, setEmail] = useState("");
   const [noBilling, setNoBilling] = useState(true);
   const [billing, setBilling] = useState(false);
   const [pickup, setPickup] = useState(true);
