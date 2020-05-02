@@ -35,6 +35,7 @@ const Navbar = (props) => {
       // { route: "/available-work", adminRoute: "/available-work", text: "SHOP", },
       { route: "/butterflies", adminRoute: "/butterflies", text: "BUTTERFLIES", },
       { route: "/cart", adminRoute: "/cart", text: cartText, },
+      { route: "/orders", adminRoute: "/orders", text: "Orders", },
     ];
 
     return links.map( link => {

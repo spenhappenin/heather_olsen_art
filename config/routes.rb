@@ -19,6 +19,9 @@ Rails.application.routes.draw do
       namespace :cvs do
         resources :cvs, only: [:create, :update, :destroy]
       end
+      namespace :orders do
+        resources :orders, only: [:index, :show]
+      end
     end
 
     namespace :artworks do

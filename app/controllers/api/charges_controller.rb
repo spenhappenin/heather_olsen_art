@@ -47,8 +47,8 @@ class Api::ChargesController < ApplicationController
 
       # Create invoice and change status of artwork
       order = Order.create(
-        first_name: shipping_details[:first_name],
-        last_name: shipping_details[:last_name],
+        first_name: shipping_details[:firstName],
+        last_name: shipping_details[:lastName],
         email: user[:email],
         sub_total: sub_total,
         shipping_total: shipping_total
