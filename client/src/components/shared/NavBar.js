@@ -37,6 +37,10 @@ const Navbar = (props) => {
       { route: "/cart", adminRoute: "/cart", text: cartText, },
     ];
 
+    if (auth.user) {
+      links.push({ route: "/orders", adminRoute: "/orders", text: "Orders", })
+    }
+
     return links.map( link => {
       return (
         <StyledLink

@@ -39,6 +39,8 @@ const AddToCart = lazy(() => import("./AddToCart"));
 const Cart = lazy(() => import("./Cart"));
 const Checkout = lazy(() => import("./Checkout"));
 const PaymentSuccess = lazy(() => import("./PaymentSuccess"));
+const Orders = lazy(() => import("./Orders"));
+const Order = lazy(() => import("./Order"));
 
 const App = (props) => {
   const { user, handleLogout, } = useContext(AuthContext);
@@ -73,6 +75,10 @@ const App = (props) => {
       { name: "BUTTERFLIES", path: "/butterflies", adminPath: "/butterflies" },
       { name: cartText, path: "/cart", adminPath: "/cart" },
     ];
+
+    if (user) {
+      navs.push({ name: "ORDERS", path: "/orders", adminPath: "/orders" })
+    }
 
     if (user)
       navs.push({ adminName: "LOGOUT", logout: true });
@@ -193,6 +199,12 @@ const App = (props) => {
               <Route exact path="/available-work/:id" component={AddToCart} />
               <Route exact path="/butterflies" render={() => <Store header="Butterflies" path="butterflies" />} />
               <Route exact path="/payment-success" component={PaymentSuccess} />
+              { user &&
+                <Route exact path="/orders" component={Orders} />
+              }
+              { user &&
+                <Route exact path="/orders/:id" component={Order} />
+              }
               <Route component={NoMatch} />
             </Switch>
           </Sidebar.Pusher>
