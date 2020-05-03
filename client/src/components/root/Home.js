@@ -14,7 +14,7 @@ class Home extends React.Component {
     const { visible, } = this.state;
     return(
       <Transition visible={visible} animation='fade' duration={1300}>
-        <StyledBackground url={MainImage} />
+        <StyledBackground url="https://res.cloudinary.com/dkrn2wmhn/image/upload/v1585862557/Bright%20Red%20Tomato.jpg" />
       </Transition>
     );
   };
