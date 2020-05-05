@@ -72,6 +72,7 @@ const App = (props) => {
       { name: "BLOG", path: "/blog", adminPath: "/blog" },
       { name: "CONTACT", path: "/contact", adminPath: "/contact" },
       // { name: "STORE", path: "/store", adminPath: "/store" },
+      { route: "https://heatherolsenart.bigcartel.com/", adminRoute: "https://heatherolsenart.bigcartel.com/", name: "STORE", external: true, },
       { name: "BUTTERFLIES", path: "/butterflies", adminPath: "/butterflies" },
       { name: cartText, path: "/cart", adminPath: "/cart" },
     ];
@@ -99,6 +100,18 @@ const App = (props) => {
           />
         )
       }
+
+      if (nav.external) {
+        return (
+          <SidebarItem
+            key={nav.adminName}
+            name={user ? nav.adminName : nav.name}
+          >
+            <a href={nav.route} target="_blank">{nav.name}</a>
+          </SidebarItem>
+        )
+      }
+
       return (
         <SidebarItem
           as={Link}
@@ -214,11 +227,32 @@ const App = (props) => {
   );
 }
 
+const StyledAnchor = styled.a`
+  color: ${ props => props.title ? '#787878' : '#b7b7b7'};
+  display: flex;
+  flex-direction: column;
+  font-family: ${ props => props.title ? "'Merriweather Sans', sans-serif !important" : "'Julius Sans One', sans-serif !important" };
+  font-size: ${ props => props.title ? '20px' : '13px'};
+  justify-content: center;
+  letter-spacing: 1px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  &:hover {
+    color: #5f5f5f;
+    transition: color 0.3s ease;
+  }
+`;
+
 const SidebarItem = styled(Menu.Item)`
   color: #b7b7b7 !important;
   font-family: "Julius Sans One", sans-serif !important;
   padding-top: 16px !important;
   padding-bottom: 16px !important;
+
+  & > a {
+    color: #B7B7B7 !important;
+  }
 `;
 
 export default withRouter(App);

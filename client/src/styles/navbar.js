@@ -37,7 +37,7 @@ export const NavLogo = styled.div`
   display: flex;
   justify-content: center;
   width: 20%;
-  
+
   @media (max-width: ${desktop}px) {
     justify-content: flex-start;
     width: 100%;
@@ -52,7 +52,7 @@ export const NavItems = styled.div`
   display: flex;
   flex-direction: row;
   width: 80%;
-  
+
   @media (max-width: ${desktop}px) {
     margin-top: 7px;
     width: 100%;
@@ -66,14 +66,14 @@ export const StyledLink = styled(NavLink)`
   font-family: ${ props => props.title ? "'Merriweather Sans', sans-serif !important" : "'Julius Sans One', sans-serif !important" };
   font-size: ${ props => props.title ? '20px' : '13px'};
   justify-content: center;
-  letter-spacing: 1px; 
+  letter-spacing: 1px;
   padding-left: 10px;
   padding-right: 10px;
 
   &:hover {
-    color: #5f5f5f;    
+    color: #5f5f5f;
     transition: color 0.3s ease;
-  } 
+  }
 `;
 
 export const StyledMockLink = styled.span`
@@ -95,5 +95,5 @@ export const StyledMockLink = styled.span`
   &:hover {
     color: #5f5f5f;
     transition: color 0.3s ease;
-  } 
+  }
 `;

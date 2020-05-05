@@ -1,4 +1,7 @@
 import React, { useContext, } from "react";
+
+import styled from "styled-components";
+
 import { AuthContext, } from "../../providers/AuthProvider";
 import { CartContext, } from "../../providers/CartProvider";
 import { useWindowWidth, } from "../hooks/useWindowWidth";
@@ -33,6 +36,7 @@ const Navbar = (props) => {
       { route: "/blog", adminRoute: "/blog", text: "BLOG", },
       { route: "/contact", adminRoute: "/contact", text: "CONTACT", },
       // { route: "/available-work", adminRoute: "/available-work", text: "SHOP", },
+      { route: "https://heatherolsenart.bigcartel.com/", adminRoute: "https://heatherolsenart.bigcartel.com/", text: "STORE", external: true, },
       { route: "/butterflies", adminRoute: "/butterflies", text: "BUTTERFLIES", },
       { route: "/cart", adminRoute: "/cart", text: cartText, },
     ];
@@ -42,7 +46,9 @@ const Navbar = (props) => {
     }
 
     return links.map( link => {
-      return (
+      return link.external ?
+        <StyledAnchor href={link.route} target="_blank">{ link.text }</StyledAnchor>
+      :
         <StyledLink
           key={link.route}
           to={auth.user ? link.adminRoute : link.route}
@@ -51,7 +57,6 @@ const Navbar = (props) => {
         >
           { link.text }
         </StyledLink>
-      )
     });
   };
 
@@ -90,5 +95,22 @@ const Navbar = (props) => {
     );
   };
 };
+
+const StyledAnchor = styled.a`
+  color: ${ props => props.title ? '#787878' : '#b7b7b7'};
+  display: flex;
+  flex-direction: column;
+  font-family: ${ props => props.title ? "'Merriweather Sans', sans-serif !important" : "'Julius Sans One', sans-serif !important" };
+  font-size: ${ props => props.title ? '20px' : '13px'};
+  justify-content: center;
+  letter-spacing: 1px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  &:hover {
+    color: #5f5f5f;
+    transition: color 0.3s ease;
+  }
+`;
 
 export default withRouter(Navbar);
