@@ -37,7 +37,6 @@ const Navbar = (props) => {
       { route: "/contact", adminRoute: "/contact", text: "CONTACT", },
       // { route: "/available-work", adminRoute: "/available-work", text: "SHOP", },
       { route: "https://heatherolsenart.bigcartel.com/", adminRoute: "https://heatherolsenart.bigcartel.com/", text: "STORE", external: true, },
-      { route: "/butterflies", adminRoute: "/butterflies", text: "BUTTERFLIES", },
       { route: "/cart", adminRoute: "/cart", text: cartText, },
     ];
 

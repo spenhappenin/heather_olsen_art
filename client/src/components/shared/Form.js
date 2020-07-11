@@ -27,17 +27,17 @@ export const TextField = ({ type, name, label, required, placeholder, onChange: 
           id={name}
           required={required}
           placeholder={placeholder}
-          value={value}            
+          value={value}
           onChange={(e) => handleChange(e.target.value)}
-        /> 
+        />
       :
         <InputField
           type={type}
           name={name}
           id={name}
           required={required}
-          placeholder={placeholder}                        
-        /> 
+          placeholder={placeholder}
+        />
     }
   </InputContainer>
 );
@@ -45,8 +45,8 @@ export const TextField = ({ type, name, label, required, placeholder, onChange: 
 export const TextArea = ({ type, name, label, required, height, placeholder, onChange: handleChange, value }) => (
   <InputContainer>
     <MyLabel htmlFor={name}>{label}</MyLabel>
-    { 
-      handleChange ? 
+    {
+      handleChange ?
         <TextAreaField
           type={type}
           name={name}
@@ -149,7 +149,7 @@ export const Dropdown = ({ type, name, label, required, height, placeholder, opt
         <Placeholder>{ value === "" ? placeholder : value }</Placeholder>
         <DropdownIcon src={arrow} />
       </DropdownField>
-      { open && 
+      { open &&
         <DropdownMenu>
           {
             options.map( o => (
