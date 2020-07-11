@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "rails", "~> 5.1.3"
 gem "pg", "~> 0.18"
-gem "puma", "~> 3.7"
+gem "puma", "~> 3.12"
 gem "omniauth"
 gem "devise_token_auth"
 gem "cloudinary"
