@@ -8,7 +8,7 @@
     "@stripe/stripe-js": "^1.4.0",
     "axios": "^0.18.1",
     "devise-axios": "^1.0.24",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.19",
     "moment": "2.18.1",
     "react": "^16.8.0",
     "react-datepicker": "^0.61.0",
